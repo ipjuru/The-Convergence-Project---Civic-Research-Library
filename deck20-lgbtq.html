@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 20 -- LGBTQ+ Rights: Progress, Backlash &amp; Survival - The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230D0D0D' stroke='%23C9A84C' stroke-width='6'/><text x='50' y='67' font-size='52' text-anchor='middle' fill='%23C9A84C' font-family='serif'>C</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --violet:#9B7FC8;--violet-dim:rgba(155,127,200,0.12);--violet-mid:rgba(155,127,200,0.6);
+  --teal:#5FB8A0;--red:#C87474;--orange:#F4C08A;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(155,127,200,0.07) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--violet);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--violet);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--violet);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--violet-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--violet);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--violet);padding:24px 28px;background:var(--violet-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.timeline{margin:40px 0;}
+.tl-item{display:flex;gap:24px;margin-bottom:32px;align-items:flex-start;}
+.tl-year{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--violet);min-width:60px;padding-top:2px;}
+.tl-content{border-left:1px solid #2a2a2a;padding-left:24px;flex:1;}
+.tl-title{font-family:'Cinzel',serif;font-size:15px;color:var(--cream);margin-bottom:4px;}
+.tl-text{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.footer-copy{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="deck-label">Vol. 5 &bull; Deck 20 &bull; Civil Rights</div>
+  <h1 class="hero-title">LGBTQ+ Rights:<br><span>Progress, Backlash &amp; Survival</span></h1>
+  <p class="hero-sub">More rights won than any generation before. More legislation written against them than any year in recorded history. Both things are true at the same time.</p>
+  <div class="hero-stat-big">850+</div>
+  <div class="hero-stat-label">Anti-LGBTQ+ bills filed in 2025 &mdash; the most in U.S. history &mdash; Erin in the Morning / Truthout</div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">Stonewall to Obergefell:<br><span>What Was Won</span></h2>
+  <p class="section-body">Every legal protection LGBTQ+ Americans have came through direct action, litigation, and legislation fought against sustained organized opposition. None of it arrived easily. And the timeline of victories tracks almost exactly with a parallel timeline of coordinated attempts to reverse them.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">1969</div>
+      <div class="tl-content">
+        <div class="tl-title">Stonewall Uprising</div>
+        <div class="tl-text">Six days of resistance after a police raid on the Stonewall Inn in NYC. The modern LGBTQ+ rights movement is generally dated from this event. Same-sex relations were still criminalized in 49 states.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1973</div>
+      <div class="tl-content">
+        <div class="tl-title">APA Removes Homosexuality from DSM</div>
+        <div class="tl-text">The American Psychiatric Association declassifies homosexuality as a mental disorder after years of activist pressure. The decision is partly political — it passes by a membership vote, 58% to 38%.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2003</div>
+      <div class="tl-content">
+        <div class="tl-title">Lawrence v. Texas &mdash; Sodomy Laws Struck Down</div>
+        <div class="tl-text">Supreme Court rules 6-3 that anti-sodomy laws violate due process. Same-sex intimacy becomes legally protected across all 50 states for the first time.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2010</div>
+      <div class="tl-content">
+        <div class="tl-title">Don't Ask, Don't Tell Repealed</div>
+        <div class="tl-text">After 17 years, Congress repeals the ban on openly gay service members. More than 14,000 service members had been discharged under DADT since 1994.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2015</div>
+      <div class="tl-content">
+        <div class="tl-title">Obergefell v. Hodges &mdash; Marriage Equality</div>
+        <div class="tl-text">Supreme Court rules 5-4 that same-sex couples have a constitutional right to marry. 36 states already allowed same-sex marriage at the time of the ruling.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020</div>
+      <div class="tl-content">
+        <div class="tl-title">Bostock v. Clayton County &mdash; Workplace Protections</div>
+        <div class="tl-text">Supreme Court rules 6-3 that Title VII of the Civil Rights Act protects LGBTQ+ employees from discrimination. Written by Justice Gorsuch, a Trump appointee.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div class="tl-content">
+        <div class="tl-title">Executive Rollback &mdash; Unprecedented Scale</div>
+        <div class="tl-text">Within weeks of taking office, the Trump administration issues executive orders removing federal transgender protections, reinstating military ban, restricting passport gender markers, and ordering federal agencies to recognize only two sexes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The Unprecedented<br><span>Legislative Backlash</span></h2>
+  <p class="section-body">Anti-LGBTQ+ legislation has broken its own record every year since 2020. 2025 set the new ceiling: more than 850 bills filed in a single year. The bills target healthcare access, sports participation, bathroom use, educational content, legal name recognition, and the right to exist visibly in public life.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Anti-LGBTQ+ Bills Filed in State Legislatures by Year (2018-2025)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: Erin in the Morning / Truthout (2025 data); ACLU LGBTQ+ Rights Project; Trans Legislation Tracker. Counts include all filed bills regardless of passage status. 2025 figure reflects total through mid-year.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">850+</div><div class="stat-label">Anti-LGBTQ+ Bills Filed in 2025</div><div class="stat-note">Most in U.S. history &mdash; Truthout / Erin in the Morning</div></div>
+    <div class="stat-card"><div class="stat-number">26</div><div class="stat-label">States with Trans Healthcare Bans for Minors</div><div class="stat-note">Trans Legislation Tracker 2025</div></div>
+    <div class="stat-card"><div class="stat-number">71%</div><div class="stat-label">Americans Support Marriage Equality</div><div class="stat-note">Record high &mdash; Gallup 2024 &mdash; up from 27% in 1996</div></div>
+    <div class="stat-card"><div class="stat-number">28</div><div class="stat-label">Trump Executive Actions Targeting LGBTQ+ Rights</div><div class="stat-note">In first 100 days of 2025 &mdash; KFF tracker</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Types of Anti-LGBTQ+ Bills Filed in 2025 by Category</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: Trans Legislation Tracker 2025; ACLU legislative tracking. Categories reflect primary focus of filed legislation. Many bills target multiple categories; classified by primary provision.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The Data on<br>Who Is Hurt &amp; How</h2>
+  <p class="section-body">Legislation does not exist in a vacuum. Every bill that removes a protection, criminalizes an identity, or signals that a group is unwelcome has documented effects on the health and safety of real people. The data on LGBTQ+ youth mental health, homelessness, and physical safety is not ambiguous.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">39%</div><div class="stat-label">LGBTQ+ Youth Considered Suicide</div><div class="stat-note">In the past year &mdash; Trevor Project 2024</div></div>
+    <div class="stat-card"><div class="stat-number">3x</div><div class="stat-label">Suicide Risk Reduction</div><div class="stat-note">When family is highly accepting &mdash; Trevor Project</div></div>
+    <div class="stat-card"><div class="stat-number">40%</div><div class="stat-label">Homeless Youth Who Are LGBTQ+</div><div class="stat-note">Despite being 7-10% of youth population &mdash; Covenant House</div></div>
+    <div class="stat-card"><div class="stat-number">61.8%</div><div class="stat-label">Trans Homicide Victims Who Are Black Women</div><div class="stat-note">Average age at death: ~30 &mdash; HRC 2024</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">LGBTQ+ Youth Mental Health: Attempted Suicide Rates by Demographic and Family Acceptance Level (Trevor Project 2024)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: Trevor Project 2024 National Survey on LGBTQ Youth Mental Health. Survey of 28,000+ LGBTQ youth ages 13-24. Family acceptance defined as "highly accepting" vs. "not at all accepting" based on respondent self-report.</div>
+  </div>
+
+  <div class="callout">
+    <p>The Williams Institute estimates that 1.6 million youth ages 13-17 identify as transgender in the United States. Of the 26 states that have passed healthcare bans for trans minors, those states are home to approximately 58% of the trans youth population. This is not a fringe policy &mdash; it is a majority-coverage ban.</p>
+    <div class="callout-source">Williams Institute, UCLA School of Law &mdash; The Impact of 2025 Anti-Transgender Legislation on Youth</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">Economic Reality &amp;<br><span>The Wage Gap Nobody Mentions</span></h2>
+  <p class="section-body">LGBTQ+ workers face documented wage gaps, hiring discrimination, and workplace harassment at rates higher than their non-LGBTQ+ peers &mdash; despite federal employment protections existing since 2020. The gap is widest for transgender workers and LGBTQ+ workers of color.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Median Annual Earnings Gap: LGBTQ+ Workers vs. Non-LGBTQ+ Workers by Subgroup (2023)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: HRC Foundation &mdash; The Wage Gap Among LGBTQ+ Workers in the United States; UCLA Williams Institute earnings analysis 2023. Figures reflect full-time, year-round workers. Gap is more pronounced in states without explicit state-level employment protections.</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">At Work</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--violet);">46% of LGBTQ+ workers have experienced discrimination or harassment on the job &mdash; HRC</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--violet);">26% have been fired or denied a promotion because of their identity</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--violet);">Transgender workers earn 32% less than cisgender workers on average</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--violet);">Black LGBTQ+ workers face a compounding gap &mdash; experiencing both racial and orientation/identity wage penalties</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">In Housing</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--teal);">LGBTQ+ adults are twice as likely to experience housing instability as non-LGBTQ+ adults</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--teal);">40% of homeless youth identify as LGBTQ+ despite being 7-10% of the youth population</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--teal);">Primary cause of LGBTQ+ youth homelessness: family rejection following disclosure of identity</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--teal);">28 states have no explicit fair housing protections for LGBTQ+ individuals</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">Violence, Visibility,<br>and the <span>Book Ban Wave</span></h2>
+  <p class="section-body">Hate crimes against LGBTQ+ people have increased in four of the last five years. Anti-transgender violence in particular concentrates among Black and Latina transgender women. Simultaneously, books with LGBTQ+ content are being removed from school libraries at the fastest rate since tracking began.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Anti-LGBTQ+ Hate Crimes Reported (FBI UCR 2017-2023) &amp; Book Bans with LGBTQ+ Content by School Year</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: FBI Uniform Crime Report hate crime statistics 2017-2023; PEN America Book Ban data 2021-2024 school years; ALA Office for Intellectual Freedom. Note: hate crimes are chronically underreported; FBI estimates actual incidence is 3-5x reported totals.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Public Support for Key LGBTQ+ Rights Over Time &mdash; % Americans in Favor (Gallup 1996-2024)</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: Gallup Values and Beliefs annual survey; Gallup LGBTQ+ Rights tracking. Figures represent % of U.S. adults who support each policy or believe each practice should be legal. Marriage equality question wording consistent since 1996.</div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Trevor Project &mdash; 2024 National Survey on LGBTQ Youth Mental Health &mdash; <a href="https://www.thetrevorproject.org" target="_blank">thetrevorproject.org</a></div>
+    <div class="source-item">Gallup &mdash; Same-Sex Marriage Support Inches Up to New High of 71% &mdash; <a href="https://news.gallup.com/poll/393197/same-sex-marriage-support-inches-new-high.aspx" target="_blank">gallup.com</a></div>
+    <div class="source-item">Truthout / Erin in the Morning &mdash; More Than 850 Anti-LGBTQ+ Bills Filed in 2025 &mdash; <a href="https://truthout.org/articles/more-than-850-anti-lgbtq-bills-filed-so-far-in-2025-the-most-in-us-history/" target="_blank">truthout.org</a></div>
+    <div class="source-item">Trans Legislation Tracker &mdash; 2025 Passed Anti-Trans Bills &mdash; <a href="https://translegislation.com/bills/2025/passed" target="_blank">translegislation.com</a></div>
+    <div class="source-item">Williams Institute &mdash; The Impact of 2025 Anti-Transgender Legislation on Youth &mdash; <a href="https://williamsinstitute.law.ucla.edu/publications/anti-trans-legislation-youth/" target="_blank">williamsinstitute.law.ucla.edu</a></div>
+    <div class="source-item">KFF &mdash; Overview of President Trump's Executive Actions Impacting LGBTQ+ Health (2025) &mdash; <a href="https://www.kff.org/other-health/overview-of-president-trumps-executive-actions-impacting-lgbtq-health/" target="_blank">kff.org</a></div>
+    <div class="source-item">HRC Foundation &mdash; The Epidemic of Violence Against Transgender &amp; Gender-Expansive People (2024) &mdash; <a href="https://reports.hrc.org/an-epidemic-of-violence-2024" target="_blank">reports.hrc.org</a></div>
+    <div class="source-item">HRC &mdash; The Wage Gap Among LGBTQ+ Workers in the United States &mdash; <a href="https://www.hrc.org/resources/the-wage-gap-among-lgbtq-workers-in-the-united-states" target="_blank">hrc.org</a></div>
+    <div class="source-item">Covenant House &mdash; Homelessness Among LGBTQ+ Youth &mdash; <a href="https://www.covenanthouse.org/homeless-issues/lgbtq-youth" target="_blank">covenanthouse.org</a></div>
+    <div class="source-item">PEN America &mdash; Book Bans 2023-2024 School Year Data; The Advocate &mdash; Book Bans Nearly Triple &mdash; <a href="https://www.advocate.com/news/book-bans-triple-school-year" target="_blank">advocate.com</a></div>
+    <div class="source-item">FBI &mdash; Uniform Crime Report: Hate Crime Statistics &mdash; <a href="https://www.fbi.gov/services/cjis/ucr/hate-crime" target="_blank">fbi.gov</a></div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck19-machinery-of-power.html">&larr; Deck 19: Machinery of Power</a>
+    <a href="index.html">Library Home</a>
+    <a href="deck21-children-screens.html">Deck 21: Children &amp; Screens &rarr;</a>
+  </div>
+  <div class="footer-copy">The Convergence Project &mdash; Free Civic Research Library &mdash; Ebony Enterprises 9 LLC</div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var violet = '#9B7FC8';
+var teal = '#5FB8A0';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var orange = '#F4C08A';
+var dimGrid = 'rgba(255,255,255,0.06)';
+Chart.defaults.color = cream;
+Chart.defaults.font.family = 'Raleway';
+
+// Chart 1 - Anti-LGBTQ bills by year
+new Chart(document.getElementById('c1'), {
+  type: 'bar',
+  data: {
+    labels: ['2018','2019','2020','2021','2022','2023','2024','2025'],
+    datasets: [{
+      label: 'Anti-LGBTQ+ Bills Filed',
+      data: [41, 71, 79, 268, 315, 510, 634, 850],
+      backgroundColor: function(ctx) {
+        return ctx.dataIndex === 7 ? red : violet;
+      },
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+// Chart 2 - Bill types pie
+new Chart(document.getElementById('c2'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Trans Healthcare Bans', 'School/Education', 'Sports & Bathroom', 'ID/Legal Recognition', 'Military & Gov Service', 'Religious Exemption', 'Other'],
+    datasets: [{
+      data: [187, 224, 145, 98, 67, 78, 51],
+      backgroundColor: [red, violet, orange, teal, gold, cream, 'rgba(155,127,200,0.3)'],
+      borderColor: '#0D0D0D',
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream, padding: 16 } } }
+  }
+});
+
+// Chart 3 - Mental health by family acceptance
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['Attempted Suicide (Highly Accepting Family)', 'Attempted Suicide (Not Accepting Family)', 'Considered Suicide (Overall)', 'Reported Feeling Depressed (2+ Weeks)'],
+    datasets: [{
+      label: 'LGBTQ+ Youth %',
+      data: [12, 48, 39, 73],
+      backgroundColor: [teal, red, violet, orange],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, max: 100 },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+// Chart 4 - Wage gap
+new Chart(document.getElementById('c4'), {
+  type: 'bar',
+  data: {
+    labels: ['Non-LGBTQ+ Workers', 'Gay Men', 'Lesbian Women', 'Bisexual Workers', 'Transgender Workers', 'Black LGBTQ+ Workers'],
+    datasets: [{
+      label: 'Median Annual Earnings ($)',
+      data: [58000, 52000, 48000, 44000, 39000, 36000],
+      backgroundColor: [teal, violet, violet, orange, red, red],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + (v/1000) + 'K'; } } }
+    }
+  }
+});
+
+// Chart 5 - Hate crimes + book bans dual axis
+new Chart(document.getElementById('c5'), {
+  type: 'line',
+  data: {
+    labels: ['2017','2018','2019','2020','2021','2022','2023','2024'],
+    datasets: [
+      { label: 'Anti-LGBTQ+ Hate Crimes (Reported)', data: [1130, 1299, 1395, 1110, 1286, 1947, 2082, null], borderColor: red, backgroundColor: 'rgba(200,116,116,0.08)', tension: 0.3, fill: true, yAxisID: 'y' },
+      { label: 'Books w/ LGBTQ+ Content Banned', data: [null, null, null, null, 266, 874, 1451, 1900], borderColor: violet, backgroundColor: 'transparent', tension: 0.3, borderDash: [5,5], yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: red }, title: { display: true, text: 'Hate Crimes', color: red } },
+      y2: { position: 'right', grid: { display: false }, ticks: { color: violet }, title: { display: true, text: 'Books Banned', color: violet } }
+    }
+  }
+});
+
+// Chart 6 - Public support over time
+new Chart(document.getElementById('c6'), {
+  type: 'line',
+  data: {
+    labels: ['1996','2000','2004','2008','2012','2015','2018','2020','2022','2024'],
+    datasets: [
+      { label: 'Support Marriage Equality', data: [27, 34, 37, 40, 50, 60, 67, 67, 71, 71], borderColor: violet, backgroundColor: 'rgba(155,127,200,0.08)', tension: 0.4, fill: true },
+      { label: 'Support Legal Same-Sex Relations', data: [44, 52, 55, 57, 63, 68, 72, 75, 79, 81], borderColor: teal, backgroundColor: 'transparent', tension: 0.4 },
+      { label: 'Support Military Service (Gay/Lesbian)', data: [52, 58, 63, 69, 74, 76, 80, 82, 84, 85], borderColor: gold, backgroundColor: 'transparent', tension: 0.4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, min: 20, max: 100 }
+    }
+  }
+});
+</script>
+
+<!-- STANDARD DECK FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck19-machinery-of-power.html">&larr; Deck 19: Machinery of Power</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck21-children-screens.html">Deck 21: Children &amp; Screens &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+</body>
+</html>

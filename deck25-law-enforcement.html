@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 25 -- Law Enforcement: Protect and Serve Whom? - The Convergence Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --rust:#B85C38;--rust-dim:rgba(184,92,56,0.12);--rust-mid:rgba(184,92,56,0.5);
+  --red:#C87474;--blue:#8B9EC8;--green:#6FA882;--orange:#F4C08A;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(184,92,56,0.07) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--rust);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--rust);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--rust);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--rust-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--rust);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--rust);padding:24px 28px;background:var(--rust-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.bmc-bar-footer{display:flex;align-items:center;gap:20px;justify-content:center;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.15);border-radius:2px;padding:20px 28px;margin:24px auto;max-width:700px;flex-wrap:wrap;}
+.bmc-icon-f{font-size:28px;}
+.bmc-text-f{flex:1;min-width:200px;text-align:left;}
+.bmc-headline-f{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:4px;}
+.bmc-sub-f{font-family:'Raleway',sans-serif;font-size:11px;color:var(--cream-faint);}
+.bmc-btn-f{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:10px 20px;text-decoration:none;border-radius:2px;white-space:nowrap;}
+.footer-copy-bar{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);text-transform:uppercase;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="deck-label">Vol. 2 &bull; Deck 25 &bull; Gov &amp; Corps</div>
+  <h1 class="hero-title">Law Enforcement:<br><span>Protect and Serve Whom?</span></h1>
+  <p class="hero-sub">American police departments spend $115 billion a year. They solve fewer than half of violent crimes. The question is not whether we need public safety &mdash; it is whether what we have built actually delivers it.</p>
+  <div class="hero-stat-big">1,365</div>
+  <div class="hero-stat-label">People killed by police in the U.S. in 2024 &mdash; the highest annual total ever recorded &mdash; Mapping Police Violence / Campaign Zero 2025</div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">The Scale of<br><span>American Policing</span></h2>
+  <p class="section-body">The United States has approximately 19,000 law enforcement agencies employing over 800,000 officers. Annual spending exceeds $135 billion &mdash; more than the entire GDP of many countries. Compared to peer nations, American policing is uniquely decentralized, uniquely armed, and uniquely lethal. That combination has consequences the data makes visible.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$135B</div><div class="stat-label">Annual Policing Cost</div><div class="stat-note">Across ~19,000 agencies; most municipalities spend 25-40% of discretionary budget on police &mdash; Urban Institute / Census Bureau (2021 data)</div></div>
+    <div class="stat-card"><div class="stat-number">1,247</div><div class="stat-label">Killed by Police in 2023</div><div class="stat-note">Highest annual total recorded; 3-4x the rate of comparable wealthy nations &mdash; Mapping Police Violence</div></div>
+    <div class="stat-card"><div class="stat-number">45%</div><div class="stat-label">Violent Crime Clearance Rate</div><div class="stat-note">Less than half of violent crimes result in arrest; homicide clearance fell to 52.3% in 2022, the lowest since 1965 &mdash; Murder Accountability Project / FBI CJIS</div></div>
+    <div class="stat-card"><div class="stat-number">$3.2B</div><div class="stat-label">Paid in Misconduct Settlements</div><div class="stat-note">In the largest 25 U.S. cities from 2010-2020; paid by taxpayers, not officers &mdash; Washington Post investigation 2022</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Police Killings Per 10 Million People -- U.S. vs. Peer Nations (2023)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: Mapping Police Violence 2024; OECD national statistics; Statista global law enforcement data. "Peer nations" defined as OECD members with comparable GDP per capita. The U.S. rate is 3-7x higher than any comparison country.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">Qualified Immunity:<br><span>The Accountability Shield</span></h2>
+  <p class="section-body">Qualified immunity is a judicial doctrine created by the Supreme Court in 1967 and dramatically expanded in 1982 &mdash; with no basis in the text of federal civil rights law. It protects officers from civil liability unless a prior court case established nearly identical facts. In practice, it makes it nearly impossible to sue a police officer for misconduct, no matter how severe. It did not come from Congress. It came from nine justices deciding to write it into existence.</p>
+
+  <div class="callout">
+    <p>Officers have been granted immunity for: shooting a 10-year-old while trying to shoot a dog, using a police dog to maul a surrendered suspect, stealing $225,000 while executing a search warrant, and shooting an unarmed man 4 times in the back. In each case, the court found no prior case with sufficiently similar facts to put the right "beyond debate."</p>
+    <div class="callout-source">Institute for Justice &mdash; Qualified Immunity: A Legal, Practical, and Moral Failure (2020); ACLU Case Compilation 2024</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">57%</div><div class="stat-label">of Civil Rights Cases Blocked</div><div class="stat-note">Officers won 57% of cases where they raised a QI defense at the appellate level in excessive-force cases (2017-2019) &mdash; Reuters Investigates 2020</div></div>
+    <div class="stat-card"><div class="stat-number">1982</div><div class="stat-label">Year the Standard Tightened</div><div class="stat-note">Harlow v. Fitzgerald created the "clearly established law" standard; invented by the Court, not Congress</div></div>
+    <div class="stat-card"><div class="stat-number">0</div><div class="stat-label">States That Have Fully Abolished It</div><div class="stat-note">Colorado, New York, Massachusetts have partial reforms; full federal abolition bills have stalled repeatedly in Congress</div></div>
+    <div class="stat-card"><div class="stat-number">99%</div><div class="stat-label">Misconduct Costs Paid by Taxpayers</div><div class="stat-note">Cities absorb settlement costs; officers and departments rarely pay &mdash; Schwartz, NYU Law Review 2014 (confirmed in Shielded, 2023)</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Police Misconduct Settlement Costs -- Top 10 U.S. Cities (2010-2020, $M)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: Invisible Institute -- The Accountability Project; city financial disclosures and public records requests. New York City data includes NYPD settlements only. Costs paid by city general funds unless otherwise noted in city records.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">Race, Force, and<br><span>the Numbers That Don't Lie</span></h2>
+  <p class="section-body">Racial disparities in policing exist at every point of contact: traffic stops, searches, use of force, and fatal encounters. These disparities persist after controlling for neighborhood crime rates, socioeconomic conditions, and officer characteristics. They are not fully explained by differential behavior. They are substantially explained by differential treatment &mdash; a finding replicated across dozens of peer-reviewed studies using national data.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Risk of Being Killed by Police by Race -- Lifetime Risk per 100,000 (Edwards et al. PNAS 2019, updated 2024)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: Edwards, Lee, Esposito -- "Risk of being killed by police use of force in the United States by age, race-ethnicity, and sex" PNAS 2019; Mapping Police Violence 2024 updates. Lifetime risk calculated as probability of being killed by police over a lifetime for each demographic group.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">~20%</div><div class="stat-label">More Likely to Be Stopped While Driving</div><div class="stat-note">Black drivers vs. white drivers at comparable stops; once stopped, searched at 1.5-2x the rate &mdash; Stanford Open Policing Project (Pierson et al., Nature Human Behaviour 2020)</div></div>
+    <div class="stat-card"><div class="stat-number">2.9x</div><div class="stat-label">More Likely to Be Killed by Police</div><div class="stat-note">Black men vs. white men; current ratio based on Mapping Police Violence 2024 data &mdash; Edwards et al. PNAS 2019; Mapping Police Violence 2024</div></div>
+    <div class="stat-card"><div class="stat-number">1 in 1,000</div><div class="stat-label">Black Men's Lifetime Fatal Encounter Risk</div><div class="stat-note">vs. 1 in 2,500 for white men (1 in 2,000 is the average for all men combined) &mdash; Edwards, Lee &amp; Esposito, PNAS 2019</div></div>
+    <div class="stat-card"><div class="stat-number">98.3%</div><div class="stat-label">Officers Not Charged in Fatal Shootings</div><div class="stat-note">Of 15,000+ killings from 2013-2024; less than 2% of officers faced charges &mdash; Mapping Police Violence 2024</div></div>
+  </div>
+
+  <div class="callout">
+    <p>The "veil of darkness" finding is among the most controlled in policing research: during daylight hours, when officers can see race before stopping a driver, racial disparities in traffic stops are significantly larger. At night &mdash; when race is less visible &mdash; the gap narrows. This is not about crime rates. It is about perception at the moment of decision.</p>
+    <div class="callout-source">Stanford Open Policing Project &mdash; 100 Million Traffic Stops Analysis (2019, updated 2023)</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">Policing for Profit:<br><span>When the Budget Depends on Revenue</span></h2>
+  <p class="section-body">Civil asset forfeiture allows law enforcement to seize property &mdash; cash, cars, homes &mdash; without charging the owner with a crime. The owner must then prove their innocence in civil court to get their property back. In 2019, the federal government and states collectively seized more through civil forfeiture than all U.S. burglars stole combined. This is not a bug in the system. For departments that keep a portion of what they seize, it is the incentive structure.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Civil Asset Forfeiture vs. Burglary Losses -- Annual Comparison (2000-2023, $B)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: Institute for Justice -- Policing for Profit (2015, 2020 updates); FBI Uniform Crime Reporting data on burglary losses; U.S. Department of Justice Asset Forfeiture Fund reports; state AG forfeiture reports compiled by IJ. 2019 marks the first year forfeiture exceeded all FBI-reported burglary losses.</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">How Forfeiture Works</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--rust);">Police seize property they suspect is connected to crime -- no conviction required, often no charge</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--rust);">Owner must sue the government (not the officer) in civil court to recover property</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--rust);">Legal fees often exceed the value of seized property -- most people don't fight it</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--rust);">Federal "equitable sharing" lets local agencies keep up to 80% of seized assets</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">Who Gets Hit</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">Median seizure: $1,300 -- below the cost of hiring an attorney to contest it</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">Black and Latino motorists disproportionately targeted in roadside cash seizures</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">87% of federal forfeiture cases never result in any criminal charge -- IJ 2020</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">Departments use funds for vehicles, equipment, travel -- no uniform public accounting required</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The Militarization<br><span>of American Streets</span></h2>
+  <p class="section-body">Since 1997, the Department of Defense 1033 Program has transferred over $7.4 billion in military equipment to local law enforcement agencies &mdash; including armored vehicles, grenade launchers, aircraft, and rifles designed for warfare. The research on whether militarized policing reduces crime is clear: it does not. The research on whether it increases use of force complaints and civilian distrust is equally clear: it does.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$7.6B</div><div class="stat-label">Military Equipment Transferred</div><div class="stat-note">Via DOD 1033 Program since 1997; includes 20,000+ armored vehicles, aircraft, weapons &mdash; DLA/LESO data; CREW 2025</div></div>
+    <div class="stat-card"><div class="stat-number">50-80K</div><div class="stat-label">SWAT Deployments Per Year (Est.)</div><div class="stat-note">Up from ~3,000 in 1980; 62% for drug searches; 79% for search warrants &mdash; ACLU "War Comes Home" 2014; Kraska research</div></div>
+    <div class="stat-card"><div class="stat-number">0</div><div class="stat-label">Studies Finding Crime Reduction</div><div class="stat-note">Peer-reviewed literature finds no evidence militarization reduces violent crime rates &mdash; Journal of Criminal Justice 2023</div></div>
+    <div class="stat-card"><div class="stat-number">+129%</div><div class="stat-label">Modeled Increase in Civilian Deaths</div><div class="stat-note">Modeled increase in civilian deaths moving from min to max 1033 equipment levels (4-state study) &mdash; Delehanty et al., Research &amp; Politics 2017</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">SWAT Team Usage Growth vs. Violent Crime Rate -- U.S. 1980-2023</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: ACLU -- War Comes Home: The Excessive Militarization of American Police (2014, updated); FBI Uniform Crime Reporting violent crime rate data; Peter Kraska militarization research series. SWAT deployment data from national law enforcement surveys; violent crime index normalized to 1980 baseline.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">What Actually<br><span>Makes Communities Safe</span></h2>
+  <p class="section-body">The evidence on public safety is broader than the policing debate. Most of the factors that predict crime &mdash; unemployment, housing instability, childhood poverty, mental health access, and neighborhood disinvestment &mdash; are not addressed by patrol officers. Cities that have shifted resources toward these upstream conditions show measurable crime reductions. The choice is not police vs. no police. It is how we build communities where fewer people are desperate enough to harm each other.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Cost-Effectiveness of Public Safety Investments -- $ Per Crime Prevented (RAND, WSIPP Data)</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: RAND Corporation public safety research; Washington State Institute for Public Policy benefit-cost analyses; National Bureau of Economic Research crime prevention meta-analysis (2023). Lower cost per crime prevented = more cost-effective. Figures represent average across multiple evaluations; individual program results vary.</div>
+  </div>
+
+  <table class="data-table">
+    <thead><tr>
+      <th>Approach</th>
+      <th>Evidence Strength</th>
+      <th>Crime Impact</th>
+      <th>Community Trust Impact</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Community violence intervention programs</td><td>Strong (multiple RCTs)</td><td>-30 to -60% shootings in target areas</td><td>Positive &mdash; community-led</td></tr>
+      <tr><td>Early childhood investment (pre-K)</td><td>Very Strong (50yr data)</td><td>-40% adult crime for participants</td><td>Positive &mdash; broad community benefit</td></tr>
+      <tr><td>Mental health co-responders (CAHOOTS model)</td><td>Moderate-Strong</td><td>Reduces unnecessary police contact</td><td>Strongly positive for served communities</td></tr>
+      <tr><td>Hot-spots policing (targeted, procedurally just)</td><td>Moderate</td><td>-20% crime in targeted micro-areas</td><td>Neutral to negative without community buy-in</td></tr>
+      <tr><td>Increased patrol saturation</td><td>Weak</td><td>Minimal measurable effect</td><td>Negative in high-distrust areas</td></tr>
+      <tr><td>Military equipment transfer (1033)</td><td>Negative evidence</td><td>No crime reduction found</td><td>Strongly negative</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Mapping Police Violence &mdash; 2024 Annual Report on Police Killings in the United States &mdash; <a href="https://mappingpoliceviolence.org" target="_blank">mappingpoliceviolence.org</a></div>
+    <div class="source-item">FBI Uniform Crime Reporting (UCR) Program &mdash; Crime in the United States 2023; Clearance Rate Data &mdash; <a href="https://ucr.fbi.gov" target="_blank">ucr.fbi.gov</a></div>
+    <div class="source-item">Urban Institute &mdash; Local Government Budgets and Public Safety Spending 2024 &mdash; <a href="https://www.urban.org" target="_blank">urban.org</a></div>
+    <div class="source-item">Washington Post &mdash; "Repeated police misconduct cost taxpayers" investigation (March 2022); Invisible Institute &mdash; The Accountability Project database &mdash; <a href="https://invisible.institute" target="_blank">invisible.institute</a></div>
+    <div class="source-item">Institute for Justice &mdash; Qualified Immunity: A Legal, Practical, and Moral Failure (2020); Policing for Profit (3rd Ed. 2020) &mdash; <a href="https://ij.org" target="_blank">ij.org</a></div>
+    <div class="source-item">Stanford Open Policing Project &mdash; Analysis of 100+ Million Traffic Stops (2019, updated 2023) &mdash; <a href="https://openpolicing.stanford.edu" target="_blank">openpolicing.stanford.edu</a></div>
+    <div class="source-item">Edwards, Lee, Esposito &mdash; Risk of Being Killed by Police Use of Force by Race &mdash; PNAS 2019 &mdash; <a href="https://www.pnas.org" target="_blank">pnas.org</a></div>
+    <div class="source-item">Police Use of Force Project &mdash; National Database on Use of Force Policies and Outcomes 2024 &mdash; <a href="http://useofforceproject.org" target="_blank">useofforceproject.org</a></div>
+    <div class="source-item">ACLU &mdash; War Comes Home: The Excessive Militarization of American Police (2014 + 2024 updates) &mdash; <a href="https://www.aclu.org" target="_blank">aclu.org</a></div>
+    <div class="source-item">Delehanty, Mewhirter, Welch &amp; Wilks &mdash; Militarization and Police Violence: The Case of the 1033 Program &mdash; Research &amp; Politics 4(2), 2017</div>
+    <div class="source-item">Joanna Schwartz (UCLA Law) &mdash; How Governments Pay: Lawsuits, Budgets, and Police Reform &mdash; UCLA Law Review 2024</div>
+    <div class="source-item">RAND Corporation &mdash; Public Safety Investment Meta-Analysis; Community Violence Intervention Evaluation &mdash; <a href="https://www.rand.org" target="_blank">rand.org</a></div>
+    <div class="source-item">Washington State Institute for Public Policy &mdash; Benefit-Cost Analyses of Crime Prevention Programs &mdash; <a href="https://www.wsipp.wa.gov" target="_blank">wsipp.wa.gov</a></div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck24-criminal-justice.html">&larr; Deck 24: Criminal Justice</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck26-student-debt.html">Deck 26: Student Debt &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var rust = '#B85C38';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var blue = '#8B9EC8';
+var green = '#6FA882';
+var orange = '#F4C08A';
+var dimGrid = 'rgba(255,255,255,0.06)';
+Chart.defaults.color = cream;
+Chart.defaults.font.family = 'Raleway';
+
+new Chart(document.getElementById('c1'), {
+  type: 'bar',
+  data: {
+    labels: ['United States', 'Canada', 'Australia', 'Germany', 'France', 'United Kingdom', 'Norway', 'Japan'],
+    datasets: [{
+      label: 'Police Killings per 10M Population',
+      data: [37.2, 9.8, 8.5, 1.3, 3.0, 2.4, 1.9, 0.2],
+      backgroundColor: function(ctx) { return ctx.dataIndex === 0 ? red : blue; },
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {
+    labels: ['New York City', 'Los Angeles', 'Chicago', 'Philadelphia', 'Cleveland', 'Baltimore', 'Detroit', 'Minneapolis', 'Seattle', 'Denver'],
+    datasets: [{
+      label: 'Misconduct Settlements ($M, 2010-2020)',
+      data: [2300, 570, 280, 180, 147, 130, 112, 54, 42, 38],
+      backgroundColor: rust,
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'M'; } } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['Black Men', 'Indigenous Men', 'Latino Men', 'White Men', 'Black Women', 'Latina Women', 'White Women'],
+    datasets: [{
+      label: 'Lifetime Risk per 100,000',
+      data: [96, 88, 53, 39, 8, 4.5, 3.0],
+      backgroundColor: function(ctx) {
+        var vals = [96, 88, 53, 39, 8, 4.5, 3.0];
+        return vals[ctx.dataIndex] > 50 ? red : (vals[ctx.dataIndex] > 20 ? orange : blue);
+      },
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c4'), {
+  type: 'line',
+  data: {
+    labels: ['2000','2003','2006','2009','2012','2015','2018','2021','2023'],
+    datasets: [
+      { label: 'Civil Asset Forfeiture ($B)', data: [0.4, 0.6, 1.0, 1.8, 2.8, 5.0, 4.5, 4.2, 4.8], borderColor: red, backgroundColor: 'rgba(200,116,116,0.08)', tension: 0.3, fill: true, yAxisID: 'y' },
+      { label: 'Burglary Losses ($B)', data: [4.1, 3.9, 4.2, 4.6, 4.7, 3.9, 3.4, 3.0, 2.8], borderColor: blue, backgroundColor: 'transparent', tension: 0.3, borderDash: [5,5], yAxisID: 'y' }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'B'; } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c5'), {
+  type: 'line',
+  data: {
+    labels: ['1980','1985','1990','1995','2000','2005','2010','2015','2020','2023'],
+    datasets: [
+      { label: 'SWAT Deployments (Thousands/Year)', data: [3, 5, 10, 20, 40, 55, 68, 78, 80, 80], borderColor: red, backgroundColor: 'rgba(200,116,116,0.08)', tension: 0.3, fill: true, yAxisID: 'y' },
+      { label: 'Violent Crime Rate (per 100K, indexed to 1980=100)', data: [100, 96, 110, 100, 75, 60, 50, 46, 43, 44], borderColor: gold, backgroundColor: 'transparent', tension: 0.3, borderDash: [5,5], yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: red, callback: function(v){ return v + 'K'; } }, title: { display: true, text: 'SWAT Deployments', color: red } },
+      y2: { position: 'right', grid: { display: false }, ticks: { color: gold, callback: function(v){ return v + ' idx'; } }, title: { display: true, text: 'Crime Rate Index', color: gold } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c6'), {
+  type: 'bar',
+  data: {
+    labels: ['Community Violence Intervention', 'Early Childhood Investment', 'Mental Health Co-Responders', 'Hot-Spots Policing', 'Increased Patrol Saturation', 'Military Equipment (1033)'],
+    datasets: [{
+      label: 'Cost per Crime Prevented ($K)',
+      data: [4.2, 2.8, 6.1, 18.0, 52.0, 0],
+      backgroundColor: [green, green, blue, orange, red, 'rgba(100,100,100,0.3)'],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(ctx) {
+            return ctx.parsed.x === 0 ? 'No reduction found' : '$' + ctx.parsed.x + 'K per crime prevented';
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v === 0 ? '' : '$' + v + 'K'; } } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

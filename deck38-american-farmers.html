@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 38 -- American Farmers: Who's Really Feeding America - The Convergence Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D0D0D;--b2:#111111;--b3:#161616;--gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);--cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);--red:#C87474;--blue:#8B9EC8;--green:#6FA882;--orange:#F4C08A;--amber:#C8963A;}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(200,150,58,0.08) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--amber);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--amber);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--amber);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid rgba(200,150,58,0.5);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--amber);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--amber);padding:24px 28px;background:rgba(200,150,58,0.07);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}.nav-links{display:none;}}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.hl-red{color:var(--red);} .hl-amber{color:var(--amber);} .hl-green{color:var(--green);}
+.timeline{margin:40px 0;}
+.timeline-item{display:grid;grid-template-columns:80px 1fr;gap:24px;margin-bottom:32px;align-items:start;}
+.timeline-year{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--amber);}
+.timeline-content{font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);border-left:1px solid #2a2a2a;padding-left:24px;}
+.sources-section{background:var(--b2);border-top:1px solid #1f1f1f;padding:80px 32px;}
+.sources-inner{max-width:900px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:40px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:1px;color:var(--cream-faint);padding:12px 0;border-bottom:1px solid #1a1a1a;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--bg);border-top:1px solid #1a1a1a;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto 24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;transition:color 0.2s;}
+.footer-nav a:hover{color:var(--gold);}
+.footer-copy{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">THE CONVERGENCE PROJECT</a>
+  <div class="nav-links"><a href="index.html">Library</a><a href="sources.html">Sources</a><a href="updates.html">Updates</a></div>
+</nav>
+
+<section class="hero">
+  <div class="deck-label">Deck 38 &nbsp;·&nbsp; Vol. 6 — Systems & Infrastructure</div>
+  <h1 class="hero-title">American <span>Farmers</span></h1>
+  <p class="hero-sub">The U.S. farm count fell below 2 million for the first time since before the Civil War. The land didn't disappear — it was captured.</p>
+  <div class="hero-stat-big">11.8¢</div>
+  <div class="hero-stat-label">Of every food dollar that reaches the farmer · USDA ERS Food Dollar Series, March 2026</div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">Below <span>2 Million</span> — First Time Since Before the Civil War</h2>
+  <p class="section-body">The USDA's 2022 Census of Agriculture, released February 2024, confirmed what farmers had been living for decades: <strong>1,900,487 farms</strong> remained — a 7% drop in five years. By 2025, the count had fallen further to an estimated <strong>1,880,000</strong>. The nation lost 141,733 farms between 2017 and 2022 alone.</p>
+  <p class="section-body">Total farmland shrank by 20.1 million acres — the largest farmland loss in 25 years. Yet average farm size grew 5% to 463 acres. That's not farmers thriving. That's consolidation. The top <strong>4.4% of farms by acreage control 61% of all agricultural land</strong>. Fewer than 6% of farms — those generating over $1 million annually — sell three-quarters of all agricultural products. The average farmer is now <strong>58.1 years old</strong>. Thirty-nine percent are 65 or older.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">1.88M</div><div class="stat-label">U.S. Farms in 2025</div><div class="stat-note">Down from 6.8M at peak · USDA NASS 2025</div></div>
+    <div class="stat-card"><div class="stat-number">141,733</div><div class="stat-label">Farms Lost — 2017 to 2022</div><div class="stat-note">7% decline in 5 years · USDA Census 2022</div></div>
+    <div class="stat-card"><div class="stat-number">61%</div><div class="stat-label">Farmland Held by Top 4.4% of Farms</div><div class="stat-note">USDA NASS, 2022 Census of Agriculture</div></div>
+    <div class="stat-card"><div class="stat-number">58.1</div><div class="stat-label">Average Farmer Age</div><div class="stat-note">39% are 65 or older · USDA Census 2022</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Farm Count Collapse — 1935 to 2025</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: USDA Census of Agriculture (1935–2022); USDA NASS Farms and Land in Farms Summary, 2025 estimate. The 2022 Census marked the first time the farm count fell below 2 million since before the Civil War.</div>
+  </div>
+
+  <div class="callout">
+    <p>"96% of farms report at least one white producer. Black farmers — 12.4% of the U.S. population — constitute just 1.24% of producers and saw a 13% decline in farm numbers from 2017 to 2022 — nearly double the overall rate of loss."</p>
+    <div class="callout-source">— USDA Census of Agriculture 2022; AGDAILY analysis, February 2024</div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">Four Companies <span>Control</span> Your Food</h2>
+  <p class="section-body">Across virtually every major food category, the American market has consolidated to a handful of corporations with near-total dominance. These aren't estimates — they're documented by USDA, DOJ, and congressional research. When four companies control 85% of beef processing, the farmer has no real negotiating power. They take what they're offered, or they don't sell.</p>
+
+  <table class="data-table">
+    <thead><tr><th>Sector</th><th>Top 4 Firms Control</th><th>Key Players</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Beef Processing</td><td class="hl-red">85%</td><td>JBS, Tyson, Cargill, National Beef</td><td>USDA ERS, Jan 2024</td></tr>
+      <tr><td>Pork Processing</td><td class="hl-red">67–70%</td><td>Smithfield/WH Group, JBS, Tyson, Hormel</td><td>Farm Action, 2026</td></tr>
+      <tr><td>Broiler Poultry</td><td class="hl-red">52–58%</td><td>Tyson (21.3%), JBS/Pilgrim's (15.8%), Wayne-Sanderson, Mountaire</td><td>USDA FSIS; Farm Action, 2026</td></tr>
+      <tr><td>Soybean Crushing</td><td class="hl-red">~80%</td><td>Bunge, ADM, Cargill, Ag Processing</td><td>Farm Action, 2026</td></tr>
+      <tr><td>U.S. Corn Seed</td><td class="hl-red">83.4%</td><td>Corteva (38.3%), Bayer (33.3%), AgReliant, Syngenta</td><td>Farm Action, 2026</td></tr>
+      <tr><td>U.S. Soybean Seed</td><td class="hl-red">78.1%</td><td>Corteva (37.7%), Bayer (28.2%), Syngenta, AgReliant</td><td>Farm Action, 2026</td></tr>
+      <tr><td>U.S. Cotton Seed</td><td class="hl-red">93.6%</td><td>Bayer (38.4%), Americot (27.2%), Corteva, BASF</td><td>Farm Action, 2026</td></tr>
+      <tr><td>Global Pesticides</td><td class="hl-amber">61%</td><td>Syngenta/ChemChina, Bayer, BASF, Corteva</td><td>GRAIN &amp; ETC Group, June 2025</td></tr>
+    </tbody>
+  </table>
+
+  <p class="section-body">Three mega-mergers (2016–2018) locked this structure in: Bayer-Monsanto ($63B), ChemChina-Syngenta ($43B), and the DowDuPont restructuring creating Corteva. Bayer and Corteva alone now control <strong>72% of U.S. corn seed</strong> and <strong>66% of U.S. soybean seed</strong>. Farmers who once saved seed now pay annual licensing fees for genetics they cannot legally replant. The seed has become software.</p>
+
+  <div class="callout">
+    <p>"In March 2025, DOJ opened an egg price-fixing investigation targeting Cal-Maine Foods and others controlling over 90% of U.S. egg production. Meatpacker wage-fixing settlements totaled over $400 million across beef, pork, and poultry in 2024–2025."</p>
+    <div class="callout-source">— DOJ Antitrust Division; Morrison Foerster, December 2025</div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">The <span>Food Dollar</span>: 11.8 Cents</h2>
+  <p class="section-body">The USDA ERS Food Dollar Series — comprehensively revised in March 2026 — shows farmers received just <strong>11.8 cents of every food dollar in 2024</strong>. The marketing system captured the other 88.2 cents. For food bought at grocery stores, the farm share was 18.5 cents. For restaurant meals, it collapsed to <strong>7.1 cents</strong>. Total U.S. food spending reached $2.58 trillion. The farmer's cut: shrinking.</p>
+  <p class="section-body">The meatpacking sector tells the story clearly. During 2021–2022, the Big Four meatpackers earned combined profits of approximately <strong>$13 billion</strong> while rancher prices stagnated. The farm-to-wholesale beef spread more than doubled — from 83.7¢ per pound in 2019 to <strong>157.1¢ in 2021</strong>. The farmer produced the beef. The processor kept the spread.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">11.8¢</div><div class="stat-label">Farmer's Share of Every Food Dollar</div><div class="stat-note">Down from ~18.4¢ in 1993 · USDA ERS, March 2026</div></div>
+    <div class="stat-card"><div class="stat-number">$2.58T</div><div class="stat-label">Total U.S. Food Spending — 2024</div><div class="stat-note">USDA ERS Food Dollar Series, 2026</div></div>
+    <div class="stat-card"><div class="stat-number">$13B</div><div class="stat-label">Big Four Meatpacker Profits — 2021–22</div><div class="stat-note">While rancher prices stagnated · Accountable.US</div></div>
+    <div class="stat-card"><div class="stat-number">7.1¢</div><div class="stat-label">Farm Share of Restaurant Food Dollar</div><div class="stat-note">USDA ERS Food Dollar Series, March 2026</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Where Your Food Dollar Goes — 2024</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: USDA ERS Food Dollar Series (March 2026 comprehensive revision). Note: The 2026 revision broadened "food" definitions to include beverages, which reduced reported farm shares versus prior publications. The 2023 farm share was 12.1¢ under the new methodology versus 15.9¢ under the old — figures from older reports are not directly comparable.</div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">Farm Subsidies:<br/><span>78% to the Top 10%</span></h2>
+  <p class="section-body">Between 1995 and 2024, total farm subsidies reached <strong>$539 billion</strong>. The distribution is one of the most lopsided wealth transfers in American policy: the top 10% of recipients collected <strong>78% of commodity subsidies</strong> from 1995–2021. The top 1% collected 27%. In 2024, the top 1% averaged over $100,000 each. Meanwhile, <strong>69% of U.S. farms received zero subsidy payments.</strong></p>
+  <p class="section-body">Crop insurance has become the dominant vehicle. Taxpayers subsidize approximately <strong>63% of total premiums</strong>. Crop insurance companies earned an average 16.8% return from 2011–2022 versus an expected market rate of 10.2% (GAO, 2023). The top 1% of policyholders collected 22% of premium subsidies in 2022. Over 1,300 farmers with incomes above $900,000 had taxpayer-subsidized policies.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$539B</div><div class="stat-label">Total Farm Subsidies 1995–2024</div><div class="stat-note">EWG Farm Subsidy Database, 2025</div></div>
+    <div class="stat-card"><div class="stat-number">78%</div><div class="stat-label">Went to Top 10% of Recipients</div><div class="stat-note">Commodity subsidies 1995–2021 · EWG, February 2023</div></div>
+    <div class="stat-card"><div class="stat-number">69%</div><div class="stat-label">of Farmers Received Zero Subsidies</div><div class="stat-note">EWG, citing USDA data</div></div>
+    <div class="stat-card"><div class="stat-number">16.8%</div><div class="stat-label">Crop Insurance Company Avg. Return</div><div class="stat-note">vs. 10.2% expected market rate · GAO 2023</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Where Farm Subsidy Dollars Actually Flow — by Recipient Tier</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: Environmental Working Group Farm Subsidy Database (ewg.org), 1995–2024 analysis. Commodity program distribution. Crop insurance distribution skews further toward large operations. "Zero" category represents the 69% of farms receiving no payments of any kind.</div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">The 2025 Trade War:<br/><span>$35–44 Billion in Losses</span></h2>
+  <p class="section-body">The Trump administration's 2025 tariff actions triggered the most severe agricultural trade disruption since the first trade war of 2018–2019. China retaliated with tariffs reaching <strong>71.5% on soybeans, 81% on pork, 74% on cotton, and 56% on beef</strong> by April 2025. From late May through November 2025, the U.S. exported <strong>zero soybeans to China</strong>. CSIS estimated soybean export losses at $5.7 billion through October 2025 alone.</p>
+  <p class="section-body">Total U.S. agricultural exports to China dropped by more than <strong>$6.8 billion — a 73%+ decline</strong> since January 2025. The administration announced $22 billion in emergency payments ($10B ECAP + $12B FBAP). Agricultural economists estimate total farm income losses of <strong>$35–44 billion</strong> — far exceeding the aid. And China, which front-loaded purchases from Brazil, represents a <strong>permanent structural market shift</strong> that a trade deal alone cannot reverse.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$35–44B</div><div class="stat-label">Estimated Total Farm Income Losses — 2025</div><div class="stat-note">Far exceeds $22B in aid · NYC Food Policy Center / Reuters</div></div>
+    <div class="stat-card"><div class="stat-number">73%+</div><div class="stat-label">Drop in U.S. Ag Exports to China</div><div class="stat-note">Since January 2025 · CSIS, October 2025</div></div>
+    <div class="stat-card"><div class="stat-number">$0</div><div class="stat-label">U.S. Soybeans Exported to China</div><div class="stat-note">Late May through November 2025 · ASA, January 2026</div></div>
+    <div class="stat-card"><div class="stat-number">$22B</div><div class="stat-label">Emergency Farm Aid Announced</div><div class="stat-note">ECAP + FBAP programs · USDA, 2025</div></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">Contract Farming:<br/><span>Designed to Trap</span></h2>
+  <p class="section-body">Over <strong>90% of U.S. broiler chickens</strong> are raised under vertically integrated contracts. Integrators own the birds, the feed, and the processing plant. The grower provides land, labor, and a <strong>$5+ million poultry house</strong> they financed themselves. The integrator sets the price. The grower accepts it or defaults on their loan.</p>
+  <p class="section-body">The "tournament" payment system ranks growers against each other. Top performers receive bonuses funded by deductions from bottom-ranked growers. The growers don't control the key variables — chick quality, feed quality, delivery timing, and stocking density are all set by the integrator. In 2022, the <strong>median household income from poultry farming was negative $4,069</strong>. Poultry grower debt in Arkansas tripled from 2003 to 2022. In Missouri, it <strong>increased six-fold.</strong></p>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:20px;color:var(--amber);margin-bottom:16px;">The Rule That Could've Changed It</h3>
+      <p style="font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);">The Biden administration finalized a Tournament Rule on January 14, 2025 — six days before leaving office. It prohibited integrators from reducing base pay based on rankings and capped variable pay at 25% of gross compensation. In March 2026, the Trump USDA proposed delaying it 18 months. House Republicans moved to block USDA from implementing any of the new fairness rules at all.</p>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:20px;color:var(--amber);margin-bottom:16px;">The Farm Bill That Still Isn't</h3>
+      <p style="font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);">The 2018 Farm Bill expired September 30, 2023 and has been extended three times. The "One Big Beautiful Bill Act" (July 4, 2025) addressed ~80% of farm provisions through reconciliation — but cut $294 billion from SNAP and left farm loans, rural development, disaster assistance, and research entirely unauthorized. The traditional farm bill coalition is shattered.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">$624 Billion in Debt,<br/><span>315 Bankruptcies, and a Silent Crisis</span></h2>
+  <p class="section-body">Total U.S. farm sector debt is forecast to reach <strong>$624.7 billion in 2026</strong> — nearly $100 billion more than 2023. Real estate debt alone: $404 billion. Chapter 12 farm bankruptcy filings hit a modern low of 139 in 2023, then reversed hard: <strong>216 in 2024 (+55%)</strong>, <strong>315 in 2025 (+46%)</strong>. Wisconsin: +700%. Iowa: +220%. Missouri: +167%.</p>
+  <p class="section-body">The financial crisis is inseparable from the mental health crisis. Farmers and agricultural managers have suicide rates <strong>32–58% higher than the general population</strong>. The National Rural Health Association cites a rate <strong>3.5 times higher</strong>. More than <strong>60% of rural Americans live in mental health shortage areas.</strong> Farm Aid, founded in 1985 for a crisis that was supposed to be temporary, is still running its 1-800-FARM-AID crisis line in 2026 because it never ended.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$624.7B</div><div class="stat-label">Forecast U.S. Farm Debt — 2026</div><div class="stat-note">USDA ERS Farm Income &amp; Wealth Statistics, February 2026</div></div>
+    <div class="stat-card"><div class="stat-number">315</div><div class="stat-label">Chapter 12 Farm Bankruptcies — 2025</div><div class="stat-note">Up 46% year-over-year · AFBF / U.S. Courts data</div></div>
+    <div class="stat-card"><div class="stat-number">3.5x</div><div class="stat-label">Farmer Suicide Rate vs. General Population</div><div class="stat-note">National Rural Health Association; CDC NVDRS data</div></div>
+    <div class="stat-card"><div class="stat-number">60%+</div><div class="stat-label">Rural Americans in Mental Health Shortage Areas</div><div class="stat-note">HRSA; Rural Health Information Hub, 2025</div></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">The Land Grab:<br/><span>Who Owns the Farm Now</span></h2>
+  <p class="section-body">Foreign entities hold approximately <strong>46 million acres</strong> of U.S. agricultural land — about 3.6% of privately held farmland. Canada accounts for ~31%. Chinese-linked entities hold roughly <strong>277,000 acres — less than 1%</strong> of foreign-held acreage, and the number actually decreased year-over-year. The political response is enormous: <strong>28 states now restrict foreign farmland ownership</strong>, up from 14 before 2023.</p>
+  <p class="section-body">Among domestic owners, <strong>Bill Gates holds 275,000 acres across ~19 states</strong> through Cascade Investment LLC. TIAA/Nuveen manages $13.1 billion across 3 million acres globally. The number of institutionally owned U.S. farm properties tripled from 2009 to 2022. Farm real estate values hit a <strong>national average of $4,350 per acre in 2025</strong> — the fifth consecutive record year. For beginning farmers trying to enter, the math is nearly impossible.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">46M</div><div class="stat-label">Acres Held by Foreign Entities</div><div class="stat-note">~3.6% of private farmland · USDA FSA AFIDA, January 2026</div></div>
+    <div class="stat-card"><div class="stat-number">28</div><div class="stat-label">States with Foreign Farmland Restrictions</div><div class="stat-note">Up from 14 pre-2023 · National Ag Law Center, Oct 2025</div></div>
+    <div class="stat-card"><div class="stat-number">275K</div><div class="stat-label">Acres — Bill Gates (Largest Private Owner)</div><div class="stat-note">~19 states · The Land Report 100, 2025</div></div>
+    <div class="stat-card"><div class="stat-number">$4,350</div><div class="stat-label">Avg. U.S. Farmland — Per Acre, 2025</div><div class="stat-note">Fifth consecutive annual record · USDA NASS, 2025</div></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">The Timeline:<br/><span>How We Got Here</span></h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-year">1970s</div><div class="timeline-content">Secretary Butz: "Get big or get out." Farm debt triples between 1970 and 1980 as operators borrow to expand on his orders.</div></div>
+    <div class="timeline-item"><div class="timeline-year">1980s</div><div class="timeline-content">Fed raises rates. Commodity prices collapse. Over 300,000 farms lost in the decade. Farmer suicides spike. Willie Nelson founds Farm Aid in 1985 — still running because the crisis never ended.</div></div>
+    <div class="timeline-item"><div class="timeline-year">1996</div><div class="timeline-content">"Freedom to Farm" Act eliminates most supply management programs and price floors. Farmers are fully exposed to commodity market volatility. Corporate consolidation accelerates.</div></div>
+    <div class="timeline-item"><div class="timeline-year">2016–18</div><div class="timeline-content">Three mega-mergers reshape seeds and chemicals: Bayer-Monsanto ($63B), ChemChina-Syngenta ($43B), DowDuPont → Corteva. Input market competition near-eliminated.</div></div>
+    <div class="timeline-item"><div class="timeline-year">2018–20</div><div class="timeline-content">Trade war with China devastates soybean and pork markets. $23B in emergency bailouts distributed — 54% going to the top 10% of recipients (EWG).</div></div>
+    <div class="timeline-item"><div class="timeline-year">2022–24</div><div class="timeline-content">Farm bankruptcy filings hit modern low of 139 in 2023 — then reverse hard. 216 filings in 2024 (+55%). The 2018 Farm Bill expires and stays expired. Farm debt climbs toward $625B.</div></div>
+    <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-content">Trade war 2.0. China: 71.5% tariffs on soybeans. Zero U.S. soybean exports to China for 6 months. 315 farm bankruptcies (+46%). $22B in emergency aid. Estimated total losses: $35–44B.</div></div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources — Deck 38</div>
+    <div class="source-item">USDA NASS — 2022 Census of Agriculture (February 2024); Farms and Land in Farms 2025 — <a href="https://www.nass.usda.gov/AgCensus" target="_blank">nass.usda.gov</a></div>
+    <div class="source-item">USDA ERS — Food Dollar Series (March 2026 revision); Farm Income &amp; Wealth Statistics (February 5, 2026); Meatpacking Concentration report (January 2024); Land Values 2025 — <a href="https://www.ers.usda.gov" target="_blank">ers.usda.gov</a></div>
+    <div class="source-item">Environmental Working Group — Farm Subsidy Database 1995–2024; Trump Tariff Bailout (February 2026); Triple Dipping crop insurance analysis — <a href="https://www.ewg.org" target="_blank">ewg.org</a></div>
+    <div class="source-item">Farm Action — Agriculture Consolidation Data Hub (2026 update) — <a href="https://farmaction.us/agriculture-consolidation-data-hub" target="_blank">farmaction.us</a></div>
+    <div class="source-item">Jennifer Clapp — Titans of Industrial Agriculture (MIT Press, February 2025)</div>
+    <div class="source-item">GRAIN &amp; ETC Group — Agri-Merger Tracker (June 2025) — <a href="https://www.etcgroup.org" target="_blank">etcgroup.org</a></div>
+    <div class="source-item">USDA FSA — Annual Report on Foreign Holdings of U.S. Agricultural Land (data through December 31, 2024, released January 2026) — <a href="https://www.fsa.usda.gov" target="_blank">fsa.usda.gov</a></div>
+    <div class="source-item">National Agricultural Law Center — 2025 Legislative Recap: State-Level Foreign Ownership Restrictions (October 2025) — <a href="https://nationalaglawcenter.org" target="_blank">nationalaglawcenter.org</a></div>
+    <div class="source-item">American Farm Bureau Federation — 2024 Farm Bankruptcies; Retaliatory Tariffs analysis; Land Values record — <a href="https://www.fb.org/market-intel" target="_blank">fb.org</a></div>
+    <div class="source-item">CSIS — When a Trade War Becomes a Food Fight (October 2025) — <a href="https://www.csis.org" target="_blank">csis.org</a></div>
+    <div class="source-item">American Soybean Association — Soybean Losses Despite Assistance; Export data (January 2026) — <a href="https://soygrowers.com" target="_blank">soygrowers.com</a></div>
+    <div class="source-item">Congressional Research Service — Retaliatory Tariffs on U.S. Agriculture (R48548); Farm Bill After FY2025 Reconciliation (R48775) — <a href="https://www.congress.gov" target="_blank">congress.gov</a></div>
+    <div class="source-item">RAFI USA — Contract Farming Debt Analysis; Transfarmation Project poultry income data — <a href="https://www.rafiusa.org" target="_blank">rafiusa.org</a></div>
+    <div class="source-item">National Rural Health Association; Rural Health Information Hub — Farmer mental health, suicide rates, shortage areas (2025) — <a href="https://www.ruralhealthinfo.org" target="_blank">ruralhealthinfo.org</a></div>
+    <div class="source-item">The Land Report 100 — Largest Private Landowners (2025 edition) — <a href="https://landreport.com" target="_blank">landreport.com</a></div>
+    <div class="source-item">U.S. GAO — Foreign Investments in U.S. Agricultural Land (GAO-24-106337, January 2024) — <a href="https://www.gao.gov/products/gao-24-106337" target="_blank">gao.gov</a></div>
+    <div class="source-item">Farm Aid — Crisis hotline and farm advocacy since 1985 — <a href="https://www.farmaid.org" target="_blank">farmaid.org</a></div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck37-music-industry.html">&larr; Deck 37: The Music Industry</a>
+    <a href="index.html">Library Home</a>
+    <a href="deck39-forever-chemicals.html">Deck 39: Forever Chemicals &rarr;</a>
+  </div>
+  <div class="footer-copy">The Convergence Project &mdash; Free Civic Research Library &mdash; Ebony Enterprises 9 LLC</div>
+</div>
+
+<script>
+var a='#C8963A',g='#C9A84C',cr='rgba(240,234,214,0.7)',r='#C87474',b='#8B9EC8',gn='#6FA882',or='#F4C08A',dg='rgba(255,255,255,0.06)';
+Chart.defaults.color=cr;Chart.defaults.font.family='Raleway';
+new Chart(document.getElementById('c1'),{type:'line',data:{labels:['1935','1945','1954','1964','1974','1982','1992','2002','2012','2017','2022','2025'],datasets:[{label:'U.S. Farms (millions)',data:[6.81,5.86,4.78,3.46,2.31,2.24,1.93,2.13,2.11,2.04,1.90,1.88],borderColor:a,backgroundColor:'rgba(200,150,58,0.08)',tension:0.3,fill:true,pointBackgroundColor:a}]},options:{responsive:true,plugins:{legend:{labels:{color:cr}}},scales:{x:{grid:{color:dg},ticks:{color:cr}},y:{grid:{color:dg},ticks:{color:cr,callback:v=>v+'M'},beginAtZero:true}}}});
+new Chart(document.getElementById('c2'),{type:'doughnut',data:{labels:['Farm Value (11.8¢)','Food Service Labor (38.6¢)','Processing & Packaging (18¢)','Marketing & Distribution (16¢)','Retail & Other (15.6¢)'],datasets:[{data:[11.8,38.6,18,16,15.6],backgroundColor:[a,'rgba(200,150,58,0.3)',b,gn,r],borderColor:'#0D0D0D',borderWidth:2}]},options:{responsive:true,plugins:{legend:{labels:{color:cr,padding:14}}}}});
+new Chart(document.getElementById('c3'),{type:'bar',data:{labels:['Top 1%','Top 2–10%','Bottom 90% receiving anything','69% — received nothing'],datasets:[{label:'Share of Commodity Subsidies',data:[27,51,22,0],backgroundColor:[r,or,a,'rgba(255,255,255,0.04)'],borderWidth:0,borderRadius:2}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:dg},ticks:{color:cr}},y:{grid:{color:dg},ticks:{color:cr,callback:v=>v+'%'},max:60}}}});
+</script>
+</body>
+</html>

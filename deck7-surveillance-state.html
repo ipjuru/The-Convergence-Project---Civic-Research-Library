@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 07 — The Surveillance State · The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--blue:#4A7FA5;--blue-l:#6AB0D8;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;--red-l:#E74C3C;--olive:#6B7C47;--olive-l:#8FA05E;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(74,127,165,0.11) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-l);border:1px solid rgba(74,127,165,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--blue-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--blue-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--blue-l);padding:24px 28px;background:rgba(74,127,165,0.07);margin:40px 0;}
+.callout-red{border-left:3px solid var(--red-l);padding:24px 28px;background:rgba(192,57,43,0.07);margin:40px 0;}
+.callout-gold{border-left:3px solid var(--gold);padding:24px 28px;background:rgba(201,168,76,0.05);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-body{font-family:'Raleway',sans-serif;font-size:15px;color:rgba(240,234,214,0.82);line-height:1.8;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--red-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--red-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'▸';color:var(--red-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.timeline{margin:48px 0;}
+.timeline-item{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid #1a1a1a;align-items:start;}
+.timeline-date{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--blue-l);letter-spacing:1px;}
+.timeline-body{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.8);}
+.timeline-body strong{color:var(--cream);}
+.four-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:48px 0;}
+.four-card{background:var(--b3);padding:28px;border-top:2px solid;}
+.four-card.warn{border-color:var(--red-l);}
+.four-card.blue{border-color:var(--blue-l);}
+.four-card.gold{border-color:var(--gold);}
+.four-card.olive{border-color:var(--olive-l);}
+.four-card-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:8px;}
+.four-card.warn .four-card-tag{color:var(--red-l);}
+.four-card.blue .four-card-tag{color:var(--blue-l);}
+.four-card.gold .four-card-tag{color:var(--gold);}
+.four-card.olive .four-card-tag{color:var(--olive-l);}
+.four-card-title{font-family:'Cinzel',serif;font-size:15px;color:var(--cream);margin-bottom:10px;}
+.four-card-body{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.7);}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.action-col-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--olive-l);margin-bottom:12px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.8);padding:6px 0;border-bottom:1px solid #1a1a1a;padding-left:16px;position:relative;}
+.action-list li::before{content:'→';position:absolute;left:0;color:var(--olive-l);font-size:12px;}
+.action-list li:last-child{border-bottom:none;}
+.closing-quote{border:1px solid rgba(201,168,76,0.2);padding:48px;margin:48px 0;text-align:center;background:rgba(74,127,165,0.04);}
+.closing-q{font-family:'Cinzel',serif;font-size:clamp(18px,3vw,28px);color:var(--gold);line-height:1.4;margin-bottom:16px;}
+.closing-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:17px;color:var(--tan);line-height:1.7;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}.timeline-item{grid-template-columns:80px 1fr;gap:12px;}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">← Library Home</a>
+  <span class="nav-deck">Vol. 2 · Deck 07</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">07</div>
+  <span class="vol-badge">Vol. 2 — Gov &amp; Corps</span>
+  <h1 class="hero-title">The Surveillance<br>State</h1>
+  <p class="hero-sub">The infrastructure was built before Trump. He's just using it more openly. Data brokers. Palantir. DOGE. Section 702. The billionaire class. Who really rules America — and how they're watching you. All sourced.</p>
+  <div class="hero-stat">17%</div>
+  <div class="hero-stat-label">Americans who trust the federal government today · down from 73% in 1958 · Pew Research</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Foundation</span>
+  <h2 class="section-title">They Built This Long<br>Before Trump</h2>
+  <div class="section-body">
+    <p>The surveillance state didn't emerge in 2025. It was constructed post-9/11, normalized under both parties, and is now being deployed at unprecedented scale. Understanding the architecture means knowing what was already in place — because the current administration didn't build this. They inherited it and expanded it.</p>
+    <p>The PATRIOT Act passed the House <strong>357–66</strong> and the Senate <strong>98–1</strong> in October 2001. It authorized roving wiretaps, "sneak and peek" searches, compelled production of "any tangible thing" without probable cause, and National Security Letters without judicial oversight. PRISM — the NSA program that collected emails, video chats, photos, and social data from Microsoft, Yahoo, Google, Facebook, and Apple — launched between 2007–2013 and was revealed by Edward Snowden. It was described as "the number one source of raw intelligence" for NSA reports. <strong>It was never shut down.</strong></p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item"><span class="timeline-date">Oct 2001</span><div class="timeline-body">PATRIOT Act signed 357-66 / 98-1. Authorized roving wiretaps, "sneak and peek" searches, compelled production of "any tangible thing" without probable cause, National Security Letters without judicial oversight.</div></div>
+    <div class="timeline-item"><span class="timeline-date">2007–2013</span><div class="timeline-body"><strong>PRISM launched</strong> — NSA collection from Microsoft, Yahoo, Google, Facebook, Apple. Revealed by Snowden in 2013. Described as "the number one source of raw intelligence." <strong>Never shut down.</strong></div></div>
+    <div class="timeline-item"><span class="timeline-date">Dec 2024</span><div class="timeline-body">Federal court rules warrantless U.S. person queries under <strong>Section 702 of FISA violate the Fourth Amendment</strong>. Section 702 reauthorized anyway — shortest extension ever, 2 years. Expires April 2026.</div></div>
+    <div class="timeline-item"><span class="timeline-date">Mar 2025</span><div class="timeline-body">Trump reverses course, backs Section 702 reauthorization — after previously posting "KILL FISA." The surveillance infrastructure is now <strong>bipartisan property</strong> regardless of who occupies the White House.</div></div>
+    <div class="timeline-item"><span class="timeline-date">2025–2026</span><div class="timeline-body">DOGE granted access to Treasury, SSA, HHS, Education, and OPM databases. Palantir powers ICE deportations. Data broker purchases bypass warrant requirements. The architecture is fully operational.</div></div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">DOGE</span>
+  <h2 class="section-title">"The Largest Data Breach<br>in American History"</h2>
+  <div class="section-body">
+    <p>Elon Musk's Department of Government Efficiency accessed the personal data of hundreds of millions of Americans across federal agencies — with young staffers who had minimal vetting and maximum access. The databases accessed include: <strong>Treasury</strong> (tax refunds, bank accounts, Social Security payments for all recipients); <strong>Social Security Administration</strong> (SSNs, medical records, immigration records for every American); <strong>OPM, HHS, and the Department of Education</strong> (federal employee records, student loan data, patient records).</p>
+    <p>On June 6, 2025, the Supreme Court ruled <strong>6–3</strong> to grant DOGE unlimited access to SSA data, staying lower court injunctions that had blocked it. Justice Ketanji Brown Jackson's dissent: <em>"This is a sad day for our democracy and a scary day for millions of people."</em> DOGE was simultaneously shielded from FOIA requests — making accountability legally impossible. Connecticut AG William Tong called it "the largest data breach in American history." Acting SSA Commissioner Michelle King <strong>resigned rather than provide access</strong>.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">6–3</div><div class="stat-label">SCOTUS Granted DOGE SSA Access</div><div class="stat-note">June 6, 2025 · Justice Jackson dissented</div></div>
+    <div class="stat-card"><div class="stat-number">5</div><div class="stat-label">Major Federal Databases Accessed</div><div class="stat-note">Treasury · SSA · OPM · HHS · Education</div></div>
+    <div class="stat-card"><div class="stat-number">0</div><div class="stat-label">FOIA Requests Allowed on DOGE</div><div class="stat-note">Shielded from public records requests</div></div>
+    <div class="stat-card"><div class="stat-number">1</div><div class="stat-label">SSA Commissioner Resigned</div><div class="stat-note">Rather than hand over data</div></div>
+  </div>
+
+  <div class="callout-red">
+    <div class="callout-body"><strong style="color:var(--red-l)">Who holds the data now:</strong> SSNs, bank accounts, medical records, immigration status, student loan history, and tax filings for hundreds of millions of Americans — accessed by minimally vetted private contractors, shielded from FOIA, and subject to no publicly disclosed data security standards. Connecticut AG Tong: "the largest data breach in American history." That characterization has not been legally challenged.</div>
+    <div class="callout-source">— EFF; ScheerPost; Freedom House; SCOTUS June 2025 order</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Palantir</span>
+  <h2 class="section-title">The $300 Billion Company<br>That Was Built to Know Everything</h2>
+  <div class="section-body">
+    <p>Palantir Technologies was founded with seed money from the CIA's In-Q-Tel investment arm. As of 2025, it is valued at approximately <strong>$300 billion</strong>, holds a <strong>$10 billion U.S. Army contract</strong>, powers ICE deportation operations, and holds contracts with the NHS in the UK worth <strong>£330 million</strong>. CEO Alex Karp has said their product is "used, on occasion, to kill people." That is a direct quote.</p>
+    <p>The Thiel network runs through the center of it. Peter Thiel — Palantir co-founder, net worth <strong>~$23.9 billion</strong> — was the primary financial backer of VP JD Vance's political career. Stephen Miller holds a financial stake in Palantir. Multiple Thiel-network figures hold administration positions. Karp's 2024 book <em>The Technological Republic</em> calls for a state that "looks more like a startup" led by a "founder-like figure." The EFF's surveillance analyst: "Immigrants are the first target — it is a permission structure. If they can get away with it on immigrants, what are the legal barriers from moving to the next undesirable group?"</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Palantir Scale — Valuation, Contracts &amp; Government Reach</div>
+    <div class="chart-container"><canvas id="palantirChart"></canvas></div>
+    <div class="chart-note">Source: State of Surveillance; BBC Science Focus; Freedom House; Palantir SEC filings; ICE contract disclosures. Valuation shown in billions; ICE contracts in millions; NHS contract in £M converted to approximate $M. The Army contract value represents the ceiling of the 10-year TITAN program.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Data Brokers</span>
+  <h2 class="section-title">$300 Billion Industry.<br>Zero Federal Law.</h2>
+  <div class="section-body">
+    <p>Up to <strong>5,000 data brokers</strong> operate globally, collecting thousands of data points on every American — purchasing app data, public records, credit information, location history, social media behavior, and more — then packaging and selling it to the highest bidder. There is no comprehensive federal law governing this industry.</p>
+    <p>The government has discovered that buying data is cheaper and legally simpler than getting a warrant. The FBI, DHS, ICE, DEA, IRS, and local police are documented purchasers of commercial data. The Department of Defense purchased location data from <strong>prayer apps to monitor Muslim communities</strong>. Police purchased data to track racial justice protesters. In March 2026, FBI Director Kash Patel <strong>declined to commit</strong> to not purchasing Americans' location data. <strong>80% of Americans</strong> say government agencies should be required to get a warrant. There is no law requiring it. Only <strong>14 states</strong> have passed comprehensive data privacy laws.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">The Data Broker Industry — Scale &amp; Legal Landscape</div>
+    <div class="chart-container"><canvas id="brokerChart"></canvas></div>
+    <div class="chart-note">Source: NPR/Houston Public Media (March 2026); EFF; Brookings; Freedom House; FTC. The $300B market value is a 2024 industry estimate. "Americans saying warrant required" is from consistent cross-partisan polling. The zero federal laws figure reflects the absence of a comprehensive federal data privacy statute as of early 2026.</div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">The Warrant Loophole — Documented Government Data Purchases</div>
+    <ul class="highlight-list">
+      <li>FBI, DHS, ICE, DEA, IRS, and local police are <strong>documented purchasers</strong> of commercial personal data</li>
+      <li>DOD purchased location data from <strong>prayer apps</strong> to monitor Muslim communities</li>
+      <li>Police purchased commercial data to <strong>track racial justice protesters</strong></li>
+      <li>FBI Director Kash Patel (March 2026): <strong>declined to commit</strong> to not buying Americans' location data</li>
+      <li><strong>80% of Americans</strong> say warrants should be required for government data purchases</li>
+      <li>Only <strong>14 states</strong> have comprehensive data privacy laws — no federal law exists</li>
+      <li>Location data is the <strong>most frequently sold</strong> category — derived from apps you use daily</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Who Rules America</span>
+  <h2 class="section-title">The Real Power Structure —<br>By the Numbers</h2>
+  <div class="section-body">
+    <p>When 300 billionaires spend $3 billion on a single election cycle, when the top 1% holds 31% of all wealth, when there are 24 lobbyists for every member of Congress — elections are one mechanism of power. Not the only one. The billionaire-to-government pipeline in the current administration is direct, documented, and unprecedented in scale.</p>
+    <p>At least <strong>12 billionaires</strong> hold roles in the Trump second-term administration, with a collective net worth of <strong>$390–460+ billion</strong>. Donor-appointees gave <strong>$52+ million</strong> to Trump or pro-Trump PACs before their appointments. Elon Musk holds <strong>100+ federal contracts</strong> across 17 agencies while simultaneously heading DOGE — the entity with access to all federal databases. His 2024 political contributions were <strong>4x his average annual federal tax payments</strong> from 2013–2018 (ProPublica). Federal lobbying hit a record <strong>$4.44 billion in 2024</strong>. Nearly two-thirds of former members of Congress become lobbyists.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Who Rules America — Key Power Concentration Metrics</div>
+    <div class="chart-container"><canvas id="powerChart"></canvas></div>
+    <div class="chart-note">Source: Forbes; OpenSecrets; Brookings; Center for American Progress; EPI; Brennan Center. CEO-to-worker pay ratio shown as ×10 for visual scale (actual ratio is ~300:1). Billionaire election spend of $3B represents the 2024 cycle total from the top 300 donors per OpenSecrets.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The American Dream</span>
+  <h2 class="section-title">The Probability of Upward<br>Mobility Has Halved</h2>
+  <div class="section-body">
+    <p>Raj Chetty's landmark research at the Opportunity Insights Lab is unambiguous: the probability of earning more than your parents dropped from <strong>92% for Americans born in 1940</strong> to roughly <strong>50% for those born in 1984</strong>. This is not perception or anecdote. It is measured, peer-reviewed, and based on tax records covering hundreds of millions of Americans. The American Dream is statistically half as real as it was for the previous generation.</p>
+    <p>The wealth numbers clarify why. The top 1% holds approximately <strong>31% of total household wealth</strong> — roughly equal to the bottom 90% combined. Worker productivity grew <strong>80.9%</strong> from 1979–2024 while average hourly compensation grew only <strong>29.4%</strong>. U.S. total household debt hit <strong>$18.6 trillion</strong>. Medical bills cause approximately <strong>1 million bankruptcies per year</strong>. The racial wealth gap: white families hold <strong>6x the wealth</strong> of Black families — virtually unchanged from 1992 to 2022.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Probability of Earning More Than Your Parents — By Birth Year (%)</div>
+    <div class="chart-container"><canvas id="mobilityChart"></canvas></div>
+    <div class="chart-note">Source: Raj Chetty / Opportunity Insights (2016, 2024 update); tax record data covering hundreds of millions of Americans. Intergenerational mobility rank represents the U.S. position among OECD nations (higher number = worse rank). The U.S. now ranks below most peer nations in upward economic mobility.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Trust in Federal Government — 1958 to 2026 (%)</div>
+    <div class="chart-container"><canvas id="trustChart"></canvas></div>
+    <div class="chart-note">Source: Pew Research Center — Public Trust in Government: 1958–2025 (December 2025). The 73% peak in 1964 corresponds with the post-Kennedy national unity period. Every subsequent decline correlates with documented institutional failures: Vietnam, Watergate, Iraq WMD, 2008 financial crisis, COVID response, current political polarization.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Global Context</span>
+  <h2 class="section-title">How America Compares —<br>And What's Being Dismantled</h2>
+  <div class="section-body">
+    <p>The U.S. is not China. But the legal safeguards that separate democratic surveillance from authoritarian surveillance are measurable — and several of them are being actively dismantled. The capabilities now exist at authoritarian scale. The question is whether the legal constraints do too.</p>
+  </div>
+
+  <div class="four-grid">
+    <div class="four-card warn">
+      <span class="four-card-tag">China</span>
+      <div class="four-card-title">9/100 Internet Freedom</div>
+      <div class="four-card-body">Social Credit System. Great Firewall. Mass facial recognition. Pervasive social surveillance. Worst-rated country globally for internet freedom (Freedom House). The endpoint of the surveillance trajectory.</div>
+    </div>
+    <div class="four-card blue">
+      <span class="four-card-tag">United States</span>
+      <div class="four-card-title">Capability Without Restraint</div>
+      <div class="four-card-body">PRISM. Section 702. Data broker purchases without warrants. Palantir. DOGE data access. ICE AI surveillance. Freedom House: "legal safeguards have not always been strong enough." The capabilities now match authoritarian scope.</div>
+    </div>
+    <div class="four-card gold">
+      <span class="four-card-tag">European Union</span>
+      <div class="four-card-title">GDPR as Counter-Model</div>
+      <div class="four-card-body">Fines up to €20M or 4% of global revenue. Rights to erasure, explicit consent, data portability. EU Court invalidated U.S.-EU Privacy Shield specifically over Section 702 concerns. The democratic standard exists — the U.S. hasn't adopted it.</div>
+    </div>
+    <div class="four-card olive">
+      <span class="four-card-tag">What's At Stake</span>
+      <div class="four-card-title">What Is Eroding</div>
+      <div class="four-card-body">Rule of law. Stable contracts. Judicial independence. Intellectual property protection. Talent concentration. All of these depend on functioning democratic institutions. All are under documented stress in 2025–2026.</div>
+    </div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-title">Protecting Yourself in a Surveillance State</div>
+    <div class="action-cols">
+      <div>
+        <div class="action-col-title">Digital Privacy</div>
+        <ul class="action-list">
+          <li>Use Signal for sensitive communications — end-to-end encrypted, open source</li>
+          <li>Use a reputable VPN with a verified no-logs policy</li>
+          <li>Opt out of data broker databases — search "data broker opt-out" for each major company</li>
+          <li>Firefox + uBlock Origin. DuckDuckGo for search.</li>
+          <li>Location data is the most sold type — disable tracking on all apps that don't require it</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">Know Your Rights</div>
+        <ul class="action-list">
+          <li>You have the right to remain silent with ICE — you do not have to answer questions without a lawyer</li>
+          <li>Know the Fourth Amendment Is Not For Sale Act — push your rep to pass it</li>
+          <li>Support EFF, ACLU, and state-level digital privacy coalitions</li>
+          <li>Demand your state pass a comprehensive data privacy law — only 14 states have one</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">Build Power</div>
+        <ul class="action-list">
+          <li>Demand campaign finance reform — billionaire political spending has exploded since Citizens United</li>
+          <li>Support ranked-choice voting and open primaries to break two-party capture</li>
+          <li>Run for or support local office — school boards, city councils, and county commissions have real power</li>
+          <li>The 17% trust figure is a crisis AND an opportunity — when institutions fail, people build new ones</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing-quote">
+    <div class="closing-q">"America is not a nation.<br>It is a corporation with a flag.<br>The receipts are here."</div>
+    <div class="closing-sub">Seven decks. One library. All of it sourced.<br>Share what hits hardest for your community. This is the work.</div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">ACLU — PATRIOT Act; Section 702 of FISA Analysis · <a href="https://www.aclu.org" target="_blank">aclu.org</a></div>
+    <div class="source-item">EPIC — Electronic Privacy Information Center — Surveillance Law Database · <a href="https://www.epic.org" target="_blank">epic.org</a></div>
+    <div class="source-item">Congress.gov — R48592 Section 702 Reauthorization Analysis (2024)</div>
+    <div class="source-item">Electronic Frontier Foundation — DOGE Data Access; Data Broker Government Purchases · <a href="https://www.eff.org" target="_blank">eff.org</a></div>
+    <div class="source-item">SCOTUS — DOGE v. USDS (June 6, 2025); Justice Jackson dissent</div>
+    <div class="source-item">Freedom House — Internet Freedom Rankings; U.S. Surveillance Assessment (2025)</div>
+    <div class="source-item">Palantir Technologies — SEC Filings; TITAN Army Contract; ICE Contract Disclosures</div>
+    <div class="source-item">NPR / Houston Public Media — FBI Director Declines to Commit on Location Data (March 2026)</div>
+    <div class="source-item">Forbes — Billionaires in Trump Administration; Peter Thiel Net Worth</div>
+    <div class="source-item">OpenSecrets — Donor-Appointee Analysis; Federal Lobbying 2024 Record · <a href="https://www.opensecrets.org" target="_blank">opensecrets.org</a></div>
+    <div class="source-item">Raj Chetty / Opportunity Insights — The Fading American Dream: Trends in Absolute Income Mobility · <a href="https://opportunityinsights.org" target="_blank">opportunityinsights.org</a></div>
+    <div class="source-item">Federal Reserve — Distributional Financial Accounts (Top 1% Wealth Share)</div>
+    <div class="source-item">EPI — Productivity vs. Compensation Gap 1979–2024 · <a href="https://www.epi.org" target="_blank">epi.org</a></div>
+    <div class="source-item">Pew Research Center — Public Trust in Government: 1958–2025 (December 2025) · <a href="https://www.pewresearch.org" target="_blank">pewresearch.org</a></div>
+    <div class="source-item">FBI — Hate Crime Statistics 2024 · <a href="https://www.fbi.gov" target="_blank">fbi.gov</a></div>
+    <div class="source-item">Brookings Institution — Surveillance, Democracy, and Rule of Law Analysis</div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck6-social-experiment.html">← Deck 06: Social Experiment</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck8-war-on-children.html">Deck 08: War on Children →</a>
+</div>
+
+<script>
+const xT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const yT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const gd={color:'rgba(255,255,255,0.05)'};
+const gf={color:'rgba(255,255,255,0.03)'};
+const leg={display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}};
+const noLeg={display:false};
+
+// Chart 1 — Palantir scale
+new Chart(document.getElementById('palantirChart'),{
+  type:'bar',
+  data:{
+    labels:['Palantir valuation\n(~$B)','Army TITAN contract\n($B)','ICE contracts\n($M)','NHS UK contract\n(£M approx $M)','Federal revenue\n2025 ($B)'],
+    datasets:[{data:[300,10,165,413,2.9],backgroundColor:['rgba(74,127,165,0.85)','rgba(192,57,43,0.8)','rgba(192,57,43,0.75)','rgba(201,168,76,0.75)','rgba(74,127,165,0.65)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:15},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 2 — Data broker industry
+new Chart(document.getElementById('brokerChart'),{
+  type:'bar',
+  data:{
+    labels:['Market size\n2024 ($B)','Brokers operating\nglobally (×100)','Americans saying\nwarrant required (%)','States with privacy\nlaw (count)','Federal privacy\nlaws (count)'],
+    datasets:[{data:[300,50,80,14,0],backgroundColor:['rgba(74,127,165,0.85)','rgba(192,57,43,0.8)','rgba(107,124,71,0.75)','rgba(201,168,76,0.7)','rgba(192,57,43,0.6)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:15},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 3 — Power concentration
+new Chart(document.getElementById('powerChart'),{
+  type:'bar',
+  data:{
+    labels:['Billionaire election\nspend 2024 ($B)','Top 1%\nwealth share (%)','Lobbying spend\n2024 ($B)','CEO-to-worker\npay ratio (×10)','Dark money\n2024 ($B)'],
+    datasets:[{data:[3,31,4.44,30,1.9],backgroundColor:['rgba(192,57,43,0.85)','rgba(192,57,43,0.8)','rgba(201,168,76,0.75)','rgba(192,57,43,0.7)','rgba(192,57,43,0.65)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:15},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 4 — American Dream / mobility
+new Chart(document.getElementById('mobilityChart'),{
+  type:'line',
+  data:{
+    labels:['Born 1940','Born 1950','Born 1960','Born 1970','Born 1980','Born 1984'],
+    datasets:[
+      {label:'% earning more than parents',data:[92,86,79,68,56,50],borderColor:'rgba(192,57,43,0.9)',backgroundColor:'rgba(192,57,43,0.1)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:5,pointBackgroundColor:'rgba(192,57,43,0.9)'},
+      {label:'U.S. intergenerational mobility rank (OECD)',data:[1,4,6,9,14,17],borderColor:'rgba(74,127,165,0.8)',backgroundColor:'transparent',fill:false,borderWidth:2,borderDash:[5,3],tension:0.3,pointRadius:3,pointBackgroundColor:'rgba(74,127,165,0.8)'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},scales:{x:{ticks:xT,grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 5 — Government trust over time
+new Chart(document.getElementById('trustChart'),{
+  type:'line',
+  data:{
+    labels:['1958','1966','1974','1982','1990','1998','2006','2014','2022','2026'],
+    datasets:[{label:'% trusting federal government to do the right thing most of the time',data:[73,65,36,42,28,34,30,24,20,17],borderColor:'rgba(74,127,165,0.9)',backgroundColor:'rgba(74,127,165,0.1)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:5,pointBackgroundColor:'rgba(74,127,165,0.9)'}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}}},scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'%'},grid:gd,min:0,max:80}}}
+});
+</script>
+</body>
+</html>

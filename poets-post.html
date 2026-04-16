@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poet's Post | The Convergence Project</title>
+  <meta name="description" content="A dispatch from Ms. JuruDaWise. Rare access. Real thoughts.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1FAB6;</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0d0d0d;
+      --gold: #c9a84c;
+      --gold-dim: #a07830;
+      --gold-glow: rgba(201,168,76,0.15);
+      --cream: #f0e6d0;
+      --gray: #5a5a5a;
+      --border: rgba(201,168,76,0.25);
+    }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Crimson Text', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.85;
+    }
+
+    /* NAV */
+    .back-nav {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--gold); }
+    .back-btn .chevron { font-size: 14px; transition: transform 0.2s; }
+    .back-btn:hover .chevron { transform: translateX(-3px); }
+
+    .nav-right-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .nav-link-sm {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link-sm:hover { color: var(--gold); }
+    .bmc-link-sm {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.7);
+      text-decoration: none;
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 6px 12px;
+      transition: all 0.2s;
+    }
+    .bmc-link-sm:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); color: var(--gold); }
+
+    /* MAIN */
+    .post-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 80px 24px 120px;
+    }
+
+    .section-eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-eyebrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: rgba(240,230,208,0.55);
+      margin-bottom: 64px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* POST */
+    .post-block {
+      margin-bottom: 80px;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .post-tag {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+
+    .post-date {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+    }
+
+    .post-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .beat-credit {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.45);
+      margin-bottom: 36px;
+    }
+
+    /* INTRO / OUTRO */
+    .post-intro {
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: rgba(240,230,208,0.75);
+      line-height: 1.9;
+      margin-bottom: 52px;
+      padding-left: 20px;
+      border-left: 3px solid var(--border);
+    }
+
+    .post-outro {
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: rgba(240,230,208,0.75);
+      line-height: 1.9;
+      margin-top: 52px;
+      padding-left: 20px;
+      border-left: 3px solid var(--border);
+    }
+
+    .sign-off {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      margin-top: 28px;
+      padding-left: 20px;
+    }
+
+    /* POEM */
+    .poem-block {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .poem-block p {
+      font-family: 'Crimson Text', serif;
+      font-size: 1.15rem;
+      color: rgba(240,230,208,0.9);
+      line-height: 2;
+      margin-bottom: 0;
+      white-space: pre-line;
+    }
+
+    .poem-stanza {
+      margin-bottom: 28px;
+    }
+
+    .poem-stanza:last-child { margin-bottom: 0; }
+
+    /* TEASER CARD */
+    .teaser-card {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      padding: 36px 36px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(13,13,13,0) 60%);
+      position: relative;
+    }
+
+    .teaser-card::before {
+      content: 'NEXT POST';
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: rgba(201,168,76,0.35);
+    }
+
+    .teaser-card .teaser-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .teaser-card .teaser-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .teaser-card .teaser-sub {
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(240,230,208,0.55);
+    }
+
+    /* BMC BAR */
+    .bmc-bar {
+      background: rgba(201,168,76,0.05);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      padding: 36px 32px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .bmc-bar p {
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(240,230,208,0.65);
+      margin-bottom: 20px;
+    }
+
+    .bmc-bar a {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 12px 28px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .bmc-bar a:hover { background: #dbb85a; }
+
+    /* FOOTER */
+    .site-footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.35);
+    }
+
+    /* POST INDEX NAV */
+    .post-index {
+      margin-bottom: 56px;
+      padding: 28px 32px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, rgba(13,13,13,0) 60%);
+    }
+
+    .post-index-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.45);
+      margin-bottom: 16px;
+    }
+
+    .post-index-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .post-index-list li a {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      text-decoration: none;
+      color: rgba(240,230,208,0.6);
+      font-family: 'Crimson Text', serif;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    .post-index-list li a:hover { color: var(--gold); }
+
+    .post-index-num {
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      opacity: 0.6;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+
+    .post-index-list li a:hover .post-index-num { opacity: 1; }
+
+    /* BACK TO TOP */
+    .back-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 44px;
+      height: 44px;
+      background: var(--black);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s, border-color 0.2s;
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .back-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .back-top:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .post-intro, .post-outro { padding-left: 14px; }
+      .poem-block { padding: 36px 0; }
+      .teaser-card { padding: 28px 22px; }
+    }
+
+    @media (min-width: 1400px) {
+      .post-section { max-width: 960px; }
+      .back-nav { max-width: 960px; }
+      body { font-size: 20px; }
+    }
+  </style>
+</head>
+<body id="top">
+
+<nav class="back-nav">
+  <a class="back-btn" href="index.html">
+    <span class="chevron">&#x2190;</span>
+    <span>Back to The Convergence Project</span>
+  </a>
+  <div class="nav-right-links">
+    <a class="nav-link-sm" href="updates.html">Updates &amp; Dispatches</a>
+    <a class="nav-link-sm" href="sources.html">Source Bucket</a>
+    <a class="bmc-link-sm" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">&#x2615; Support the Work</a>
+  </div>
+</nav>
+
+<section class="post-section">
+
+  <p class="section-eyebrow">Poet's Post</p>
+  <h1 class="section-title">From My Notebook</h1>
+  <p class="section-subtitle">Rare access. Real thoughts. From me to you.</p>
+
+  <!-- POST INDEX -->
+  <nav class="post-index" aria-label="Post index">
+    <p class="post-index-label">In This Archive</p>
+    <ul class="post-index-list">
+      <li>
+        <a href="#post-01">
+          <span class="post-index-num">No. 01</span>
+          How Does It Feel
+        </a>
+      </li>
+      <li>
+        <a href="#post-02">
+          <span class="post-index-num">No. 02</span>
+          Echoes of Tomorrow
+        </a>
+      </li>
+      <li>
+        <a href="#post-03">
+          <span class="post-index-num">No. 03</span>
+          What Are We Even Doing, America?
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- POST 01 -->
+  <div class="post-block" id="post-01">
+
+    <div class="post-meta">
+      <span class="post-tag">Post No. 01</span>
+      <span class="post-date">Written: Late 2024 &nbsp;|&nbsp; Posted: April 2026</span>
+    </div>
+
+    <h2 class="post-title">How Does It Feel</h2>
+    <p class="beat-credit">Custom beat: Luke Hall &mdash; Dystopia</p>
+
+    <div class="post-intro">
+      Some poems don't start as poems. This one started as a question I genuinely needed answered &mdash; and a beat by Luke Hall that wouldn't let me think straight. So I stopped trying to think and just wrote.
+    </div>
+
+    <div class="poem-block">
+
+      <div class="poem-stanza">
+        <p>How does it feel to fight for the very thing you say to run from?
+How does it feel to be toyed with psychologically so well,
+you embrace more of the torture without fail?
+How does it feel to be right about theories,
+without being able to conspire the celebration of the light?
+How does it feel to have your worst nightmares come true
+despite there being various ways to prevent them with delight?</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>How does it make you feel, to live in America today?</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>How does it feel
+to be so divided on basic rights,
+and not being able to come together to unite?
+How does it feel
+to watch an evil regime take over, seemingly overnight?
+How does it feel
+to watch the fall of the US behind black screens
+in the uncertain safety of a bed at night?
+How does it feel that soon, you will have no choice but to fight?</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>How does it feel to be tired endlessly?
+Worried constantly.
+Bombarded emotionally.
+Mentally,
+stretched thin financially?
+How does it feel when you're numb?
+And no longer want to feel anything?</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>How does it feel to watch corporate greed
+bleed every area of our lives till it's done?
+How does it feel to know that the elites of our society
+are creating mega cities, and harvesting slums?
+How does it feel to feel as though you may be living
+in a sci-fi movie that's still yet to come?</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>How does it feel to know that our leaders' best idea forward
+is Artificial Intelligence from a whacked out goober genius &mdash;
+a source that will overwhelmingly suck up our precious natural resources?
+Or how does it feel to have an almost 50% increase on your electric bill
+for such a convenient service?
+How does it feel to know that elites plan on making data centers in space,
+or on the ocean floor,
+and not just in the small towns that live right next door?</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>Whatever you may feel &mdash; let it be the fire that sparks change.
+Don't wait until it's too late to do anything.
+Use your voice. Your two ears and two hands.
+So when someone asks how you feel living in America today,
+you can raise your head and somewhat say &mdash;
+
+I fought for my people,
+no matter how big or small,
+rain or shine,
+eyes open or blind,
+
+And I feel f***ing great.</p>
+      </div>
+
+    </div><!-- /poem-block -->
+
+    <div class="post-outro">
+      I hope I made you feel something. Happiness. Sadness. Anger. Dissent. Worry. These feelings are all valid. And those feelings are not yours only to bear. May you use those charged emotions for the betterment of yourself and those around you. Be the change you want to see in the world. It starts with you. Build yourself. Love yourself. Respect yourself. Grow yourself. And watch us grow out of this current American situation together &mdash; with the hope that we will and can be better than before.
+    </div>
+
+    <div class="sign-off">- IPJ</div>
+
+  </div><!-- /post-block -->
+
+  <!-- POST 02 -->
+  <div class="post-block" id="post-02" style="margin-top:80px;padding-top:80px;border-top:1px solid var(--border);">
+
+    <div class="post-meta">
+      <span class="post-tag">Post No. 02</span>
+      <span class="post-date">Written: August 13, 2024 &nbsp;|&nbsp; Posted: April 2026</span>
+    </div>
+
+    <h2 class="post-title">Echoes of Tomorrow</h2>
+    <p class="beat-credit">Afrofuturism &mdash; The Vision After The Feeling</p>
+
+    <div class="post-intro">
+      This one came through in the late hours of August 2024 &mdash; right in the middle of building what would eventually become this library. I was sitting with a lot of heaviness. The research. The data. The patterns. And somewhere between the grief and the grind, this came out. It wasn't a response to what I was finding in the numbers. It was a reminder of where we're going anyway. Black brilliance doesn't wait for permission. It never did. I almost kept this one private. But the vision deserves to be seen.
+    </div>
+
+    <div class="poem-block">
+
+      <div class="poem-stanza">
+        <p>In the pulse of the cosmos, we rise,
+Black stars igniting the night,
+Woven from the threads of ancestors' dreams,
+We chart new constellations, bold and bright.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>From the soil of forgotten lands, we ascend,
+Roots deep in the earth, stretching to the skies,
+We craft cities of light and soul,
+Where our voices are the architects of the future &mdash; strong and bold.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>Our skin, a canvas of history and hope,
+Bronze and onyx, glowing in the digital dawn,
+We code our stories in languages of love,
+Each line a tribute to those who paved our past &mdash;</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>so below, as above.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>We are the children of the sun and the circuit,
+Dancing in the rhythms of time and tech,
+Our futures are not bound by the past,
+But fueled by the wisdom of those who came before.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>&amp; yet&hellip;</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>In our hands, we hold the keys to worlds unseen,
+Unlocking doors to dimensions untold,
+We are the dreamers, the doers, the divine,
+Carving our legacy in the fabric of the universe,
+that's yet to unfold.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>No longer do we wait for the world to change,
+We are the architects, the builders, the kings and queens,
+Our future is Afrofuturism in full bloom,
+A vision of Black brilliance, rising ever supreme.</p>
+      </div>
+
+    </div><!-- /poem-block -->
+
+    <div class="post-outro">
+      The research will show you what was done to us. This poem shows you what we become anyway. Hold both.
+    </div>
+
+    <div class="sign-off">- IPJ</div>
+
+  </div><!-- /post-block -->
+
+  <!-- POST 03 -->
+  <div class="post-block" id="post-03" style="margin-top:80px;padding-top:80px;border-top:1px solid var(--border);">
+
+    <div class="post-meta">
+      <span class="post-tag">Post No. 03</span>
+      <span class="post-date">Written: 2025 &nbsp;|&nbsp; Posted: April 2026</span>
+    </div>
+
+    <h2 class="post-title">What Are We Even Doing, America?</h2>
+    <p class="beat-credit">A Stray Thought That Refused to Stay Stray</p>
+
+    <div class="post-intro">
+      I wrote this at some point between frustration and clarity &mdash; which, honestly, is where most of my best thinking happens. I almost didn't post it. It's long. It's messy in places. It goes several directions at once. But that's exactly why it needed to stay. Because that's what it actually feels like right now &mdash; to be awake, aware, and watching. This isn't a poem. It's not a research deck. It's just me, unfiltered, at the end of my patience. Take it or leave it.
+    </div>
+
+    <div class="poem-block">
+
+      <div class="poem-stanza">
+        <p>Maybe we need more woman leaders. Like men running everything all the time sucks. Maybe a healthy balance in all world powers, for a real "check" and balance. Women have been suppressed in power for years all over the world. Maybe the real change is that. Women care about people more, and know how to sustain real life with very little. Of course there will, unfortunately, be corrupt and stupid women at some point, as with men. But maybe it could be staved longer.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>Men can still direct protection &mdash; defense and offense, logistics and all things left-brained as the world is already run on. The transition can be smooth and it can be an opportunity for learning and teaching amongst governments. But mixing in more natural empathy, prioritizing civilians' wellbeing and making sure we are happily placed in works and purpose-driven work, education, and business that's not always self-serving or leads to constant greed &mdash; could actually be a good thing.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>Idk. Lots of men with mommy issues in power. I'm just saying.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>Just a stray thought, because it's not just an American issue, but a global issue, when it comes to holding power. Lots of men run regimes all over the world for ages now. I know a few countries have women leaders and prime ministers and hell there was Queen E. But there are so many women who are naturally BUILT for these types of things and the only way we can show it, is in supporting positions. Like supporting actors in a movie. What a joke sometimes. The voice of reason gets snuffed out.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>Imagine the opportunities lost to women because of old and outdated beliefs and traditions? I pray that changes. And I hope a Black woman leads the charge of America one day. Not someone like Kamala. A real authentic, brilliant strategist and political relations expert, who not only says what we need to hear but follows through and makes sure to do so with her team.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>If Americans weren't so subconsciously &mdash; or consciously &mdash; infected with racism to some degree, or so willing to turn a blind eye for the residual white privilege they have every race fighting each other for, we'd have real change. We'd have better communities. We would know how to do more with less because our Black communities have been blueprints for both poverty and wealth, ON TOP of systemic racism and oppression. Imagine if the world actually applied that same energy to the global community?</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>The world would look incredibly different. And it would be better.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>But instead, we have men in power who are threatened by the idea of sharing it. Men who mistake cruelty for strength. Men who call women "emotional" while crashing economies on ego. Men who have never had to stretch a dollar, never had to raise a child, never had to navigate a world that was never built for them &mdash; making every decision about how the rest of us live.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>I'm tired. But I'm not done. And I don't think you are either.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>That's why this library exists. Not to complain. To document. To prove. To hand the next generation something real instead of a carefully crafted lie.</p>
+      </div>
+
+      <div class="poem-stanza">
+        <p>We deserve better. All of us. And some of us are building it &mdash; right now &mdash; with whatever we have.</p>
+      </div>
+
+    </div><!-- /poem-block -->
+
+    <div class="post-outro">
+      If any of this landed &mdash; good. If it made you uncomfortable &mdash; even better. The library exists because this feeling needed somewhere to go besides a caption. Go use it.
+    </div>
+
+    <div class="sign-off">- IPJ</div>
+
+  </div><!-- /post-block -->
+
+  <!-- TEASER: POST 04 -->
+  <div class="teaser-card">
+    <p class="teaser-label">Coming Soon</p>
+    <p class="teaser-title">Post No. 04</p>
+    <p class="teaser-sub">More from the notebook. More from the in-between. Stay close.</p>
+  </div>
+
+  <!-- BMC -->
+  <div class="bmc-bar">
+    <p>This project is free and will stay free. If it moves you, a coffee keeps the work going.</p>
+    <a href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">&#x2615; Buy Me a Coffee</a>
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  The Convergence Project &nbsp;&middot;&nbsp; EE9 LLC &nbsp;&middot;&nbsp; A Spoken Space
+</footer>
+
+<a class="back-top" id="backTop" href="#top" aria-label="Back to top">&#x2191;</a>
+
+<script>
+  const btn = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 600);
+  }, { passive: true });
+</script>
+
+</body>
+</html>

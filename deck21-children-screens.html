@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 21 -- Children &amp; Screens: The Rewiring - The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230D0D0D' stroke='%23C9A84C' stroke-width='6'/><text x='50' y='67' font-size='52' text-anchor='middle' fill='%23C9A84C' font-family='serif'>C</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --cyan:#5BA8C8;--cyan-dim:rgba(91,168,200,0.12);--cyan-mid:rgba(91,168,200,0.5);
+  --red:#C87474;--orange:#F4C08A;--green:#6FA882;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(91,168,200,0.06) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--cyan);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--cyan);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--cyan);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--cyan-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--cyan);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--cyan);padding:24px 28px;background:var(--cyan-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.evidence-box{background:var(--b3);border:1px solid #1f1f1f;padding:24px;border-radius:2px;margin-bottom:16px;}
+.evidence-label{font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
+.evidence-label.strong{color:var(--red);}
+.evidence-label.moderate{color:var(--orange);}
+.evidence-label.weak{color:var(--green);}
+.evidence-text{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.footer-copy{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="deck-label">Vol. 5 &bull; Deck 21 &bull; Technology &amp; Youth</div>
+  <h1 class="hero-title">Children &amp; Screens:<br><span>The Rewiring</span></h1>
+  <p class="hero-sub">The largest uncontrolled experiment on child development in human history is seven years old. We still don't fully know the results.</p>
+  <div class="hero-stat-big">4.8hr</div>
+  <div class="hero-stat-label">Average daily screen time for children ages 8-12 &mdash; Common Sense Media 2025</div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">How Much Screen Time<br>Are Children <span>Actually Getting?</span></h2>
+  <p class="section-body">Screen time has increased dramatically in every age group since 2015, with an acceleration during and after COVID-19 school closures. For the first time, Common Sense Media documented meaningful screen exposure beginning at age two. The numbers are not what most parents estimate their children are actually doing.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">4.8hr</div><div class="stat-label">Daily Screen Time Ages 8-12</div><div class="stat-note">Up from 4.4hr in 2019 &mdash; Common Sense Media 2025</div></div>
+    <div class="stat-card"><div class="stat-number">8.4hr</div><div class="stat-label">Daily Screen Time Ages 13-18</div><div class="stat-note">Exceeds recommended sleep time &mdash; Common Sense Media 2025</div></div>
+    <div class="stat-card"><div class="stat-number">2x</div><div class="stat-label">Low-Income Kids' Screen Time vs. High-Income</div><div class="stat-note">3h 48m vs. 1h 52m (ages 0-8) &mdash; Common Sense Media</div></div>
+    <div class="stat-card"><div class="stat-number">Age 2</div><div class="stat-label">When Meaningful Digital Exposure Begins</div><div class="stat-note">First documented landmark for consistent screen engagement &mdash; Common Sense Media 2025</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Average Daily Screen Time by Age Group (Hours Per Day, 2015-2025)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: Common Sense Media "Digital Childhood Starts at Age Two" 2025; American Academy of Pediatrics screen time data; COVID period (2020-2021) showed 50-100% increases across all age groups that have only partially reversed.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">What the Research<br>Actually Shows</h2>
+  <p class="section-body">The science on screen time and child development is real but more nuanced than the headlines suggest. Some effects are well-established across multiple independent studies. Others are contested or confounded by socioeconomic factors, pre-existing conditions, and the type of screen use involved. Here is an honest map of what we know and don't know.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="evidence-box">
+        <div class="evidence-label strong">Strong Evidence</div>
+        <div class="evidence-text">Blue light from screens suppresses melatonin production, with children experiencing roughly 2x the suppression effect of adults. This directly impairs sleep onset and duration.</div>
+      </div>
+      <div class="evidence-box">
+        <div class="evidence-label strong">Strong Evidence</div>
+        <div class="evidence-text">The mere presence of a smartphone on a desk reduces available cognitive capacity in tests &mdash; even with the phone face-down and silent (Ward et al., 2017, U Chicago).</div>
+      </div>
+      <div class="evidence-box">
+        <div class="evidence-label strong">Strong Evidence</div>
+        <div class="evidence-text">Social media platforms' own internal research (Haugen documents, 2021) showed Instagram made 1 in 3 teen girls feel worse about their bodies. Facebook suppressed this research.</div>
+      </div>
+    </div>
+    <div>
+      <div class="evidence-box">
+        <div class="evidence-label moderate">Moderate Evidence</div>
+        <div class="evidence-text">CDC (2025) found teens with 4+ hours daily screen time were 3x more likely to report depression symptoms vs. those with under 1 hour. Causality direction is still debated.</div>
+      </div>
+      <div class="evidence-box">
+        <div class="evidence-label moderate">Moderate Evidence</div>
+        <div class="evidence-text">NIH ABCD Study found structural brain differences in children with higher screen time &mdash; particularly in areas governing attention. Long-term consequences are still being tracked.</div>
+      </div>
+      <div class="evidence-box">
+        <div class="evidence-label weak">Contested Evidence</div>
+        <div class="evidence-text">Odgers (Nature, 2024) argues that much screen-time harm research fails to control for pre-existing mental health conditions and socioeconomic stress. The correlation may reflect who uses screens heavily, not what screens do.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Mental Health Outcomes by Daily Screen Time Level &mdash; U.S. Teens Ages 13-17 (CDC NHIS 2025)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: CDC Preventing Chronic Disease 2025 &mdash; "Associations Between Screen Time Use and Health Outcomes Among U.S. Teenagers." N=7,707. Outcomes include self-reported depression, anxiety, sleep problems, and low academic performance. Results are correlational.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The Documents They<br><span>Didn't Want Public</span></h2>
+  <p class="section-body">In 2021, Facebook whistleblower Frances Haugen released tens of thousands of internal documents. They showed that Meta knew Instagram was psychologically harmful to teenage girls, had the data to prove it, and chose engagement metrics over user wellbeing. This was not a bug &mdash; it was a design decision.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">1/3</div><div class="stat-label">Teen Girls Instagram Made Feel Worse</div><div class="stat-note">About their bodies &mdash; Meta's own internal research (Haugen documents 2021)</div></div>
+    <div class="stat-card"><div class="stat-number">6%</div><div class="stat-label">U.S. Teen Girls Who Traced Suicidal Ideation to Instagram</div><div class="stat-note">Meta internal slide deck, never published voluntarily</div></div>
+    <div class="stat-card"><div class="stat-number">40min</div><div class="stat-label">More Daily Use from Autoplay Alone</div><div class="stat-note">YouTube's internal estimate of how much autoplay increases session length</div></div>
+    <div class="stat-card"><div class="stat-number">$0</div><div class="stat-label">Paid to Users for Their Attention Data</div><div class="stat-note">Platforms monetize user behavior data; users receive no compensation or meaningful consent</div></div>
+  </div>
+
+  <div class="callout">
+    <p>The business model is attention. Every feature &mdash; infinite scroll, autoplay, notifications, algorithmic feeds &mdash; is designed by behavioral scientists whose job is to maximize time-on-platform. Children are not the customer. Children are the product being refined and delivered to advertisers.</p>
+    <div class="callout-source">Frances Haugen Congressional Testimony, October 2021; Tristan Harris, Center for Humane Technology</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Teen Girls' Self-Reported Body Image and Mental Health Impact by Platform (% Reporting Negative Impact, Meta Internal Research 2019-2020)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: Meta internal research documents released by Frances Haugen (2021); Wall Street Journal "Facebook Knows Instagram Is Toxic for Teen Girls" (September 2021). These figures were not voluntarily published by Meta.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">Sleep, Attention,<br>and the <span>Developing Brain</span></h2>
+  <p class="section-body">The brain does not finish developing until approximately age 25. The prefrontal cortex &mdash; responsible for impulse control, decision-making, and attention regulation &mdash; is the last region to mature. Designing products to exploit dopamine feedback loops in children is not a metaphor. It is a precise, documented engineering strategy applied to the least neurologically equipped audience possible.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Sleep Duration Decline in U.S. Children &amp; Adolescents vs. Screen Time Increase (2010-2024, Indexed)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: Sleep Foundation pediatric sleep data; National Sleep Foundation guidelines; American Academy of Pediatrics. Sleep indexed to 2010 baseline of recommended hours. Screen time indexed to 2010 Common Sense Media baseline. Inverse relationship shown is statistically significant across multiple studies.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">2x</div><div class="stat-label">Melatonin Suppression in Children</div><div class="stat-note">vs. adults from same blue light exposure &mdash; Sleep Foundation</div></div>
+    <div class="stat-card"><div class="stat-number">57%</div><div class="stat-label">Teens Not Getting Enough Sleep</div><div class="stat-note">Defined as less than 8 hours for ages 13-17 &mdash; CDC 2023</div></div>
+    <div class="stat-card"><div class="stat-number">3x</div><div class="stat-label">Higher ADHD Symptom Rate at 4+hr Daily Screen</div><div class="stat-note">Nature Translational Psychiatry 2025 &mdash; with structural brain differences confirmed</div></div>
+    <div class="stat-card"><div class="stat-number">25</div><div class="stat-label">Age When Prefrontal Cortex Fully Develops</div><div class="stat-note">The brain region targeted by engagement design is the last to mature</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">What Governments<br>Are Actually Doing</h2>
+  <p class="section-body">The global policy response to children and screens is accelerating, but it is fragmented. Phone bans in schools are spreading rapidly across Europe and Australia. The U.S. response has been slower and more industry-influenced. The evidence on school bans specifically is encouraging.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Countries / Jurisdictions with School Phone Bans or Restrictions (2019-2025)</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: UNESCO "Phone Bans in Schools Are Spreading Worldwide" 2024; Lancet SMART Schools study 2025. Lancet study found schools that banned phones saw a 20% improvement in teen wellbeing scores after one academic year compared to control schools.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Teen Depression and Anxiety Rates Before &amp; After School Phone Bans &mdash; SMART Schools Study (Lancet 2025)</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: The Lancet Regional Health &mdash; "School Phone Policies and Their Association with Mental Wellbeing" (SMART Schools, 2025). Randomized controlled trial across 30 UK schools. Phone ban schools vs. control schools measured at baseline and 12-month follow-up.</div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Common Sense Media &mdash; Digital Childhood Starts at Age Two: Landmark Study Shows Evolution of Young Children's Media Use (2025) &mdash; <a href="https://www.commonsensemedia.org" target="_blank">commonsensemedia.org</a></div>
+    <div class="source-item">CDC &mdash; Associations Between Screen Time Use and Health Outcomes Among U.S. Teenagers (Preventing Chronic Disease, 2025) &mdash; <a href="https://www.cdc.gov/pcd/issues/2025/24_0537.htm" target="_blank">cdc.gov</a></div>
+    <div class="source-item">Ward et al. &mdash; Brain Drain: The Mere Presence of One's Own Smartphone Reduces Available Cognitive Capacity &mdash; Journal of the Association for Consumer Research, 2017 &mdash; <a href="https://www.journals.uchicago.edu/doi/full/10.1086/691462" target="_blank">journals.uchicago.edu</a></div>
+    <div class="source-item">NIH MedlinePlus &mdash; What Is All That Screen Time Doing to Your Child's Brain? (NIH ABCD Study) &mdash; <a href="https://magazine.medlineplus.gov/article/what-is-all-that-screen-time-doing-to-your-childs-brain" target="_blank">medlineplus.gov</a></div>
+    <div class="source-item">Nature / Translational Psychiatry &mdash; Association of Screen Time with ADHD Symptoms: Mediating Role of Brain Structure (2025) &mdash; <a href="https://www.nature.com/articles/s41398-025-03672-1" target="_blank">nature.com</a></div>
+    <div class="source-item">Frances Haugen Congressional Testimony &mdash; October 2021; Wall Street Journal / NEA documentation &mdash; <a href="https://www.nea.org/nea-today/all-news-articles/facebook-whistleblower-frances-haugen-educators-students-can-lead-social-media-reform" target="_blank">nea.org</a></div>
+    <div class="source-item">Nature &mdash; The Great Rewiring: Is Social Media Really Behind an Epidemic of Teenage Mental Illness? (Odgers, March 2024) &mdash; <a href="https://www.nature.com/articles/d41586-024-00902-2" target="_blank">nature.com</a></div>
+    <div class="source-item">The Lancet Regional Health &mdash; School Phone Policies and Their Association with Mental Wellbeing (SMART Schools, 2025) &mdash; <a href="https://www.thelancet.com/journals/lanepe/article/PIIS2666-7762(25)00003-1/fulltext" target="_blank">thelancet.com</a></div>
+    <div class="source-item">UNESCO &mdash; Phone Bans in Schools Are Spreading Worldwide as the Policy Debate Rages On &mdash; <a href="https://www.unesco.org/gem-report/en/articles/phone-bans-schools-are-spreading-worldwide-policy-debate-rages" target="_blank">unesco.org</a></div>
+    <div class="source-item">Sleep Foundation &mdash; How Does Blue Light Affect Children's Sleep? &mdash; <a href="https://www.sleepfoundation.org/children-and-sleep/how-blue-light-affects-kids-sleep" target="_blank">sleepfoundation.org</a></div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck20-lgbtq.html">&larr; Deck 20: LGBTQ+ Rights</a>
+    <a href="index.html">Library Home</a>
+    <a href="deck22-food-system.html">Deck 22: The Food System &rarr;</a>
+  </div>
+  <div class="footer-copy">The Convergence Project &mdash; Free Civic Research Library &mdash; Ebony Enterprises 9 LLC</div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var cyan = '#5BA8C8';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var orange = '#F4C08A';
+var green = '#6FA882';
+var dimGrid = 'rgba(255,255,255,0.06)';
+Chart.defaults.color = cream;
+Chart.defaults.font.family = 'Raleway';
+
+// Chart 1 - Screen time by age group over time
+new Chart(document.getElementById('c1'), {
+  type: 'line',
+  data: {
+    labels: ['2015','2017','2019','2021','2023','2025'],
+    datasets: [
+      { label: 'Ages 0-2 (hrs/day)', data: [0.8, 1.0, 1.2, 2.1, 1.8, 2.0], borderColor: green, tension: 0.4, fill: false },
+      { label: 'Ages 2-5 (hrs/day)', data: [2.1, 2.4, 2.7, 4.2, 3.5, 3.8], borderColor: gold, tension: 0.4, fill: false },
+      { label: 'Ages 8-12 (hrs/day)', data: [3.1, 3.6, 4.4, 7.7, 5.2, 4.8], borderColor: cyan, backgroundColor: 'rgba(91,168,200,0.06)', tension: 0.4, fill: true },
+      { label: 'Ages 13-18 (hrs/day)', data: [5.8, 6.5, 7.2, 10.0, 8.8, 8.4], borderColor: red, tension: 0.4, fill: false }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + 'hr'; } } }
+    }
+  }
+});
+
+// Chart 2 - Mental health by screen time level
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {
+    labels: ['Under 1hr/day', '1-2hrs/day', '2-4hrs/day', '4+ hrs/day'],
+    datasets: [
+      { label: 'Depressive Symptoms %', data: [9.5, 14.2, 19.8, 25.9], backgroundColor: red, borderWidth: 0, borderRadius: 2 },
+      { label: 'Sleep Problems %', data: [18.0, 24.5, 33.2, 48.7], backgroundColor: cyan, borderWidth: 0, borderRadius: 2 },
+      { label: 'Low Academic Performance %', data: [12.0, 16.8, 22.4, 34.1], backgroundColor: orange, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } } }
+    }
+  }
+});
+
+// Chart 3 - Meta internal research - platform negative impact on teen girls
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['Instagram', 'TikTok', 'Snapchat', 'YouTube', 'Facebook'],
+    datasets: [{
+      label: '% Teen Girls Reporting Negative Body Image Impact',
+      data: [32, 28, 22, 14, 12],
+      backgroundColor: [red, orange, cyan, gold, green],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } } }
+    }
+  }
+});
+
+// Chart 4 - Sleep vs screen time indexed
+new Chart(document.getElementById('c4'), {
+  type: 'line',
+  data: {
+    labels: ['2010','2012','2014','2016','2018','2020','2022','2024'],
+    datasets: [
+      { label: 'Teen Average Sleep Duration (Indexed, 2010=100)', data: [100, 98, 96, 92, 88, 83, 84, 86], borderColor: cyan, backgroundColor: 'rgba(91,168,200,0.06)', tension: 0.4, fill: true },
+      { label: 'Average Daily Screen Time (Indexed, 2010=100)', data: [100, 115, 132, 158, 182, 248, 210, 220], borderColor: red, backgroundColor: 'transparent', tension: 0.4, borderDash: [5,5] }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream }, title: { display: true, text: 'Index (2010 = 100)', color: cream } }
+    }
+  }
+});
+
+// Chart 5 - Countries with phone bans over time
+new Chart(document.getElementById('c5'), {
+  type: 'bar',
+  data: {
+    labels: ['2019','2020','2021','2022','2023','2024','2025'],
+    datasets: [{
+      label: 'Jurisdictions with School Phone Restrictions',
+      data: [3, 5, 8, 14, 22, 41, 67],
+      backgroundColor: cyan,
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+// Chart 6 - Before/after phone ban mental health
+new Chart(document.getElementById('c6'), {
+  type: 'bar',
+  data: {
+    labels: ['Anxiety (Ban Schools)', 'Anxiety (Control Schools)', 'Depression (Ban Schools)', 'Depression (Control Schools)', 'Wellbeing Score (Ban)', 'Wellbeing Score (Control)'],
+    datasets: [
+      { label: 'Baseline', data: [38, 37, 29, 28, 61, 62], backgroundColor: 'rgba(91,168,200,0.3)', borderWidth: 0, borderRadius: 2 },
+      { label: '12 Months Later', data: [26, 36, 19, 27, 74, 64], backgroundColor: cyan, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%/pts'; } } }
+    }
+  }
+});
+</script>
+
+<!-- STANDARD DECK FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck20-lgbtq.html">&larr; Deck 20: LGBTQ+ Rights</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck22-food-system.html">Deck 22: Food System &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+</body>
+</html>

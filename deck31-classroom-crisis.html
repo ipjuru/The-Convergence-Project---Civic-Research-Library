@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 31 -- Classroom Crisis: K-12, Teachers &amp; Students Left Behind - The Convergence Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --rust:#B85C38;--rust-dim:rgba(184,92,56,0.12);--rust-mid:rgba(184,92,56,0.5);
+  --red:#C87474;--blue:#8B9EC8;--green:#6FA882;--orange:#F4C08A;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(184,92,56,0.07) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--rust);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--rust);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--rust);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--rust-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--rust);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--rust);padding:24px 28px;background:var(--rust-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.bmc-bar-footer{display:flex;align-items:center;gap:20px;justify-content:center;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.15);border-radius:2px;padding:20px 28px;margin:24px auto;max-width:700px;flex-wrap:wrap;}
+.bmc-icon-f{font-size:28px;}
+.bmc-text-f{flex:1;min-width:200px;text-align:left;}
+.bmc-headline-f{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:4px;}
+.bmc-sub-f{font-family:'Raleway',sans-serif;font-size:11px;color:var(--cream-faint);}
+.bmc-btn-f{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:10px 20px;text-decoration:none;border-radius:2px;white-space:nowrap;}
+.footer-copy-bar{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);text-transform:uppercase;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="deck-label">Deck 31 &mdash; K&ndash;12 Education</div>
+  <h1 class="hero-title">Classroom<br><span>Crisis</span></h1>
+  <p class="hero-sub">K&ndash;12 in Freefall: Teachers Underpaid, Students Left Behind</p>
+  <div class="hero-stat-big">73&cent;</div>
+  <div class="hero-stat-label">On the Dollar &mdash; What Teachers Earn Compared to Equally Educated Professionals &mdash; A Record 26.9% Penalty</div>
+</div>
+
+<!-- SECTION 1: TEACHER SHORTAGE -->
+<section class="section">
+  <h2 class="section-title">The Teacher Shortage Is Real, <span>Deep, and Getting Worse</span></h2>
+  <p class="section-body">American public education faces a structural staffing crisis. The Learning Policy Institute's June 2025 scan found 411,549 teaching positions that are either unfilled or filled by under-certified educators &mdash; approximately 1 in 8 teaching positions nationwide. Of these, 45,582 positions remain completely unfilled across 31 reporting states. Another 365,967 teachers are working without full certification for their assigned subjects. The pipeline itself is collapsing: enrollment in teacher preparation programs has declined 35% since 2010.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">411K</div>
+      <div class="stat-label">Teaching Positions Unfilled or Under-Certified (2025)</div>
+      <div class="stat-note">~1 in 8 positions nationwide. Source: Learning Policy Institute, June 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">86%</div>
+      <div class="stat-label">Of School Districts Struggling to Fill Positions</div>
+      <div class="stat-note">Hardest hit: special education (45 states), science (41), math (40). Source: College Transitions 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">35%</div>
+      <div class="stat-label">Decline in Teacher Preparation Enrollment Since 2010</div>
+      <div class="stat-note">340,000 fewer students entering teaching programs vs. a decade ago. Source: CAP / NCTQ</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">14&ndash;16%</div>
+      <div class="stat-label">Post-Pandemic Annual Teacher Turnover (Measured States)</div>
+      <div class="stat-note">Up from ~8% baseline. 23% show some instability annually. Source: Teachers of Tomorrow / ER Strategies</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>The widely cited "50% of teachers leave within 5 years" figure comes from a 2003 study and has been contradicted by the NCES Beginning Teacher Longitudinal Study, which tracked individual teachers and found only 17% left after 5 years. The current annual leaver rate is approximately 8% &mdash; comparable to social workers and accountants. The real crisis is not mass exodus. It's that too few new teachers are entering to replace those who do leave.</p>
+    <div class="callout-source">NEA &mdash; Teacher Turnover Much Lower Than You Think; Education Next 2024; NCES BTLS Longitudinal Study</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 2: PAY PENALTY -->
+<section class="section">
+  <h2 class="section-title">Teachers Earn <span>73 Cents on the Dollar &mdash; A Record Penalty</span></h2>
+  <p class="section-body">The Economic Policy Institute's September 2025 report documented that the teacher pay penalty hit a record 26.9% in 2024 &mdash; meaning teachers earn 73.1 cents for every dollar earned by similarly educated and experienced professionals in other fields. In 1996, that gap was just 6.1%. Even including benefits, the total compensation gap stands at -17.1%. Over the past 28 years, teachers' real weekly wages increased just $29 &mdash; while other college graduates' wages rose over 30%.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">-26.9%</div>
+      <div class="stat-label">Teacher Pay Penalty (2024 Record)</div>
+      <div class="stat-note">Up from -6.1% in 1996. Including benefits: -17.1%. Source: EPI September 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$72,030</div>
+      <div class="stat-label">National Average Teacher Salary (2023&ndash;24)</div>
+      <div class="stat-note">Inflation-adjusted: 5.1% less than a decade ago. Starting salary avg: $46,526. Source: NEA 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1 in 6</div>
+      <div class="stat-label">Teachers Working a Second Job</div>
+      <div class="stat-note">4x the national average across all professions. Including school-based supplemental roles: 59%. Source: Pew, July 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$47K</div>
+      <div class="stat-label">Salary Gap Between Highest and Lowest States</div>
+      <div class="stat-note">California: $101,084 avg. Mississippi: $53,704 avg. Source: NEA 2024</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Teacher Pay Penalty vs. Other Professionals: 1996&ndash;2024 (%)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: Economic Policy Institute &mdash; Teacher Pay in 2024: The Teacher Pay Penalty Hit a Record High (September 2025); CEPR Teacher Pay Penalty series. Penalty is wage-only gap between teachers and similarly educated/experienced non-teachers. With benefits included, gap narrows to -17.1%. Worst state: Colorado (-38.5%). Best state: Rhode Island (-10%).</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 3: STUDENT OUTCOMES -->
+<section class="section">
+  <h2 class="section-title">Two in Three 8th Graders <span>Can't Read at Grade Level</span></h2>
+  <p class="section-body">The 2024 National Assessment of Educational Progress (NAEP), released January 29, 2025, confirmed that the pandemic-era learning crisis has not resolved &mdash; and in reading, it's getting worse. The results represent the most comprehensive picture of K-12 achievement in America, and they are not improving.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">30%</div>
+      <div class="stat-label">8th Graders Reading at or Above Proficient (2024)</div>
+      <div class="stat-note">33% scored below NAEP Basic &mdash; the highest share in 32 years of assessment. Source: NAEP / NAGB 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">27%</div>
+      <div class="stat-label">8th Graders Proficient in Math (2024)</div>
+      <div class="stat-note">Down from 33% pre-pandemic. No state improved in 8th-grade math. Source: NAEP 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">45%</div>
+      <div class="stat-label">High School Seniors Below Basic in Math (2025)</div>
+      <div class="stat-note">Highest share ever recorded for 12th grade. Source: NAEP / Chalkbeat September 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">465</div>
+      <div class="stat-label">U.S. PISA Math Score (2022)</div>
+      <div class="stat-note">Below OECD average of 472 &mdash; among the lowest ever measured for the U.S. Source: OECD PISA 2022</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">NAEP Reading &amp; Math Proficiency Rates: 4th and 8th Grade, 2019 vs. 2024 (%)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: National Assessment of Educational Progress (NAEP) 2024, released January 29, 2025. NAGB press release: "Nation's Report Card: Decline in Reading, Progress in Math." NCES Associate Commissioner Daniel McGrath noted "continued declines since the pandemic suggest we're facing complex challenges that cannot be fully explained by the impact of COVID-19." Reading declines began before the pandemic.</div>
+  </div>
+
+  <div class="callout">
+    <p>The achievement gap is widening in the wrong direction. Higher-performing students drove most gains in 2024; lower-performing students saw flat or declining scores. Hispanic 8th graders dropped 5 points in reading and 3 in math from 2022 to 2024. No state saw reading gains in either grade compared to 2022. Twelve years of NAEP data now show a consistent direction: down.</p>
+    <div class="callout-source">NAGB &mdash; 10 Takeaways from 2024 NAEP Results; K-12 Dive 2025; Hechinger Report 2025</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 4: CHRONIC ABSENTEEISM -->
+<section class="section">
+  <h2 class="section-title">Chronic Absenteeism: <span>From Crisis to Catastrophe</span></h2>
+  <p class="section-body">Chronic absenteeism &mdash; missing 10% or more of school days (18+ days per year) &mdash; nearly doubled from pre-pandemic levels and shows no sign of returning to baseline. The American Enterprise Institute warned in June 2025 that rates "may never fully return" to pre-pandemic levels.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">24%</div>
+      <div class="stat-label">Students Chronically Absent (2023&ndash;24)</div>
+      <div class="stat-note">8.6 million students. ~155 million cumulative school days missed. Down from 28% peak but no state at pre-pandemic levels. Source: Reason Foundation 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">15%</div>
+      <div class="stat-label">Pre-Pandemic Baseline Chronic Absenteeism (2018&ndash;19)</div>
+      <div class="stat-note">Nearly doubled during pandemic. Closest to baseline now: Alabama and Virginia at 15% &mdash; still 4 points above. Source: AEI 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">43%</div>
+      <div class="stat-label">Alaska's Chronic Absenteeism Rate &mdash; Worst in Nation</div>
+      <div class="stat-note">In ~half of urban districts, over 30% of students remain chronically absent as of 2024&ndash;25. Source: RAND 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">39%</div>
+      <div class="stat-label">Chronic Absenteeism Rate for Black Students</div>
+      <div class="stat-note">Hispanic: 36%, White: 24%, Asian: 16%. Crisis cuts across economic lines. Source: AEI 2025</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 5: FUNDING INEQUALITY -->
+<section class="section">
+  <h2 class="section-title">Property Taxes Create <span>Separate and Unequal Schools</span></h2>
+  <p class="section-body">The U.S. school funding model ties educational resources to neighborhood wealth through property taxes, creating enormous per-pupil spending disparities. In 1973, the Supreme Court ruled 5&ndash;4 in <em>San Antonio v. Rodriguez</em> that education is not a fundamental right under the U.S. Constitution &mdash; pushing all school finance litigation to state courts and leaving the structural inequality intact for over 50 years.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="stat-card" style="margin-bottom:20px;">
+        <div class="stat-number">$29,873</div>
+        <div class="stat-label">New York Per-Pupil Spending (Highest)</div>
+        <div class="stat-note">National average: $15,633. Source: U.S. Census Bureau FY2022</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$9,552</div>
+        <div class="stat-label">Utah Per-Pupil Spending (Lowest)</div>
+        <div class="stat-note">$20,000+ gap between highest and lowest spending states. Source: U.S. Census Bureau FY2022</div>
+      </div>
+    </div>
+    <div>
+      <div class="stat-card" style="margin-bottom:20px;">
+        <div class="stat-number">$23B</div>
+        <div class="stat-label">Extra Funding White Districts Receive Over Nonwhite Districts</div>
+        <div class="stat-note">Serving roughly the same number of students. $2,226 per-student gap. Source: EdBuild 2019</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2%</div>
+        <div class="stat-label">Title I Share of Total K-12 Spending</div>
+        <div class="stat-note">~$316 per pupil nationally. Does not begin to close the structural funding gap. Source: NCES</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Per-Pupil Spending by State: Highest vs. Lowest (FY2022, USD)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: U.S. Census Bureau &mdash; Public School Spending Per Pupil (2024 release, FY2022 data). National average: $15,633. Funding breakdown: ~47.5% state, ~44.9% local (primarily property taxes), ~7.6% federal. EdBuild 2019: nonwhite high-poverty districts receive $1,487 less per student than white districts at same poverty level.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 6: TESTING INDUSTRY -->
+<section class="section">
+  <h2 class="section-title">The Testing Industry: <span>$13 Billion Growing While Outcomes Fall</span></h2>
+  <p class="section-body">The U.S. K-12 testing and assessment market is estimated at $12.7&ndash;$13.85 billion globally (2023&ndash;2024), projected to reach $27&ndash;32 billion by 2032. Research consistently shows that intensive test preparation does not translate to broader skill mastery &mdash; and may actively harm it. UC Davis researcher Megan Welsh found that standardized testing decreased instructional quality even in high-performing districts, as teachers who spent substantial time on test prep showed lower teaching quality during those periods than during regular instruction.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">$1B+</div>
+      <div class="stat-label">College Board Annual Revenue</div>
+      <div class="stat-note">Tax-exempt nonprofit. CEO David Coleman: $2.07M in FY2023 compensation. 19+ execs earn $300K+. Net assets up 163% since 2011.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$500M</div>
+      <div class="stat-label">College Board AP Program Revenue (Estimate)</div>
+      <div class="stat-note">~5 million exams at $99 each. Source: College Board IRS Form 990</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$240.7M</div>
+      <div class="stat-label">ACT Inc. Revenue (2023)</div>
+      <div class="stat-note">Pearson plc dominates state testing contracts with $1.2B U.S. assessment business and 99% customer retention.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$32B</div>
+      <div class="stat-label">Projected K-12 Testing Market by 2032</div>
+      <div class="stat-note">Up from $13.85B today. Source: Grand View Research / SNS Insider</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 7: BOOK BANS -->
+<section class="section">
+  <h2 class="section-title">Book Bans Surged to <span>Nearly 23,000 Since 2021</span></h2>
+  <p class="section-body">PEN America has documented nearly 23,000 instances of book bans across 45 states and 451 public school districts since 2021 &mdash; an unprecedented escalation with no historical parallel in peacetime America. In the 2024&ndash;25 school year alone, 6,870 instances affected 3,752 unique titles across 23 states and 87 districts.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">23,000</div>
+      <div class="stat-label">Book Ban Instances Since 2021</div>
+      <div class="stat-note">45 states, 451 districts. 2024&ndash;25 alone: 6,870 instances, 3,752 unique titles. Source: PEN America 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">80%</div>
+      <div class="stat-label">Of Bans Concentrated in 3 States</div>
+      <div class="stat-note">Florida (2,304), Texas (1,781), Tennessee (1,622). Source: PEN America 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1,247</div>
+      <div class="stat-label">Censorship Attempts Recorded by ALA in 2023 (Record)</div>
+      <div class="stat-note">Compared to under 300 annually from 2001&ndash;2020. Source: American Library Association 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">72%</div>
+      <div class="stat-label">Of Demands From Groups and Officials, Not Individual Parents</div>
+      <div class="stat-note">Only 16% from individual parents. Moms for Liberty founded 2021 has driven hundreds of challenges. Source: PEN America / ALA</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>The most commonly banned authors include Stephen King (206 instances), Ellen Hopkins (167), and Sarah J. Maas (162). Targeted books predominantly feature themes of race/racism, sexuality, gender identity, and sexual violence. In 2023&ndash;24, 44% of the most frequently banned books featured people of color; 39% featured LGBTQ+ characters. Illinois became the first state to pass a law protecting against book bans (effective January 2024).</p>
+    <div class="callout-source">PEN America &mdash; Banned in the USA: School Book Bans, 2024&ndash;25; American Library Association State of the Field 2024</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 8: SPECIAL EDUCATION -->
+<section class="section">
+  <h2 class="section-title">Special Education: <span>Promised 40%, Getting Less Than 13%</span></h2>
+  <p class="section-body">When Congress passed the Individuals with Disabilities Education Act (IDEA) in 1975, it committed to funding 40% of the average per-pupil expenditure for the excess costs of special education. In nearly 50 years, the federal government has never come close. Current funding sits at less than 13% &mdash; briefly touching 20% only once, in 2009, through stimulus spending. The nationwide annual shortfall: $23.92 billion.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">&lt;13%</div>
+      <div class="stat-label">Actual Federal IDEA Funding vs. Promised 40%</div>
+      <div class="stat-note">Annual shortfall: $23.92 billion. Never met 40% target in ~50 years. Source: Congressional Research Service</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">7M</div>
+      <div class="stat-label">Students Receiving Special Education Services</div>
+      <div class="stat-note">~14&ndash;15% of all public school students. Source: IDEA / NCES</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">21%</div>
+      <div class="stat-label">Public Schools Not Fully Staffed in Special Ed (2023&ndash;24)</div>
+      <div class="stat-note">Higher than any other teaching specialty. 80% of districts cite it as their most severe staffing gap. Source: K-12 Lens Report 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$23.92B</div>
+      <div class="stat-label">Annual Federal IDEA Funding Shortfall</div>
+      <div class="stat-note">The F-35 program's $2T lifetime cost is 83x this annual shortfall. Source: Congressional Research Service</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 9: SCHOOL TO PRISON -->
+<section class="section">
+  <h2 class="section-title">The School-to-Prison Pipeline: <span>Documented, Preventable, Persistent</span></h2>
+  <p class="section-body">The school-to-prison pipeline describes the policies and practices that push students &mdash; disproportionately students of color and students with disabilities &mdash; out of schools and into the justice system. The disparities are stark, federally documented, and decades old. The solutions are known. The will to implement them remains absent in most jurisdictions.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">3x</div>
+      <div class="stat-label">Rate Black Students Are Suspended vs. White Students</div>
+      <div class="stat-note">16% vs. 5%. Black girls: suspended at 6x the rate of white girls. Federal data: no evidence overrepresentation reflects higher misconduct. Source: DoE OCR Data</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">31%</div>
+      <div class="stat-label">Of School-Related Arrests Are Black Students</div>
+      <div class="stat-note">Black students represent 16% of enrollment. Source: Department of Education Civil Rights Data Collection</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1.7M</div>
+      <div class="stat-label">Students in Schools With Police but No Counselors</div>
+      <div class="stat-note">3M with police but no nurses. 10M with police but no social workers. Source: DoE 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">3x</div>
+      <div class="stat-label">More Likely to Drop Out If Suspended Once</div>
+      <div class="stat-note">Dropouts are 3x more likely to be incarcerated. California spends $64,642/inmate vs. $11,495/student. Source: ACLU / DoE research</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>Zero-tolerance policies &mdash; which expanded dramatically after the 1994 Gun-Free Schools Act and the 1999 Columbine massacre &mdash; have been found by the American Psychological Association to make schools "less safe" while producing "unintended negative consequences." Schools with School Resource Officers show 21% more incidents of exclusionary discipline. Restorative justice programs in Baltimore and New York City have shown substantial reductions in suspensions and increased graduation rates.</p>
+    <div class="callout-source">American Psychological Association Zero Tolerance Task Force; DoE OCR Data 2024; ACLU School-to-Prison Pipeline Research</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 10: CHARTERS / CHOICE / HOMESCHOOL -->
+<section class="section">
+  <h2 class="section-title">Charter Schools, Vouchers, <span>and the Question of Public Funding</span></h2>
+  <p class="section-body">Charter schools have grown to 8,140 schools serving 3.9 million students (7.8% of all public school students) in 2023&ndash;24, with enrollment more than tripling since 2005&ndash;06. Stanford's CREDO 2023 study found charter students outperform traditional public school peers by 16 additional days in reading and 6 days in math per year &mdash; an improvement from earlier research. Urban charters performed significantly better (40 extra days in math, 28 in reading). However, online charters performed significantly worse, and the results should be interpreted cautiously.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Charter School Enrollment Growth vs. Traditional Public School Enrollment (Millions of Students)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: National Alliance for Public Charter Schools &mdash; Enrollment Dashboard 2023&ndash;24; NCES Digest of Education Statistics. Traditional public school enrollment has lost ~1.8 million students since pandemic onset. Charter schools gained ~400,000. Washington D.C. leads with 45.3% of students in charters. "Stranded costs" problem: districts lose per-pupil funding but can recover only ~27% of fixed costs (Nashville study).</div>
+  </div>
+
+  <p class="section-body">The school choice movement has accelerated dramatically: 12 states now offer universal voucher or ESA programs with no income restrictions, including Arizona, Florida, Arkansas, and Iowa. Award amounts range from $6,000&ndash;$8,000 per student annually. Key funders include the Walton Family Foundation ($1.3 billion+ in K-12 over two decades), the DeVos family, and the Koch network. However, school choice ballot initiatives failed in Kentucky, Colorado, and Nebraska in 2024 &mdash; suggesting public appetite may be more limited than legislative momentum implies.</p>
+
+  <div class="callout">
+    <p>Homeschooling surged from ~3.7% of families pre-pandemic to 11.1% during peak COVID-19, settling at approximately 5.4% by 2024&ndash;25 &mdash; roughly 3.7&ndash;4.6 million students, about 1.5 million more than pre-pandemic. Demographics have diversified significantly: homeschooling among Black families rose five-fold in 2020. An Outschool survey found 47% of post-pandemic new homeschoolers self-identified as progressive or liberal. Regulation varies wildly: 11 states don't even require parents to notify anyone they're homeschooling.</p>
+    <div class="callout-source">Census Bureau HHPS 2020&ndash;21; Johns Hopkins 2024&ndash;25 Growth Data; Outschool Survey 2023</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 11: CURRICULUM WARS -->
+<section class="section">
+  <h2 class="section-title">Curriculum Wars: <span>What Students Are Allowed to Learn</span></h2>
+  <p class="section-body">The politicization of K-12 curriculum accelerated dramatically in 2020&ndash;2021. Conservative activist Christopher Rufo identified Critical Race Theory as a political wedge issue and appeared on Tucker Carlson's Fox News show in September 2020, calling CRT "an existential threat." President Trump called Rufo the next day and issued Executive Order 13950. After Biden rescinded the order, the fight moved to state legislatures. Rufo explicitly stated his strategic goal: "To get to universal school choice, you really need to operate from a premise of universal public school distrust."</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">44</div>
+      <div class="stat-label">States That Introduced Bills to Restrict CRT-Related Teaching</div>
+      <div class="stat-note">563 measures introduced 2021&ndash;22. 241 passed. Source: UCLA CRT Forward Project</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">15&ndash;20</div>
+      <div class="stat-label">States Enacting Laws Restricting Race-Based Instruction</div>
+      <div class="stat-note">Language prohibits making students "feel discomfort, guilt, or anguish" on account of race. Source: Education Week tracker</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">8</div>
+      <div class="stat-label">States Passing "Don't Say Gay"-Style Laws (2022&ndash;2024)</div>
+      <div class="stat-note">Florida's HB 1557 (2022) expanded in 2023 to cover all K-12 grades, not just K-3. Source: Education Week / ACLU</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">8,500+</div>
+      <div class="stat-label">Educators Who Pledged to "Teach the Truth"</div>
+      <div class="stat-note">Zinn Education Project. Teachers report "chilling effect" causes avoidance of slavery and Jim Crow even where not banned. Source: ZEP 2024</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 12: VOCATIONAL -->
+<section class="section">
+  <h2 class="section-title">Vocational Education: <span>Neglected for Decades, Desperately Needed Now</span></h2>
+  <p class="section-body">The "college for all" mentality that dominated U.S. education policy since the 1980s systematically defunded and stigmatized vocational education. The consequences are now visible in a severe skills gap while student debt hits $1.74 trillion and trade wages stay competitive. Federal CTE funding through the Perkins Act provides $1.44 billion annually but has remained flat since the 1990s &mdash; a 45% reduction in purchasing power after inflation, losing $900+ million in real terms.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">2.1M</div>
+      <div class="stat-label">Manufacturing Jobs Unfilled by 2030 (Projection)</div>
+      <div class="stat-note">Deloitte estimate. Construction needs ~500,000 new workers annually. 81,000 electrician openings per year &mdash; 2x all-occupation average. Source: Deloitte / BLS</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$62,970</div>
+      <div class="stat-label">Median Plumber Annual Wage</div>
+      <div class="stat-note">Electricians: $62,350. Both above national median of $49,500. Trade school debt avg: $10,000 vs. $37,850 for college. Source: BLS 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">550K</div>
+      <div class="stat-label">Projected Plumber Shortage by 2027</div>
+      <div class="stat-note">Source: industry workforce projections / PHCC. Perkins Act CTE funding: $1.44B &mdash; flat since 1990s. Source: HHS / Education Dept.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">50%</div>
+      <div class="stat-label">German Youth Who Enter Apprenticeships</div>
+      <div class="stat-note">326 recognized occupations. Contrast: U.S. overreliance on 4-year degrees with $1.74T in cumulative student debt. Source: German Federal Institute for Vocational Education</div>
+    </div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Learning Policy Institute &mdash; Overview of Teacher Shortages 2025 Factsheet (June 2025) &mdash; <a href="https://learningpolicyinstitute.org" target="_blank">learningpolicyinstitute.org</a></div>
+    <div class="source-item">Economic Policy Institute &mdash; Teacher Pay in 2024: The Teacher Pay Penalty Hit a Record High (September 2025); Teacher Pay Penalty series &mdash; <a href="https://www.epi.org" target="_blank">epi.org</a></div>
+    <div class="source-item">National Education Association &mdash; Educator Pay and Student Spending: How Does Your State Rank? 2024 &mdash; <a href="https://www.nea.org" target="_blank">nea.org</a></div>
+    <div class="source-item">Pew Research Center &mdash; About 1 in 6 U.S. Teachers Work Second Jobs (July 2025) &mdash; <a href="https://www.pewresearch.org" target="_blank">pewresearch.org</a></div>
+    <div class="source-item">NAEP / NAGB &mdash; Nation's Report Card 2024: Decline in Reading, Progress in Math (January 29, 2025); 12th Grade Results (September 2025) &mdash; <a href="https://www.nagb.gov" target="_blank">nagb.gov</a></div>
+    <div class="source-item">OECD &mdash; PISA 2022 Results, Volume I and II: Country Notes &mdash; United States &mdash; <a href="https://www.oecd.org" target="_blank">oecd.org</a></div>
+    <div class="source-item">American Enterprise Institute &mdash; Long COVID for Public Schools: Chronic Absenteeism Before and After the Pandemic (June 2025)</div>
+    <div class="source-item">Reason Foundation &mdash; Chronic Absenteeism Rates Remain Too High Years After Pandemic (2024) &mdash; <a href="https://reason.org" target="_blank">reason.org</a></div>
+    <div class="source-item">U.S. Census Bureau &mdash; Public School Spending Per Pupil (FY2022, 2024 release) &mdash; <a href="https://www.census.gov" target="_blank">census.gov</a></div>
+    <div class="source-item">EdBuild &mdash; $23 Billion: Racial Disparities in School Funding (2019) &mdash; edbuildna.org</div>
+    <div class="source-item">NCES &mdash; Fast Facts: Expenditures for Education; Beginning Teacher Longitudinal Study &mdash; <a href="https://nces.ed.gov" target="_blank">nces.ed.gov</a></div>
+    <div class="source-item">PEN America &mdash; Banned in the USA: School Book Bans 2024&ndash;25; American Library Association &mdash; State of the Field 2024 &mdash; <a href="https://pen.org" target="_blank">pen.org</a></div>
+    <div class="source-item">Congressional Research Service &mdash; IDEA Federal Funding Shortfall Analysis</div>
+    <div class="source-item">Dept. of Education Office for Civil Rights &mdash; Civil Rights Data Collection; School-to-Prison Pipeline data</div>
+    <div class="source-item">American Psychological Association &mdash; Zero Tolerance Task Force Report: Are Zero Tolerance Policies Effective in Schools?</div>
+    <div class="source-item">Grand View Research / SNS Insider &mdash; K-12 Testing and Assessment Market Report 2024</div>
+    <div class="source-item">Stanford CREDO &mdash; National Charter School Study III (2023) &mdash; <a href="https://credo.stanford.edu" target="_blank">credo.stanford.edu</a></div>
+    <div class="source-item">UCLA CRT Forward Project &mdash; Tracking Anti-CRT Legislation 2021&ndash;2022 &mdash; <a href="https://crtforward.law.ucla.edu" target="_blank">crtforward.law.ucla.edu</a></div>
+    <div class="source-item">Deloitte / Manufacturing Institute &mdash; Skills Gap and the Future of Work in Manufacturing (2024)</div>
+    <div class="source-item">Bureau of Labor Statistics &mdash; Occupational Outlook Handbook: Electricians, Plumbers; Occupational Employment Statistics 2024</div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck30-national-security-state.html">&larr; Deck 30: National Security State</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck32-college-debt-crisis.html">Deck 32: College Debt Crisis &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var rust = '#B85C38';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var blue = '#8B9EC8';
+var green = '#6FA882';
+var orange = '#F4C08A';
+var dimGrid = 'rgba(255,255,255,0.04)';
+
+// Chart 1: Pay Penalty Over Time
+new Chart(document.getElementById('c1'), {
+  type: 'line',
+  data: {
+    labels: ['1996','2000','2004','2008','2012','2016','2020','2022','2024'],
+    datasets: [{
+      label: 'Teacher Pay Penalty (% behind comparable professionals)',
+      data: [-6.1, -8.3, -11.2, -15.6, -17.0, -21.4, -23.5, -26.4, -26.9],
+      borderColor: red,
+      backgroundColor: 'rgba(200,116,116,0.08)',
+      tension: 0.3,
+      fill: true
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: {
+        grid: { color: dimGrid },
+        ticks: { color: cream, callback: function(v){ return v + '%'; } },
+        min: -35, max: 0
+      }
+    }
+  }
+});
+
+// Chart 2: NAEP Proficiency
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {
+    labels: ['4th Grade Reading', '4th Grade Math', '8th Grade Reading', '8th Grade Math'],
+    datasets: [
+      { label: '2019 (Pre-Pandemic)', data: [34, 41, 33, 33], backgroundColor: blue, borderWidth: 0, borderRadius: 2 },
+      { label: '2024', data: [31, 39, 30, 27], backgroundColor: red, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, max: 50 }
+    }
+  }
+});
+
+// Chart 3: Per-Pupil Spending by State
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['New York', 'Conn.', 'New Jersey', 'Vermont', 'Mass.', 'National Avg', 'Idaho', 'Oklahoma', 'Arizona', 'Mississippi', 'Utah'],
+    datasets: [{
+      label: 'Per-Pupil Spending (USD)',
+      data: [29873, 25800, 23770, 22698, 21858, 15633, 11000, 10200, 10100, 9800, 9552],
+      backgroundColor: function(ctx){
+        var v = ctx.parsed.y;
+        if(v > 20000) return red;
+        if(v > 15000) return orange;
+        if(v > 12000) return blue;
+        return green;
+      },
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, maxRotation: 45 } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v.toLocaleString(); } } }
+    }
+  }
+});
+
+// Chart 4: Charter vs Public Enrollment
+new Chart(document.getElementById('c4'), {
+  type: 'line',
+  data: {
+    labels: ['2005-06','2008-09','2011-12','2014-15','2017-18','2020-21','2023-24'],
+    datasets: [
+      { label: 'Charter School Enrollment (Millions)', data: [1.0, 1.4, 2.1, 2.7, 3.2, 3.5, 3.9], borderColor: orange, backgroundColor: 'transparent', tension: 0.3 },
+      { label: 'Traditional Public School Enrollment (Millions)', data: [48.7, 48.9, 49.1, 49.4, 49.7, 47.6, 47.3], borderColor: blue, backgroundColor: 'transparent', tension: 0.3 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + 'M'; } } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

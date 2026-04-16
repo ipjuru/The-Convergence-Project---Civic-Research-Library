@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 40 -- Land, Air & Sea: The Territory Beneath Everything - The Convergence Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D0D0D;--b2:#111111;--b3:#161616;--gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);--cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);--red:#C87474;--blue:#8B9EC8;--green:#6FA882;--orange:#F4C08A;--amber:#C8963A;--teal:#5B9BAA;}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(91,155,170,0.08) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--teal);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--teal);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--teal);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid rgba(91,155,170,0.5);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--teal);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--teal);padding:24px 28px;background:rgba(91,155,170,0.07);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}.nav-links{display:none;}}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.hl-teal{color:var(--teal);} .hl-red{color:var(--red);} .hl-green{color:var(--green);} .hl-amber{color:var(--amber);}
+.domain-block{background:var(--b3);border:1px solid #1f1f1f;border-top:3px solid var(--teal);padding:36px 28px;border-radius:2px;margin-bottom:24px;}
+.domain-block h3{font-family:'Cinzel',serif;font-size:22px;color:var(--teal);margin-bottom:16px;}
+.domain-block p{font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);}
+.sources-section{background:var(--b2);border-top:1px solid #1f1f1f;padding:80px 32px;}
+.sources-inner{max-width:900px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:40px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:1px;color:var(--cream-faint);padding:12px 0;border-bottom:1px solid #1a1a1a;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--bg);border-top:1px solid #1a1a1a;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto 24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;transition:color 0.2s;}
+.footer-nav a:hover{color:var(--gold);}
+.footer-copy{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">THE CONVERGENCE PROJECT</a>
+  <div class="nav-links"><a href="index.html">Library</a><a href="sources.html">Sources</a><a href="updates.html">Updates</a></div>
+</nav>
+
+<section class="hero">
+  <div class="deck-label">Deck 40 &nbsp;·&nbsp; Vol. 6 — Systems & Infrastructure</div>
+  <h1 class="hero-title">Land, <span>Air</span> & Sea</h1>
+  <p class="hero-sub">Every system we've documented lives on top of something physical. This is the foundation deck — who controls the territory, who's contesting it, and what's already been quietly captured.</p>
+  <div class="hero-stat-big">65%</div>
+  <div class="hero-stat-label">of active satellites in orbit belong to a single company — SpaceX Starlink · Early 2026</div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">The <span>Foundation</span> Frame</h2>
+  <p class="section-body">Every conversation in this library — about food, water, energy, housing, surveillance, military power, corporate consolidation — ultimately rests on one question: who controls the physical territory? Land is where food grows, where communities exist, where resources are extracted, where power is exercised. Airspace is where data travels, where weapons are deployed. The oceans carry 90% of global trade and regulate Earth's climate.</p>
+  <p class="section-body">Control of land, air, and sea is control of civilization itself. And that control is being actively contested, concentrated, and redefined — by corporations, foreign governments, federal agencies, and technologies that didn't exist a decade ago. This deck maps the foundation every other deck stands on.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">640M</div><div class="stat-label">Acres of Federal Land</div><div class="stat-note">28% of all U.S. land · CRS Report R42346; BLM 2025</div></div>
+    <div class="stat-card"><div class="stat-number">13,000+</div><div class="stat-label">Active Satellites in Orbit — Early 2026</div><div class="stat-note">Up from ~2,200 in 2019 · Jonathan McDowell / SatelliteMap.space</div></div>
+    <div class="stat-card"><div class="stat-number">99%</div><div class="stat-label">of International Internet Traffic via Undersea Cable</div><div class="stat-note">~532 active cable systems · TeleGeography, September 2024</div></div>
+    <div class="stat-card"><div class="stat-number">90%</div><div class="stat-label">of Global Trade Moves by Sea</div><div class="stat-note">International Maritime Organization, 2024</div></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title"><span>Land:</span> Who Owns America</h2>
+  <p class="section-body">The federal government owns approximately <strong>640 million acres — 28% of all U.S. land</strong>. That ownership is not evenly distributed: in Nevada, the federal government owns <strong>80.1%</strong> of the state. Utah: 63–66%. Alaska: 61%. Idaho: 62%. Oregon: 53%. The political fight over this has intensified sharply. Utah filed suit directly with the Supreme Court in August 2024 to compel disposal of ~18.5 million BLM acres. <strong>SCOTUS denied the case on January 13, 2025</strong> — one line, no comment.</p>
+  <p class="section-body">The Trump administration moved aggressively on energy development: BLM held 22 onshore lease sales in 2025 generating $187 million, approved 6,106 drilling permits (most in 15 years), and generated <strong>$356.6 million in oil/gas revenue — more than all four Biden years combined</strong>. On national monuments, a May 2025 DOJ opinion claimed presidents can abolish monument designations entirely under the Antiquities Act. Bears Ears and Grand Staircase-Escalante remain in litigation.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Who Owns U.S. Land — by Category</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: USDA National Resources Inventory; BLM Public Land Statistics 2025; CRS Report R42346; The Land Report 100 (2026 edition). "Institutional/Corporate" includes REITs, private equity farmland holdings, timber investment organizations (TIMOs), and similar entities. Tribal lands: ~56.2 million acres held in trust by the U.S. for 574 federally recognized tribes (BIA 2024).</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:20px;color:var(--teal);margin-bottom:16px;">Private Land Is Concentrating Fast</h3>
+      <p style="font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);">The Land Report 100 (2026 edition) revealed <strong>Stan Kroenke</strong> vaulted to America's largest private landowner after acquiring the ~937,000-acre Singleton Ranches in New Mexico in December 2025 — the largest U.S. land purchase in over a decade. His total: <strong>2.7 million acres</strong>. The #100 entry threshold has risen from 75,000 acres in 2007 to approximately 170,000 acres in 2026. Average holdings among the top 100 are now roughly 430,000 acres.</p>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:20px;color:var(--teal);margin-bottom:16px;">The Original Dispossession</h3>
+      <p style="font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);">At contact, Indigenous peoples occupied 100% of the continent. Today, tribal nations hold approximately <strong>56.2 million acres in trust — 2.3% of U.S. land</strong>. The Trump administration's closure of ~200 BIA offices in March 2025 and proposed $24.5 billion in funding cuts to Native communities have functionally impaired land-into-trust processing. The Yurok Tribe's 2025 acquisition of ~47,000 acres in California — the largest land-back deal in state history — happened against this backdrop.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title"><span>Air:</span> 855,000 Drones and a Regulatory Race</h2>
+  <p class="section-body">The FAA reports approximately <strong>855,860 registered drones</strong> in the U.S. as of early 2025, with over 400,000 certified remote pilots. Remote ID compliance (mandatory since September 2023) reached 95% among commercial operators. But the real transformation is about to land: on August 7, 2025, the FAA published a proposed <strong>Part 108 BVLOS rule</strong> — the regulatory framework that will, for the first time, allow routine commercial drone flights beyond the operator's line of sight. Without it, commercial drone delivery at scale is legally impossible. The final rule is expected in 2026.</p>
+  <p class="section-body">Seven companies now hold FAA Part 135 air carrier certificates for drone delivery: Amazon Prime Air, Wing (Alphabet), UPS Flight Forward, Zipline, Causey Aviation/Flytrex, DroneUp, and Drone Express. <strong>Wing</strong> has surpassed 750,000 deliveries worldwide with partnerships across 150+ Walmart Supercenters. In urban air mobility, <strong>Joby Aviation</strong> reached Stage 4 of 5 in FAA type certification in November 2025 — the first eVTOL to do so — with commercial launch targeted in early 2026, starting in Dubai.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">855K</div><div class="stat-label">Registered Drones in the U.S. — 2025</div><div class="stat-note">FAA Drone Registry; 400K+ certified remote pilots</div></div>
+    <div class="stat-card"><div class="stat-number">7</div><div class="stat-label">Companies with FAA Drone Delivery Certification</div><div class="stat-note">Amazon, Wing, UPS, Zipline, Flytrex, DroneUp, Drone Express</div></div>
+    <div class="stat-card"><div class="stat-number">750K+</div><div class="stat-label">Wing Deliveries Worldwide</div><div class="stat-note">Alphabet's Wing; 150+ Walmart Supercenter partnerships</div></div>
+    <div class="stat-card"><div class="stat-number">Stage 4/5</div><div class="stat-label">Joby Aviation FAA Certification — Nov 2025</div><div class="stat-note">First eVTOL to reach this stage · Joby Aviation IR</div></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">Low Earth Orbit:<br/><span>The Fastest Land Rush in History</span></h2>
+  <p class="section-body">The orbital shell between 200 and 2,000 km altitude has become the most contested territory that isn't technically on Earth. As of early 2026, approximately <strong>13,000+ active satellites orbit Earth</strong>. SpaceX's Starlink accounts for over <strong>10,000 — roughly 65% of all active satellites</strong>. SpaceX launched 2,500+ Starlink satellites in 2025 alone, and has FCC authorization for 12,000, with long-term plans for up to 42,000.</p>
+  <p class="section-body">The space debris risk is escalating measurably. ESA tracks approximately <strong>40,000–43,500 catalogued objects</strong>, with an estimated 1.2 million fragments between 1–10cm. A January 2026 study introduced a "CRASH Clock" metric: a complete loss of satellite collision-avoidance capability would result in a catastrophic collision within <strong>~2.8 days</strong> — compared to 121 days in 2018. That's a <strong>43x acceleration</strong> of risk in seven years. The ISS now performs avoidance maneuvers multiple times per year.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Active Satellites in Low Earth Orbit — 2019 to Early 2026</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: Jonathan McDowell satellite catalog; SatelliteMap.space; ESA Space Environment Report (2025); Union of Concerned Scientists Satellite Database (2024 update). "Active" satellites only — debris objects in similar altitude bands number in the tens of thousands.</div>
+  </div>
+
+  <div class="callout">
+    <p>"China's Guowang constellation plans ~13,000 satellites. Its Qianfan ('Thousand Sails') constellation targets ~15,000. There is no international authority capable of managing this orbital race. Once slots are occupied, they are effectively captured."</p>
+    <div class="callout-source">— Connectivity Technology, November 2025; FCC orbital filing records; Britannica satellite database</div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">Undersea Cables:<br/><span>99% of the Internet, Zero Protection</span></h2>
+  <p class="section-body">Approximately <strong>532 active submarine cable systems</strong> carry 95–99% of all international internet traffic across ~1.4–1.5 million kilometers of ocean floor. Satellites handle less than 1%. Big Tech now uses <strong>66–71% of undersea fiber-optic capacity</strong> — up from less than 10% before 2012. Google has stakes in approximately 33 cables. Meta's <strong>Project Waterworth</strong> (announced February 2025) is a $10 billion, 50,000km cable connecting five continents — deliberately routed to avoid the Red Sea and South China Sea.</p>
+  <p class="section-body">Cable cuts are now a geopolitical weapon. In November 2024, a Chinese bulk carrier was at the precise time and location of two simultaneous Baltic Sea cable cuts — the BCS East-West Interlink and C-Lion1. In December 2024, a Russian shadow fleet tanker dragged its anchor for <strong>62 miles</strong>, damaging Estlink 2 and three additional cables. In the Red Sea, Houthi-related incidents in February 2024 severed four cables, disrupting approximately <strong>25% of Europe-Asia data traffic</strong>. The global cable repair fleet: <strong>fewer than 100 vessels</strong>. The U.S. Cable Security Fleet, established in 2019 with two dedicated repair ships, was <strong>defunded by the Biden administration in 2024.</strong></p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">532</div><div class="stat-label">Active Submarine Cable Systems</div><div class="stat-note">~1.4–1.5M km of ocean floor · TeleGeography, Sept 2024</div></div>
+    <div class="stat-card"><div class="stat-number">71%</div><div class="stat-label">of Undersea Capacity Used by Big Tech</div><div class="stat-note">Up from under 10% before 2012 · ASPI; The Register, 2024</div></div>
+    <div class="stat-card"><div class="stat-number">25%</div><div class="stat-label">Europe-Asia Data Traffic Disrupted</div><div class="stat-note">Houthi-related Red Sea cable cuts, February 2024</div></div>
+    <div class="stat-card"><div class="stat-number">&lt;100</div><div class="stat-label">Global Cable Repair Vessels</div><div class="stat-note">Chinese firms dominate Asia-Pacific repair capacity · CSIS 2025</div></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title"><span>Sea:</span> The Territory That Governs Everything</h2>
+  <p class="section-body">The world's oceans cover 71% of Earth's surface. They carry <strong>90% of all global trade</strong>, produce <strong>50%+ of the oxygen we breathe</strong>, and regulate the planet's climate. The United States has the world's largest Exclusive Economic Zone — <strong>4.4 million square miles</strong> of ocean where the U.S. has sovereign rights over resources. The strategic and ecological importance of these waters is being tested simultaneously from multiple directions.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Global Shipping Chokepoints — Annual Trade Value at Risk</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: U.S. Energy Information Administration — World Oil Transit Chokepoints (2024); UNCTAD Review of Maritime Transport 2023. Figures represent estimated value of goods transiting each chokepoint annually. Disruption of any single chokepoint reshapes global supply chains within days to weeks.</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:20px;color:var(--teal);margin-bottom:16px;">South China Sea — 2025</h3>
+      <p style="font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);">CSIS satellite imagery (March 2026) revealed China has reclaimed <strong>Antelope Reef</strong> in the Paracels to 1,490 acres, with 50+ structures and foundations for a potential 9,000-foot runway. In August 2025, a China Coast Guard vessel collided with a PLA Navy destroyer near Scarborough Shoal, likely killing at least 2 personnel. In December 2025, CCG vessels fired water cannons at Filipino fishermen near Sabina Shoal. The U.S. conducted its first FONOP near Scarborough Shoal in over 6 years on August 13, 2025.</p>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:20px;color:var(--teal);margin-bottom:16px;">Deep-Sea Mining Showdown</h3>
+      <p style="font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);">On April 24, 2025, Trump signed an executive order invoking the 1980 Deep Seabed Hard Mineral Resources Act — creating a <strong>unilateral U.S. framework</strong> that bypasses the International Seabed Authority. The Metals Company filed immediately for commercial recovery permits. The ISA Secretary-General called it a violation of international law. <strong>More than 40 nations</strong> criticized the action. France's President Macron called deep-sea mining "madness" at the June 2025 UN Ocean Conference. Over <strong>930 marine scientists from 70+ countries</strong> have signed an open letter calling for a precautionary pause.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">The Arctic:<br/><span>Greenland, Russia, and the Opening of a Continent</span></h2>
+  <p class="section-body">Trump escalated his Greenland acquisition ambitions throughout 2025, stating he could "not rule out military force" and declaring the U.S. would get Greenland "one way or the other." A January 2026 White House statement said "utilizing the U.S. Military is always an option." Greenlandic PM Múte Egede: <strong>"Greenland is ours. We are not for sale."</strong> A January 2025 poll found 84% of Greenlanders support independence from Denmark — and <strong>85% reject joining the United States.</strong></p>
+  <p class="section-body">While Washington postures, Russia builds. Russia's icebreaker fleet: <strong>42+ vessels including 8 nuclear-powered</strong>. The U.S. has 2–3. In September 2025, Russia commissioned the <strong>Ivan Papanin</strong> — a combat icebreaker armed with a 76.2mm gun and capacity for 8 Kalibr cruise missiles, the first icebreaker with permanent heavy armament. In December 2025, Russia deployed its entire nuclear icebreaker fleet simultaneously for the first time. The USGS estimates the Arctic holds <strong>90 billion barrels of undiscovered oil</strong> (13% of world total) and <strong>1,669 trillion cubic feet of natural gas</strong> (30% of world total).</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">85%</div><div class="stat-label">of Greenlanders Reject Joining the U.S.</div><div class="stat-note">Verian/Berlingske poll, January 2025</div></div>
+    <div class="stat-card"><div class="stat-number">42+</div><div class="stat-label">Russian Icebreakers (8 Nuclear)</div><div class="stat-note">vs. 2–3 U.S. icebreakers · CSIS; Stars &amp; Stripes</div></div>
+    <div class="stat-card"><div class="stat-number">13%</div><div class="stat-label">of World's Undiscovered Oil in the Arctic</div><div class="stat-note">USGS Circum-Arctic Assessment</div></div>
+    <div class="stat-card"><div class="stat-number">−40%</div><div class="stat-label">Shorter Arctic vs. Suez Route (Asia to Europe)</div><div class="stat-note">Northern Sea Route advantage · Arctic Council / Lloyd's</div></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">The Oceans Are<br/><span>Sending an Alarm</span></h2>
+  <p class="section-body"><strong>2024 was the hottest year on record for ocean temperatures</strong>, with annual average sea surface temperature reaching 20.87°C — 0.51°C above the 1991–2020 average. Upper-ocean heat content exceeded 2023 by 16 zettajoules — equivalent to 140 times the world's annual electricity generation. These aren't background statistics. They drive every other trend in this deck: storm intensity, fisheries collapse, coral death, sea-level rise, and the strategic instability that follows resource scarcity.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">83.7%</div><div class="stat-label">of World's Coral Reefs Affected — 2023–25 Bleaching</div><div class="stat-note">Fourth global bleaching event, largest ever · NOAA Coral Reef Watch, April 2025</div></div>
+    <div class="stat-card"><div class="stat-number">37.7%</div><div class="stat-label">of Monitored Fish Stocks Are Overfished</div><div class="stat-note">Up from 10% in 1974 · FAO State of World Fisheries 2024</div></div>
+    <div class="stat-card"><div class="stat-number">30%</div><div class="stat-label">Increase in Ocean Acidity Since Pre-Industrial Era</div><div class="stat-note">pH dropped from 8.11 (1985) to 8.04 (2024) · EEA/Copernicus</div></div>
+    <div class="stat-card"><div class="stat-number">6,705</div><div class="stat-label">sq. miles — Gulf of Mexico Dead Zone, 2024</div><div class="stat-note">Size of New Jersey · NOAA, August 2024</div></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<section class="section">
+  <h2 class="section-title">Why This Deck<br/><span>Is the Foundation</span></h2>
+  <p class="section-body">Every deck in this library traces back to territory. The surveillance state needs towers and data centers on land. The military industrial complex needs bases and sea lanes. The food system needs farmland. The housing crisis is a land pricing crisis. Energy infrastructure runs through federal and private territory. The opioid crisis hit hardest in communities where the economic land — the factories, the tax base — was extracted and abandoned.</p>
+
+  <div class="domain-block">
+    <h3>The Three Domains — What the Research Shows</h3>
+    <p style="margin-bottom:16px;"><strong style="color:var(--teal);">Land:</strong> 640M federal acres. Private land concentrating in institutional and billionaire hands — the top 100 private owners collectively hold more land than the state of Georgia. The Arctic has gone from frozen buffer to contested resource frontier. Indigenous nations hold 2.3% of land they once held 100% of.</p>
+    <p style="margin-bottom:16px;"><strong style="color:var(--teal);">Air:</strong> 855,000 drones registered; 7 companies certified for commercial delivery; the first air taxis approaching launch. LEO orbit: 13,000+ active satellites — 65% from one company — in a shell growing so crowded that the risk of a catastrophic cascade collision is now 43x what it was in 2018. No international authority governs this. First movers win.</p>
+    <p><strong style="color:var(--teal);">Sea:</strong> 90% of global trade, 99% of international internet, 50%+ of planetary oxygen. The South China Sea is militarizing in real time. Undersea cables are being cut. Deep-sea mining is being carved up unilaterally. Ocean temperatures hit record highs in 2024. The oceans are simultaneously the planet's life support system and its most actively contested resource frontier.</p>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources — Deck 40</div>
+    <div class="source-item">Bureau of Land Management — BLM 2025 Trump Administration Accomplishments; Public Land Statistics 2025 — <a href="https://www.blm.gov" target="_blank">blm.gov</a></div>
+    <div class="source-item">Congressional Research Service — Federal Lands and Related Resources (R43429); Federal Land Management Agencies report — <a href="https://www.congress.gov" target="_blank">congress.gov</a></div>
+    <div class="source-item">The Land Report — 2026 Land Report 100 (January 2026); Bill Gates farmland profile — <a href="https://landreport.com" target="_blank">landreport.com</a></div>
+    <div class="source-item">Bureau of Indian Affairs — Tribal Land Status and Holdings; What is a Federal Indian Reservation (2024) — <a href="https://www.bia.gov" target="_blank">bia.gov</a></div>
+    <div class="source-item">FAA — Drone Registry; Part 108 BVLOS Proposed Rule (August 7, 2025); Package Delivery by Drone (Part 135) — <a href="https://www.faa.gov" target="_blank">faa.gov</a></div>
+    <div class="source-item">Jonathan McDowell / SatelliteMap.space — Active satellite catalog (early 2026); SpaceX Starlink constellation data</div>
+    <div class="source-item">ESA — Space Environment Report 2025; Space Environment Statistics — <a href="https://sdup.esoc.esa.int" target="_blank">esa.int</a></div>
+    <div class="source-item">ScienceDaily — "Low-Earth orbit is just 2.8 days from disaster" (January 28, 2026) — CRASH Clock study — <a href="https://www.sciencedaily.com" target="_blank">sciencedaily.com</a></div>
+    <div class="source-item">TeleGeography — Submarine Cable Map; Global Submarine Cable System count (September 2024) — <a href="https://www.submarinecablemap.com" target="_blank">submarinecablemap.com</a></div>
+    <div class="source-item">Australian Strategic Policy Institute — Hyperscaler undersea cable ownership analysis (2024) — <a href="https://www.aspi.org.au" target="_blank">aspi.org.au</a></div>
+    <div class="source-item">NOAA — Coral Reef Watch: Fourth Global Bleaching Event (April 2025); Gulf of Mexico Dead Zone estimate (August 2024) — <a href="https://www.noaa.gov" target="_blank">noaa.gov</a></div>
+    <div class="source-item">FAO — State of World Fisheries and Aquaculture 2024 (released June 2024) — <a href="https://www.fao.org" target="_blank">fao.org</a></div>
+    <div class="source-item">Copernicus/ECMWF — ERA5 Climate Reanalysis; 2024 ocean temperature records — <a href="https://climate.copernicus.eu" target="_blank">copernicus.eu</a></div>
+    <div class="source-item">CSIS — China Power: South China Sea satellite imagery analysis (March 2026); Arctic/icebreaker analysis — <a href="https://chinapower.csis.org" target="_blank">csis.org</a></div>
+    <div class="source-item">U.S. EIA — World Oil Transit Chokepoints (2024) — <a href="https://www.eia.gov" target="_blank">eia.gov</a></div>
+    <div class="source-item">USGS — Circum-Arctic Resource Appraisal: Undiscovered Oil and Gas Resources — <a href="https://www.usgs.gov" target="_blank">usgs.gov</a></div>
+    <div class="source-item">International Seabed Authority — Exploration contracts; Mining Code negotiation status (2025) — <a href="https://www.isa.org.jm" target="_blank">isa.org.jm</a></div>
+    <div class="source-item">UN News — "Invisible highways: The vast network of undersea cables" (February 2026) — <a href="https://news.un.org" target="_blank">news.un.org</a></div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck39-forever-chemicals.html">&larr; Deck 39: Forever Chemicals</a>
+    <a href="index.html">Library Home</a>
+    <a href="index.html">Back to Library &rarr;</a>
+  </div>
+  <div class="footer-copy">The Convergence Project &mdash; Free Civic Research Library &mdash; Ebony Enterprises 9 LLC</div>
+</div>
+
+<script>
+var t='#5B9BAA',g='#C9A84C',cr='rgba(240,234,214,0.7)',r='#C87474',b='#8B9EC8',gn='#6FA882',a='#C8963A',or='#F4C08A',dg='rgba(255,255,255,0.06)';
+Chart.defaults.color=cr;Chart.defaults.font.family='Raleway';
+
+new Chart(document.getElementById('c1'),{type:'doughnut',data:{labels:['Federal Government (28%)','Private Individuals & Families (48%)','Corporate / Institutional (14%)','State & Local Government (8%)','Tribal Nations (2.3%)'],datasets:[{data:[28,48,14,8,2.3],backgroundColor:[t,b,r,a,gn],borderColor:'#0D0D0D',borderWidth:2}]},options:{responsive:true,plugins:{legend:{labels:{color:cr,padding:16}},tooltip:{callbacks:{label:c=>c.label}}}}});
+
+new Chart(document.getElementById('c2'),{type:'bar',data:{labels:['2019','2020','2021','2022','2023','2024','2026 est.'],datasets:[{label:'Active LEO Satellites',data:[2218,2666,4084,5465,7560,9800,13100],backgroundColor:t,borderWidth:0,borderRadius:2}]},options:{responsive:true,plugins:{legend:{labels:{color:cr}}},scales:{x:{grid:{color:dg},ticks:{color:cr}},y:{grid:{color:dg},ticks:{color:cr}}}}});
+
+new Chart(document.getElementById('c3'),{type:'bar',data:{labels:['Strait of Malacca','Strait of Hormuz','Bab el-Mandeb','Suez Canal','Panama Canal','Turkish Straits','Danish Straits'],datasets:[{label:'Annual Trade Value (USD Trillion)',data:[3.4,1.7,0.9,1.1,0.27,0.4,0.5],backgroundColor:[t,r,a,a,b,b,gn],borderWidth:0,borderRadius:2}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:dg},ticks:{color:cr,callback:v=>'$'+v+'T'}},y:{grid:{color:dg},ticks:{color:cr}}}}});
+</script>
+</body>
+</html>

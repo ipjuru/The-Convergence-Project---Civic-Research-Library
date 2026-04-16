@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Contributor Space -- The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#C9A84C;--gold-l:#E8C96A;--gold-dim:#a07830;
+  --black:#0D0D0D;--b2:#111;--b3:#181818;
+  --cream:#F0EAD6;--tan:#C2A87E;
+  --border:rgba(201,168,76,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);color:var(--cream);
+  font-family:'Crimson Text',serif;
+  font-size:18px;line-height:1.8;
+  overflow-x:hidden;
+}
+body::before{content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;}
+
+/* TOP NAV */
+.top-nav{
+  position:relative;z-index:10;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 32px;border-bottom:1px solid #1a1a1a;
+  flex-wrap:wrap;gap:12px;
+}
+.nav-left,.nav-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.nav-btn{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(201,168,76,0.6);text-decoration:none;
+  border:1px solid rgba(201,168,76,0.2);padding:8px 18px;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:all .2s;
+}
+.nav-btn:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);color:var(--gold);}
+.nav-btn.primary{border-color:rgba(201,168,76,0.4);color:rgba(201,168,76,0.8);}
+.nav-btn.primary:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);color:var(--gold);}
+
+/* WRAPPER */
+.wrapper{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:72px 28px 120px;}
+
+/* HERO */
+.hero{text-align:center;margin-bottom:64px;}
+.hero-eye{
+  font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;display:block;
+}
+.hero-title{
+  font-family:'Cinzel',serif;font-size:clamp(32px,5vw,58px);font-weight:900;
+  color:var(--cream);line-height:1.1;margin-bottom:16px;
+}
+.hero-rule{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:24px auto;}
+.hero-sub{
+  font-family:'Crimson Text',serif;font-style:italic;
+  font-size:clamp(17px,2.2vw,21px);color:var(--tan);
+  max-width:600px;margin:0 auto;line-height:1.7;
+}
+
+/* SECTION */
+.section{margin-bottom:64px;}
+.section-eyebrow{
+  font-family:'Raleway',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:12px;
+  display:flex;align-items:center;gap:12px;
+}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--border);}
+.section-title{
+  font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,34px);font-weight:700;
+  color:var(--cream);margin-bottom:20px;line-height:1.2;
+}
+.section-body p{margin-bottom:16px;color:rgba(240,234,214,0.85);}
+.section-body strong{color:var(--cream);}
+
+/* CONTRIBUTOR GRID */
+.contributor-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+.contributor-box{background:var(--b3);border-left:2px solid var(--gold);padding:24px;}
+.contributor-box h4{
+  font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;
+  color:var(--gold);margin-bottom:10px;
+}
+.contributor-box p{font-size:16px;color:rgba(240,234,214,0.75);line-height:1.7;}
+
+/* CALLOUT */
+.callout{
+  border-left:3px solid var(--gold);padding:20px 24px;
+  background:rgba(201,168,76,0.05);margin:32px 0;
+}
+.callout p{font-style:italic;font-size:17px;color:rgba(240,234,214,0.85);line-height:1.7;}
+.callout strong{color:var(--gold-l);font-style:normal;}
+
+/* BUTTONS */
+.btn{
+  display:inline-block;font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;
+  border:1px solid var(--gold);padding:12px 28px;
+  margin-top:20px;margin-right:12px;transition:all .2s;
+}
+.btn:hover{background:var(--gold);color:var(--black);}
+.btn.outline{border-color:rgba(201,168,76,0.4);color:rgba(201,168,76,0.7);}
+.btn.outline:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);color:var(--gold);}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+
+/* BMC BAR */
+.bmc-bar{
+  background:var(--b2);border:1px solid var(--border);border-left:3px solid var(--gold);
+  padding:32px 28px;margin:48px 0;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.bmc-icon{font-size:2rem;flex-shrink:0;}
+.bmc-text{flex:1;min-width:200px;}
+.bmc-headline{
+  font-family:'Cinzel',serif;font-size:15px;font-weight:700;
+  color:var(--cream);margin-bottom:6px;
+}
+.bmc-sub{font-size:15px;color:rgba(240,234,214,0.55);font-style:italic;}
+.bmc-btn{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;border:1px solid var(--gold);
+  padding:12px 24px;white-space:nowrap;transition:all .2s;
+}
+.bmc-btn:hover{background:var(--gold);color:var(--black);}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  text-align:center;padding:48px 0 0;border-top:1px solid #1a1a1a;
+  margin-top:64px;
+}
+.bottom-nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:24px;}
+.bottom-nav a{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(201,168,76,0.6);text-decoration:none;
+  border:1px solid rgba(201,168,76,0.25);padding:12px 24px;
+  transition:all .2s;display:inline-block;
+}
+.bottom-nav a:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);color:var(--gold);}
+.bottom-nav a.primary{border-color:rgba(201,168,76,0.5);color:rgba(201,168,76,0.8);}
+.bottom-footer-small{
+  font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(201,168,76,0.3);margin-top:20px;
+}
+
+@media(max-width:640px){
+  .top-nav{padding:16px 20px;}
+  .wrapper{padding:48px 18px 80px;}
+  .contributor-grid{grid-template-columns:1fr;}
+  .bmc-bar{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-left">
+    <a class="nav-btn primary" href="index.html">&#x2190; The Convergence Project</a>
+  </div>
+  <div class="nav-right">
+    <a class="nav-btn" href="how-to-read.html">How to Read a Deck</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-eye">The Convergence Project</span>
+    <h1 class="hero-title">Contributor<br>Space</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">This library was built by one person. It will grow with the community. Here is how you can be part of it.</p>
+  </div>
+
+  <!-- SECTION: GET INVOLVED -->
+  <div class="section" id="get-involved">
+    <p class="section-eyebrow">Get Involved</p>
+    <h2 class="section-title">What This Library<br>Needs to Grow</h2>
+    <div class="section-body">
+      <p>The Convergence Project was built by one person &mdash; with AI tools, years of research, and a deep need to make the truth visible and accessible. The infrastructure is here. The decks are expanding. Now it grows with the community.</p>
+      <p>Here is what is needed and how you can help:</p>
+    </div>
+
+    <div class="contributor-grid">
+      <div class="contributor-box">
+        <h4>&#x1F4BB; Tech Volunteers</h4>
+        <p>Web developers, engineers, and IT professionals &mdash; help maintain, improve, and expand the site infrastructure as the library grows.</p>
+      </div>
+      <div class="contributor-box">
+        <h4>&#x1F52C; Research Contributors</h4>
+        <p>Data analysts, academics, researchers &mdash; submit sourced data, flag errors, and help verify and expand the decks. All submissions reviewed before publishing.</p>
+      </div>
+      <div class="contributor-box">
+        <h4>&#x1F3EB; Educators &amp; Organizers</h4>
+        <p>Teachers, community leaders, advocates &mdash; collaborate on how this material gets used in classrooms, community spaces, and policy conversations.</p>
+      </div>
+      <div class="contributor-box">
+        <h4>&#x1F4E3; Amplifiers</h4>
+        <p>Share the library. Post a deck. Put it in a group chat. Show it at a meeting. The most powerful thing you can do is put this data in front of someone who needs it.</p>
+      </div>
+    </div>
+
+    <div class="section-body" style="margin-top:24px;">
+      <p>To get involved, submit a correction, or propose a collaboration &mdash; reach out directly.</p>
+    </div>
+
+    <a href="#" class="btn email-btn">Email the Project &rarr;</a>
+    <a href="updates.html" class="btn outline">Updates &amp; Dispatches &rarr;</a>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- SECTION: SUBMIT A CORRECTION -->
+  <div class="section" id="corrections" style="padding-top:56px;">
+    <p class="section-eyebrow">Data Integrity</p>
+    <h2 class="section-title">See an Error?<br>Say Something.</h2>
+    <div class="section-body">
+      <p>Every stat in this library links to a primary source. But sources get updated, studies get revised, and mistakes happen. If you find a number that is wrong, a link that is broken, or a claim that needs better sourcing &mdash; flag it.</p>
+      <p>Send the deck name, the stat in question, and your source. Everything gets reviewed before any change is published. Corrections are always credited.</p>
+    </div>
+    <a href="#" class="btn email-btn">Submit a Correction &rarr;</a>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- SECTION: CLOSING NOTE -->
+  <div class="section" style="padding-top:56px;">
+    <div class="callout">
+      <p>This is a free, publicly available civic research library. <strong>No paywalls. No ads. No agenda. Just receipts.</strong> Every contribution &mdash; of time, skills, data, or coffee &mdash; keeps it alive and growing.</p>
+    </div>
+    <p style="margin-top:16px;font-size:16px;color:rgba(240,230,208,0.5);font-style:italic;">The Convergence Project is an independent project under Ebony Enterprises 9 LLC &mdash; A Spoken Space.</p>
+  </div>
+
+  <!-- BMC BAR -->
+  <div class="bmc-bar">
+    <span class="bmc-icon">&#x2615;</span>
+    <div class="bmc-text">
+      <p class="bmc-headline">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub">Every contribution keeps the library growing, the research flowing, and the lights on. No paywall. No ads. Just receipts.</p>
+    </div>
+    <a class="bmc-btn" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <div class="bottom-nav-links">
+      <a class="primary" href="index.html">&#x2190; The Convergence Project</a>
+      <a href="how-to-read.html">How to Read a Research Deck</a>
+      <a href="https://impactpoet.carrd.co" target="_blank" rel="noopener">Enter the Space</a>
+    </div>
+    <p class="bottom-footer-small">The Convergence Project &middot; EE9 LLC &middot; A Spoken Space</p>
+  </div>
+
+</div>
+
+<script>
+var u = 'jaeeezy', d = 'pm.me', email = u + '\u0040' + d;
+document.querySelectorAll('.email-btn').forEach(function(el) {
+  el.href = 'mailto:' + email;
+});
+</script>
+
+</body>
+</html>

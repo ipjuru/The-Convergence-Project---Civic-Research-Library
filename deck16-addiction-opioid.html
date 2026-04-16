@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 16 -- The Opioid Crisis -- The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--iron:#8B1A1A;--iron-l:#C0392B;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;--red-l:#E74C3C;--olive:#6B7C47;--olive-l:#8FA05E;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(139,26,26,0.12) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--iron-l);border:1px solid rgba(139,26,26,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--iron-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--iron-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--iron-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--iron-l);padding:24px 28px;background:rgba(139,26,26,0.08);margin:40px 0;}
+.callout-gold{border-left:3px solid var(--gold);padding:24px 28px;background:rgba(201,168,76,0.05);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--iron-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--iron-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'>';color:var(--iron-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.action-col-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--olive-l);margin-bottom:12px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.8);padding:6px 0;border-bottom:1px solid #1a1a1a;padding-left:16px;position:relative;}
+.action-list li::before{content:'->';position:absolute;left:0;color:var(--olive-l);font-size:12px;}
+.action-list li:last-child{border-bottom:none;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">-- Library Home</a>
+  <span class="nav-deck">Vol. 6 -- Deck 16</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">16</div>
+  <span class="vol-badge">Vol. 6 -- America's Lost Mind</span>
+  <h1 class="hero-title">The Opioid Crisis:<br>Engineered &amp; Abandoned</h1>
+  <p class="hero-sub">The U.S. opioid crisis has claimed more lives than any war since World War II. It was not accidental. Purdue Pharma falsified a safety profile, paid doctors to prescribe, and made $35 billion before filing for bankruptcy. The Sackler family is still a billionaire family. Over a million Americans are dead.</p>
+  <div class="hero-stat">1,000,000+</div>
+  <div class="hero-stat-label">Americans dead from overdose since 1999 -- more than every U.S. war since WWII combined</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Death Toll</span>
+  <h2 class="section-title">A Million Dead --<br>And the Trend Finally Turning</h2>
+  <div class="section-body">
+    <p>Overdose deaths peaked at roughly <strong>111,000 in 2022</strong> -- more than gun violence and car accidents combined that year. Deaths dropped to approximately 105,000 in 2023 and fell sharply to <strong>~80,000 in 2024</strong>, a 26.9% single-year decline -- the steepest drop in recorded history. Preliminary 2025 projections suggest roughly 71,500 deaths, continuing the trend.</p>
+    <p>The decline is real and significant. But it needs context: 71,500 deaths in a single year is still catastrophic. We are measuring progress against a crisis so severe that even massive improvement still leaves a death toll greater than the entire Vietnam War -- every single year.</p>
+    <p>Fentanyl -- a synthetic opioid 50-100 times more potent than morphine -- accounts for roughly <strong>60% of all overdose deaths</strong>. It entered the street supply around 2016, contaminating heroin, cocaine, and eventually methamphetamine. Fentanyl-involved death rates dropped <strong>35.6% from 2023 to 2024</strong> -- the biggest driver of the recent decline. But a new threat is emerging: xylazine ("tranq"), a veterinary sedative not reversed by naloxone, doubled in overdose involvement between 2021 and early 2024.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">111,000</div><div class="stat-label">Peak Overdose Deaths -- 2022</div><div class="stat-note">More than gun violence + car accidents combined</div></div>
+    <div class="stat-card"><div class="stat-number">80,000</div><div class="stat-label">Deaths in 2024</div><div class="stat-note">-26.9% -- steepest single-year drop ever</div></div>
+    <div class="stat-card"><div class="stat-number">60%</div><div class="stat-label">Fentanyl-Involved Deaths</div><div class="stat-note">50-100x more potent than morphine</div></div>
+    <div class="stat-card"><div class="stat-number">1M+</div><div class="stat-label">Total Deaths Since 1999</div><div class="stat-note">More than all U.S. wars since WWII combined</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Overdose Deaths -- Total vs. Fentanyl-Involved, 2015-2024</div>
+    <div class="chart-container"><canvas id="deathChart"></canvas></div>
+    <div class="chart-note">Source: CDC WONDER; NCHS provisional overdose death data. Fentanyl-involved figures include deaths where fentanyl or fentanyl analogs were detected. The 2024 and 2025 figures are provisional and subject to revision. The dramatic decline in 2024 reflects expanded naloxone access, harm reduction programs, and reduced street fentanyl potency in some markets.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Who Made This</span>
+  <h2 class="section-title">Purdue Pharma and the<br>Sackler Family</h2>
+  <div class="section-body">
+    <p>The modern opioid crisis was engineered. Purdue Pharma -- owned by the Sackler family -- created a pharmaceutical product, falsified its safety profile, built a marketing machine to spread it, and bribed a medical system to prescribe it. Then they took the money and left.</p>
+    <p>OxyContin was approved by the FDA in December 1995. Purdue's pitch was that its extended-release formula made it less addictive -- a claim backed by essentially no clinical evidence. Sales grew from <strong>$48 million in 1996 to nearly $3 billion by 2001</strong>. The company doubled its sales force, flew more than 5,000 physicians to all-expenses-paid "medical education" conferences, and distributed <strong>34,000 free starter coupons</strong> so patients could try the drug at no cost. Total OxyContin revenue exceeded <strong>$35 billion by 2017</strong>.</p>
+    <p>In 2007, Purdue pled guilty to federal criminal charges and paid <strong>$634 million</strong> in fines -- roughly eight months of revenue. The Sackler family withdrew an estimated <strong>$1.3 billion from Purdue between 1995 and 2007</strong>. Their net worth: $13 billion+. When Purdue filed for bankruptcy in 2019, total settlements had climbed. By January 2025, a new <strong>$7.4 billion settlement</strong> -- the largest with individuals in U.S. history -- was announced. Total nationwide opioid settlements now exceed $56-60 billion. Individual victims have received as little as <strong>$400-$700</strong> after legal fees.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">OxyContin Revenue vs. Purdue Penalties -- The Math of Getting Away With It ($B)</div>
+    <div class="chart-container"><canvas id="purduChart"></canvas></div>
+    <div class="chart-note">Source: U.S. DOJ; Purdue Pharma bankruptcy filings; Sackler family financial disclosures. The 2007 fine of $634M represented roughly 8 months of OxyContin revenue at peak. Total settlements of $56-60B were paid by Purdue's estate and successor companies -- not by the Sackler family personally from their $13B+ fortune.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">Total OxyContin revenue: $35 billion. The 2007 federal fine: $634 million -- 8 months of revenue. The Sackler family net worth today: $13 billion+. Individual victim settlements: $400-$700 after legal fees. This is what accountability looks like when you can afford enough lawyers.</div>
+    <div class="callout-source">-- DOJ; Purdue bankruptcy filings; ProPublica Sackler financial tracking</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Race and the Crisis</span>
+  <h2 class="section-title">Who Is Dying Now --<br>And Who Gets Sympathy</h2>
+  <div class="section-body">
+    <p>The political imagination of the opioid crisis is fixed on a particular image: white, suburban, prescription-addicted. That image was accurate in the crisis's early phase -- and that's precisely why it received a sympathetic policy response rather than criminalization. But the crisis has moved, and the communities now bearing the heaviest burden are not receiving the same empathy or resources.</p>
+    <p>In 2019, white Americans had the highest overdose death rate at 25.4 per 100,000. By 2023, <strong>American Indian/Alaska Native rates reached 65.0 per 100,000</strong> and Black rates hit <strong>48.9</strong> -- both far exceeding the white rate of 33.1. From 1999 to 2022, overdose mortality increased <strong>249% for Black Americans, 172% for Hispanic/Latino, and 166% for Native Americans</strong>. White Americans were the only racial group to see a statistically significant decrease in 2023.</p>
+    <p>This shift reflects geography and economics, not behavior. As prescription opioids were locked down, street drugs took over -- and street drugs are laced with fentanyl and increasingly xylazine, which naloxone cannot reverse. Communities of color with less access to emergency services, harm reduction programs, and treatment infrastructure are dying at rates that would have prompted national emergency declarations if the faces looked different.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Overdose Death Rate by Race -- 2019 vs. 2023 (per 100,000)</div>
+    <div class="chart-container"><canvas id="raceChart"></canvas></div>
+    <div class="chart-note">Source: CDC WONDER; NCHS. The shift in burden from white to Black and Native communities between 2019 and 2023 reflects both the expansion of fentanyl into urban drug markets and the relative lock-down of prescription opioids in whiter suburban markets. White Americans were the only group to show a statistically significant decline.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Cumulative Overdose Death Rate Increase by Race, 1999-2022 (%)</div>
+    <div class="chart-container"><canvas id="raceChangeChart"></canvas></div>
+    <div class="chart-note">Source: CDC WONDER multi-year analysis; NCHS vital statistics. These percentage increases represent cumulative change over 23 years. The crisis disproportionately accelerated for communities of color after 2016, when fentanyl entered widespread street circulation and prescription crackdowns pushed users to more dangerous alternatives.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Treatment Gap</span>
+  <h2 class="section-title">48 Million Americans with<br>Addiction -- 19% Get Help</h2>
+  <div class="section-body">
+    <p>Addiction is a medical condition. The U.S. treats it like a character flaw, a crime, or -- when it affects white communities -- a public health crisis deserving sympathy. The result: a treatment infrastructure that serves fewer than one in five people who need it.</p>
+    <p>In 2024, <strong>48.4 million Americans had a substance use disorder</strong>. Only <strong>10.2 million -- 19.4%</strong> -- received any treatment. Among young adults 18-25, just <strong>11.3%</strong> who needed treatment received it. The treatment gap widened between 2023 and 2024.</p>
+    <p>Medication-Assisted Treatment (MAT) -- buprenorphine, methadone, naltrexone -- reduces overdose deaths by <strong>50%</strong> and dramatically improves long-term recovery rates. Yet it remains deeply stigmatized. Only <strong>6% of physicians</strong> are authorized to prescribe buprenorphine. Naloxone (Narcan) -- which reverses overdoses -- was approved over-the-counter in 2023, but costs <strong>$50+</strong> out of pocket in many states. Harm reduction programs -- needle exchanges, fentanyl test strips, supervised consumption sites -- have the strongest evidence base of any intervention. They are being cut.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Substance Use Disorder Treatment Gap -- Who Has It vs. Who Gets Help (Millions, 2024)</div>
+    <div class="chart-container"><canvas id="treatChart"></canvas></div>
+    <div class="chart-note">Source: SAMHSA NSDUH 2024. The treatment gap has remained virtually unchanged for 20 years despite massive public investment. Barriers include cost, stigma, provider scarcity, insurance restrictions, and lack of culturally competent care. MAT reduces mortality by 50% -- yet remains unavailable or restricted in most treatment programs.</div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">The Evidence-Based Interventions Being Cut</div>
+    <ul class="highlight-list">
+      <li>MAT (buprenorphine/methadone) reduces overdose deaths by 50% -- yet only 6% of physicians can prescribe buprenorphine</li>
+      <li>Naloxone OTC approved 2023 but costs $50+ out of pocket -- federal funding for community naloxone distribution is under threat</li>
+      <li>Needle exchange programs reduce HIV and hepatitis C transmission by 50%+ and increase treatment entry -- being defunded in multiple states</li>
+      <li>Fentanyl test strips -- a 25-cent intervention that prevents overdoses -- were illegal in most states until 2023; still restricted in some</li>
+      <li>The 2024 DOGE cuts targeted SAMHSA grant programs funding local harm reduction -- cuts of up to 40% to community addiction services</li>
+      <li>Supervised consumption sites -- legal in New York since 2021, the first in U.S. -- have reversed 1,300+ overdoses with zero on-site deaths</li>
+    </ul>
+  </div>
+
+  <div class="action-block">
+    <div class="action-title">What You Can Do</div>
+    <div class="action-cols">
+      <div>
+        <div class="action-col-title">Immediate Help</div>
+        <ul class="action-list">
+          <li>SAMHSA Helpline: 1-800-662-4357 -- free, confidential, 24/7</li>
+          <li>Get naloxone -- many pharmacies provide it free or low-cost, some states require no prescription</li>
+          <li>FindTreatment.gov locates MAT providers including buprenorphine prescribers near you</li>
+          <li>988 Suicide and Crisis Lifeline also covers addiction crises</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">Community Level</div>
+        <ul class="action-list">
+          <li>Support or start a NARCAN training in your community -- libraries, churches, and community centers all host them</li>
+          <li>Advocate for your local needle exchange -- they save lives and reduce disease transmission</li>
+          <li>Push your employer to offer EAP with substance use coverage</li>
+          <li>Challenge stigma language -- "person with addiction" not "addict"; addiction is a brain disease, not a moral failure</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">Policy</div>
+        <ul class="action-list">
+          <li>Demand Medicaid coverage of all FDA-approved MAT medications in your state</li>
+          <li>Support the EQUAL Act -- eliminates crack vs. powder cocaine sentencing disparity</li>
+          <li>Push your state to legalize fentanyl test strips if still restricted</li>
+          <li>Demand accountability for pharmaceutical executives -- the Sackler family should be a cautionary tale, not a template</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">CDC WONDER -- Provisional Drug Overdose Death Counts 2024; NCHS Vital Statistics -- <a href="https://wonder.cdc.gov" target="_blank">wonder.cdc.gov</a></div>
+    <div class="source-item">SAMHSA -- National Survey on Drug Use and Health 2024; Treatment Episode Data -- <a href="https://www.samhsa.gov" target="_blank">samhsa.gov</a></div>
+    <div class="source-item">U.S. DOJ -- Purdue Pharma Guilty Plea and Settlement Documents (2007, 2022)</div>
+    <div class="source-item">Purdue Pharma Bankruptcy Filings -- Sackler Family Financial Disclosures (2019-2025)</div>
+    <div class="source-item">ProPublica -- Sackler Family Wealth Tracking; OxyContin Revenue Analysis</div>
+    <div class="source-item">KFF -- Opioid Overdose Death Rates by Race and Ethnicity 2024 -- <a href="https://www.kff.org" target="_blank">kff.org</a></div>
+    <div class="source-item">NCHS -- Overdose Death Rates by Drug Type 2015-2024</div>
+    <div class="source-item">Substance Abuse Policy Research Program -- MAT Efficacy Research Synthesis</div>
+    <div class="source-item">NYC Department of Health -- Supervised Consumption Site Data (2022-2025)</div>
+    <div class="source-item">National Harm Reduction Coalition -- Program Data and Policy Analysis -- <a href="https://harmreduction.org" target="_blank">harmreduction.org</a></div>
+    <div class="source-item">Beth Macy -- "Dopesick" (2018); Ryan Hampton -- "American Fix" (2018)</div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck15-american-finances.html">-- Deck 15: American Finances</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck17-gig-economy.html">Deck 17: Gig Economy --></a>
+</div>
+
+<script>
+const xT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const yT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const gd={color:'rgba(255,255,255,0.05)'};
+const gf={color:'rgba(255,255,255,0.03)'};
+const leg={display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}};
+const noLeg={display:false};
+
+new Chart(document.getElementById('deathChart'),{
+  type:'line',
+  data:{
+    labels:['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+    datasets:[
+      {label:'Total Overdose Deaths',data:[52404,63632,70237,67367,70630,93655,106699,111029,105007,80000],
+        borderColor:'rgba(139,26,26,0.9)',backgroundColor:'rgba(139,26,26,0.15)',borderWidth:2.5,fill:true,tension:0.3,pointRadius:4},
+      {label:'Fentanyl-Involved Deaths',data:[9580,18335,28466,31335,36359,56516,71238,73838,74000,48000],
+        borderColor:'rgba(201,168,76,0.8)',backgroundColor:'transparent',borderWidth:2,borderDash:[5,3],tension:0.3,pointRadius:3}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v.toLocaleString()},grid:gd}}}
+});
+
+new Chart(document.getElementById('purduChart'),{
+  type:'bar',
+  data:{
+    labels:['OxyContin total\nrevenue ($B)','Sackler withdrawals\n1995-2007 ($B)','2007 federal\nfine ($B)','Sackler net\nworth today ($B)','Total opioid\nsettlements ($B)','Avg victim\npayout (actual $)'],
+    datasets:[{data:[35,1.3,0.634,13,60,0.0006],
+      backgroundColor:['rgba(139,26,26,0.8)','rgba(192,57,43,0.75)','rgba(201,168,76,0.7)','rgba(192,57,43,0.7)','rgba(107,124,71,0.7)','rgba(201,168,76,0.55)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg,
+    tooltip:{callbacks:{label:ctx=>{const labels=['$35B revenue','$1.3B withdrawn','$634M fine (8mo revenue)','$13B+ net worth','$60B total settlements','~$600 avg to victims'];return labels[ctx.dataIndex];}}}},
+    scales:{x:{ticks:{...xT,maxRotation:15},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+new Chart(document.getElementById('raceChart'),{
+  type:'bar',
+  data:{
+    labels:['White','Black','Hispanic/Latino','Asian','American Indian/\nAlaska Native'],
+    datasets:[
+      {label:'2019 (per 100,000)',data:[25.4,29.7,14.4,4.2,30.3],backgroundColor:'rgba(201,168,76,0.55)',borderColor:'rgba(201,168,76,0.8)',borderWidth:1,borderRadius:3},
+      {label:'2023 (per 100,000)',data:[33.1,48.9,24.8,8.1,65.0],backgroundColor:'rgba(139,26,26,0.75)',borderColor:'rgba(139,26,26,0.9)',borderWidth:1,borderRadius:3}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'/100K'},grid:gd}}}
+});
+
+new Chart(document.getElementById('raceChangeChart'),{
+  type:'bar',
+  data:{
+    labels:['Black Americans','Hispanic/Latino','Native Americans','White Americans'],
+    datasets:[{label:'% increase in overdose mortality 1999-2022',data:[249,172,166,73],
+      backgroundColor:['rgba(139,26,26,0.85)','rgba(192,57,43,0.75)','rgba(139,26,26,0.8)','rgba(201,168,76,0.65)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},
+    scales:{x:{ticks:{...xT,callback:v=>v+'%'},grid:gd},y:{ticks:yT,grid:gf}}}
+});
+
+new Chart(document.getElementById('treatChart'),{
+  type:'bar',
+  data:{
+    labels:['Total SUD (M)','Received Treatment (M)','Alcohol SUD (M)','Alcohol Tx Received (M)','Opioid SUD (M)','Opioid Tx Received (M)'],
+    datasets:[{data:[48.4,10.2,29.6,7.3,6.1,1.4],
+      backgroundColor:['rgba(139,26,26,0.8)','rgba(107,124,71,0.75)','rgba(139,26,26,0.7)','rgba(107,124,71,0.65)','rgba(139,26,26,0.75)','rgba(107,124,71,0.7)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg,tooltip:{callbacks:{label:ctx=>ctx.parsed.y+'M people'}}},
+    scales:{x:{ticks:{...xT,maxRotation:20},grid:gf},y:{ticks:{...yT,callback:v=>v+'M'},grid:gd}}}
+});
+</script>
+</body>
+</html>

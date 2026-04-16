@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 06 — The Social Experiment · The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--warn:#C0392B;--warn-l:#E74C3C;--acc:#D4A017;--acc-l:#F0C040;--olive:#6B7C47;--olive-l:#8FA05E;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(212,160,23,0.10) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--acc-l);border:1px solid rgba(212,160,23,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--acc-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--acc-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--acc-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--warn-l);padding:24px 28px;background:rgba(192,57,43,0.07);margin:40px 0;}
+.callout-gold{border-left:3px solid var(--gold);padding:24px 28px;background:rgba(201,168,76,0.05);margin:40px 0;}
+.callout-olive{border-left:3px solid var(--olive-l);padding:24px 28px;background:rgba(107,124,71,0.07);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-body{font-family:'Raleway',sans-serif;font-size:15px;color:rgba(240,234,214,0.82);line-height:1.8;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--warn-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--warn-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'▸';color:var(--warn-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:48px 0;}
+.card-item{background:var(--b3);padding:28px;border-left:3px solid;}
+.card-item.warn{border-color:var(--warn-l);}
+.card-item.acc{border-color:var(--acc-l);}
+.card-item.olive{border-color:var(--olive-l);}
+.card-item.gold{border-color:var(--gold);}
+.card-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;display:block;color:var(--gold);}
+.card-title{font-family:'Cinzel',serif;font-size:15px;color:var(--cream);margin-bottom:10px;}
+.card-body{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.7);}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.action-col-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--olive-l);margin-bottom:12px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.8);padding:6px 0;border-bottom:1px solid #1a1a1a;padding-left:16px;position:relative;}
+.action-list li::before{content:'→';position:absolute;left:0;color:var(--olive-l);font-size:12px;}
+.action-list li:last-child{border-bottom:none;}
+.closing-quote{border:1px solid rgba(201,168,76,0.2);padding:48px;margin:48px 0;text-align:center;background:rgba(212,160,23,0.03);}
+.closing-q{font-family:'Cinzel',serif;font-size:clamp(18px,3vw,28px);color:var(--gold);line-height:1.4;margin-bottom:16px;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">← Library Home</a>
+  <span class="nav-deck">Vol. 2 · Deck 06</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">06</div>
+  <span class="vol-badge">Vol. 2 — Gov &amp; Corps</span>
+  <h1 class="hero-title">The Social<br>Experiment</h1>
+  <p class="hero-sub">Nobody asked us if we wanted to participate. They designed addiction. They measured the harm. They chose profit. The data on what social media and AI are doing to us is peer-reviewed, leaked in internal documents, and now being decided in courts.</p>
+  <div class="hero-stat">$16.6B</div>
+  <div class="hero-stat-label">Stolen from Americans online in 2024 alone · FBI IC3 · up 33% from 2023 · FTC estimates actual losses as high as $195.9B</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Scale</span>
+  <h2 class="section-title">What We're Actually<br>Living Inside</h2>
+  <div class="section-body">
+    <p>Social media isn't a tool people use. For billions of people it has become the primary lens through which they experience reality, news, relationships, and self-worth. The scale of daily immersion is unprecedented in human history — and it happened in less than 20 years, without consent, without clinical trials, and without long-term safety data.</p>
+    <p>The average American checks their phone <strong>96–144 times per day</strong>. The average teen ages 13–18 consumes <strong>8 hours 39 minutes</strong> of media daily. After a phone interruption, it takes an average of <strong>23 minutes to fully regain focus</strong> (Dr. Gloria Mark, UC Irvine). Average attention span on a screen has dropped from <strong>150 seconds in 2004 to 47 seconds today</strong>. <strong>95% of teens 13–17</strong> use social media — more than a third use it "almost constantly." <strong>40% of children ages 8–12</strong> use social media despite minimum age requirements of 13.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">8h 39m</div><div class="stat-label">Avg Daily Media Use — Teens 13–18</div><div class="stat-note">Common Sense Media 2025</div></div>
+    <div class="stat-card"><div class="stat-number">96–144×</div><div class="stat-label">Phone Checks Per Day</div><div class="stat-note">Average American — DemandSage 2026</div></div>
+    <div class="stat-card"><div class="stat-number">47 sec</div><div class="stat-label">Avg Attention Span on Screen</div><div class="stat-note">Down from 150 sec in 2004 — UC Irvine</div></div>
+    <div class="stat-card"><div class="stat-number">23 min</div><div class="stat-label">To Regain Focus After Interruption</div><div class="stat-note">Dr. Gloria Mark, UC Irvine research</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Average Daily Screen Time by Age Group — U.S. (Hours)</div>
+    <div class="chart-container"><canvas id="screenTimeChart"></canvas></div>
+    <div class="chart-note">Source: Common Sense Media 2025; American Academy of Pediatrics; CDC YRBS. AAP recommends zero recreational screen time for children under 2, one hour for ages 2–5, and "consistent limits" for older children. Every age group is significantly above recommendations.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Mental Health Research</span>
+  <h2 class="section-title">182 Peer-Reviewed Studies.<br>What They Actually Found.</h2>
+  <div class="section-body">
+    <p>A 2024 meta-analysis in the <em>Journal of Affective Disorders</em> synthesized <strong>182 peer-reviewed studies covering over 1.1 million subjects</strong>. Correlation between problematic social media use and anxiety: <strong>r=0.348</strong>. <strong>32% of teen girls</strong> who felt bad about their bodies said Instagram made it worse. <strong>Three hours or more of daily social media use more than doubles depression risk</strong>. The U.S. Surgeon General issued an advisory on youth social media use in 2023 and called for warning labels in 2024. This is not fringe science. It is the emerging consensus.</p>
+    <p>Facebook's own internal research — leaked by whistleblower Frances Haugen — found: "We make body image issues worse for one in three teen girls." <strong>17% said their eating disorders worsened on Instagram. 13.5% of UK teen girls said Instagram intensified suicidal thoughts.</strong> The company knew. They did not fix it. In March 2026, a jury found Meta liable for child sexual exploitation. A separate California trial found Meta and YouTube liable for intentionally designing addictive platforms that harmed a young woman's mental health.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Social Media &amp; Mental Health — Key Research Findings</div>
+    <div class="chart-container"><canvas id="mhChart"></canvas></div>
+    <div class="chart-note">Source: Journal of Affective Disorders 2024 (n=1,169,396); U.S. Surgeon General Advisory 2023; Facebook internal research via Frances Haugen; CDC YRBS 2023. Correlation value (r=0.348) shown ×100 for visual scale. Meta-analysis covers 182 peer-reviewed studies.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">% High School Students Seriously Considering Suicide, 2011–2023</div>
+    <div class="chart-container"><canvas id="suicideChart"></canvas></div>
+    <div class="chart-note">Source: CDC Youth Risk Behavior Survey; American Children's Health Initiative. Widespread smartphone adoption began ~2012. Social media algorithms targeting teens were scaled 2013–2016. The correlation with mental health decline is not causal proof — but the timeline, the internal documents, and the 182-study meta-analysis together make a strong case.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">Facebook's internal slide: "We make body image issues worse for one in three teen girls." They measured it. They documented it. They chose profit. And in March 2026, a court agreed.</div>
+    <div class="callout-source">— Facebook internal research leaked by Frances Haugen, 2021; Social Media Victims Law Center; CNN March 2026 ruling</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Design Was Intentional</span>
+  <h2 class="section-title">The Algorithm Is<br>Optimized for Outrage</h2>
+  <div class="section-body">
+    <p>The mental health crisis is not a side effect of social media. Internal documents from Facebook, Instagram, and YouTube reveal that platforms knew their algorithms amplified the most harmful content — and chose engagement metrics over user wellbeing. The feed is not neutral. It is engineered.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card-item warn">
+      <span class="card-tag">Frances Haugen — 2021</span>
+      <div class="card-title">Facebook Knew</div>
+      <div class="card-body">Internal research confirmed "content that is hateful, divisive, and polarizing" drives the most engagement. Facebook dissolved its Civic Integrity team after the 2020 election. The algorithm was not an accident. It was the product.</div>
+    </div>
+    <div class="card-item gold">
+      <span class="card-tag">Dopamine Architecture</span>
+      <div class="card-title">Variable Ratio Reinforcement</div>
+      <div class="card-body">Each scroll releases dopamine via the same mechanism as slot machines. Distressing content activates cortisol and keeps the amygdala hyperactivated. Blue light suppresses melatonin. The architecture of the feed is neurologically hostile — and it was designed that way.</div>
+    </div>
+    <div class="card-item olive">
+      <span class="card-tag">Markets Move on Posts</span>
+      <div class="card-title">Trump's April 2025 Post</div>
+      <div class="card-body">Trump's Truth Social post "THIS IS A GREAT TIME TO BUY!!!" preceded a tariff pause by hours — the S&P gained ~<strong>$4 trillion</strong> in value (9.5%). Musk's tweets have moved Dogecoin <strong>1,500%</strong>. Social media is now a financial instrument.</div>
+    </div>
+    <div class="card-item acc">
+      <span class="card-tag">The Influencer Economy</span>
+      <div class="card-title">$33 Billion Experiment</div>
+      <div class="card-body">The influencer market grew from $1.7B (2016) to <strong>$33 billion (2025)</strong>. Research shows parasocial creator relationships fulfill emotional needs more effectively than in-person acquaintances — "humans have not evolved to differentiate real from imagined friendships."</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Influencer Market Growth — 2016 to 2025 ($B)</div>
+    <div class="chart-container"><canvas id="influencerChart"></canvas></div>
+    <div class="chart-note">Source: Statista; Business Insider Intelligence; Bloomberg. The influencer market has grown 19x in 9 years. The business model is built on manufacturing parasocial relationships — emotional bonds that feel reciprocal but are fundamentally commercial.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Scam Economy</span>
+  <h2 class="section-title">$16.6 Billion Stolen —<br>And That's the Reported Amount</h2>
+  <div class="section-body">
+    <p>The FBI's Internet Crime Complaint Center reported <strong>$16.6 billion</strong> in losses in 2024 — a 33% increase from the prior year. The FTC estimates actual losses, including unreported fraud, could be as high as <strong>$195.9 billion</strong>. This is not an edge case of the social media economy. It is a core feature.</p>
+    <p>Adults over 60 lost <strong>~$4.8 billion in 2024 alone</strong> — an 83% increase year-over-year. "Pig butchering" scams — where victims are groomed over weeks before being defrauded — saw <strong>$75 billion in crypto flows</strong> tracked to scammer addresses from 2020–2024 (UT Dallas study). The UN estimates <strong>200,000+ people</strong> are held in scam compounds in Southeast Asia as trafficking victims. AI now allows voice cloning from <strong>3 seconds of audio</strong> with 85% accuracy. Deepfake fraud losses are projected at <strong>$40 billion by 2027</strong>.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Online Fraud Scale — FBI IC3 &amp; FTC Estimates 2024 ($B)</div>
+    <div class="chart-container"><canvas id="fraudChart"></canvas></div>
+    <div class="chart-note">Source: FBI IC3 2024 Annual Report; FTC 2025; McKnight's Senior Living (elder fraud); UT Dallas (pig butchering); Keepnet Labs 2026 (deepfake projection). FTC estimate of $195.9B reflects unreported fraud captured through surveys — most victims never report online fraud to authorities.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Deepfakes &amp; AI Reality Crisis</span>
+  <h2 class="section-title">550% Deepfake Surge —<br>97% of It Is Pornographic</h2>
+  <div class="section-body">
+    <p>AI-generated content has moved from novelty to weapon. Deepfake files surged from roughly <strong>500,000 in 2023 to 8 million in 2025</strong> — a 1,500% increase in two years. <strong>96–98% of all deepfake content is pornographic</strong>, and it overwhelmingly targets women without consent.</p>
+    <p>The most disturbing category: AI-generated child sexual abuse material (CSAM) reported to NCMEC went from 4,700 in 2023 to <strong>67,000 in 2024</strong> — a 1,325% increase. AI-generated CSAM videos went from 13 in 2024 to <strong>3,443 in 2025</strong> — a 26,385% increase. Political deepfakes were documented in <strong>38 countries</strong> during elections in 2023–2024. In a 2025 study, only <strong>0.1% of participants</strong> correctly identified all fake and real media presented to them.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Deepfake Content Surge — 2023 to 2025 (Thousands)</div>
+    <div class="chart-container"><canvas id="deepfakeChart"></canvas></div>
+    <div class="chart-note">Source: Keepnet Labs 2026; NCMEC (National Center for Missing and Exploited Children); Internet Watch Foundation 2026; iProov 2025. AI-generated CSAM figures represent reports to NCMEC, not total production. Actual numbers are believed to be significantly higher.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">AI &amp; Work</span>
+  <h2 class="section-title">The Layoff Wave Nobody<br>Is Being Straight About</h2>
+  <div class="section-body">
+    <p>Companies are citing AI in layoffs at an accelerating rate. The honest version: many layoffs attributed to AI are actually about cost-cutting dressed up in tech language — but the displacement is real either way. A Duke University CFO survey found <strong>44% of CFOs</strong> plan AI-related cuts, with an estimated <strong>~502,000 roles</strong> expected lost in 2026.</p>
+    <p>Jack Dorsey (Block) cut <strong>4,000 jobs — 40% of the workforce</strong> — in February 2026: "Intelligence tools have changed what it means to build and run a company." Amazon cut <strong>30,000+ corporate roles</strong> since 2023. Media lost <strong>3,434+ journalism jobs in 2025</strong>. Critical caveat: Harvard Business Review found companies are "laying off because of AI's <em>potential</em> — not its performance." New York State found <strong>zero of 160 companies</strong> checked the AI box on required layoff disclosure forms.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">AI Workforce Impact — Selected Data Points 2024–2026</div>
+    <div class="chart-container"><canvas id="aiWorkChart"></canvas></div>
+    <div class="chart-note">Source: Challenger Gray & Christmas; Duke CFO Survey 2025; Fortune March 2026; Press Gazette journalism layoff tracker; Harvard Business Review. The 502,000 projected roles is the Duke CFO Survey estimate for 2026 specifically — not a cumulative figure.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Paradox</span>
+  <h2 class="section-title">The Most Connected Generation<br>Is the Loneliest</h2>
+  <div class="section-body">
+    <p>The Surgeon General declared loneliness a national epidemic in 2023. Young people have more digital "connections" than any generation in history — and less genuine human contact. The body is paying for it. But there is measurable good news: people are waking up.</p>
+    <p><strong>56% of people consider themselves addicted to their devices</strong>. <strong>44% of Gen Z intentionally reduced screen time</strong> in the past 6 months. Vinyl records have seen <strong>17 consecutive years of sales growth</strong>. Live Nation reported its <strong>biggest concert attendance year ever in 2025</strong>. Running clubs, book clubs, and community organizations are surging. Researchers are calling it a <strong>Social Renaissance</strong> — people actively seeking real connection, real presence, real community. The data shows they want out of the experiment.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">The Loneliness Crisis — and the Renaissance Response</div>
+    <div class="chart-container"><canvas id="lonelyChart"></canvas></div>
+    <div class="chart-note">Source: U.S. Surgeon General 2023 "Our Epidemic of Loneliness"; CivicScience; Fortune February 2026; Reach Out Recovery 2026; Tunheim research. Gen Z loneliness rate of 57% is from Cigna/Morning Consult survey data. The "renaissance response" data points represent active behavioral shifts measured in late 2024–2025.</div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-title">A Balanced Path Through the Digital Age</div>
+    <div class="action-cols">
+      <div>
+        <div class="action-col-title">For You</div>
+        <ul class="action-list">
+          <li>Reducing social media use reduces depression symptoms — the research is unambiguous</li>
+          <li>Doom scrolling activates your threat response — your brain cannot tell news from predator</li>
+          <li>Phone-free meals and first/last hours of the day are measurably protective</li>
+          <li>Know the difference between a parasocial relationship and a real one</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">For Kids</div>
+        <ul class="action-list">
+          <li>31 U.S. states now require school phone bans — Australia banned under-16s entirely (Dec 2025)</li>
+          <li>No phones in bedrooms — blue light suppresses melatonin, this is physiology not preference</li>
+          <li>The algorithm shows children extreme content to maximize engagement — supervise and discuss</li>
+          <li>Child influencer labor laws barely exist — know what your kids are consuming and creating</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">Big Picture</div>
+        <ul class="action-list">
+          <li>Support the Kids Online Safety Act and data privacy legislation</li>
+          <li>Demand warning labels on social media — the Surgeon General called for them in 2024</li>
+          <li>Support the EU AI Act model for algorithmic transparency and accountability</li>
+          <li>Join the analog renaissance — vinyl, live music, in-person community, real conversation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing-quote">
+    <div class="closing-q">"They built the most powerful attention machine in human history and aimed it at children.<br>Then they called it a platform."</div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">U.S. Surgeon General — Advisory on Social Media and Youth Mental Health (2023); Warning Label Call (2024) · <a href="https://www.hhs.gov/surgeongeneral" target="_blank">hhs.gov</a></div>
+    <div class="source-item">Journal of Affective Disorders — Social Media and Anxiety: Meta-Analysis of 182 Studies (2024, n=1,169,396)</div>
+    <div class="source-item">CDC — Youth Risk Behavior Survey 2023 · <a href="https://www.cdc.gov/yrbs" target="_blank">cdc.gov</a></div>
+    <div class="source-item">Frances Haugen — Facebook Internal Research Documents Submitted to Congress (2021)</div>
+    <div class="source-item">Social Media Victims Law Center — Meta Liability Ruling, March 2026 · <a href="https://socialmediavictims.org" target="_blank">socialmediavictims.org</a></div>
+    <div class="source-item">FBI — Internet Crime Report 2024 · <a href="https://www.ic3.gov" target="_blank">ic3.gov</a></div>
+    <div class="source-item">FTC — Consumer Sentinel Network Data Book 2025 · <a href="https://www.ftc.gov" target="_blank">ftc.gov</a></div>
+    <div class="source-item">UT Dallas — Pig Butchering Crypto Flows Study; $75B in tracked addresses (2024)</div>
+    <div class="source-item">NCMEC / Childlight — AI-Generated CSAM Reports 2023–2025 · <a href="https://www.missingkids.org" target="_blank">missingkids.org</a></div>
+    <div class="source-item">Keepnet Labs — Deepfake Statistics and Projections 2026 · <a href="https://keepnetlabs.com" target="_blank">keepnetlabs.com</a></div>
+    <div class="source-item">Duke University CFO Survey — AI Workforce Intentions 2025</div>
+    <div class="source-item">Common Sense Media — The Common Sense Census: Media Use by Tweens and Teens 2025</div>
+    <div class="source-item">Dr. Gloria Mark, UC Irvine — Attention Research; Focus Disruption Studies</div>
+    <div class="source-item">U.S. Surgeon General — Our Epidemic of Loneliness and Isolation (2023)</div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck5-wars-and-corps.html">← Deck 05: Gov &amp; Corps</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck7-surveillance-state.html">Deck 07: Surveillance State →</a>
+</div>
+
+<script>
+const xT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const yT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const gd={color:'rgba(255,255,255,0.05)'};
+const gf={color:'rgba(255,255,255,0.03)'};
+const leg={display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}};
+const noLeg={display:false};
+
+// Chart 1 — Screen time by age
+new Chart(document.getElementById('screenTimeChart'),{
+  type:'bar',
+  data:{
+    labels:['Under 2 yrs','Ages 2–4','Ages 5–8','Ages 8–12\n(Tweens)','Ages 13–18\n(Teens)'],
+    datasets:[
+      {label:'Actual Avg (hrs)',data:[1.1,2.5,3.5,5.55,8.65],backgroundColor:['rgba(107,124,71,0.7)','rgba(201,168,76,0.7)','rgba(201,168,76,0.75)','rgba(192,57,43,0.75)','rgba(192,57,43,0.85)'],borderColor:'#111',borderWidth:1,borderRadius:3},
+      {label:'AAP Recommended Max (hrs)',data:[0,0,1,null,null],backgroundColor:'transparent',borderColor:'rgba(201,168,76,0.6)',borderWidth:2,type:'line',borderDash:[5,3]}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'h'},grid:gd,max:10}}}
+});
+
+// Chart 2 — Mental health research findings
+new Chart(document.getElementById('mhChart'),{
+  type:'bar',
+  data:{
+    labels:['Anxiety correlation\n(r×100)','Teen girls body\nimage harm (%)','Teens using\n"constantly" (%)','3h+/day doubles\ndepression (×50)','Studies in\nmeta-analysis'],
+    datasets:[{data:[34.8,32,33,100,182],backgroundColor:['rgba(192,57,43,0.8)','rgba(192,57,43,0.75)','rgba(192,57,43,0.7)','rgba(201,168,76,0.75)','rgba(107,124,71,0.7)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:0},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 3 — Youth suicide trend
+new Chart(document.getElementById('suicideChart'),{
+  type:'line',
+  data:{
+    labels:['2011','2013','2015','2017','2019','2021','2023'],
+    datasets:[
+      {label:'% HS students seriously considering suicide',data:[16,17,18,17,19,22,21],borderColor:'rgba(192,57,43,0.9)',backgroundColor:'rgba(192,57,43,0.1)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:4,pointBackgroundColor:'rgba(192,57,43,0.9)'},
+      {label:'Female teen rate (indexed 2011=100)',data:[100,102,115,118,112,120,118],borderColor:'rgba(212,160,23,0.85)',backgroundColor:'transparent',fill:false,borderWidth:2,borderDash:[5,3],tension:0.3,pointRadius:3}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},scales:{x:{ticks:xT,grid:gd},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 4 — Influencer market growth
+new Chart(document.getElementById('influencerChart'),{
+  type:'line',
+  data:{
+    labels:['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+    datasets:[{label:'Global Influencer Market ($B)',data:[1.7,3.0,4.6,6.5,9.7,13.8,16.4,21.1,24.0,33.0],borderColor:'rgba(212,160,23,0.9)',backgroundColor:'rgba(212,160,23,0.12)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:4,pointBackgroundColor:'rgba(212,160,23,0.9)'}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}}},scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>'$'+v+'B'},grid:gd}}}
+});
+
+// Chart 5 — Online fraud scale
+new Chart(document.getElementById('fraudChart'),{
+  type:'bar',
+  data:{
+    labels:['FBI reported\nlosses 2024 ($B)','Elder fraud\n2024 ($B)','Pig butchering\ncrypto flows ($B)','FTC est. actual\nlosses ($B)','Deepfake fraud\n2027 proj ($B)'],
+    datasets:[{data:[16.6,4.8,75,195.9,40],backgroundColor:['rgba(192,57,43,0.8)','rgba(192,57,43,0.75)','rgba(192,57,43,0.7)','rgba(201,168,76,0.75)','rgba(192,57,43,0.65)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,callback:v=>'$'+v+'B'},grid:gd},y:{ticks:yT,grid:gf}}}
+});
+
+// Chart 6 — Deepfake surge
+new Chart(document.getElementById('deepfakeChart'),{
+  type:'bar',
+  data:{
+    labels:['Total deepfake\nfiles 2023 (K)','Total deepfake\nfiles 2025 (K)','AI CSAM reports\nNCMEC 2023','AI CSAM reports\nNCMEC 2024','AI CSAM videos\n2025'],
+    datasets:[{data:[500,8000,4700,67000,3443],backgroundColor:['rgba(107,124,71,0.65)','rgba(192,57,43,0.85)','rgba(201,168,76,0.7)','rgba(192,57,43,0.9)','rgba(192,57,43,0.8)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:10},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 7 — AI workforce impact
+new Chart(document.getElementById('aiWorkChart'),{
+  type:'bar',
+  data:{
+    labels:['CFOs planning\nAI cuts (%)','AI-cited layoffs\n2025 est (K)','Amazon roles\ncut since 2023 (K)','Block layoffs\n% workforce','Journalism jobs\nlost 2025 (K)'],
+    datasets:[{data:[44,55,30,40,3.4],backgroundColor:['rgba(192,57,43,0.8)','rgba(192,57,43,0.75)','rgba(192,57,43,0.7)','rgba(201,168,76,0.75)','rgba(192,57,43,0.65)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:10},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 8 — Loneliness radar
+new Chart(document.getElementById('lonelyChart'),{
+  type:'radar',
+  data:{
+    labels:['Adult daily loneliness (%)','Gen Z loneliness (%)','Youth social time lost (%)','Device addiction (%)','Gen Z reducing screen time (%)'],
+    datasets:[
+      {label:'The Crisis',data:[20,57,70,56,0],borderColor:'rgba(192,57,43,0.85)',backgroundColor:'rgba(192,57,43,0.12)',pointBackgroundColor:'rgba(192,57,43,0.85)',pointRadius:4,borderWidth:2},
+      {label:'The Renaissance Response',data:[0,0,0,56,44],borderColor:'rgba(107,124,71,0.85)',backgroundColor:'rgba(107,124,71,0.12)',pointBackgroundColor:'rgba(107,124,71,0.85)',pointRadius:4,borderWidth:2}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},scales:{r:{grid:{color:'rgba(255,255,255,0.08)'},pointLabels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:11}},ticks:{display:false}}}}
+});
+</script>
+</body>
+</html>

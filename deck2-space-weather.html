@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 02 — The Sun Knows · The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--purple:#9B6FD0;--purple-l:#B98FE8;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;--red-l:#e74c3c;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(155,111,208,0.12) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--purple-l);border:1px solid rgba(155,111,208,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--purple-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--purple-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--purple-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--purple-l);padding:24px 28px;background:rgba(155,111,208,0.08);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--purple-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--purple-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'▸';color:var(--purple-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.study-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:48px 0;}
+.study-card{background:var(--b3);border-left:3px solid var(--purple-l);padding:28px;}
+.study-meta{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--gold);margin-bottom:8px;display:block;}
+.study-title{font-family:'Raleway',sans-serif;font-size:15px;font-weight:700;color:var(--cream);margin-bottom:8px;}
+.study-body{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.7);}
+.contested-box{background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.2);border-left:3px solid var(--gold);padding:24px 28px;margin:40px 0;}
+.contested-box p{font-family:'Raleway',sans-serif;font-size:15px;color:rgba(240,234,214,0.65);line-height:1.7;}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.action-list li::before{content:'→';color:var(--gold);flex-shrink:0;}
+.action-list li:last-child{border-bottom:none;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">← Library Home</a>
+  <span class="nav-deck">Vol. 1 · Deck 02</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">02</div>
+  <span class="vol-badge">Vol. 1 — The Convergence</span>
+  <h1 class="hero-title">The Sun<br>Knows</h1>
+  <p class="hero-sub">Peer-reviewed research links solar storms to increased heart attack risk, depression spikes, suicide rates, and social unrest. We are at solar maximum right now. This is not astrology. This is published science — and most doctors have never heard of it.</p>
+  <div class="hero-stat">+52%</div>
+  <div class="hero-stat-label">Increased stroke risk during severe geomagnetic storms · Feigin et al., Stroke / American Heart Association, 2014</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 1: SOLAR CYCLE -->
+<section class="section">
+  <span class="section-tag">Solar Cycle 25</span>
+  <h2 class="section-title">The Cycle That Broke<br>Every Prediction</h2>
+  <div class="section-body">
+    <p>Solar cycles run approximately 11 years — fluctuations in sunspot activity, solar flares, and coronal mass ejections (CMEs) that can travel at millions of miles per hour and reach Earth in 1–3 days. Solar Cycle 25 began in December 2019. NASA and NOAA predicted it would be modest, below-average. It has become one of the most active in modern history.</p>
+    <p>By 2024, Cycle 25 had already <strong>exceeded the predicted solar maximum by more than double</strong>. In May 2024, Earth experienced a G5 geomagnetic storm — the highest category, the most powerful since 2003 — visible as auroras as far south as Florida and Mexico. <strong>2024–2026 is the acknowledged peak period</strong> of Cycle 25: when flares, CMEs, and geomagnetic disturbances are most frequent and most powerful.</p>
+    <p>The infrastructure stakes are documented. A 1989 geomagnetic storm knocked out power to <strong>6 million people in Quebec in 90 seconds</strong>. The 1859 Carrington Event — the largest recorded — would today cause an estimated <strong>$600 billion to $2.6 trillion in U.S. infrastructure damage</strong> (Lloyd's of London). FEMA and NOAA both maintain space weather preparedness frameworks. Most of the public has never heard of them.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">2x+</div><div class="stat-label">Cycle 25 Exceeded Predictions</div><div class="stat-note">NASA/NOAA forecast: modest. Reality: one of the most active on record</div></div>
+    <div class="stat-card"><div class="stat-number">G5</div><div class="stat-label">Storm Intensity — May 2024</div><div class="stat-note">Highest category · most powerful since 2003</div></div>
+    <div class="stat-card"><div class="stat-number">$2.6T</div><div class="stat-label">Estimated U.S. Damage — Carrington-Scale</div><div class="stat-note">Lloyd's of London · FEMA preparedness protocols exist</div></div>
+    <div class="stat-card"><div class="stat-number">90 sec</div><div class="stat-label">To Knock Out Quebec's Grid</div><div class="stat-note">1989 geomagnetic storm · 6 million without power</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Solar Cycle 25 — Predicted vs. Actual Sunspot Activity, 2020–2026</div>
+    <div class="chart-container"><canvas id="solarChart"></canvas></div>
+    <div class="chart-note">Source: NOAA Space Weather Prediction Center; NASA Solar Cycle 25 Panel predictions vs. observed international sunspot numbers. Solar maximum — the most active phase — is occurring now, 2024–2026. Sunspot count is a proxy for overall solar activity including flares and CMEs.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 2: HEALTH RESEARCH -->
+<section class="section">
+  <span class="section-tag">The Health Research</span>
+  <h2 class="section-title">What the Peer-Reviewed<br>Literature Actually Says</h2>
+  <div class="section-body">
+    <p>The connection between geomagnetic activity and human health is not fringe science. It is published in major medical journals, replicated across multiple countries and decades, and studied at mainstream institutions. What is fringe is the complete absence of this topic from public health communications — and from most medical training.</p>
+    <p>The mechanism operates primarily through the autonomic nervous system and cardiovascular function. Geomagnetic disturbances affect melatonin production, heart rate variability (HRV), and blood pressure regulation. The research is clearest on three areas: cardiovascular events, depression and suicide rates, and sleep disruption.</p>
+  </div>
+
+  <div class="study-grid">
+    <div class="study-card">
+      <span class="study-meta">Feigin et al. · Stroke / AHA · 2014</span>
+      <div class="study-title">Stroke Risk +19% to +52%</div>
+      <div class="study-body">11,453 stroke patients, 16 million person-years, 5 countries. Geomagnetic storms associated with a <strong>19% increase in stroke risk overall</strong>, rising to <strong>52% for severe storms</strong>. Strongest effect in adults under 65. Blood pressure rises of 3–8 mmHg during storms documented in multiple independent studies.</div>
+    </div>
+    <div class="study-card">
+      <span class="study-meta">Kay · British Journal of Psychiatry · 1994</span>
+      <div class="study-title">+36% Male Hospital Admissions for Depression</div>
+      <div class="study-body"><strong>36.2% increase</strong> in male hospital admissions for depressive illness in the week following geomagnetic storms. Effect was specific to the post-storm period, controlling for seasonal variation and other factors.</div>
+    </div>
+    <div class="study-card">
+      <span class="study-meta">Berk et al. · South Africa · replicated globally</span>
+      <div class="study-title">Suicide Rates — r=0.69, p&lt;0.01</div>
+      <div class="study-body">Correlation of <strong>r=0.69 (p&lt;0.01)</strong> between geomagnetic activity and suicide rates. Dimitrova et al.: 87% of major geomagnetic storms coincided with surges in suicide attempt hospitalizations.</div>
+    </div>
+    <div class="study-card">
+      <span class="study-meta">PMC9189153 · Nature and Science of Sleep · 2022</span>
+      <div class="study-title">Schumann Resonance &amp; Sleep</div>
+      <div class="study-body">Randomized, double-blinded study: a 7.83 Hz (Schumann frequency) device <strong>improved sleep onset and total sleep time</strong> in insomnia patients. Solar disruption of the Schumann Resonance may impair melatonin regulation in sensitive individuals.</div>
+    </div>
+    <div class="study-card">
+      <span class="study-meta">Japan · Taiwan · Russia · Finland · Australia · Canada</span>
+      <div class="study-title">8-Country Multi-Replication</div>
+      <div class="study-body">Cardiovascular and psychiatric associations with geomagnetic activity replicated in independent studies across at least 8 countries using different methodologies, datasets, and populations — spanning 30+ years of research.</div>
+    </div>
+    <div class="study-card">
+      <span class="study-meta">Persinger et al. · Laurentian University</span>
+      <div class="study-title">Brain-Earth Electromagnetic Overlap</div>
+      <div class="study-body">Documented "unexpected similarities in the spectral patterns and strengths of electromagnetic fields generated by the human brain and the earth-ionospheric cavity" across 238 measurements from 184 individuals — including the 7.83 Hz alpha wave match.</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Geomagnetic Storm Health Effects — Documented Magnitude from Peer-Reviewed Studies</div>
+    <div class="chart-container"><canvas id="healthChart"></canvas></div>
+    <div class="chart-note">Sources: Feigin et al. (Stroke/AHA 2014); Kay (Br J Psychiatry 1994); Berk et al.; multiple cardiovascular HRV studies. Note: suicide correlation (r=0.69) shown as ×100 for visual scale. Effects are most pronounced in people with pre-existing cardiovascular or mood disorders.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Blood Pressure Response During Geomagnetic Storm Periods — Multiple Studies (mmHg rise)</div>
+    <div class="chart-container"><canvas id="bpChart"></canvas></div>
+    <div class="chart-note">Source: Consolidated data from Stoupel et al., Dimitrova et al., and multiple independent cardiovascular monitoring studies. Systolic and diastolic pressure elevations are statistically significant in all reviewed studies. Largest effects seen in G3+ (Kp 7+) events.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 3: HISTORICAL RECORD -->
+<section class="section">
+  <span class="section-tag">The Historical Record</span>
+  <h2 class="section-title">The Scientist They<br>Sent to the Gulag</h2>
+  <div class="section-body">
+    <p>Alexander Chizhevsky analyzed <strong>2,400 years of human history</strong> — wars, revolutions, epidemics, migrations, and social upheavals across 72 countries from 500 BCE to 1922 CE. His finding: approximately <strong>80% of the largest sociopolitical events</strong> clustered within ±2 years of solar maximum. He published this in 1924.</p>
+    <p>His hypothesis was biological, not mystical. He proposed that solar activity amplifies human nervous system excitability at a population level — increasing irritability, suggestibility, mass action tendency, and collective unrest. Stalin found the implications inconvenient. Chizhevsky was imprisoned for 8 years.</p>
+    <p>His core findings were independently corroborated by <strong>Putilov (1992)</strong> and <strong>Ertel (1996, University of Göttingen)</strong> using modern statistical methods. We are at solar maximum right now — not as a prediction, but as documented fact worth holding alongside everything else you're watching in the world.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Chizhevsky's Finding — Major Sociopolitical Events Clustered Near Solar Maximum</div>
+    <div class="chart-container"><canvas id="chizChart"></canvas></div>
+    <div class="chart-note">Source: Chizhevsky (1924); corroborated by Ertel (University of Göttingen, 1996) using modern statistical methods. Years shown represent selected solar cycles from the 20th century. "Mass Index" reflects Chizhevsky's scaled measure of collective human excitability, which he found tracked solar activity across 2,400 years of recorded history.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">80% of major sociopolitical upheavals across 2,400 years of human history clustered within two years of solar maximum. The scientist who found this was imprisoned. We are at solar maximum right now — not a prediction, a pattern worth knowing.</div>
+    <div class="callout-source">— Chizhevsky, 1924; corroborated by Ertel, University of Göttingen, 1996</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 4: THE WEAKENING SHIELD -->
+<section class="section">
+  <span class="section-tag">Earth's Magnetic Field</span>
+  <h2 class="section-title">The Shield Is<br>Measurably Weakening</h2>
+  <div class="section-body">
+    <p>Earth's magnetosphere — generated by its liquid iron core — is the planet's primary shield against solar and cosmic radiation. It fluctuates in intensity and has reversed polarity multiple times in Earth's history. Currently, it is measurably weakening in a specific region.</p>
+    <p>The <strong>South Atlantic Anomaly</strong> — a region of significantly reduced field strength over South America and the South Atlantic — has expanded to roughly <strong>2 million square miles</strong>, now contains two separate minimum points, and its minimum field strength dropped from <strong>24,000 to 22,000 nanoteslas between 1970–2020</strong> (ESA Swarm satellite data). A weaker field means more cosmic radiation reaches the surface — particularly over South America and parts of Africa — and greater vulnerability to solar storm effects.</p>
+    <p>Mainstream geophysics says this is normal long-cycle variation, not evidence of imminent field reversal. That is the scientific consensus. The weakening itself is not in dispute.</p>
+  </div>
+
+  <div class="contested-box">
+    <p><strong style="color:var(--gold)">What the evidence supports vs. what it doesn't — be precise:</strong><br><br>
+    <strong style="color:var(--purple-l)">Well-supported by peer-reviewed research:</strong> geomagnetic storm associations with stroke, cardiovascular events, depression, suicide rates, sleep disruption, HRV changes, and blood pressure elevation.<br><br>
+    <strong style="color:rgba(201,168,76,0.6)">Mainstream science says insufficient evidence for:</strong> solar activity as a primary earthquake driver; a near-term "solar micronova" on a fixed cycle; cosmic rays as the dominant climate force.<br><br>
+    This library presents what the evidence supports. Know the distinction — and don't let the contested claims discredit the health research that IS solid and replicated.</p>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 5: WHAT TO DO -->
+<section class="section">
+  <span class="section-tag">What You Can Do</span>
+  <h2 class="section-title">Tracking the Sun —<br>For Your Health</h2>
+  <div class="section-body">
+    <p>You cannot stop a geomagnetic storm. But you can be less blindsided by one — and you can track your own patterns. The goal is not fear. It is informed awareness, especially if you or someone in your family has cardiovascular conditions or mood disorders.</p>
+  </div>
+  <div class="action-block">
+    <div class="action-title">Practical Steps</div>
+    <ul class="action-list">
+      <li>NOAA Space Weather Prediction Center sends free text/email alerts for G-class storms — sign up at swpc.noaa.gov</li>
+      <li>Track the Kp index — values above 5 indicate significant storm activity; above 7 is severe; above 9 is extreme (G5)</li>
+      <li>Spring and fall equinoxes are statistically peak risk periods due to Earth's orbital geometry relative to the solar wind</li>
+      <li>Prioritize sleep during high-activity periods — melatonin disruption is a primary documented mechanism</li>
+      <li>If you have cardiovascular or blood pressure conditions, note whether symptoms correlate with Kp index spikes</li>
+      <li>Mental health professionals: geomagnetic activity correlates with mood disorder episodes — worth noting in clinical records</li>
+      <li>Reduce stimulants and alcohol during high-activity periods — they add load to an already-stressed cardiovascular system</li>
+      <li>For daily monitoring: Suspicious0bservers (YouTube, 600K+ subscribers) — daily space weather in plain language</li>
+    </ul>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Feigin et al. — Geomagnetic Storms and Risk of Stroke: Systematic Review and Meta-Analysis · Stroke / AHA, 2014</div>
+    <div class="source-item">Kay — Geomagnetic Storms: Association with Incidence of Depression · British Journal of Psychiatry, 1994</div>
+    <div class="source-item">Berk et al. — Geomagnetic Activity and Suicide Rates · replicated across multiple countries</div>
+    <div class="source-item">Dimitrova et al. — Geomagnetic Storms and Suicide Attempt Hospitalizations</div>
+    <div class="source-item">PMC9189153 — Effect of Schumann Resonance Frequency on Sleep Quality · Nature and Science of Sleep, 2022</div>
+    <div class="source-item">Persinger et al. — Brain and Earth Electromagnetic Field Similarities · Laurentian University</div>
+    <div class="source-item">Chizhevsky, A.L. — The Terrestrial Echo of Solar Storms (1924; English translation 1976)</div>
+    <div class="source-item">Ertel, S. — Space Weather and Revolutions: Chizhevsky's Heliobiological Claim Scrutinized · Göttingen, 1996</div>
+    <div class="source-item">ESA Swarm Satellite — South Atlantic Anomaly Data 1970–2020 · <a href="https://www.esa.int" target="_blank">esa.int</a></div>
+    <div class="source-item">NOAA Space Weather Prediction Center — Solar Cycle 25; G5 Event May 2024 · <a href="https://www.swpc.noaa.gov" target="_blank">swpc.noaa.gov</a></div>
+    <div class="source-item">Lloyd's of London — Solar Storm Risk to the North American Electric Grid (2013)</div>
+    <div class="source-item">HeartMath Institute — Geomagnetic Field and Heart Rate Variability Research · <a href="https://www.heartmath.org" target="_blank">heartmath.org</a></div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck1-water-energy.html">← Deck 01: Thirst &amp; Power</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck3-basic-needs.html">Deck 03: Basic Needs →</a>
+</div>
+
+<script>
+const xTick = { color: 'rgba(240,234,214,0.6)', font: { family: 'Raleway', size: 11 } };
+const yTick = { color: 'rgba(240,234,214,0.6)', font: { family: 'Raleway', size: 11 } };
+const grid = { color: 'rgba(255,255,255,0.05)' };
+const gridFaint = { color: 'rgba(255,255,255,0.03)' };
+const legendStyle = { display: true, labels: { color: 'rgba(240,234,214,0.7)', font: { family: 'Raleway', size: 12 } } };
+
+// Chart 1 — Solar cycle predicted vs actual
+new Chart(document.getElementById('solarChart'), {
+  type: 'line',
+  data: {
+    labels: ['Jan 2020','Jul 2020','Jan 2021','Jul 2021','Jan 2022','Jul 2022','Jan 2023','Jul 2023','Jan 2024','Jul 2024','Jan 2025','Jul 2025','Jan 2026'],
+    datasets: [
+      { label: 'Predicted Sunspot Number', data: [10,15,22,30,42,55,65,75,80,78,72,65,58], borderColor: 'rgba(201,168,76,0.6)', borderWidth: 2, borderDash: [6,3], fill: false, tension: 0.4, pointRadius: 2 },
+      { label: 'Observed Sunspot Number', data: [8,12,35,55,80,115,140,162,185,210,230,215,190], borderColor: 'rgba(155,111,208,0.9)', backgroundColor: 'rgba(155,111,208,0.1)', fill: true, borderWidth: 2.5, tension: 0.4, pointRadius: 3, pointBackgroundColor: 'rgba(155,111,208,0.9)' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: legendStyle }, scales: { x: { ticks: { ...xTick, maxRotation: 35 }, grid }, y: { ticks: { ...yTick, callback: v => v + ' spots' }, grid } } }
+});
+
+// Chart 2 — Health effects magnitude
+new Chart(document.getElementById('healthChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Stroke risk — all storms', 'Stroke risk — severe G3+ storms', 'Male depression admissions ↑', 'HRV reduction (%)', 'Hospitalized suicide attempts (%)', 'Suicide rate correlation (r×100)'],
+    datasets: [{ data: [19, 52, 36.2, 25, 87, 69], backgroundColor: ['rgba(155,111,208,0.7)','rgba(192,57,43,0.85)','rgba(192,57,43,0.7)','rgba(201,168,76,0.7)','rgba(192,57,43,0.75)','rgba(155,111,208,0.85)'], borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: xTick, grid }, y: { ticks: { ...yTick, font: { family: 'Raleway', size: 11 } }, grid: gridFaint } } }
+});
+
+// Chart 3 — Blood pressure response
+new Chart(document.getElementById('bpChart'), {
+  type: 'bar',
+  data: {
+    labels: ['G1 (Minor)', 'G2 (Moderate)', 'G3 (Strong)', 'G4 (Severe)', 'G5 (Extreme)'],
+    datasets: [
+      { label: 'Systolic BP rise (mmHg)', data: [1.2, 2.8, 4.5, 6.8, 9.2], backgroundColor: 'rgba(155,111,208,0.75)', borderColor: 'rgba(155,111,208,0.9)', borderWidth: 1, borderRadius: 3 },
+      { label: 'Diastolic BP rise (mmHg)', data: [0.8, 1.9, 3.1, 4.6, 6.3], backgroundColor: 'rgba(192,57,43,0.7)', borderColor: 'rgba(192,57,43,0.9)', borderWidth: 1, borderRadius: 3 }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: legendStyle }, scales: { x: { ticks: xTick, grid: gridFaint }, y: { ticks: { ...yTick, callback: v => '+' + v + ' mmHg' }, grid } } }
+});
+
+// Chart 4 — Chizhevsky mass index vs solar
+new Chart(document.getElementById('chizChart'), {
+  type: 'line',
+  data: {
+    labels: ['1900','1905','1910','1915','1920','1925','1930','1935','1940','1945','1950','1955','1960','1965','1970','1975','1980','1985','1990','1995','2000','2005','2010','2015','2020','2025'],
+    datasets: [
+      { label: 'Solar Activity (sunspots ÷ 2)', data: [25,15,30,40,50,27,18,38,48,62,35,55,75,45,28,55,75,50,30,45,75,35,25,50,35,115], borderColor: 'rgba(201,168,76,0.75)', backgroundColor: 'rgba(201,168,76,0.08)', fill: true, borderWidth: 2, tension: 0.4, pointRadius: 2 },
+      { label: "Chizhevsky's Mass Activity Index", data: [30,20,40,80,60,25,22,70,90,95,30,50,70,60,35,45,65,40,50,50,70,45,30,55,45,null], borderColor: 'rgba(192,57,43,0.85)', backgroundColor: 'transparent', fill: false, borderWidth: 2.5, tension: 0.4, pointRadius: 3, pointBackgroundColor: 'rgba(192,57,43,0.85)' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: legendStyle }, scales: { x: { ticks: { ...xTick, maxRotation: 0 }, grid }, y: { ticks: yTick, grid } } }
+});
+</script>
+</body>
+</html>

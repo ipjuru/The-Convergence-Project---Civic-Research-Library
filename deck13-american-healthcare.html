@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 13 — American Healthcare: A Closer Look · The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root {
+  --gold:#C9A84C; --gold-l:#E8C96A; --teal:#1A6B5A; --teal-l:#2E8B74;
+  --black:#0D0D0D; --b2:#111; --b3:#181818; --b4:#1e1e1e;
+  --cream:#F0EAD6; --tan:#C2A87E; --border:rgba(201,168,76,0.2);
+  --red:#C0392B; --red-l:#e74c3c; --blue:#2471A3; --blue-l:#3498DB;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;}
+
+/* NAV */
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+
+/* HERO */
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(26,107,90,0.12) 0%, transparent 70%);
+  pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--teal-l);border:1px solid rgba(46,139,116,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.2);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(16px,2vw,22px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--teal-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+
+/* SECTIONS */
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--teal-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.9;color:rgba(240,234,214,0.8);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--teal-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.5);margin-top:8px;}
+
+/* CHART */
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;position:relative;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:12px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+
+/* CALLOUT */
+.callout{border-left:3px solid var(--teal-l);padding:24px 28px;background:rgba(26,107,90,0.08);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+
+/* COMPARE TABLE */
+.compare-table{width:100%;border-collapse:collapse;margin:48px 0;}
+.compare-table th{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);padding:16px 20px;text-align:left;border-bottom:1px solid #2a2a2a;background:var(--b3);}
+.compare-table td{font-family:'Raleway',sans-serif;font-size:14px;padding:14px 20px;border-bottom:1px solid #1a1a1a;color:rgba(240,234,214,0.8);}
+.compare-table tr:hover td{background:rgba(255,255,255,0.02);}
+.rank-worst{color:var(--red-l);font-weight:700;}
+.rank-best{color:#2ECC71;font-weight:700;}
+
+/* HIGHLIGHT BLOCK */
+.highlight-block{background:var(--b3);border-top:3px solid var(--teal-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--teal-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.8);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'▸';color:var(--teal-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+
+/* SOURCES */
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:12px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+
+/* BOTTOM NAV */
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+
+@media(max-width:768px){
+  .top-nav{padding:16px 20px;}
+  .section{padding:60px 20px;}
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .compare-table{font-size:12px;}
+  .compare-table th,.compare-table td{padding:10px 12px;}
+}
+
+/* STANDARD DECK FOOTER */
+.deck-footer{background:#111111;border-top:1px solid #1a1a1a;margin-top:80px;}
+.footer-nav{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:32px 32px 16px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all .2s;}
+.footer-nav a:hover{color:#C9A84C;border-color:#C9A84C;}
+.bmc-bar-footer{display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding:24px 32px;border-top:1px solid #1a1a1a;max-width:1100px;margin:0 auto;}
+.bmc-icon-f{font-size:28px;}
+.bmc-text-f{flex:1;}
+.bmc-headline-f{font-family:'Cinzel',serif;font-size:14px;color:#F0EAD6;margin-bottom:4px;}
+.bmc-sub-f{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.45);}
+.bmc-btn-f{font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#C9A84C;text-decoration:none;border:1px solid rgba(201,168,76,0.35);padding:10px 20px;white-space:nowrap;transition:all .2s;}
+.bmc-btn-f:hover{background:rgba(201,168,76,0.1);border-color:#C9A84C;}
+.footer-copy-bar{text-align:center;padding:16px 32px 28px;border-top:1px solid #1a1a1a;}
+.footer-copy-bar p{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(240,234,214,0.25);}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">← Library Home</a>
+  <span class="nav-deck">Vol. 5 · Deck 13</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-deck-num">13</div>
+  <span class="vol-badge">Vol. 5 — American Healthcare: A Closer Look</span>
+  <h1 class="hero-title">American Healthcare<br>A Closer Look</h1>
+  <p class="hero-sub">We spend more than any nation on Earth on healthcare. We live shorter, sicker lives than almost all of them. Where is the money going — and who decides?</p>
+  <div class="hero-stat">$5.3 Trillion</div>
+  <div class="hero-stat-label">U.S. Healthcare Spend in 2024 · $15,474 per person</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 1: THE BILL -->
+<section class="section">
+  <span class="section-tag">The Bill</span>
+  <h2 class="section-title">We Spend the Most.<br>We Get the Least.</h2>
+  <div class="section-body">
+    <p>In 2024, U.S. healthcare spending hit <strong>$5.3 trillion</strong> — 18% of the entire economy. That's $15,474 for every man, woman, and child in the country, whether they saw a doctor that year or not. To put it in perspective: in 1970, per capita health spending was $353. That is a 2,005% increase in 45 years.</p>
+    <p>Growth is accelerating, not slowing. The 7.2% increase in 2024 was the highest consecutive two-year run since 1991–1992. The CMS projects healthcare will consume <strong>20.3% of GDP by 2033</strong> — one in five dollars the country produces, just on healthcare.</p>
+    <p>And yet the Commonwealth Fund's <em>Mirror Mirror 2024</em> report — comparing 10 wealthy nations on 70 health metrics — ranked the U.S. dead last in health outcomes, access to care, and equity. The U.S. was the only clear outlier. Every other country, despite spending a fraction of what we spend, has found a way to meet its citizens' basic health needs.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">$5.3T</div>
+      <div class="stat-label">Total Health Spend 2024</div>
+      <div class="stat-note">Up 7.2% from 2023</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">18%</div>
+      <div class="stat-label">Share of U.S. GDP</div>
+      <div class="stat-note">Projected 20.3% by 2033</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">28M</div>
+      <div class="stat-label">Still Uninsured in 2024</div>
+      <div class="stat-note">Despite record coverage highs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">#10</div>
+      <div class="stat-label">U.S. Rank of 10 Nations</div>
+      <div class="stat-note">Commonwealth Fund 2024</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Healthcare Spending Per Capita vs. Peer Nations (2024, USD)</div>
+    <div class="chart-container">
+      <canvas id="spendChart"></canvas>
+    </div>
+    <div class="chart-note">Source: Commonwealth Fund / Peterson-KFF Health System Tracker 2024. U.S. spends nearly twice as much per capita as comparable wealthy nations.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">"The U.S. is failing one of its principal obligations as a nation: to protect the health and welfare of its people. The status quo — continually spending the most and getting the least for our health care dollars — is not sustainable."</div>
+    <div class="callout-source">— Dr. Joseph Betancourt, President, Commonwealth Fund · Mirror Mirror 2024</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 2: WHERE IT GOES -->
+<section class="section">
+  <span class="section-tag">Follow the Money</span>
+  <h2 class="section-title">Where Does $5.3 Trillion Actually Go?</h2>
+  <div class="section-body">
+    <p>The breakdown of U.S. healthcare spending tells a story of where power sits in this system. Hospital care alone consumed <strong>$1.63 trillion</strong> — the single largest piece, growing 8.9% in 2024. Physician and clinical services hit <strong>$1.1 trillion</strong>. Prescription drugs: <strong>$467 billion</strong>.</p>
+    <p>Private health insurance spending grew 8.8% to <strong>$1.64 trillion</strong>, the largest payer category. Medicare covered 66.6 million Americans at a cost of $1.1 trillion. Medicaid served 84.3 million people — down from a pandemic-era peak of 92.2 million after continuous enrollment provisions expired. Out-of-pocket spending hit <strong>$556 billion</strong>.</p>
+    <p>Meanwhile, hospitals spent <strong>$43 billion in 2025</strong> just trying to collect payments insurers already owed. Nearly $18 billion went to overturning claims denials alone. The average hospital employed 64 staff solely for administrative and billing functions — roughly 6.5% of total hospital employment — just navigating insurance paperwork.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Healthcare Spending by Category, 2024 (Billions)</div>
+    <div class="chart-container">
+      <canvas id="spendBreakChart"></canvas>
+    </div>
+    <div class="chart-note">Source: CMS National Health Expenditure Accounts 2024 / AHA Costs of Caring Report 2025.</div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">The Administrative Drain — What Paperwork Costs Us</div>
+    <ul class="highlight-list">
+      <li>Hospitals spent $43 billion in 2025 collecting payments insurers owed for care already delivered</li>
+      <li>$18 billion spent in 2025 specifically on overturning insurance claim denials</li>
+      <li>Average hospital employs 64 billing & admin staff just for insurance navigation — 6.5% of total workforce</li>
+      <li>Medicare reimbursed hospitals at just 83 cents on the dollar in 2024 — over $100 billion in underpayments</li>
+      <li>Insurance companies made 53 million prior authorization decisions in 2024 — 1.7 per enrollee</li>
+      <li>Appeals of prior authorizations rose from 7.5% in 2019 to 11.5% in 2024</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 3: BIG PHARMA -->
+<section class="section">
+  <span class="section-tag">Big Pharma</span>
+  <h2 class="section-title">The Price of Medicine<br>in America</h2>
+  <div class="section-body">
+    <p>The United States doesn't just pay more for healthcare — it pays dramatically more for the drugs inside it. A 2024 RAND Corporation study analyzed prescription drug prices in 34 OECD nations and found U.S. prices averaged <strong>2.78 times</strong> what other countries pay. For brand-name drugs specifically, that gap explodes: U.S. prices average <strong>4.22 times</strong> what the same drugs cost elsewhere.</p>
+    <p>Insulin tells the starkest story. In 2022, the U.S. paid nearly <strong>10 times</strong> more for insulin than the average across 33 comparison countries. More than 10 times higher than France and the UK. The drug has been around since 1921 — it is not new technology.</p>
+    <p>The reason? Unlike every other wealthy nation, the U.S. has no mechanism for government price negotiation on most drugs, no caps on what manufacturers can charge, and allows direct-to-consumer pharmaceutical advertising. The result: the U.S. accounts for <strong>62% of global pharmaceutical sales revenue</strong> while representing just 24% of global prescription volume. We are the profit engine for the global drug industry.</p>
+    <p>Retail prescription drug spending increased <strong>12.9% in 2024</strong> — the fastest growing component of healthcare. GLP-1 drugs like Ozempic and Wegovy are accelerating this further.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Drug Price Index: U.S. vs. Peer Nations (U.S. = 100, All Drugs, 2022)</div>
+    <div class="chart-container">
+      <canvas id="drugChart"></canvas>
+    </div>
+    <div class="chart-note">Source: RAND Corporation, International Prescription Drug Price Comparisons, 2024. Lower bar = cheaper than U.S. price. U.S. set as 100 baseline.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">U.S. insulin prices were nearly 10x those in 33 comparison countries in 2022. After adjusting for rebates, Americans still paid $2.33 for every $1 paid for insulin in peer nations.</div>
+    <div class="callout-source">— RAND Corporation / U.S. ASPE Drug Price Comparison Report, 2024</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">2.78×</div>
+      <div class="stat-label">Higher Drug Prices vs. 33 Nations</div>
+      <div class="stat-note">All drugs avg, 2022 RAND data</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4.22×</div>
+      <div class="stat-label">Brand-Name Drug Premium</div>
+      <div class="stat-note">U.S. vs. peer country avg</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">62%</div>
+      <div class="stat-label">Global Pharma Revenue</div>
+      <div class="stat-note">U.S. = 24% of global volume</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$467B</div>
+      <div class="stat-label">U.S. Rx Drug Spend 2024</div>
+      <div class="stat-note">+12.9% from 2023</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 4: OUTCOMES -->
+<section class="section">
+  <span class="section-tag">The Scoreboard</span>
+  <h2 class="section-title">What Are We Actually<br>Getting for All of This?</h2>
+  <div class="section-body">
+    <p>The U.S. ranked last out of 10 wealthy nations in <strong>three of five categories</strong> in the 2024 Commonwealth Fund assessment: access to care, health outcomes, and equity. The country ranked 9th in administrative efficiency. Only in care process — screening rates, preventive services — did the U.S. perform competitively, ranking second.</p>
+    <p>Life expectancy at birth in the U.S. is <strong>77.5 years</strong> — the shortest of all 10 nations in the study, and a gap that has grown since COVID. In 1980, U.S. life expectancy was nearly on par with peer nations. Decades of underinvestment in primary care, coverage gaps, and systemic inequity have eroded that standing.</p>
+    <p>Americans also lead peer nations in preventable and treatable deaths — deaths that could have been avoided with timely, effective care or prevention. Drug overdoses, gun-related deaths, and maternal mortality all contribute to America's historically poor outcomes ranking. The U.S. has the highest maternal mortality rate among comparable wealthy countries.</p>
+    <p>The conclusion from every major international health research body is the same: the U.S. is the only high-income country without universal coverage, and that single structural gap explains more of the performance deficit than any other factor.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Commonwealth Fund Mirror Mirror 2024 — Overall Rankings (10 Nations)</div>
+    <div class="chart-container">
+      <canvas id="rankChart"></canvas>
+    </div>
+    <div class="chart-note">Source: Commonwealth Fund, Mirror Mirror 2024: A Portrait of the Failing U.S. Health System. Rankings across 70 measures in 5 domains. Lower bar = better rank.</div>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>U.S.</th>
+        <th>Peer Avg</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Life Expectancy at Birth</td>
+        <td>77.5 years</td>
+        <td>~82 years</td>
+        <td class="rank-worst">Last</td>
+      </tr>
+      <tr>
+        <td>Healthcare Spend Per Capita</td>
+        <td>$15,474</td>
+        <td>~$7,371</td>
+        <td class="rank-worst">2× Peers</td>
+      </tr>
+      <tr>
+        <td>Preventable Deaths Rate</td>
+        <td>Highest</td>
+        <td>Significantly lower</td>
+        <td class="rank-worst">Last</td>
+      </tr>
+      <tr>
+        <td>Maternal Mortality</td>
+        <td>Highest</td>
+        <td>Far lower</td>
+        <td class="rank-worst">Last</td>
+      </tr>
+      <tr>
+        <td>Universal Coverage</td>
+        <td>No</td>
+        <td>Yes (all 9 peers)</td>
+        <td class="rank-worst">Only nation</td>
+      </tr>
+      <tr>
+        <td>Access to Care Score</td>
+        <td>10th of 10</td>
+        <td>—</td>
+        <td class="rank-worst">Last</td>
+      </tr>
+      <tr>
+        <td>Care Process (Prevention)</td>
+        <td>2nd of 10</td>
+        <td>—</td>
+        <td class="rank-best">2nd</td>
+      </tr>
+      <tr>
+        <td>% Uninsured</td>
+        <td>8.2% (28M)</td>
+        <td>~0%</td>
+        <td class="rank-worst">Only gap</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 5: ACCESS & EQUITY -->
+<section class="section">
+  <span class="section-tag">Access & Equity</span>
+  <h2 class="section-title">Who Gets to Be Sick<br>in America?</h2>
+  <div class="section-body">
+    <p>The American healthcare system does not fail everyone equally. The 28 million uninsured are disproportionately low-income, rural, and people of color. The states that refused Medicaid expansion — a political decision, not a financial one — are the states with the largest coverage gaps. Those residents are trapped in a zone too poor to afford private insurance and too "wealthy" (under pre-ACA thresholds) to qualify for Medicaid.</p>
+    <p>Beyond coverage: even the insured are not protected. An estimated <strong>one in four insured Americans is underinsured</strong> — meaning their deductibles and out-of-pocket costs are so high that seeking care creates financial hardship. The ACA out-of-pocket maximum in 2024 was $9,450 for a single adult. More than <strong>40% of Americans spent at least $1,000 out of pocket</strong> in a single year on healthcare.</p>
+    <p>Primary care is collapsing under the strain. As of 2024, <strong>53% of the U.S. primary care workforce</strong> is approaching retirement age. The U.S. has fewer general practitioners per capita than any of the peer nations studied. Sixteen percent of adults aged 19–64 used an ER for conditions treatable by a regular doctor — because they didn't have one.</p>
+    <p>Healthcare access in America has become a function of zip code, income, and employer. The wealthiest Americans receive some of the most advanced care in the world. Everyone else navigates a system designed around profit, not patients.</p>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">Who Carries the Weight — Systemic Access Failures</div>
+    <ul class="highlight-list">
+      <li>28 million Americans remain uninsured despite record coverage highs — a historic low still uniquely American by peer standards</li>
+      <li>1 in 4 insured Americans is considered underinsured; coverage exists but financial barriers to care remain</li>
+      <li>ACA marketplace subsidies expired at end of 2025 — experts project the uninsured population will swell again in 2026</li>
+      <li>Medicaid enrollment dropped 7.9% in 2024 as pandemic-era continuous enrollment unwound — 84.3M vs. peak of 92.2M</li>
+      <li>53% of U.S. primary care physicians are nearing retirement age; provider shortage already severe</li>
+      <li>16% of adults 19–64 used an ER for treatable primary care conditions — up from 11% in peer countries</li>
+      <li>Older Adults (65+) represent 17% of population but consume 37% of all healthcare spending</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">Universal coverage is fundamental. A lot of the lagging performance of the United States healthcare system has to do with access to care and equity of care, both of which are heavily influenced by the availability and quality of insurance.</div>
+    <div class="callout-source">— David Blumenthal, Former President, Commonwealth Fund</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 6: THE MOMENT -->
+<section class="section">
+  <span class="section-tag">Right Now</span>
+  <h2 class="section-title">The System in 2025–2026:<br>What's Changing and What's at Stake</h2>
+  <div class="section-body">
+    <p>The political landscape around healthcare is shifting rapidly. Enhanced ACA subsidies that reduced marketplace premiums for millions of Americans expired at the end of 2025. Without legislative renewal, healthcare observers across the spectrum project the uninsured number will grow significantly in 2026.</p>
+    <p>At the same time, Congressional Republicans and the Trump administration's "One Big Beautiful Bill" proposed deep cuts to Medicaid. The Congressional Budget Office analysis projected the bill would result in millions more uninsured Americans by 2034. Democrats called this "gutting Medicaid." The debate continues.</p>
+    <p>On pharmaceuticals: the Inflation Reduction Act's Medicare Drug Price Negotiation Program — the first time in history Medicare could directly negotiate drug prices — was implemented for a first batch of 10 drugs. The results showed meaningful price reductions. Future expansion of that program is now politically contested.</p>
+    <p>Meanwhile, the Change Healthcare cyberattack in February 2024 exposed the fragility of America's centralized healthcare billing infrastructure, disrupting payment processing for hospitals and pharmacies nationwide — a reminder that a system built around billing efficiency, not patient care, carries unique systemic risks.</p>
+    <p>Healthcare spending is projected to reach <strong>20.3% of GDP by 2033</strong>. Without structural reform, the system will continue consuming a growing share of the economy while delivering outcomes that trail countries that spend half as much per person.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">20.3%</div>
+      <div class="stat-label">Projected GDP Share by 2033</div>
+      <div class="stat-note">CMS 10-year projections</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">5.8%</div>
+      <div class="stat-label">Avg Annual Growth Projected</div>
+      <div class="stat-note">2024–2033 · vs. 4.3% GDP growth</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$43B</div>
+      <div class="stat-label">Hospitals Spent Chasing Payments</div>
+      <div class="stat-note">From insurers in 2025 alone</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2,005%</div>
+      <div class="stat-label">Per Capita Spend Increase</div>
+      <div class="stat-note">1980–2024: $943 → $13,265</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources & Citations</div>
+    <div class="source-item">Health Affairs / CMS — "National Health Care Spending Increased 7.2 Percent In 2024" (Jan. 2026) · <a href="https://www.healthaffairs.org/doi/10.1377/hlthaff.2025.01683" target="_blank">healthaffairs.org</a></div>
+    <div class="source-item">Peterson-KFF Health System Tracker — "How has U.S. spending on healthcare changed over time?" (2026) · <a href="https://www.healthsystemtracker.org" target="_blank">healthsystemtracker.org</a></div>
+    <div class="source-item">Commonwealth Fund — Mirror Mirror 2024: A Portrait of the Failing U.S. Health System (Sept. 2024) · <a href="https://www.commonwealthfund.org/publications/fund-reports/2024/sep/mirror-mirror-2024" target="_blank">commonwealthfund.org</a></div>
+    <div class="source-item">RAND Corporation — International Prescription Drug Price Comparisons: Estimates Using 2022 Data (Feb. 2024) · <a href="https://www.rand.org/pubs/research_reports/RRA788-3.html" target="_blank">rand.org</a></div>
+    <div class="source-item">U.S. ASPE / HHS — Comparing Prescription Drugs in the U.S. and Other Countries: Prices and Availability (Jan. 2024) · <a href="https://aspe.hhs.gov/reports/comparing-prescription-drugs" target="_blank">aspe.hhs.gov</a></div>
+    <div class="source-item">CMS NHE Fact Sheet 2024 · <a href="https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/nhe-fact-sheet" target="_blank">cms.gov</a></div>
+    <div class="source-item">American Hospital Association — 2024 Costs of Caring Report · <a href="https://www.aha.org/costsofcaring" target="_blank">aha.org</a></div>
+    <div class="source-item">Peter G. Peterson Foundation — How Does the U.S. Healthcare System Compare to Other Countries? (Oct. 2025) · <a href="https://www.pgpf.org" target="_blank">pgpf.org</a></div>
+    <div class="source-item">USAFacts — How much is spent on personal healthcare in the US? (2025) · <a href="https://usafacts.org" target="_blank">usafacts.org</a></div>
+    <div class="source-item">NBC News / Healthcare Dive / Fortune / AJMC — Coverage of Mirror Mirror 2024 findings (Sept. 2024)</div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <a href="deck12-family-unit.html">← Deck 12: Family Unit</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck14-mental-health.html">Deck 14: Mental Health →</a>
+</div>
+
+<script>
+// CHART 1: Spending per capita comparison
+const spendCtx = document.getElementById('spendChart').getContext('2d');
+new Chart(spendCtx, {
+  type: 'bar',
+  data: {
+    labels: ['U.S.','Germany','Switzerland','Netherlands','Canada','France','Australia','U.K.','Japan'],
+    datasets:[{
+      label:'Healthcare Spend Per Capita (USD, 2024 est.)',
+      data:[15474, 8011, 9963, 7000, 6319, 5468, 5187, 4653, 4360],
+      backgroundColor: ctx => ctx.index === 0 ? 'rgba(192,57,43,0.8)' : 'rgba(46,139,116,0.7)',
+      borderColor: ctx => ctx.index === 0 ? '#e74c3c' : '#2E8B74',
+      borderWidth:1
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toLocaleString()}}},
+    scales:{
+      x:{ticks:{color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}},grid:{color:'rgba(255,255,255,0.03)'}},
+      y:{ticks:{color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11},callback:v=>'$'+v.toLocaleString()},grid:{color:'rgba(255,255,255,0.05)'}}
+    }
+  }
+});
+
+// CHART 2: Spending breakdown
+const breakCtx = document.getElementById('spendBreakChart').getContext('2d');
+new Chart(breakCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Hospital Care','Private Insurance Admin','Physician & Clinical','Medicare','Medicaid','Rx Drugs','Out-of-Pocket','Other'],
+    datasets:[{
+      data: [1635, 1645, 1110, 1118, 932, 467, 557, 590],
+      backgroundColor: [
+        'rgba(192,57,43,0.8)','rgba(46,139,116,0.8)','rgba(201,168,76,0.8)',
+        'rgba(36,113,163,0.8)','rgba(130,97,150,0.8)','rgba(231,76,60,0.7)',
+        'rgba(241,196,15,0.7)','rgba(149,165,166,0.6)'
+      ],
+      borderColor: '#111',
+      borderWidth: 2
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'right',labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:11},padding:12}},
+      tooltip:{callbacks:{label:ctx=>' $'+ctx.parsed.toLocaleString()+'B'}}
+    }
+  }
+});
+
+// CHART 3: Drug prices
+const drugCtx = document.getElementById('drugChart').getContext('2d');
+new Chart(drugCtx, {
+  type: 'bar',
+  data: {
+    labels: ['France','Japan','U.K.','Germany','Canada','Netherlands','Australia','Switzerland','U.S. (Baseline)'],
+    datasets:[{
+      label:'Drug Price Index (U.S. = 100)',
+      data: [19, 22, 27, 34, 45, 40, 38, 54, 100],
+      backgroundColor: ctx => ctx.index === 8 ? 'rgba(192,57,43,0.8)' : 'rgba(46,139,116,0.7)',
+      borderColor: ctx => ctx.index === 8 ? '#e74c3c' : '#2E8B74',
+      borderWidth:1
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.parsed.y+' (U.S.=100)'}}},
+    scales:{
+      x:{ticks:{color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}},grid:{color:'rgba(255,255,255,0.03)'}},
+      y:{ticks:{color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}},grid:{color:'rgba(255,255,255,0.05)'},max:120}
+    }
+  }
+});
+
+// CHART 4: Rankings
+const rankCtx = document.getElementById('rankChart').getContext('2d');
+new Chart(rankCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Australia','Netherlands','U.K.','New Zealand','France','Sweden','Canada','Switzerland','Germany','U.S.'],
+    datasets:[{
+      label:'Overall Rank (Lower = Better)',
+      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      backgroundColor: ctx => ctx.index === 9 ? 'rgba(192,57,43,0.85)' : 'rgba(46,139,116,0.7)',
+      borderColor: ctx => ctx.index === 9 ? '#e74c3c' : '#2E8B74',
+      borderWidth:1
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'Rank #'+ctx.parsed.x+' of 10'}}},
+    scales:{
+      x:{ticks:{color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}},grid:{color:'rgba(255,255,255,0.05)'},max:11},
+      y:{ticks:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}},grid:{color:'rgba(255,255,255,0.03)'}}
+    }
+  }
+});
+</script>
+
+<!-- STANDARD DECK FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck12-family-unit.html">&larr; Deck 12: Family Unit</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck14-mental-health.html">Deck 14: Mental Health &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+</body>
+</html>

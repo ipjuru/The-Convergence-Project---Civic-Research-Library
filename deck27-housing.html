@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 27 -- Housing: Home Was Never the Plan For You - The Convergence Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --rust:#B85C38;--rust-dim:rgba(184,92,56,0.12);--rust-mid:rgba(184,92,56,0.5);
+  --red:#C87474;--blue:#8B9EC8;--green:#6FA882;--orange:#F4C08A;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(184,92,56,0.07) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--rust);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--rust);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--rust);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--rust-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--rust);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--rust);padding:24px 28px;background:var(--rust-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.bmc-bar-footer{display:flex;align-items:center;gap:20px;justify-content:center;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.15);border-radius:2px;padding:20px 28px;margin:24px auto;max-width:700px;flex-wrap:wrap;}
+.bmc-icon-f{font-size:28px;}
+.bmc-text-f{flex:1;min-width:200px;text-align:left;}
+.bmc-headline-f{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:4px;}
+.bmc-sub-f{font-family:'Raleway',sans-serif;font-size:11px;color:var(--cream-faint);}
+.bmc-btn-f{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:10px 20px;text-decoration:none;border-radius:2px;white-space:nowrap;}
+.footer-copy-bar{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);text-transform:uppercase;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="deck-label">Vol. 6 &bull; Deck 27 &bull; American Pockets</div>
+  <h1 class="hero-title">Housing:<br><span>Home Was Never the Plan For You</span></h1>
+  <p class="hero-sub">Rent is up 30% since 2020 in nominal terms, while inflation-adjusted wages grew modestly. The median home price hit $420,000. Half of renters are cost-burdened. And the companies that turned housing into a financial instrument are posting record profits. The American Dream of homeownership was not lost. It was converted.</p>
+  <div class="hero-stat-big">30%</div>
+  <div class="hero-stat-label">Average nominal rent increase since 2020 &mdash; nominal wages grew ~25% over the same period; real (inflation-adjusted) wage growth was ~3-5% &mdash; Harvard JCHS 2025; BLS</div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">The Collapse of<br><span>Housing Affordability</span></h2>
+  <p class="section-body">Housing affordability in the United States collapsed not because of bad luck but because of specific policy failures layered over decades: zoning laws that blocked density, interest rate manipulation that inflated asset prices, tax structures that rewarded speculative investment, and the wholesale entry of institutional investors into the single-family rental market. Each decision made housing more profitable for those who owned it and more expensive for those who needed it.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$420K</div><div class="stat-label">Median U.S. Home Price (2025)</div><div class="stat-note">Up from $230K in 2020; first-time buyers now need $100K+ income in most metros &mdash; NAR / Zillow 2025</div></div>
+    <div class="stat-card"><div class="stat-number">50%</div><div class="stat-label">of Renters Cost-Burdened</div><div class="stat-note">Paying more than 30% of income on rent; 27% severely burdened (50%+ of income) &mdash; Harvard JCHS 2025</div></div>
+    <div class="stat-card"><div class="stat-number">7.1M</div><div class="stat-label">Unit Affordable Housing Shortage</div><div class="stat-note">Gap between available affordable units and households who need them; worst in low-income rentals &mdash; NLIHC "The Gap" 2025</div></div>
+    <div class="stat-card"><div class="stat-number">771K</div><div class="stat-label">People Experiencing Homelessness</div><div class="stat-note">January 2024 point-in-time count &mdash; the highest single-night total ever recorded; up 18% from 2023 &mdash; HUD 2024 AHAR (released Dec 2024)</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Median Home Price vs. Median Household Income -- Affordability Ratio (1970-2025)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: U.S. Census Bureau Historical Housing Data; National Association of Realtors Existing Home Sales data; Bureau of Labor Statistics median household income series. Affordability ratio = median home price divided by median annual household income. A ratio above 3.0 is generally considered unaffordable by conventional lending standards.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">When Wall Street<br><span>Bought Your Block</span></h2>
+  <p class="section-body">Beginning in 2012, institutional investors &mdash; private equity firms, real estate investment trusts, and hedge funds &mdash; purchased single-family homes at scale, converting them to rentals. They were aided by federal policy that allowed bulk purchasing of foreclosed homes from Fannie Mae and Freddie Mac. By 2023, institutional investors owned approximately 574,000 single-family rentals. In some ZIP codes, they own 25-40% of available homes. They do not sell. They do not negotiate. They raise rents algorithmically.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Institutional Investor Share of Single-Family Home Purchases (2012-2024, % of All Purchases)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: CoreLogic Single-Family Investor Activity Report 2024; National Association of Realtors Investor Purchase Data; Pew Research Center -- Majority of Americans Say Affordable Housing Is a Big Problem in Their Area (2024). "Institutional" defined as entities purchasing 10+ properties per year. Concentrated primarily in Sun Belt metros: Atlanta, Charlotte, Phoenix, Dallas, Tampa, Jacksonville.</div>
+  </div>
+
+  <div class="callout">
+    <p>In 2023, a federal antitrust investigation found that RealPage -- software used by major landlords managing 13 million units -- was coordinating rent pricing across competing landlords using a shared algorithm. Antitrust law prohibits price-fixing between competitors. When a software company coordinates it instead, the legal question becomes more complicated. The renters paying the higher price feel no such complication.</p>
+    <div class="callout-source">DOJ Antitrust Division -- United States v. RealPage Inc. (2024); ProPublica -- Your Landlord's Secret Scoring System (2022)</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">574K</div><div class="stat-label">Single-Family Homes Owned by Institutions</div><div class="stat-note">As of 2023; concentrated in Sun Belt metros; Invitation Homes alone owns 85,000+ units &mdash; Urban Institute 2023 (using CoreLogic data)</div></div>
+    <div class="stat-card"><div class="stat-number">~3M</div><div class="stat-label">Rental Units Directly Priced by RealPage</div><div class="stat-note">DOJ antitrust suit filed 2024; estimated 5-7% above-market premium; 16+ million units in RealPage data pool &mdash; DOJ complaint; ProPublica 2022</div></div>
+    <div class="stat-card"><div class="stat-number">25-40%</div><div class="stat-label">Home Price Premium in Investor-Concentrated Areas</div><div class="stat-note">Institutional investor activity associated with home purchase price increases; rental effects vary by market and investor scale &mdash; Coven 2025; Urban Institute</div></div>
+    <div class="stat-card"><div class="stat-number">$1B+</div><div class="stat-label">Annual Blackstone Real Estate Income</div><div class="stat-note">Blackstone is the world's largest private landlord; BREIT reported a GAAP net loss in 2023 while facing $14.3B in withdrawal requests and fighting rent regulation in multiple states &mdash; BREIT 10-K 2023</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The Racial Geography<br><span>of the Housing Crisis</span></h2>
+  <p class="section-body">The housing crisis lands unevenly. The Black homeownership rate stands at approximately 45% &mdash; higher in absolute terms than 1968 (~41%), but the gap between Black and white homeownership has grown wider since the Fair Housing Act was passed. The gap between Black and white homeownership stands at approximately 28 percentage points &mdash; wider than the 1968 gap of ~27 pp, though it has narrowed from its 2017 peak of 30 pp. This is not a failure of aspiration. It is the compounded effect of redlining, discriminatory appraisals, predatory lending, and ongoing disparities in mortgage approval that have never been fully addressed.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Homeownership Rate by Race -- U.S. 1970-2024</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: U.S. Census Bureau Current Population Survey Housing Vacancies and Homeownership data; Urban Institute -- The State of the Nation's Housing 2024; National Fair Housing Alliance annual reports. Black homeownership peaked in 2004 at 49.7% and has declined since. The Black-white gap stood at 29 percentage points in 2024 -- larger than in 1968.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">~45%</div><div class="stat-label">Black Homeownership Rate (2024)</div><div class="stat-note">Higher in absolute terms than 1968 (~41%), but the Black-white homeownership gap has grown wider since the Fair Housing Act &mdash; Census ACS; Urban Institute</div></div>
+    <div class="stat-card"><div class="stat-number">1.7x</div><div class="stat-label">More Likely to Be Denied a Mortgage</div><div class="stat-note">Black applicants denied at 19% vs. 11.3% overall &mdash; an ~8 percentage point gap controlling for loan type; HMDA data 2024 (LendingTree analysis)</div></div>
+    <div class="stat-card"><div class="stat-number">-$46K</div><div class="stat-label">Undervaluation of Black-Owned Homes</div><div class="stat-note">Average undervaluation vs. equivalent homes in majority-white neighborhoods; Brookings "The Devaluation of Assets in Black Neighborhoods" 2018 (updated 2021)</div></div>
+    <div class="stat-card"><div class="stat-number">80%</div><div class="stat-label">of Redlined Areas Still Lower Income</div><div class="stat-note">3 in 4 neighborhoods graded "Hazardous" by HOLC in the 1930s remain low-to-moderate income today &mdash; NCRC 2018</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The Homelessness<br><span>We Built</span></h2>
+  <p class="section-body">Homelessness in the United States increased 18.1% from 2023 to 2024 &mdash; the largest single-year increase since the federal government began tracking it. The causes are documented: loss of pandemic-era rental assistance, rising rents outpacing voucher values, insufficient shelter capacity, and a legal architecture in many cities that criminalizes the act of being without housing rather than addressing the underlying shortage. In 2024, the Supreme Court ruled that cities can enforce anti-camping ordinances regardless of shelter availability.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">653K</div><div class="stat-label">People Homeless on a Single Night (2024)</div><div class="stat-note">+18.1% from 2023; largest single-year increase on record; 150,000 are chronically homeless &mdash; HUD AHAR 2024</div></div>
+    <div class="stat-card"><div class="stat-number">$40K</div><div class="stat-label">Annual Cost of Leaving Someone Homeless</div><div class="stat-note">Emergency shelter + ER use + jail cycling + social services; vs. $12K-$18K for permanent supportive housing &mdash; RAND 2024</div></div>
+    <div class="stat-card"><div class="stat-number">2024</div><div class="stat-label">Year Supreme Court Allowed Anti-Camping Laws</div><div class="stat-note">Grants Pass v. Johnson: cities may enforce bans regardless of shelter availability; criminalized homelessness where no alternative exists</div></div>
+    <div class="stat-card"><div class="stat-number">+39%</div><div class="stat-label">Family Homelessness Increase (2024)</div><div class="stat-note">Families with children saw a 39% increase in 2024; driven by immigration, disaster displacement, and end of rental assistance &mdash; HUD 2024 AHAR</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Cost Comparison -- Homelessness vs. Housing Interventions (Annual Cost Per Person, $K)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: RAND Corporation -- The Costs of Homelessness (2024); National Alliance to End Homelessness -- State of Homelessness 2024; HUD Continuum of Care program cost data; Urban Institute permanent supportive housing cost analysis. Housing First programs consistently show cost savings vs. emergency services cycling.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">What Works and<br><span>What Gets Blocked</span></h2>
+  <p class="section-body">The policy interventions with the strongest evidence base for improving housing affordability are well-documented: zoning reform to allow density, construction of public and social housing, strengthened tenant protections, and regulation of institutional investor activity. Most of these interventions are actively opposed by real estate industry lobbying at the federal and state level. The National Association of Realtors was the #1 lobbying spender in the U.S. in 2024, spending $86.3 million. What works is known. What is funded is different.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">NAR &amp; Real Estate Industry Lobbying vs. Affordable Housing Federal Appropriations (2010-2024, $B)</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: OpenSecrets -- Real Estate Sector Lobbying Data 2024; National Association of Realtors political spending; HUD Budget Justifications and Annual Reports 2010-2024; National Low Income Housing Coalition advocacy budget tracker. Affordable housing appropriations include Section 8 vouchers, public housing capital fund, CDBG, and HOME program combined.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Housing Policy Evidence: What Improves Affordability and What Does Not</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: Brookings Institution -- Zoning Reform Evidence Review (2023); Urban Institute -- What Works to Increase Housing Affordability (2024); NBER Housing Economics working papers. Effectiveness score represents synthesis of peer-reviewed study findings on rent burden reduction and unit availability; 10 = strong positive evidence, 0 = no evidence or negative evidence.</div>
+  </div>
+
+  <table class="data-table">
+    <thead><tr>
+      <th>Policy</th>
+      <th>Evidence of Effectiveness</th>
+      <th>Industry Opposition Level</th>
+      <th>Current Federal Status</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Zoning reform / upzoning</td><td>Strong -- increases supply, reduces rents long-term</td><td>High (local real estate, NIMBYism)</td><td>No federal mandate; patchy state action</td></tr>
+      <tr><td>Housing vouchers (Section 8)</td><td>Strong -- reduces housing instability for recipients</td><td>Moderate (landlord refusal)</td><td>Funded but 2-year+ waitlists in most metros</td></tr>
+      <tr><td>Public / social housing construction</td><td>Strong (Vienna, Singapore models)</td><td>Very High (real estate industry)</td><td>Minimal; Green New Deal for Public Housing stalled</td></tr>
+      <tr><td>Tenant protections / rent stabilization</td><td>Moderate -- protects existing tenants</td><td>Very High (NAR, investor lobbies)</td><td>Banned by state law in 32 states</td></tr>
+      <tr><td>Institutional investor regulation</td><td>Emerging -- limited data</td><td>Extreme (Blackstone, Invitation Homes lobbying)</td><td>Proposed bills failed in 2023 and 2024</td></tr>
+      <tr><td>Criminalizing homelessness</td><td>Negative -- increases costs, reduces stability</td><td>N/A -- no industry opposition</td><td>Expanded by Supreme Court (2024)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Harvard Joint Center for Housing Studies &mdash; State of the Nation's Housing 2025 &mdash; <a href="https://www.jchs.harvard.edu" target="_blank">jchs.harvard.edu</a></div>
+    <div class="source-item">National Low Income Housing Coalition &mdash; Out of Reach 2025; The Gap: A Shortage of Affordable Homes &mdash; <a href="https://nlihc.org" target="_blank">nlihc.org</a></div>
+    <div class="source-item">HUD &mdash; Annual Homeless Assessment Report to Congress 2024; PIT Count Data &mdash; <a href="https://www.hudexchange.info" target="_blank">hudexchange.info</a></div>
+    <div class="source-item">National Association of Realtors &mdash; Existing Home Sales and Median Price Data 2025 &mdash; <a href="https://www.nar.realtor" target="_blank">nar.realtor</a></div>
+    <div class="source-item">CoreLogic &mdash; Single-Family Investor Activity Report 2024 &mdash; <a href="https://www.corelogic.com" target="_blank">corelogic.com</a></div>
+    <div class="source-item">Urban Institute &mdash; What Works to Increase Housing Affordability (2024); Investor Concentration and Rents &mdash; <a href="https://www.urban.org" target="_blank">urban.org</a></div>
+    <div class="source-item">Pew Research Center &mdash; Majority of Americans Say Affordable Housing Is a Big Problem in Their Area (2024) &mdash; <a href="https://www.pewresearch.org" target="_blank">pewresearch.org</a></div>
+    <div class="source-item">ProPublica / Wired &mdash; Your Landlord's Secret Scoring System; RealPage Algorithmic Pricing Investigation (2022-2024)</div>
+    <div class="source-item">DOJ Antitrust Division &mdash; United States v. RealPage Inc. (2024) &mdash; <a href="https://www.justice.gov" target="_blank">justice.gov</a></div>
+    <div class="source-item">Brookings Institution &mdash; The Devaluation of Assets in Black Neighborhoods (2023); Zoning Reform Evidence Review &mdash; <a href="https://www.brookings.edu" target="_blank">brookings.edu</a></div>
+    <div class="source-item">U.S. Census Bureau &mdash; Current Population Survey Housing Vacancies and Homeownership; HMDA Mortgage Data &mdash; <a href="https://www.census.gov" target="_blank">census.gov</a></div>
+    <div class="source-item">RAND Corporation &mdash; The Costs of Homelessness: Systemic Economic Analysis (2024) &mdash; <a href="https://www.rand.org" target="_blank">rand.org</a></div>
+    <div class="source-item">OpenSecrets &mdash; Real Estate Sector Lobbying and Political Contributions 2024 &mdash; <a href="https://www.opensecrets.org" target="_blank">opensecrets.org</a></div>
+    <div class="source-item">NCRC / Richmond Fed &mdash; HOLC Redlining Maps and Neighborhood Outcomes Research (2020, updated 2023)</div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck26-student-debt.html">&larr; Deck 26: Student Debt</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck28-land-air-sea.html">Deck 28: Land, Air &amp; Sea &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var rust = '#B85C38';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var blue = '#8B9EC8';
+var green = '#6FA882';
+var orange = '#F4C08A';
+var dimGrid = 'rgba(255,255,255,0.06)';
+Chart.defaults.color = cream;
+Chart.defaults.font.family = 'Raleway';
+
+new Chart(document.getElementById('c1'), {
+  type: 'line',
+  data: {
+    labels: ['1970','1975','1980','1985','1990','1995','2000','2005','2010','2015','2020','2025'],
+    datasets: [
+      { label: 'Home Price to Income Ratio', data: [2.3, 2.4, 2.8, 3.1, 3.3, 3.1, 3.4, 4.4, 3.8, 3.9, 4.9, 6.1], borderColor: red, backgroundColor: 'rgba(200,116,116,0.08)', tension: 0.3, fill: true },
+      { label: 'Affordability Threshold (3.0x)', data: [3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0], borderColor: 'rgba(201,168,76,0.5)', backgroundColor: 'transparent', tension: 0, borderDash: [8,4] }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + 'x'; } }, min: 1, max: 7 }
+    }
+  }
+});
+
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {
+    labels: ['2012','2014','2016','2018','2020','2022','2024'],
+    datasets: [{
+      label: 'Institutional Share of Single-Family Purchases (%)',
+      data: [2.4, 3.1, 4.2, 5.0, 7.8, 13.2, 11.8],
+      backgroundColor: function(ctx) { return ctx.parsed.y > 10 ? red : (ctx.parsed.y > 6 ? orange : blue); },
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c3'), {
+  type: 'line',
+  data: {
+    labels: ['1970','1980','1990','2000','2004','2008','2012','2016','2020','2024'],
+    datasets: [
+      { label: 'White Homeownership Rate', data: [65.9, 67.8, 68.2, 73.8, 75.4, 74.9, 73.5, 71.9, 74.5, 73.7], borderColor: blue, backgroundColor: 'transparent', tension: 0.3 },
+      { label: 'Black Homeownership Rate', data: [42.0, 44.4, 43.4, 46.3, 49.7, 47.9, 43.9, 41.3, 44.1, 44.7], borderColor: red, backgroundColor: 'rgba(200,116,116,0.08)', tension: 0.3, fill: true },
+      { label: 'Latino Homeownership Rate', data: [null, null, 41.2, 45.7, 48.1, 49.1, 46.1, 45.6, 48.4, 48.9], borderColor: orange, backgroundColor: 'transparent', tension: 0.3 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, min: 35, max: 80 }
+    }
+  }
+});
+
+new Chart(document.getElementById('c4'), {
+  type: 'bar',
+  data: {
+    labels: ['Emergency Shelter Only', 'ER + Jail Cycling (Unsheltered)', 'Transitional Housing', 'Rapid Rehousing', 'Permanent Supportive Housing', 'Prevention (Eviction Diversion)'],
+    datasets: [{
+      label: 'Annual Cost Per Person ($K)',
+      data: [28, 40, 22, 14, 16, 4],
+      backgroundColor: [orange, red, orange, blue, green, green],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'K'; } } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c5'), {
+  type: 'line',
+  data: {
+    labels: ['2010','2012','2014','2016','2018','2020','2022','2024'],
+    datasets: [
+      { label: 'Real Estate Industry Lobbying ($B/yr)', data: [0.08, 0.09, 0.11, 0.13, 0.16, 0.18, 0.21, 0.24], borderColor: red, backgroundColor: 'rgba(200,116,116,0.08)', tension: 0.3, fill: true, yAxisID: 'y' },
+      { label: 'Federal Affordable Housing Appropriations ($B)', data: [42, 40, 36, 38, 39, 41, 44, 43], borderColor: blue, backgroundColor: 'transparent', tension: 0.3, yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: red, callback: function(v){ return '$' + v + 'B'; } }, title: { display: true, text: 'Lobbying Spend', color: red } },
+      y2: { position: 'right', grid: { display: false }, ticks: { color: blue, callback: function(v){ return '$' + v + 'B'; } }, title: { display: true, text: 'Housing Appropriations', color: blue } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c6'), {
+  type: 'bar',
+  data: {
+    labels: ['Zoning Reform / Upzoning', 'Public Housing Construction', 'Housing Voucher Expansion', 'Tenant Protections', 'Institutional Investor Limits', 'Criminalizing Homelessness'],
+    datasets: [{
+      label: 'Evidence-Based Effectiveness Score (0-10)',
+      data: [8.5, 9.0, 7.5, 6.5, 5.0, 1.0],
+      backgroundColor: [green, green, green, blue, orange, red],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream }, max: 10 },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

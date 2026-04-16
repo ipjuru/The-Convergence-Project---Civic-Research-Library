@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 17 -- Gig Economy &amp; Wage Theft - The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230D0D0D' stroke='%23C9A84C' stroke-width='6'/><text x='50' y='67' font-size='52' text-anchor='middle' fill='%23C9A84C' font-family='serif'>C</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.15);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --orange:#E8A87C;--orange-l:#F4C08A;
+  --accent:#8B6914;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+
+/* NAV */
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+
+/* HERO */
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(201,168,76,0.07) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--orange-l);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--orange-l);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+
+/* SECTIONS */
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--orange-l);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--gold-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--orange-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+
+/* CHART */
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+
+/* CALLOUT */
+.callout{border-left:3px solid var(--gold);padding:24px 28px;background:var(--gold-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+
+/* TWO-COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+
+/* TIMELINE */
+.timeline{margin:40px 0;}
+.tl-item{display:flex;gap:24px;margin-bottom:32px;align-items:flex-start;}
+.tl-year{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--gold);min-width:60px;padding-top:2px;}
+.tl-content{border-left:1px solid #2a2a2a;padding-left:24px;flex:1;}
+.tl-title{font-family:'Cinzel',serif;font-size:15px;color:var(--cream);margin-bottom:4px;}
+.tl-text{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);color:var(--cream);}
+
+/* SOURCES */
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+
+/* FOOTER */
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.footer-copy{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="deck-label">Vol. 5 &bull; Deck 17 &bull; American Economy</div>
+  <h1 class="hero-title">Gig Economy &amp;<br><span>Wage Theft</span></h1>
+  <p class="hero-sub">The largest theft in America has no mugshot, no perp walk, and no prime-time coverage.</p>
+  <div class="hero-stat-big">$50B</div>
+  <div class="hero-stat-label">Stolen from workers annually &mdash; more than all property crime combined &mdash; EPI 2024</div>
+</section>
+
+<!-- SECTION 1 -->
+<section class="section">
+  <h2 class="section-title">The Biggest Heist<br>Nobody Talks About</h2>
+  <p class="section-body">Every year, employers steal more from American workers than all robberies, burglaries, larcenies, and motor vehicle thefts combined. They call it unpaid overtime, tip skimming, illegal deductions, and minimum wage violations. The federal government calls it &ldquo;wage theft.&rdquo; Most Americans have never heard the term.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$50B</div><div class="stat-label">Wage Theft Per Year</div><div class="stat-note">vs. $12.7B in all property crime &mdash; EPI</div></div>
+    <div class="stat-card"><div class="stat-number">70M+</div><div class="stat-label">Gig Workers in U.S.</div><div class="stat-note">~36% of workforce by broad definition &mdash; McKinsey 2024</div></div>
+    <div class="stat-card"><div class="stat-number">611</div><div class="stat-label">Federal Wage Investigators</div><div class="stat-note">52-year low &mdash; covers 165M workers &mdash; Northwestern 2025</div></div>
+    <div class="stat-card"><div class="stat-number">30%</div><div class="stat-label">Payroll Cost Savings</div><div class="stat-note">From misclassifying employees as contractors &mdash; NELP</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Wage Theft vs. All Property Crime in America (USD Billions, 2023)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: Economic Policy Institute; FBI Uniform Crime Report 2023. Wage theft totals are conservative estimates based on minimum wage violations alone.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 2 -->
+<section class="section">
+  <h2 class="section-title">The Legal Fiction That<br><span>Costs You Everything</span></h2>
+  <p class="section-body">Calling a worker an &ldquo;independent contractor&rdquo; instead of an employee saves companies roughly 30% on labor costs &mdash; no payroll tax, no benefits, no overtime, no workers&rsquo; comp. The worker absorbs all of that. Misclassification isn&rsquo;t a loophole; it&rsquo;s a business model.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">True Cost Burden: Employee vs. Independent Contractor Classification</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: NELP (National Employment Law Project); IRS SS-8 determinations; Economic Policy Institute. Values represent approximate employer cost savings per $50,000 annual compensation.</div>
+  </div>
+
+  <div class="callout">
+    <p>&ldquo;Misclassification lets companies offload business risk onto individual workers while pocketing the tax and benefit savings. The worker gets the gig. The company gets the margin.&rdquo;</p>
+    <div class="callout-source">National Employment Law Project &mdash; Independent Contractor Misclassification Report 2023</div>
+  </div>
+
+  <table class="data-table">
+    <thead><tr>
+      <th>Benefit / Protection</th>
+      <th>W-2 Employee</th>
+      <th>1099 Contractor</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Minimum Wage Guarantee</td><td>Yes</td><td>No</td></tr>
+      <tr><td>Overtime Pay</td><td>Yes (FLSA)</td><td>No</td></tr>
+      <tr><td>Employer Payroll Tax Contribution</td><td>Yes (7.65%)</td><td>Worker pays full 15.3%</td></tr>
+      <tr><td>Workers&rsquo; Compensation</td><td>Yes</td><td>No</td></tr>
+      <tr><td>Unemployment Insurance</td><td>Yes</td><td>No</td></tr>
+      <tr><td>Right to Organize / Union</td><td>Yes (NLRA)</td><td>No</td></tr>
+      <tr><td>Employer Health Benefits (50+ workers)</td><td>Required (ACA)</td><td>No</td></tr>
+      <tr><td>FMLA Protection</td><td>Yes (50+ workers)</td><td>No</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 3 -->
+<section class="section">
+  <h2 class="section-title">The Real Math<br>Behind the Gig</h2>
+  <p class="section-body">Platform companies advertise hourly earnings before expenses. The actual number &mdash; after fuel, vehicle wear, insurance, platform fees, and self-employment tax &mdash; tells a very different story. Workers on some platforms earn less per hour than federal minimum wage.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Advertised vs. Actual Hourly Earnings After Expenses &mdash; Major Gig Platforms</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: EPI (Uber analysis); PayUp "No Free Lunch" Report (DoorDash); Working Washington (Instacart). Actual earnings calculated after platform fees, vehicle costs, fuel, and self-employment tax.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$10.87</div><div class="stat-label">Uber Net Per Hour (After Expenses)</div><div class="stat-note">W-2 equivalent: $9.21/hr &mdash; below minimum wage in 13 of 20 largest metro areas &mdash; EPI</div></div>
+    <div class="stat-card"><div class="stat-number">$1.45</div><div class="stat-label">DoorDash Net Per Hour (After Expenses)</div><div class="stat-note">Only 11% of jobs paid above federal minimum after costs &mdash; PayUp 2023</div></div>
+    <div class="stat-card"><div class="stat-number">$554M</div><div class="stat-label">Tips Suppressed Since 2023</div><div class="stat-note">Uber Eats and DoorDash redesigned apps to cut tips from $2.17 to $0.76 per delivery &mdash; NYC Report 2024</div></div>
+    <div class="stat-card"><div class="stat-number">0</div><div class="stat-label">Worker Input on Tip Design</div><div class="stat-note">Workers had no say and no recourse when platforms changed payout structures</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 4 -->
+<section class="section">
+  <h2 class="section-title">Wage Theft Is a<br><span>Racial Justice Issue</span></h2>
+  <p class="section-body">Wage theft doesn&rsquo;t happen equally across the workforce. It concentrates where workers have the least power to push back: Black and Latino workers, immigrants, women in tipped industries, and workers in non-union jobs. This isn&rsquo;t a coincidence &mdash; it&rsquo;s a pattern.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Workers Most Affected by Wage Theft by Demographic Group (% of Affected Workers, EPI 2023)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: Economic Policy Institute; Wage Theft in America 2023. Percentages represent share of wage-theft-affected workers in each category relative to their share of the overall workforce.</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">Who Gets Hit Hardest</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--gold-mid);">Black workers are 1.8x more likely to experience minimum wage violations than white workers</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--gold-mid);">Latino workers make up 17% of the workforce but 28% of wage theft victims</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--gold-mid);">Tipped workers &mdash; 71% women &mdash; face routine tip skimming and illegal deductions</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--gold-mid);">Undocumented workers have almost no legal recourse, making them prime targets</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">Where It Happens Most</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--orange);">Food service &amp; restaurants &mdash; tip theft, off-clock work</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--orange);">Agriculture &amp; domestic work &mdash; often excluded from FLSA coverage</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--orange);">Construction &amp; day labor &mdash; rampant misclassification</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--orange);">Care work (childcare, elder care) &mdash; low visibility, low enforcement</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 5 -->
+<section class="section">
+  <h2 class="section-title">Enforcement That<br>Doesn&rsquo;t Enforce</h2>
+  <p class="section-body">The Wage and Hour Division of the Department of Labor is the primary federal agency responsible for wage theft enforcement. In 2025, staffing reached its lowest point since 1973. One investigator per 270,000 workers. The math is not meant to work.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Federal Wage Investigator Staffing vs. Workers Covered (1975-2025)</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: Northwestern Workplace Justice Lab (2025); Department of Labor historical staffing records. Investigators-to-workers ratio shown as workers per investigator (right axis).</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">611</div><div class="stat-label">Wage Investigators in 2025</div><div class="stat-note">52-year all-time low &mdash; Northwestern Workplace Justice Lab</div></div>
+    <div class="stat-card"><div class="stat-number">270K</div><div class="stat-label">Workers Per Investigator</div><div class="stat-note">Up from roughly 50K per investigator in the 1970s</div></div>
+    <div class="stat-card"><div class="stat-number">2%</div><div class="stat-label">Wage Theft Cases That Result in Full Recovery</div><div class="stat-note">Even when violations are found, workers rarely see full back pay &mdash; EPI</div></div>
+    <div class="stat-card"><div class="stat-number">$0</div><div class="stat-label">Criminal Penalty for Most Wage Theft</div><div class="stat-note">Most cases resolved with civil back pay only &mdash; no prosecution, no fines</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 6 -->
+<section class="section">
+  <h2 class="section-title">Prop 22 and the<br><span>Future of Gig Law</span></h2>
+  <p class="section-body">In 2020, Uber, Lyft, DoorDash, and Instacart spent $224 million &mdash; the most expensive ballot campaign in California history &mdash; to pass Proposition 22. It exempted gig workers from AB5, the law that would have reclassified them as employees. The California Supreme Court upheld Prop 22 in July 2024. The corporate playbook is now a template.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Gig Company Political Spending vs. Estimated Annual Employee Benefits Cost Avoided (California, 2020)</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: CalMatters; California Secretary of State campaign finance records; NELP benefit cost estimates based on Uber and Lyft California driver count at time of Prop 22 campaign.</div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2018</div>
+      <div class="tl-content">
+        <div class="tl-title">Dynamex Decision &mdash; CA Supreme Court</div>
+        <div class="tl-text">California Supreme Court issues Dynamex ruling requiring ABC test for contractor classification, creating major legal exposure for gig companies.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div class="tl-content">
+        <div class="tl-title">AB5 Signed Into Law</div>
+        <div class="tl-text">California codifies Dynamex, effectively making most gig workers employees. Uber, Lyft, and DoorDash immediately announce they will not comply.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020</div>
+      <div class="tl-content">
+        <div class="tl-title">Prop 22 Passes &mdash; $224M Campaign</div>
+        <div class="tl-text">Largest ballot initiative spend in state history. Gig companies write their own labor exemption into California constitution and win with 58% of the vote.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div class="tl-content">
+        <div class="tl-title">California Supreme Court Upholds Prop 22</div>
+        <div class="tl-text">Unanimous ruling in July 2024. The corporate-funded carve-out stands. Other states begin watching closely for a similar playbook.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Economic Policy Institute &mdash; Employers Steal Billions from Workers' Paychecks Each Year &mdash; <a href="https://www.epi.org/publication/employers-steal-billions-from-workers-paychecks-each-year/" target="_blank">epi.org</a></div>
+    <div class="source-item">Economic Policy Institute &mdash; Uber and the Labor Market: Uber Drivers' Compensation, Wages, and the Scale of the Gig Economy &mdash; <a href="https://www.epi.org/publication/uber-and-the-labor-market-uber-drivers-compensation-wages-and-the-scale-of-uber-and-the-gig-economy/" target="_blank">epi.org</a></div>
+    <div class="source-item">Economic Policy Institute &mdash; (In)dependent Contractor Misclassification &mdash; <a href="https://www.epi.org/publication/independent-contractor-misclassification/" target="_blank">epi.org</a></div>
+    <div class="source-item">National Employment Law Project &mdash; Independent Contractor Misclassification Imposes Huge Costs on Workers and Federal and State Treasuries &mdash; <a href="https://www.nelp.org/insights-research/independent-contractor-misclassification-imposes-huge-costs-workers-federal-state-treasuries-update-october-2020/" target="_blank">nelp.org</a></div>
+    <div class="source-item">PayUp &mdash; No Free Lunch: What DoorDash Actually Pays, After Expenses &mdash; <a href="https://payup.wtf/doordash/no-free-lunch-report" target="_blank">payup.wtf</a></div>
+    <div class="source-item">WebProNews &mdash; NYC Report: Uber Eats, DoorDash Cut $550M in Delivery Tips Since 2023 &mdash; <a href="https://www.webpronews.com/nyc-report-uber-eats-doordash-cut-550m-in-delivery-tips-since-2023/" target="_blank">webpronews.com</a></div>
+    <div class="source-item">CalMatters &mdash; Prop 22 Gig-Work Law Upheld by California Supreme Court (July 2024) &mdash; <a href="https://calmatters.org/economy/2024/07/prop-22-california-gig-work-law-upheld/" target="_blank">calmatters.org</a></div>
+    <div class="source-item">Northwestern Workplace Justice Lab &mdash; Labor Investigator Staffing Hits 52-Year Low (2025) &mdash; <a href="https://news.northwestern.edu/stories/2025/05/new-report-labor-investigator-staffing-hits-52-year-low-raising-the-risk-of-wage-theft" target="_blank">northwestern.edu</a></div>
+    <div class="source-item">FBI Uniform Crime Report 2023 &mdash; Property Crime Statistics &mdash; <a href="https://ucr.fbi.gov/" target="_blank">ucr.fbi.gov</a></div>
+    <div class="source-item">McKinsey Global Institute &mdash; Independent Work: Choice, Necessity, and the Gig Economy &mdash; <a href="https://www.mckinsey.com/featured-insights/employment-and-growth/independent-work-choice-necessity-and-the-gig-economy" target="_blank">mckinsey.com</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck16-addiction-opioid.html">&larr; Deck 16: Addiction &amp; Opioids</a>
+    <a href="index.html">Library Home</a>
+    <a href="deck18-american-politics.html">Deck 18: American Politics &rarr;</a>
+  </div>
+  <div class="footer-copy">The Convergence Project &mdash; Free Civic Research Library &mdash; Ebony Enterprises 9 LLC</div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var orange = '#F4C08A';
+var cream = 'rgba(240,234,214,0.7)';
+var blue = '#8B9EC8';
+var red = '#C87474';
+var dimGrid = 'rgba(255,255,255,0.06)';
+var defaults = { color: cream, font: { family: 'Raleway', size: 12 } };
+
+Chart.defaults.color = cream;
+Chart.defaults.font.family = 'Raleway';
+
+// Chart 1 - Wage theft vs property crime
+new Chart(document.getElementById('c1'), {
+  type: 'bar',
+  data: {
+    labels: ['Wage Theft (est.)', 'All Property Crime', 'Burglary', 'Robbery', 'Motor Vehicle Theft'],
+    datasets: [{
+      label: 'USD Billions',
+      data: [50, 12.7, 3.1, 1.0, 8.6],
+      backgroundColor: [red, orange, gold, gold, gold],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'B'; } } }
+    }
+  }
+});
+
+// Chart 2 - Misclassification cost breakdown
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {
+    labels: ['Payroll Tax (FICA)', 'Workers Comp', 'Unemployment Ins.', 'Health Benefits', 'Overtime Liability', 'Total Savings'],
+    datasets: [
+      { label: 'Employer Saves (Employee stays W-2)', data: [0,0,0,0,0,0], backgroundColor: 'transparent' },
+      { label: 'Employer Saves by Misclassifying ($)', data: [3825, 1200, 900, 6000, 2500, 14425], backgroundColor: [gold, orange, blue, cream, red, gold], borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v.toLocaleString(); } } }
+    }
+  }
+});
+
+// Chart 3 - Advertised vs actual gig pay
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['Uber', 'Lyft', 'DoorDash', 'Instacart', 'Amazon Flex'],
+    datasets: [
+      { label: 'Advertised Hourly', data: [25, 22, 23, 25, 18], backgroundColor: gold, borderWidth: 0, borderRadius: 2 },
+      { label: 'Actual After Expenses', data: [10.87, 9.50, 1.45, 7.25, 8.00], backgroundColor: red, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v; } } }
+    }
+  }
+});
+
+// Chart 4 - Wage theft by demographic
+new Chart(document.getElementById('c4'), {
+  type: 'bar',
+  data: {
+    labels: ['Latino Workers', 'Black Workers', 'Women (Tipped)', 'Immigrant Workers', 'Non-Union Workers'],
+    datasets: [{
+      label: '% Over-Represented Among Wage Theft Victims',
+      data: [64, 76, 58, 81, 89],
+      backgroundColor: [orange, gold, blue, red, cream],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+// Chart 5 - Investigator staffing over time
+new Chart(document.getElementById('c5'), {
+  type: 'line',
+  data: {
+    labels: ['1975','1980','1985','1990','1995','2000','2005','2010','2015','2020','2025'],
+    datasets: [
+      { label: 'Wage Investigators (Count)', data: [1450,1350,1200,1100,1000,1050,900,800,780,720,611], borderColor: gold, backgroundColor: 'rgba(201,168,76,0.08)', tension: 0.3, fill: true, yAxisID: 'y' },
+      { label: 'Workers Per Investigator (Thousands)', data: [55,65,78,90,110,115,140,165,185,210,270], borderColor: red, backgroundColor: 'transparent', tension: 0.3, fill: false, yAxisID: 'y2', borderDash: [5,5] }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: gold }, title: { display: true, text: 'Investigators', color: gold } },
+      y2: { position: 'right', grid: { display: false }, ticks: { color: red, callback: function(v){ return v + 'K'; } }, title: { display: true, text: 'Workers/Investigator', color: red } }
+    }
+  }
+});
+
+// Chart 6 - Prop 22 spending vs benefit cost
+new Chart(document.getElementById('c6'), {
+  type: 'bar',
+  data: {
+    labels: ['Prop 22 Campaign Spend', 'Annual Benefits Cost Avoided (CA)', 'Annual Tax Contribution Avoided (CA)'],
+    datasets: [{
+      label: 'USD Millions',
+      data: [224, 1800, 600],
+      backgroundColor: [gold, red, orange],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'M'; } } }
+    }
+  }
+});
+</script>
+
+<!-- STANDARD DECK FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck16-addiction-opioid.html">&larr; Deck 16: Addiction &amp; Opioids</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck18-american-politics.html">Deck 18: American Politics &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+</body>
+</html>

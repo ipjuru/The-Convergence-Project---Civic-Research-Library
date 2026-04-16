@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>How to Read a Research Deck — The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold:#C9A84C; --gold-l:#E8C96A; --gold-dim:#a07830;
+  --black:#0D0D0D; --b2:#111; --b3:#181818;
+  --cream:#F0EAD6; --tan:#C2A87E;
+  --border:rgba(201,168,76,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);color:var(--cream);
+  font-family:'Crimson Text',serif;
+  font-size:18px;line-height:1.8;
+  overflow-x:hidden;
+}
+body::before{content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;}
+
+/* ── TOP NAV ── */
+.top-nav{
+  position:relative;z-index:10;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 32px;border-bottom:1px solid #1a1a1a;
+  flex-wrap:wrap;gap:12px;
+}
+.nav-left,.nav-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.nav-btn{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(201,168,76,0.6);text-decoration:none;
+  border:1px solid rgba(201,168,76,0.2);padding:8px 18px;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:all .2s;
+}
+.nav-btn:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);color:var(--gold);}
+.nav-btn.primary{border-color:rgba(201,168,76,0.4);color:rgba(201,168,76,0.8);}
+.nav-btn.primary:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);color:var(--gold);}
+
+/* ── WRAPPER ── */
+.wrapper{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:72px 28px 120px;}
+
+/* ── HERO ── */
+.hero{text-align:center;margin-bottom:64px;}
+.hero-eye{
+  font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;display:block;
+}
+.hero-title{
+  font-family:'Cinzel',serif;font-size:clamp(32px,5vw,58px);font-weight:900;
+  color:var(--cream);line-height:1.1;margin-bottom:16px;
+}
+.hero-rule{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:24px auto;}
+.hero-sub{
+  font-family:'Crimson Text',serif;font-style:italic;
+  font-size:clamp(17px,2.2vw,21px);color:var(--tan);
+  max-width:600px;margin:0 auto;line-height:1.7;
+}
+
+/* ── JUMP NAV ── */
+.jump-nav{
+  background:var(--b2);border:1px solid var(--border);
+  padding:24px 28px;margin-bottom:56px;
+}
+.jump-nav-label{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;display:block;
+}
+.jump-links{display:flex;flex-wrap:wrap;gap:8px;}
+.jump-link{
+  font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:1px;
+  color:rgba(201,168,76,0.7);text-decoration:none;
+  border:1px solid rgba(201,168,76,0.2);padding:7px 16px;
+  transition:all .2s;
+}
+.jump-link:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);color:var(--gold);}
+
+/* ── SECTION ── */
+.section{margin-bottom:64px;}
+.section-eyebrow{
+  font-family:'Raleway',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:12px;
+  display:flex;align-items:center;gap:12px;
+}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--border);}
+.section-title{
+  font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,34px);font-weight:700;
+  color:var(--cream);margin-bottom:20px;line-height:1.2;
+}
+.section-body p{margin-bottom:16px;color:rgba(240,234,214,0.85);}
+.section-body strong{color:var(--cream);}
+
+/* ── STEPS LIST ── */
+.steps-list{list-style:none;margin:28px 0;}
+.steps-list li{
+  display:grid;grid-template-columns:48px 1fr;gap:16px;
+  align-items:start;padding:20px 0;border-bottom:1px solid #1a1a1a;
+}
+.steps-list li:last-child{border-bottom:none;}
+.step-num{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;
+  color:var(--gold);padding-top:3px;
+}
+.step-text{font-size:17px;color:rgba(240,234,214,0.85);line-height:1.7;}
+.step-text strong{color:var(--cream);}
+
+/* ── CALLOUT ── */
+.callout{
+  border-left:3px solid var(--gold);padding:20px 24px;
+  background:rgba(201,168,76,0.05);margin:32px 0;
+}
+.callout p{font-style:italic;font-size:17px;color:rgba(240,234,214,0.85);line-height:1.7;}
+.callout strong{color:var(--gold-l);font-style:normal;}
+
+/* ── USE CASE GRID ── */
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);margin:32px 0;}
+.use-block{background:var(--b3);padding:28px 24px;}
+.use-title{
+  font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+}
+.use-body{font-size:16px;color:rgba(240,234,214,0.75);line-height:1.7;}
+
+/* ── CONTRIBUTOR ── */
+.contributor-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+.contributor-box{background:var(--b3);border-left:2px solid var(--gold);padding:24px;}
+.contributor-box h4{
+  font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;
+  color:var(--gold);margin-bottom:10px;
+}
+.contributor-box p{font-size:16px;color:rgba(240,234,214,0.75);line-height:1.7;}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-block;font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;
+  border:1px solid var(--gold);padding:12px 28px;
+  margin-top:20px;margin-right:12px;transition:all .2s;
+}
+.btn:hover{background:var(--gold);color:var(--black);}
+.btn.outline{border-color:rgba(201,168,76,0.4);color:rgba(201,168,76,0.7);}
+.btn.outline:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);color:var(--gold);}
+
+/* ── DIVIDER ── */
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+
+/* ── BMC BAR ── */
+.bmc-bar{
+  background:var(--b2);border:1px solid var(--border);border-left:3px solid var(--gold);
+  padding:32px 28px;margin:48px 0;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.bmc-icon{font-size:2rem;flex-shrink:0;}
+.bmc-text{flex:1;min-width:200px;}
+.bmc-headline{
+  font-family:'Cinzel',serif;font-size:15px;font-weight:700;
+  color:var(--cream);margin-bottom:6px;
+}
+.bmc-sub{font-size:15px;color:rgba(240,234,214,0.55);font-style:italic;}
+.bmc-btn{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;border:1px solid var(--gold);
+  padding:12px 24px;white-space:nowrap;transition:all .2s;
+}
+.bmc-btn:hover{background:var(--gold);color:var(--black);}
+
+/* ── BOTTOM FOOTER NAV ── */
+.bottom-nav{
+  text-align:center;padding:48px 0 0;border-top:1px solid #1a1a1a;
+  margin-top:64px;
+}
+.bottom-nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:24px;}
+.bottom-nav a{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(201,168,76,0.6);text-decoration:none;
+  border:1px solid rgba(201,168,76,0.25);padding:12px 24px;
+  transition:all .2s;display:inline-block;
+}
+.bottom-nav a:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);color:var(--gold);}
+.bottom-nav a.primary{border-color:rgba(201,168,76,0.5);color:rgba(201,168,76,0.8);}
+.bottom-footer-small{
+  font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(201,168,76,0.3);margin-top:20px;
+}
+
+@media(max-width:640px){
+  .top-nav{padding:16px 20px;}
+  .wrapper{padding:48px 18px 80px;}
+  .use-grid{grid-template-columns:1fr;}
+  .contributor-grid{grid-template-columns:1fr;}
+  .steps-list li{grid-template-columns:36px 1fr;}
+  .bmc-bar{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-left">
+    <a class="nav-btn primary" href="index.html">&#x2190; The Convergence Project</a>
+  </div>
+  <div class="nav-right">
+    <a class="nav-btn" href="contribute.html">Contributor Space</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <span class="hero-eye">The Convergence Project</span>
+    <h1 class="hero-title">How to Read<br>a Research Deck</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">These decks are built to be accessible — not academic. Whether you're opening one for yourself, in a classroom, or at a community meeting, here's how to use them well.</p>
+  </div>
+
+  <!-- ── JUMP NAV ── */
+  <div class="jump-nav">
+    <span class="jump-nav-label">Jump to Section</span>
+    <div class="jump-links">
+      <a class="jump-link" href="#reading-a-deck">Reading a Deck</a>
+      <a class="jump-link" href="#for-educators">For Educators</a>
+      <a class="jump-link" href="#for-organizers">For Organizers</a>
+      <a class="jump-link" href="#fact-checking">Fact-Checking</a>
+      <a class="jump-link" href="contribute.html">Contributor Space &#x2192;</a>
+    </div>
+  </div>
+
+  <!-- ── SECTION 1: READING A DECK ── -->
+  <div class="section" id="reading-a-deck">
+    <p class="section-eyebrow">Start Here</p>
+    <h2 class="section-title">Reading a Deck —<br>Step by Step</h2>
+    <div class="section-body">
+      <p>Each deck is a self-contained research presentation built around one topic. They're designed so you can go as deep or as light as your time allows — the key numbers are always visible, the full context is always there if you want it.</p>
+    </div>
+
+    <ol class="steps-list">
+      <li>
+        <span class="step-num">01</span>
+        <span class="step-text"><strong>Start with the hero stat.</strong> That big number at the top sets the stakes for everything that follows. Let it land before you scroll.</span>
+      </li>
+      <li>
+        <span class="step-num">02</span>
+        <span class="step-text"><strong>Read the section labels.</strong> Each section has a short label in gold above the title — like "Follow the Money" or "Who Carries the Weight." That label tells you the angle before you read the data.</span>
+      </li>
+      <li>
+        <span class="step-num">03</span>
+        <span class="step-text"><strong>Don't skip the callout boxes.</strong> Gold-bordered italic text = the single most important takeaway from that section. If you're short on time, at least read those.</span>
+      </li>
+      <li>
+        <span class="step-num">04</span>
+        <span class="step-text"><strong>Use the charts interactively.</strong> On desktop, hover over any bar or data point to see exact values. On mobile, focus on the chart title, the color key, and the note beneath it.</span>
+      </li>
+      <li>
+        <span class="step-num">05</span>
+        <span class="step-text"><strong>Look for the equity lens.</strong> Every deck flags who the data affects most — by race, income, geography, age. If something reads as a national average, ask who that average is hiding.</span>
+      </li>
+      <li>
+        <span class="step-num">06</span>
+        <span class="step-text"><strong>Hit the Source Bank for anything that surprises you.</strong> Every stat links directly to its original source — a government database, peer-reviewed study, or nonpartisan institution. Skepticism is welcome and built in.</span>
+      </li>
+      <li>
+        <span class="step-num">07</span>
+        <span class="step-text"><strong>Share the deck directly, not just this page.</strong> Each deck has its own URL. That link opens directly for anyone — no login, no paywall. The more people see the full picture, the more pressure builds for real change.</span>
+      </li>
+    </ol>
+
+    <div class="callout">
+      <p>The decks don't tell you what to think. They hand you the receipts and let you decide. <strong>That's the design choice.</strong> Information with sources is a gift. What you do with it is yours.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ── SECTION 2: FOR EDUCATORS ── -->
+  <div class="section" id="for-educators" style="padding-top:56px;">
+    <p class="section-eyebrow">For Educators</p>
+    <h2 class="section-title">Using the Library<br>in the Classroom</h2>
+    <div class="section-body">
+      <p>Each deck is a standalone lesson. They're designed to work with existing curriculum — not replace it — and to give students a reason to care about civics, data literacy, and community.</p>
+    </div>
+
+    <div class="use-grid">
+      <div class="use-block">
+        <div class="use-title">Pairing Decks with Subjects</div>
+        <div class="use-body">
+          Deck 03 (Basic Needs) → Policy failure unit<br><br>
+          Deck 11 (Arts &amp; History) → Budget &amp; defunding discussions<br><br>
+          Deck 13 (Healthcare) → Healthcare systems comparison<br><br>
+          Deck 14 (Mental Health) → Wellness &amp; social-emotional learning<br><br>
+          Deck 15 (Finances) → Economics &amp; personal finance<br><br>
+          Deck 04 (The Root) → Corporate power &amp; history
+        </div>
+      </div>
+      <div class="use-block">
+        <div class="use-title">Classroom Activities</div>
+        <div class="use-body">
+          → Assign one stat per student to fact-check using the Source Bank<br><br>
+          → Use the comparison charts as discussion starters: "Why does the U.S. rank last here?"<br><br>
+          → Have students write a short editorial response to one callout box<br><br>
+          → Compare data across decks — the themes connect intentionally<br><br>
+          → Use the "Contested areas" flags in the Source Bank to teach the difference between settled and debated science
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>For educators:</strong> The summary stat grids at the top of each section are designed to be extractable — screenshot them, project them, or use them as discussion anchors without needing to display the full deck.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ── SECTION 3: FOR ORGANIZERS ── -->
+  <div class="section" id="for-organizers" style="padding-top:56px;">
+    <p class="section-eyebrow">For Community Organizers</p>
+    <h2 class="section-title">Using the Data<br>in the Field</h2>
+    <div class="section-body">
+      <p>This library was built with community organizing in mind. The decks are designed to be used — not just read. Here's how to put them to work.</p>
+    </div>
+
+    <div class="use-grid">
+      <div class="use-block">
+        <div class="use-title">Grant Applications &amp; Proposals</div>
+        <div class="use-body">The data tables and stat grids in each deck are formatted for extraction. The source links are all publicly verifiable — which is what grant reviewers and policy advocates need. Cite the stat, link the source, done.</div>
+      </div>
+      <div class="use-block">
+        <div class="use-title">Presentations &amp; Town Halls</div>
+        <div class="use-body">Open a deck directly in a browser — it's a presentation on its own. The hero stat, section headers, and callout boxes work as talking points. The charts are visual evidence. Works on any screen.</div>
+      </div>
+      <div class="use-block">
+        <div class="use-title">Social Media &amp; Outreach</div>
+        <div class="use-body">Each deck's hero stat and key callouts are designed to be shareable as single images or pull quotes. The full deck URL is the citation — send people there directly.</div>
+      </div>
+      <div class="use-block">
+        <div class="use-title">Policy Conversations</div>
+        <div class="use-body">The "Right Now" sections in each deck cover current legislative and political context. That's where you find what's actively being debated, what's at stake, and what the data says about proposed changes.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ── SECTION 4: FACT-CHECKING ── -->
+  <div class="section" id="fact-checking" style="padding-top:56px;">
+    <p class="section-eyebrow">Fact-Checking</p>
+    <h2 class="section-title">When Something<br>Surprises You</h2>
+    <div class="section-body">
+      <p>Good. That's the reaction this library is designed to produce. If a stat lands and you think — <em>that can't be right</em> — here's exactly what to do.</p>
+      <p>Every deck has a Sources section at the bottom. Each source links directly to the original document: a government database, peer-reviewed paper, or nonpartisan institution report. No aggregators, no secondary summaries, no middlemen.</p>
+      <p>The <strong>Source Bank</strong> at <a href="sources.html" style="color:var(--gold);border-bottom:1px solid rgba(201,168,76,0.3);text-decoration:none;">sources.html</a> organizes every source from every deck in one place, with a direct ↗ Fact Check link on each entry. If a link 404s — government sites reorganize — search the title plus the institution name. The data still exists.</p>
+      <p><strong>Contested areas</strong> are clearly flagged in the Source Bank at the bottom of each deck's section. Those are places where the science or data is still actively debated. This library does not present contested findings as settled fact. If you find an error or have a better source, the door is open — reach out.</p>
+    </div>
+
+    <a class="btn" href="sources.html">Open the Source Bank →</a>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CONTRIBUTOR CALLOUT -->
+  <div class="section" style="padding-top:56px;">
+    <p class="section-eyebrow">Get Involved</p>
+    <h2 class="section-title">Want to Help<br>Build This?</h2>
+    <div class="section-body">
+      <p>The Convergence Project grows with the community. Whether you are a researcher, developer, educator, or someone who just wants to share the work &mdash; there is a place for you.</p>
+    </div>
+    <a href="contribute.html" class="btn">Visit the Contributor Space &rarr;</a>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <div class="bottom-nav-links">
+      <a class="primary" href="index.html">&#x2190; The Convergence Project</a>
+      <a href="contribute.html">Contributor Space</a>
+      <a href="https://impactpoet.carrd.co" target="_blank" rel="noopener">Enter the Space</a>
+    </div>
+    <p class="bottom-footer-small">The Convergence Project &middot; EE9 LLC &middot; A Spoken Space</p>
+  </div>
+
+</div>
+
+<script>
+// Email protection
+var u='jaeeezy', d='pm.me', email=u+'\u0040'+d;
+document.querySelectorAll('.email-btn').forEach(function(el){
+  el.href='mailto:'+email;
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 15 -- American Finances -- The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--amber:#D4A017;--amber-l:#F0C040;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;--red-l:#E74C3C;--teal:#1A8C6F;--teal-l:#2ECC71;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(212,160,23,0.11) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--amber-l);border:1px solid rgba(212,160,23,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--amber-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--amber-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--amber-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--amber-l);padding:24px 28px;background:rgba(212,160,23,0.07);margin:40px 0;}
+.callout-red{border-left:3px solid var(--red-l);padding:24px 28px;background:rgba(192,57,43,0.07);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--red-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--red-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'>';color:var(--red-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.action-col-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--teal-l);margin-bottom:12px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.8);padding:6px 0;border-bottom:1px solid #1a1a1a;padding-left:16px;position:relative;}
+.action-list li::before{content:'->';position:absolute;left:0;color:var(--teal-l);font-size:12px;}
+.action-list li:last-child{border-bottom:none;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">-- Library Home</a>
+  <span class="nav-deck">Vol. 7 -- Deck 15</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">15</div>
+  <span class="vol-badge">Vol. 7 -- American Pockets</span>
+  <h1 class="hero-title">American<br>Finances</h1>
+  <p class="hero-sub">Americans now carry a record $1.28 trillion in credit card debt. Nearly half carry a balance month to month. One in five says they will never pay it off. Meanwhile worker productivity has grown 80% since 1979 -- pay grew 29%. The math was done to you.</p>
+  <div class="hero-stat">$1.28T</div>
+  <div class="hero-stat-label">U.S. credit card debt -- record high Q4 2025 -- 66% increase since Q1 2021</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Credit Card Trap</span>
+  <h2 class="section-title">The Debt That Was Supposed<br>to Be Temporary</h2>
+  <div class="section-body">
+    <p>Americans now carry a record <strong>$1.277 trillion in credit card debt</strong> -- the highest since the Federal Reserve Bank of New York began tracking in 1999. That is a 66% increase since Q1 2021. Balances have risen every single Q4 since the Great Recession.</p>
+    <p>Nearly half of all cardholders (47%) carry a balance from month to month as of late 2025 -- up from 39% in December 2021. Of those carrying balances, <strong>61% have been in debt for at least a year</strong>. The average APR hit <strong>20.97%</strong>. Banks expanded their profit spread -- the gap between what they pay to borrow and what they charge consumers -- from 8.2% in 2007 to <strong>17.1% by end of 2025</strong>. When the Fed cut rates, banks kept APRs high. <strong>One in five (22%) credit card debtors says they will never pay it off.</strong></p>
+    <p>What is driving the debt? Not luxury spending. <strong>41% of debtors</strong> cite an emergency expense -- medical bills, car repairs, home repairs. Another 33% cite day-to-day expenses like groceries, childcare, and utilities. Americans are not charging vacations. They are surviving.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$1.28T</div><div class="stat-label">Total CC Debt -- Record High</div><div class="stat-note">Up 66% since Q1 2021</div></div>
+    <div class="stat-card"><div class="stat-number">47%</div><div class="stat-label">Cardholders Carry a Balance</div><div class="stat-note">Up from 39% in Dec 2021</div></div>
+    <div class="stat-card"><div class="stat-number">20.97%</div><div class="stat-label">Average Credit Card APR</div><div class="stat-note">Late 2025 -- highest on record</div></div>
+    <div class="stat-card"><div class="stat-number">22%</div><div class="stat-label">Say They'll Never Pay It Off</div><div class="stat-note">Bankrate 2025 survey</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Total U.S. Credit Card Debt -- Q1 2019 to Q4 2025 (Trillions)</div>
+    <div class="chart-container"><canvas id="ccDebtChart"></canvas></div>
+    <div class="chart-note">Source: Federal Reserve Bank of New York Consumer Credit Panel/Equifax. The sharp decline in 2020 reflects pandemic-era stimulus payments and reduced spending. The subsequent climb erased all gains and set a new record by 2023, continuing upward through 2025.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Credit Card Interest Rate Spread -- Fed Funds Rate vs. Average APR (%), 2007-2025</div>
+    <div class="chart-container"><canvas id="rateSpreadChart"></canvas></div>
+    <div class="chart-note">Source: Federal Reserve Consumer Credit data; CFPB Consumer Credit Card Market Report 2025. The spread (gap between what banks pay to borrow and what they charge consumers) grew from 8.2% in 2007 to 17.1% by 2025. Banks have widened this margin regardless of the direction rates moved.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Shadow Debt</span>
+  <h2 class="section-title">The Debt Nobody Talks About --<br>Medical, Student, and Hidden</h2>
+  <div class="section-body">
+    <p>Credit card debt is only the most visible piece. Americans are buried under layers that the mainstream conversation rarely reaches -- what analysts call the "shadow debt" ecosystem: medical bills, student loans, buy-now-pay-later traps, and informal debts that never show up in official statistics.</p>
+    <p>Medical debt is uniquely American. In 2024, <strong>36% of U.S. households had medical debt</strong>. The CFPB estimated Americans owed <strong>$220 billion in medical debt</strong> in 2024 -- and about 40% of all Americans owe some form when credit card debt used to pay medical bills and family loans are included. For Black and Hispanic households, the burden is significantly higher.</p>
+    <p>Student loans represent another <strong>$1.6 trillion</strong> in national debt. After the pandemic-era reporting pause ended in late 2024, serious delinquencies (90+ days late) skyrocketed to <strong>8.04%</strong>. A Federal Reserve analysis found <strong>1.2 million borrowers saw credit scores drop 100+ points virtually overnight</strong>. Those borrowers now face higher rates or denial for mortgages, car loans, and new credit -- compounding the original harm.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Household Debt by Category 2025 (Trillions)</div>
+    <div class="chart-container"><canvas id="debtCompChart"></canvas></div>
+    <div class="chart-note">Source: Federal Reserve Bank of NY; CFPB; Department of Education. Medical debt estimate includes credit card balances incurred for medical expenses and informal family loans. Auto loan debt reflects record vehicle prices since 2021. Student loan delinquency surge followed the end of pandemic payment pause in late 2024.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">Black households headed by someone with a college degree have less wealth than white households led by someone with a high school diploma or GED. Education alone cannot close a gap rooted in 400 years of policy -- it requires policy to fix it.</div>
+    <div class="callout-source">-- Federal Reserve Survey of Consumer Finances 2022; Center for Responsible Lending</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Wealth Gap</span>
+  <h2 class="section-title">The Gap That Was Never<br>About Choices</h2>
+  <div class="section-body">
+    <p>The racial wealth gap in America is not the product of different spending habits. It is the product of over 400 years of deliberate, documented policy -- from slavery to redlining to predatory lending to incarceration -- that systematically prevented Black wealth from accumulating while subsidizing white wealth through homeownership programs, GI Bills, and inheritance.</p>
+    <p>From 2019 to 2022, the <strong>mean net worth gap between Black and white households grew by 38%</strong> -- from $841,900 to $1.15 million -- not because Black households lost ground, but because the absolute dollar-value of white wealth growth vastly exceeded Black gains. <strong>White households hold 80% of all U.S. wealth</strong> while comprising 65% of households. Black households make up 13.6% of households and hold just <strong>4.7% of all wealth</strong>.</p>
+    <p>The homeownership gap is central. Homes are how most Americans build wealth -- but redlining denied Black Americans access to mortgages in appreciating neighborhoods for decades. <strong>Black homeownership remains below 50%</strong> nationally -- the only racial group under that threshold. In 2020, the 400 richest Americans held more total wealth than all <strong>10 million Black American households combined</strong>.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Median Household Net Worth by Race -- 2022 (USD)</div>
+    <div class="chart-container"><canvas id="wealthChart"></canvas></div>
+    <div class="chart-note">Source: Federal Reserve Survey of Consumer Finances 2022 (most recent triennial). The gap between white and Black median net worth has been virtually unchanged since 1992 in proportional terms. The dollar-value gap has widened as housing and stock market appreciation disproportionately benefited already-wealthy households.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Worker Productivity vs. Hourly Compensation -- 1979 to 2024 (Indexed, 1979=100)</div>
+    <div class="chart-container"><canvas id="prodWageChart"></canvas></div>
+    <div class="chart-note">Source: Economic Policy Institute State of Working America; Bureau of Labor Statistics. Productivity is net output per hour. Compensation includes wages and benefits adjusted for inflation. The 51-point gap represents wealth transferred from workers to capital holders over 45 years -- the structural engine of the wealth gap.</div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">The Credit System Was Not Built for Everyone</div>
+    <ul class="highlight-list">
+      <li><strong>83% of Americans</strong> believe the government should cap credit card interest rates -- the lobbying power of the financial industry has kept it from happening</li>
+      <li>Credit scores disadvantage immigrants, young people, and those who use cash -- structural exclusion from the system creates worse scores before spending a dollar</li>
+      <li>Medical debt destroys credit scores -- making it harder to get jobs, apartments, and loans -- compounding the original harm</li>
+      <li>Student loan delinquency reporting in late 2024: <strong>1.2 million borrowers saw scores drop 100+ points overnight</strong></li>
+      <li>Black borrowers carry more student debt relative to their wealth and are disproportionately harmed by delinquency reporting resumption</li>
+      <li><strong>Deep subprime cardholders</strong> opened more accounts in Q4 2025 than any prior quarter on record -- the desperation signal</li>
+    </ul>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Federal Reserve Bank of New York -- Consumer Credit Panel / Equifax; Quarterly Household Debt Report 2025 -- <a href="https://www.newyorkfed.org/microeconomics/hhdc" target="_blank">newyorkfed.org</a></div>
+    <div class="source-item">CFPB -- Consumer Credit Card Market Report 2025 -- <a href="https://www.consumerfinance.gov" target="_blank">consumerfinance.gov</a></div>
+    <div class="source-item">Federal Reserve -- Survey of Consumer Finances 2022 -- <a href="https://www.federalreserve.gov/publications/files/scf23.pdf" target="_blank">federalreserve.gov</a></div>
+    <div class="source-item">Economic Policy Institute -- The State of Working America; Productivity-Compensation Gap -- <a href="https://www.epi.org" target="_blank">epi.org</a></div>
+    <div class="source-item">Bankrate -- Credit Card Debt Survey 2025 -- <a href="https://www.bankrate.com" target="_blank">bankrate.com</a></div>
+    <div class="source-item">Department of Education -- Student Loan Delinquency Data 2024-2025</div>
+    <div class="source-item">Urban Institute -- Racial Wealth Gap Analysis; Homeownership Data -- <a href="https://www.urban.org" target="_blank">urban.org</a></div>
+    <div class="source-item">Center for Responsible Lending -- Racial Wealth Gap; Credit System Disparities</div>
+    <div class="source-item">Pew Research Center -- American Household Finances 2025 -- <a href="https://www.pewresearch.org" target="_blank">pewresearch.org</a></div>
+    <div class="source-item">Chuck Collins -- "The Wealth Hoarders" (2021); Institute for Policy Studies wealth concentration data</div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck14-mental-health.html">-- Deck 14: Mental Health</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck16-addiction-opioid.html">Deck 16: Addiction --></a>
+</div>
+
+<script>
+const xT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const yT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const gd={color:'rgba(255,255,255,0.05)'};
+const gf={color:'rgba(255,255,255,0.03)'};
+const leg={display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}};
+const noLeg={display:false};
+
+new Chart(document.getElementById('ccDebtChart'),{
+  type:'line',
+  data:{
+    labels:['Q1 2019','Q1 2020','Q1 2021','Q1 2022','Q1 2023','Q1 2024','Q1 2025','Q4 2025'],
+    datasets:[{label:'Total Credit Card Debt (Trillions)',data:[0.88,0.89,0.77,0.86,0.99,1.12,1.21,1.277],
+      borderColor:'rgba(212,137,15,0.9)',backgroundColor:'rgba(183,119,13,0.1)',
+      borderWidth:2.5,fill:true,pointBackgroundColor:'rgba(212,137,15,0.9)',tension:0.3,pointRadius:4}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg,tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y+'T'}}},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>'$'+v+'T'},grid:gd,min:0.7}}}
+});
+
+new Chart(document.getElementById('rateSpreadChart'),{
+  type:'line',
+  data:{
+    labels:['2007','2009','2011','2013','2015','2017','2019','2021','2023','2025'],
+    datasets:[
+      {label:'Avg Credit Card APR (%)',data:[13.8,14.2,14.9,15.0,15.1,16.4,17.1,16.4,20.4,20.97],
+        borderColor:'rgba(192,57,43,0.9)',backgroundColor:'rgba(192,57,43,0.1)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:4},
+      {label:'Federal Funds Rate (%)',data:[5.25,0.25,0.13,0.25,0.25,1.25,2.25,0.13,5.33,4.33],
+        borderColor:'rgba(201,168,76,0.8)',backgroundColor:'transparent',fill:false,borderWidth:2,tension:0.3,pointRadius:3,borderDash:[5,3]},
+      {label:'Spread (%)',data:[8.2,13.9,14.7,14.7,14.8,15.1,14.8,16.2,15.0,17.1],
+        borderColor:'rgba(107,124,71,0.8)',backgroundColor:'transparent',fill:false,borderWidth:2,tension:0.3,pointRadius:3}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'%'},grid:gd}}}
+});
+
+new Chart(document.getElementById('debtCompChart'),{
+  type:'bar',
+  data:{
+    labels:['Auto Loans','Student Loans','Credit Cards','Medical Debt\n(est.)','HELOC / Other'],
+    datasets:[{label:'Debt (Trillions USD)',data:[1.64,1.6,1.277,0.22,0.38],
+      backgroundColor:['rgba(46,139,116,0.8)','rgba(212,137,15,0.8)','rgba(192,57,43,0.85)','rgba(155,89,182,0.8)','rgba(149,165,166,0.7)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg,tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y+'T'}}},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>'$'+v+'T'},grid:gd}}}
+});
+
+new Chart(document.getElementById('wealthChart'),{
+  type:'bar',
+  data:{
+    labels:['Asian Households','White Households','Hispanic Households','Black Households'],
+    datasets:[{label:'Median Net Worth (USD)',data:[320900,285000,62000,44890],
+      backgroundColor:['rgba(46,139,116,0.85)','rgba(201,168,76,0.85)','rgba(212,137,15,0.75)','rgba(192,57,43,0.85)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:noLeg,tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.x.toLocaleString()}}},
+    scales:{x:{ticks:{...xT,callback:v=>'$'+v.toLocaleString()},grid:gd},y:{ticks:yT,grid:gf}}}
+});
+
+new Chart(document.getElementById('prodWageChart'),{
+  type:'line',
+  data:{
+    labels:['1979','1984','1989','1994','1999','2004','2009','2014','2019','2024'],
+    datasets:[
+      {label:'Net Productivity (indexed 1979=100)',data:[100,112,123,133,158,181,185,205,224,181],
+        borderColor:'rgba(201,168,76,0.9)',backgroundColor:'rgba(201,168,76,0.08)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:4},
+      {label:'Hourly Compensation (indexed 1979=100)',data:[100,102,107,107,115,118,121,124,128,129],
+        borderColor:'rgba(192,57,43,0.9)',backgroundColor:'rgba(192,57,43,0.08)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:4}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:yT,grid:gd,min:90}}}
+});
+</script>
+</body>
+</html>

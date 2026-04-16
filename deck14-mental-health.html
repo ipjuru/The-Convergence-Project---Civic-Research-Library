@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 14 -- America's Lost Mind: Mental Health -- The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--purple:#6C3483;--purple-l:#9B59B6;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;--red-l:#E74C3C;--teal:#1A8C6F;--teal-l:#2ECC71;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(108,52,131,0.12) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--purple-l);border:1px solid rgba(108,52,131,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--purple-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--purple-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--purple-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--purple-l);padding:24px 28px;background:rgba(108,52,131,0.08);margin:40px 0;}
+.callout-red{border-left:3px solid var(--red-l);padding:24px 28px;background:rgba(192,57,43,0.07);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-body{font-family:'Raleway',sans-serif;font-size:15px;color:rgba(240,234,214,0.82);line-height:1.8;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--purple-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--purple-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'>';color:var(--purple-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.action-col-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--teal-l);margin-bottom:12px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.8);padding:6px 0;border-bottom:1px solid #1a1a1a;padding-left:16px;position:relative;}
+.action-list li::before{content:'->';position:absolute;left:0;color:var(--teal-l);font-size:12px;}
+.action-list li:last-child{border-bottom:none;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">-- Library Home</a>
+  <span class="nav-deck">Vol. 6 -- Deck 14</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">14</div>
+  <span class="vol-badge">Vol. 6 -- America's Lost Mind</span>
+  <h1 class="hero-title">Mental Health<br>in America</h1>
+  <p class="hero-sub">57.8 million Americans live with mental illness. 57% of them receive no treatment. The system was not built to catch them -- and communities of color, youth, and low-income families fall through every gap. This is not a personal failing. It is a systems failure.</p>
+  <div class="hero-stat">57%</div>
+  <div class="hero-stat-label">Of Americans with mental illness receive NO treatment -- SAMHSA 2024</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Scale</span>
+  <h2 class="section-title">America Is in a<br>Mental Health Crisis</h2>
+  <div class="section-body">
+    <p>In 2024, an estimated <strong>57.8 million adults</strong> -- 19% of the country -- experienced a mental illness. That is one in five Americans. Of those, only <strong>43% received any kind of mental health care</strong>. Almost 6 in 10 people with mental illness got no treatment or medication at all.</p>
+    <p>Suicide deaths hit a record high in 2022 -- <strong>49,000 Americans</strong>. It remains the second leading cause of death for people under 44. In 2024, nearly <strong>1 in 10 U.S. adults</strong> experienced a mental health crisis -- defined as thoughts, feelings, or behaviors too much to handle that required prompt assistance. Young adults ages 18-29 were hardest hit at 15.1%.</p>
+    <p>This is not a personal failing. It is a systems failure. The infrastructure to support American mental health -- providers, coverage, access, culturally competent care -- simply does not exist at the scale the problem demands.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">57.8M</div><div class="stat-label">Adults with Mental Illness 2024</div><div class="stat-note">19% of all U.S. adults -- SAMHSA</div></div>
+    <div class="stat-card"><div class="stat-number">57%</div><div class="stat-label">Who Received No Treatment</div><div class="stat-note">Nearly 6 in 10 go untreated</div></div>
+    <div class="stat-card"><div class="stat-number">49,000</div><div class="stat-label">Suicide Deaths Per Year</div><div class="stat-note">Record high 2022 -- 134 per day</div></div>
+    <div class="stat-card"><div class="stat-number">1 in 10</div><div class="stat-label">Adults Had a Mental Health Crisis</div><div class="stat-note">In 2024 -- Johns Hopkins study</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Mental Illness in America 2024 -- Who Has It, Who Gets Help (Millions)</div>
+    <div class="chart-container"><canvas id="mhChart"></canvas></div>
+    <div class="chart-note">Source: SAMHSA National Survey on Drug Use and Health 2024. Treatment gap is largest for youth: among teens with major depression, 61% receive no treatment of any kind. Among children with anxiety disorders, 80% receive no treatment.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Who Carries the Weight</span>
+  <h2 class="section-title">The Crisis Doesn't Hit<br>Everyone the Same Way</h2>
+  <div class="section-body">
+    <p>Mental illness does not discriminate -- but access to care and the structural conditions that cause mental distress absolutely do. Black and Hispanic communities face mental health outcomes shaped by racism, economic precarity, medical mistrust, and a near-total lack of culturally competent providers.</p>
+    <p>In 2024, Black adults were <strong>36% less likely to receive mental health treatment</strong> compared to the overall U.S. population. Only <strong>25% of Black people</strong> seek mental health treatment when needed, versus 40% of white people. And only 4% of U.S. psychologists are Black -- creating a massive provider gap in culturally affirming care. Medical mistrust -- rooted in centuries of documented abuse of Black bodies in American medicine -- remains a rational, evidence-based response.</p>
+    <p>When Black Americans do engage the mental health system, they are more likely to receive care from an emergency department than from a mental health specialist. Black people with mental health conditions -- especially psychosis and bipolar disorder -- are more likely to be incarcerated than people of other races, meaning the prison system is serving as a de facto mental health institution for the Black community.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Mental Health Treatment Rates by Race -- % Who Received Services (Past 3 Years)</div>
+    <div class="chart-container"><canvas id="raceChart"></canvas></div>
+    <div class="chart-note">Source: SAMHSA; CDC; KFF Health Disparities data 2024. These gaps reflect provider scarcity, cost barriers, insurance disparities, and documented medical distrust rooted in historical exploitation. Only 4% of U.S. psychologists are Black -- creating a structural shortage of culturally competent care.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Suicide Rate per 100,000 -- 2000 to 2024</div>
+    <div class="chart-container"><canvas id="suicideRateChart"></canvas></div>
+    <div class="chart-note">Source: CDC WISQARS; National Center for Health Statistics; SAMHSA. The 37% increase since 2000 reflects compounding factors: social isolation, economic precarity, reduced access to care, and the opioid epidemic. Youth rates diverged sharply upward after 2012, tracking the expansion of social media and smartphone adoption.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Next Generation</span>
+  <h2 class="section-title">The Kids Are Not Alright --<br>And We're Barely Listening</h2>
+  <div class="section-body">
+    <p>The Surgeon General has declared youth mental health a national crisis. One in five young people aged 12-17 experienced a major depressive episode in the past year. Among those, <strong>56.1% received no mental health treatment</strong>. Among teens with major depression specifically: 61% got no therapy, no medication, no school counseling -- nothing.</p>
+    <p>In 2023, <strong>40% of U.S. high school students</strong> reported experiencing symptoms of depression -- feeling so sad or hopeless every day for two or more weeks that they stopped normal activities. Among LGBTQ+ high school students, that number rises to <strong>65%</strong>. The Trevor Project found <strong>39% of LGBTQ+ youth</strong> seriously considered attempting suicide in the past year.</p>
+    <p>The COVID-19 pandemic accelerated what was already a decade-long deterioration. Emergency department visits for mental health crises among youth aged 12-17 increased <strong>31% between 2019 and 2020</strong>. Social media, academic pressure, climate anxiety, and political instability have created a generation of young people in distress -- in a country that has not built adequate systems to catch them.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">40%</div><div class="stat-label">HS Students with Depression Symptoms</div><div class="stat-note">CDC YRBS 2023</div></div>
+    <div class="stat-card"><div class="stat-number">80%</div><div class="stat-label">Children with Anxiety -- No Treatment</div><div class="stat-note">Of all children with anxiety disorders</div></div>
+    <div class="stat-card"><div class="stat-number">39%</div><div class="stat-label">LGBTQ+ Youth Considered Suicide</div><div class="stat-note">In the past year -- Trevor Project 2024</div></div>
+    <div class="stat-card"><div class="stat-number">+31%</div><div class="stat-label">Youth ER Visits for Mental Health</div><div class="stat-note">2019 to 2020 -- and climbing</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Youth Mental Health -- Treatment Gap by Age Group (% with Mental Illness Who Received Treatment)</div>
+    <div class="chart-container"><canvas id="youthChart"></canvas></div>
+    <div class="chart-note">Source: SAMHSA NSDUH 2024; CDC; NAMI. The treatment gap for children with anxiety (80% untreated) is particularly stark -- anxiety is the most treatable mental health condition, yet the majority of children with it receive no intervention. Early untreated anxiety is a primary predictor of adult depression and substance use.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The System Gap</span>
+  <h2 class="section-title">Provider Shortage, Costs &amp;<br>the Economic Burden</h2>
+  <div class="section-body">
+    <p>The U.S. mental health infrastructure suffers from a fundamental shortage of providers concentrated in the wrong places. There are fewer than <strong>30 psychiatrists per 100,000 people</strong> nationally -- and in rural counties, often zero. The median wait time to see a mental health provider is <strong>25 days</strong> for those who can find one. More than <strong>160 million Americans</strong> live in a federally designated Mental Health Professional Shortage Area.</p>
+    <p>Cost is the single largest stated barrier to care. A single therapy session without insurance can run <strong>$150-$300</strong>. Serious mental illness carries a <strong>$193.2 billion annual burden in lost earnings</strong> alone -- before counting hospitalization, criminal justice, homelessness, and emergency care costs. Depression and anxiety cost the global economy <strong>$1 trillion per year</strong> in lost productivity. The math is clear: treating mental illness early is far cheaper than the current system of treating crisis.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Psychiatrists per 100,000 People -- By Area Type</div>
+    <div class="chart-container"><canvas id="providerChart"></canvas></div>
+    <div class="chart-note">Source: AAMC 2024 Physician Specialty Report; HRSA Health Professional Shortage Areas. More than 160 million Americans live in a designated Mental Health Professional Shortage Area. The shortage is projected to deepen as the current provider workforce ages -- 55% of psychiatrists are over 55.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Annual Economic Burden of Mental Illness -- Selected Cost Categories ($B)</div>
+    <div class="chart-container"><canvas id="mhCostChart"></canvas></div>
+    <div class="chart-note">Source: NAMI; SAMHSA; Insel T. "Healing" (2022); NIMH. Total annual economic burden exceeds $280B when all categories are combined. Each dollar spent on early mental health intervention saves an estimated $2-$10 in downstream crisis, hospitalization, and incarceration costs.</div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">The Scale of What We're Not Talking About</div>
+    <ul class="highlight-list">
+      <li><strong>$193.2 billion</strong> in lost earnings annually from serious mental illness -- borne by workers, families, and the economy</li>
+      <li><strong>1.65 million</strong> inpatient psychiatric hospitalizations in 2022 -- often the result of crisis reaching a point of no return</li>
+      <li><strong>12.3%</strong> of all adult ER visits are mental health related -- ER is the default because everything else failed first</li>
+      <li><strong>18.1%</strong> of people experiencing homelessness have a serious mental illness -- untreated mental health drives the housing crisis</li>
+      <li><strong>17.6%</strong> of U.S. veterans experienced mental illness in 2023 -- PTSD, moral injury, and system navigation are ongoing</li>
+      <li><strong>5+ million</strong> adults with mental illness have zero health insurance -- no coverage, no pathway to formal care</li>
+    </ul>
+  </div>
+
+  <div class="action-block">
+    <div class="action-title">What Healing Looks Like When the System Won't</div>
+    <div class="action-cols">
+      <div>
+        <div class="action-col-title">For Yourself</div>
+        <ul class="action-list">
+          <li>Community mental health centers offer sliding-scale services -- findtreatment.gov has a locator</li>
+          <li>Open Path Collective connects people to therapists at $30-$80/session</li>
+          <li>988 Suicide and Crisis Lifeline -- call or text 988, available 24/7</li>
+          <li>Peer support specialists -- people with lived experience, often lower cost and higher trust</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">For Your Community</div>
+        <ul class="action-list">
+          <li>Mental Health First Aid training -- 8-hour certification, teaches response to crises</li>
+          <li>Faith-based mental health integration -- many communities trust faith leaders first</li>
+          <li>Advocate for school-based mental health counselors -- many districts are severely understaffed</li>
+          <li>Support BIPOC mental health organizations that center cultural competency</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">Policy Levers</div>
+        <ul class="action-list">
+          <li>Demand mental health parity enforcement -- insurers routinely violate parity laws</li>
+          <li>Support telehealth coverage expansion -- remote care dramatically improves rural access</li>
+          <li>Push for Medicaid reimbursement reform for mental health providers</li>
+          <li>Support loan forgiveness programs for mental health providers who practice in shortage areas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">SAMHSA -- National Survey on Drug Use and Health (NSDUH) 2024 -- <a href="https://www.samhsa.gov/data/nsduh" target="_blank">samhsa.gov</a></div>
+    <div class="source-item">CDC -- Youth Risk Behavior Survey 2023; WISQARS Suicide Data -- <a href="https://www.cdc.gov" target="_blank">cdc.gov</a></div>
+    <div class="source-item">U.S. Surgeon General -- Advisory on Youth Mental Health (2021); Loneliness Advisory (2023)</div>
+    <div class="source-item">NAMI -- Mental Health by the Numbers 2024 -- <a href="https://www.nami.org/mhstats" target="_blank">nami.org</a></div>
+    <div class="source-item">Trevor Project -- 2024 National Survey on LGBTQ+ Youth Mental Health -- <a href="https://www.thetrevorproject.org" target="_blank">thetrevorproject.org</a></div>
+    <div class="source-item">AAMC -- 2024 Physician Specialty Data Report; Psychiatry Workforce Analysis</div>
+    <div class="source-item">HRSA -- Health Professional Shortage Areas Database -- <a href="https://data.hrsa.gov/tools/shortage-area" target="_blank">data.hrsa.gov</a></div>
+    <div class="source-item">Johns Hopkins -- Mental Health Crisis Prevalence Study 2024</div>
+    <div class="source-item">KFF -- Mental Health and Substance Use State Data 2024 -- <a href="https://www.kff.org" target="_blank">kff.org</a></div>
+    <div class="source-item">Insel, T. -- Healing: Our Path from Mental Illness to Mental Health (2022)</div>
+    <div class="source-item">WHO -- Depression and Anxiety: $1 Trillion Annual Productivity Loss</div>
+    <div class="source-item">NIMH -- Statistics: Mental Illness -- <a href="https://www.nimh.nih.gov/health/statistics" target="_blank">nimh.nih.gov</a></div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck13-american-healthcare.html">-- Deck 13: Healthcare</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck15-american-finances.html">Deck 15: American Finances --></a>
+</div>
+
+<script>
+const xT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const yT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const gd={color:'rgba(255,255,255,0.05)'};
+const gf={color:'rgba(255,255,255,0.03)'};
+const leg={display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}};
+const noLeg={display:false};
+
+new Chart(document.getElementById('mhChart'),{
+  type:'bar',
+  data:{
+    labels:['Adults w/ Mental Illness','Received Any Treatment','Youth 12-17 w/ MDD','Youth who Got Treatment','Adults w/ Serious MI','Got Treatment (Serious)'],
+    datasets:[{
+      label:'Millions of People',
+      data:[57.8,24.9,5.2,2.3,14.6,7.6],
+      backgroundColor:['rgba(108,52,131,0.8)','rgba(46,139,116,0.8)','rgba(108,52,131,0.7)','rgba(46,139,116,0.7)','rgba(192,57,43,0.8)','rgba(201,168,76,0.7)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg,tooltip:{callbacks:{label:ctx=>ctx.parsed.y+'M people'}}},
+    scales:{x:{ticks:{...xT,maxRotation:20},grid:gf},y:{ticks:{...yT,callback:v=>v+'M'},grid:gd}}}
+});
+
+new Chart(document.getElementById('raceChart'),{
+  type:'bar',
+  data:{
+    labels:['White Adults','Hispanic Adults','Black Adults','Asian Adults'],
+    datasets:[{label:'% Who Received Mental Health Services (Past 3 Years)',data:[50,36,39,22],
+      backgroundColor:['rgba(46,139,116,0.8)','rgba(201,168,76,0.75)','rgba(108,52,131,0.8)','rgba(192,57,43,0.7)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg,tooltip:{callbacks:{label:ctx=>ctx.parsed.y+'% received services'}}},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'%'},grid:gd,max:60}}}
+});
+
+new Chart(document.getElementById('suicideRateChart'),{
+  type:'line',
+  data:{
+    labels:['2000','2002','2004','2006','2008','2010','2012','2014','2016','2018','2020','2022','2024'],
+    datasets:[
+      {label:'Overall (per 100K)',data:[10.4,10.9,11.0,11.0,11.6,12.1,12.6,13.0,13.5,14.2,13.5,13.9,14.2],
+        borderColor:'rgba(108,52,131,0.9)',backgroundColor:'rgba(108,52,131,0.1)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:3},
+      {label:'Ages 10-34 (per 100K)',data:[6.8,7.1,7.2,7.5,8.0,8.5,9.0,9.8,10.5,11.2,10.5,11.0,11.8],
+        borderColor:'rgba(192,57,43,0.9)',backgroundColor:'transparent',fill:false,borderWidth:2.5,tension:0.3,pointRadius:3,borderDash:[5,3]}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'/100K'},grid:gd}}}
+});
+
+new Chart(document.getElementById('youthChart'),{
+  type:'bar',
+  data:{
+    labels:['Youth 6-17\n(Any Disorder)','Young Adults 18-25\n(Any MI)','Adults 26+\n(Any MI)','Teens w/ Major\nDepression','Children w/\nAnxiety'],
+    datasets:[{label:'% Who Received Treatment',data:[50.6,49.9,48,39,20],
+      backgroundColor:ctx=>ctx.parsed.y>=45?'rgba(201,168,76,0.75)':'rgba(192,57,43,0.8)',
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg,tooltip:{callbacks:{label:ctx=>ctx.parsed.y+'% received treatment'}}},
+    scales:{x:{ticks:{...xT,maxRotation:20},grid:gf},y:{ticks:{...yT,callback:v=>v+'%'},grid:gd,max:70}}}
+});
+
+new Chart(document.getElementById('providerChart'),{
+  type:'bar',
+  data:{
+    labels:['Dense urban','Suburban','Mid-size city','Small town','Rural','Rural shortage area'],
+    datasets:[{label:'Psychiatrists per 100,000',data:[42,28,19,11,6,2],
+      backgroundColor:['rgba(108,52,131,0.85)','rgba(108,52,131,0.75)','rgba(201,168,76,0.7)','rgba(192,57,43,0.65)','rgba(192,57,43,0.75)','rgba(192,57,43,0.85)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},
+    scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'/100K'},grid:gd}}}
+});
+
+new Chart(document.getElementById('mhCostChart'),{
+  type:'bar',
+  data:{
+    labels:['Lost workplace\nproductivity','Criminal justice\ncosts','Disability &\nSSI payments','ER & crisis\ncare','Homelessness\ncosts','Early mortality\nlost earnings'],
+    datasets:[{label:'Annual Cost ($B)',data:[105,57,48,34,22,19],
+      backgroundColor:['rgba(192,57,43,0.8)','rgba(192,57,43,0.75)','rgba(201,168,76,0.7)','rgba(192,57,43,0.7)','rgba(201,168,76,0.65)','rgba(192,57,43,0.65)'],
+      borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},
+    scales:{x:{ticks:{...xT,callback:v=>'$'+v+'B'},grid:gd},y:{ticks:yT,grid:gf}}}
+});
+</script>
+</body>
+</html>

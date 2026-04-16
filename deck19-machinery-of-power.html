@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 19 -- The Machinery of Power - The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230D0D0D' stroke='%23C9A84C' stroke-width='6'/><text x='50' y='67' font-size='52' text-anchor='middle' fill='%23C9A84C' font-family='serif'>C</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --slate:#8B9EC8;--slate-l:#A8B8D8;--slate-dim:rgba(139,158,200,0.12);
+  --red:#C87474;--orange:#E8A87C;--orange-l:#F4C08A;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(139,158,200,0.05) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--slate-l);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--slate-l);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--slate-l);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--slate);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--slate-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--slate);padding:24px 28px;background:var(--slate-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.revolving-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:40px 0;}
+.revolve-card{background:var(--b3);border:1px solid #1f1f1f;padding:24px;border-radius:2px;}
+.revolve-from{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:8px;}
+.revolve-name{font-family:'Cinzel',serif;font-size:16px;color:var(--cream);margin-bottom:4px;}
+.revolve-arrow{color:var(--gold);margin:8px 0;font-size:18px;}
+.revolve-to{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:4px;}
+.revolve-detail{font-family:'Crimson Text',serif;font-size:15px;color:var(--cream-dim);}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.footer-copy{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="deck-label">Vol. 5 &bull; Deck 19 &bull; Power &amp; Governance</div>
+  <h1 class="hero-title">The Machinery<br>of <span>Power</span></h1>
+  <p class="hero-sub">Lobbyists. Revolving doors. Congressional stock trades. Regulatory capture. The system isn&rsquo;t broken &mdash; it&rsquo;s working exactly as the people who built it intended.</p>
+  <div class="hero-stat-big">866</div>
+  <div class="hero-stat-label">Congressional staffers who became lobbyists in 2025 &mdash; an all-time record &mdash; LegiStorm</div>
+</section>
+
+<!-- SECTION 1 -->
+<section class="section">
+  <h2 class="section-title">From Public Service<br>to <span>Private Profit</span></h2>
+  <p class="section-body">The revolving door between government and industry is not a metaphor &mdash; it&rsquo;s a career path. Congressional staffers, agency officials, and former legislators routinely trade their government access for seven-figure lobbying salaries. The contacts they built on the public dime become their product.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">866</div><div class="stat-label">Hill-to-Lobby Moves in 2025</div><div class="stat-note">+60% from 2024 &mdash; all-time record &mdash; LegiStorm</div></div>
+    <div class="stat-card"><div class="stat-number">50%</div><div class="stat-label">Departing Senators Become Lobbyists</div><div class="stat-note">42% of departing House members &mdash; Public Citizen</div></div>
+    <div class="stat-card"><div class="stat-number">24:1</div><div class="stat-label">Lobbyists per Member of Congress</div><div class="stat-note">~12,000 registered lobbyists in Washington D.C.</div></div>
+    <div class="stat-card"><div class="stat-number">$4.4B</div><div class="stat-label">Federal Lobbying Spend 2024</div><div class="stat-note">All-time record &mdash; OpenSecrets Feb. 2025</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Federal Lobbying Spend by Top Industries, 2024 (USD Millions)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: OpenSecrets; Senate Lobbying Disclosure Act Database 2024. Figures represent total reported lobbying expenditures by sector. Healthcare includes pharmaceutical, hospital, and insurance lobbying combined.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 2 -->
+<section class="section">
+  <h2 class="section-title">The Revolving Door<br>in Action</h2>
+  <p class="section-body">These are not hypothetical examples. They are documented, public record cases that illustrate exactly how regulatory expertise built in government gets monetized in industry &mdash; often against the very public interest those officials were paid to protect.</p>
+
+  <div class="revolving-grid">
+    <div class="revolve-card">
+      <div class="revolve-from">Former Position</div>
+      <div class="revolve-name">FDA Drug Review Official</div>
+      <div class="revolve-arrow">&#x2193;</div>
+      <div class="revolve-to">Landed At</div>
+      <div class="revolve-detail">Purdue Pharma &mdash; hired less than 18 months after approving OxyContin. Helped craft marketing strategy for the opioid responsible for 500,000+ deaths.</div>
+    </div>
+    <div class="revolve-card">
+      <div class="revolve-from">Former Position</div>
+      <div class="revolve-name">FAA Safety Certification Staff</div>
+      <div class="revolve-arrow">&#x2193;</div>
+      <div class="revolve-to">Landed At</div>
+      <div class="revolve-detail">Boeing &mdash; FAA delegated 737 MAX safety certification to Boeing employees. Two crashes. 346 dead. Same staff later employed by the company they certified.</div>
+    </div>
+    <div class="revolve-card">
+      <div class="revolve-from">Former Position</div>
+      <div class="revolve-name">Senior FDA Officials (2025 Cohort)</div>
+      <div class="revolve-arrow">&#x2193;</div>
+      <div class="revolve-to">Landed At</div>
+      <div class="revolve-detail">After RFK Jr. removed senior FDA officials in 2025, they immediately moved to Eli Lilly, Pfizer, Merck, Roche, and Novartis &mdash; within weeks of leaving.</div>
+    </div>
+    <div class="revolve-card">
+      <div class="revolve-from">Former Position</div>
+      <div class="revolve-name">Senate Finance Committee Chairs</div>
+      <div class="revolve-arrow">&#x2193;</div>
+      <div class="revolve-to">Landed At</div>
+      <div class="revolve-detail">Multiple former chairs who oversaw healthcare legislation became pharmaceutical and insurance industry lobbyists within 1-2 years of leaving office.</div>
+    </div>
+    <div class="revolve-card">
+      <div class="revolve-from">Former Position</div>
+      <div class="revolve-name">EPA Senior Leadership</div>
+      <div class="revolve-arrow">&#x2193;</div>
+      <div class="revolve-to">Landed At</div>
+      <div class="revolve-detail">Chemical and fossil fuel industry trade groups &mdash; where they use their EPA institutional knowledge to delay, challenge, and overturn the regulations they once wrote.</div>
+    </div>
+    <div class="revolve-card">
+      <div class="revolve-from">Former Position</div>
+      <div class="revolve-name">Pentagon Acquisition Officials</div>
+      <div class="revolve-arrow">&#x2193;</div>
+      <div class="revolve-to">Landed At</div>
+      <div class="revolve-detail">Defense contractors including Lockheed Martin, Raytheon, Boeing Defense &mdash; where they advise on winning the contracts they previously controlled approving.</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Hill-to-Lobby Moves by Agency/Department (2024-2025 Combined, Top Categories)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: LegiStorm Revolving Door Database 2025; Public Citizen revolving door reports. Numbers represent confirmed moves from government positions to registered lobbying or industry advisory roles.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 3 -->
+<section class="section">
+  <h2 class="section-title">Your Representatives<br>Are <span>Trading on What They Know</span></h2>
+  <p class="section-body">The STOCK Act was passed in 2012 to address insider trading by members of Congress. The fine for violations: $200. The number of criminal prosecutions since 2012: zero. Members of Congress routinely trade in companies they directly regulate &mdash; and the penalty for getting caught is less than a parking ticket.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Congressional Stock Trades in Regulated Sectors vs. Average Annual Returns (2021-2024)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: Capitol Trades database; Campaign Legal Center STOCK Act analysis; Harvard Journal on Legislation 2025. "Regulated sector" trades include healthcare, defense, energy, and financial services &mdash; all industries subject to committee oversight by the trading members.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$200</div><div class="stat-label">STOCK Act Violation Fine</div><div class="stat-note">The penalty for failing to disclose trades on time &mdash; no criminal enforcement</div></div>
+    <div class="stat-card"><div class="stat-number">0</div><div class="stat-label">Criminal Prosecutions Since 2012</div><div class="stat-note">Despite documented pattern of trades before market-moving legislation &mdash; Campaign Legal Center</div></div>
+    <div class="stat-card"><div class="stat-number">$355M</div><div class="stat-label">Congressional Stock Trades in 2023</div><div class="stat-note">Reported by members in sectors they directly regulate &mdash; Capitol Trades</div></div>
+    <div class="stat-card"><div class="stat-number">82%</div><div class="stat-label">Americans Want a Stock Trading Ban</div><div class="stat-note">Bipartisan majority supports banning congressional trading &mdash; Data for Progress 2024</div></div>
+  </div>
+
+  <div class="callout">
+    <p>The STOCK Act required disclosure within 45 days. It did not ban trading. It did not require divestment. It did not close the family member loophole. The fine for violations is $200 &mdash; less than a minor traffic ticket in most states. This is not oversight. This is the appearance of oversight.</p>
+    <div class="callout-source">Campaign Legal Center &mdash; Congressional Stock Trading and the STOCK Act &mdash; 2024</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 4 -->
+<section class="section">
+  <h2 class="section-title">When Agencies Serve<br>the Industries They Regulate</h2>
+  <p class="section-body">Regulatory capture is when a regulatory agency advances the interests of the industry it was created to oversee instead of the public. It doesn&rsquo;t require corruption or scandal. It requires only that the people who understand an industry well enough to regulate it are the same people who built careers inside it.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Industry Representation in Federal Regulatory Agency Leadership Positions (% of Senior Officials with Industry Background, 2024)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: Public Citizen; Revolving Door Project; Center for Responsive Politics. "Industry background" defined as 5+ years employed by companies or trade associations directly regulated by the respective agency prior to appointment.</div>
+  </div>
+
+  <table class="data-table">
+    <thead><tr>
+      <th>Agency</th>
+      <th>Supposed to Regulate</th>
+      <th>What Actually Happens</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>FDA</td><td>Drug and food safety</td><td>Accelerated approvals for drugs with minimal trial data; user fee funding model aligns agency revenue with industry approvals</td></tr>
+      <tr><td>FAA</td><td>Aviation safety</td><td>Delegated Boeing 737 MAX safety certification to Boeing itself; two crashes, 346 dead</td></tr>
+      <tr><td>EPA</td><td>Environmental protection</td><td>Industry representatives serve on advisory panels that set enforcement priorities and emission standards</td></tr>
+      <tr><td>CFPB</td><td>Consumer financial protection</td><td>Funding and authority have been contested by financial industry-backed officials since 2017; enforcement dramatically reduced</td></tr>
+      <tr><td>FCC</td><td>Telecom regulation</td><td>Net neutrality repealed under chairman who came directly from Verizon; reinstated and repealed cyclically</td></tr>
+      <tr><td>OSHA</td><td>Workplace safety</td><td>One inspector per 70,000 workers; inspection rates at historic lows; penalties average $13,000 per citation</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 5 -->
+<section class="section">
+  <h2 class="section-title">The Return on Investment<br>of Political Money</h2>
+  <p class="section-body">Political spending is not altruism. It is the most profitable investment most corporations make. Studies consistently show that every dollar spent on lobbying returns $220 in tax benefits, contract awards, or favorable regulatory outcomes. That math explains everything about who spends and how much.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Lobbying ROI: Estimated Return per $1 Spent on Federal Lobbying by Sector (Documented Case Studies)</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: Ramirez & Navarro-Sanchez lobbying ROI research; Strategas Research Partners lobbying return analysis; Sunlight Foundation lobbying outcome studies. Values are estimated returns based on documented tax provisions, regulatory rollbacks, and contract awards traced to lobbying campaigns.</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">How the ROI Works</h3>
+      <p style="font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);margin-bottom:16px;">In 2004, the American Jobs Creation Act included a one-time tax repatriation provision. Companies lobbying for it spent $282M and received $100B in tax savings. That is a documented 22,000% return on investment.</p>
+      <p style="font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);">The pharmaceutical industry spent $373M lobbying against Medicare drug price negotiation in 2021. They successfully delayed the policy by two years, preserving an estimated $80B+ in revenue during that window.</p>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">What $1 of Lobbying Buys</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--slate);">Access to staffers who draft legislation and agency rules</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--slate);">Pre-regulatory intelligence about upcoming rule changes</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--slate);">Revolving door relationships that translate into favorable interpretations</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--slate);">The ability to submit official comment letters treated as expert evidence</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 6 -->
+<section class="section">
+  <h2 class="section-title">Who Pays,<br>Who Benefits,<br>Who Doesn&rsquo;t</h2>
+  <p class="section-body">The gap between what the lobbying class spends and what the average American has access to is not just a financial story &mdash; it&rsquo;s a representation story. When the architecture of influence is built for those with capital, the policies that emerge from that architecture will reflect whose calls get returned.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Lobbying Spend Growth vs. Wages, Public Services, and Accountability (2000 = 100 Index)</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: OpenSecrets lobbying totals; Bureau of Labor Statistics real wage data; GAO federal enforcement staffing; Congressional Research Service. Indexed to 2000 baseline = 100 for comparative growth visualization.</div>
+  </div>
+
+  <div class="callout">
+    <p>The FDA official who approved OxyContin in 1995 left the agency in 1997 and was working at Purdue Pharma by late 1998. The FAA delegated Boeing 737 MAX safety certification to Boeing itself. After RFK Jr. removed senior FDA officials in 2025, they immediately went to Eli Lilly, Pfizer, Merck, Roche, and Novartis. This is the system operating as designed.</p>
+    <div class="callout-source">STAT News &mdash; How to Slow the FDA&rsquo;s Regulator-Lobbyist Revolving Door (Dec. 2025); GAO Boeing 737 MAX report</div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">LegiStorm &mdash; Revolving Door in Congress 2025: Hill to K Street &mdash; <a href="https://info.legistorm.com/blog/revolving-door-in-congress" target="_blank">legistorm.com</a></div>
+    <div class="source-item">Public Citizen &mdash; Nearly Two-Thirds of Former Members of 115th Congress Picked Up Lobbying Jobs &mdash; <a href="https://www.citizen.org/article/revolving-congress/" target="_blank">citizen.org</a></div>
+    <div class="source-item">Campaign Legal Center &mdash; Congressional Stock Trading and the STOCK Act &mdash; <a href="https://campaignlegal.org/update/congressional-stock-trading-and-stock-act" target="_blank">campaignlegal.org</a></div>
+    <div class="source-item">Harvard Journal on Legislation &mdash; Congressional Stock Trading Ban Challenges Transparency-Based Remedies (Nov. 2025) &mdash; <a href="https://journals.law.harvard.edu/jol/2025/11/03/congressional-stock-trading-ban-challenges/" target="_blank">journals.law.harvard.edu</a></div>
+    <div class="source-item">OpenSecrets &mdash; Big Money, Big Stakes: 5 Things Everyone Should Know About Money in 2024 Elections &mdash; <a href="https://www.opensecrets.org/news/2024/11/big-money-big-stakes-5-things-everyone-should-know-about-money-in-2024-election/" target="_blank">opensecrets.org</a></div>
+    <div class="source-item">Brennan Center for Justice &mdash; Dark Money Hit a Record High of $1.9 Billion in 2024 Federal Races &mdash; <a href="https://www.brennancenter.org/our-work/research-reports/dark-money-hit-record-high-19-billion-2024-federal-races" target="_blank">brennancenter.org</a></div>
+    <div class="source-item">STAT News &mdash; How to Slow the FDA's Regulator-Lobbyist Revolving Door (Dec. 2025) &mdash; <a href="https://www.statnews.com/2025/12/09/fda-revolving-door-regulator-industry-section-207/" target="_blank">statnews.com</a></div>
+    <div class="source-item">CT Mirror &mdash; Stock Trading by Members of Congress Could Be Banned in Bipartisan Push (Nov. 2025) &mdash; <a href="https://ctmirror.org/2025/11/20/congress-ban-stock-trading-bills/" target="_blank">ctmirror.org</a></div>
+    <div class="source-item">Demos &mdash; Money in Politics, Racial Equity, and the U.S. Supreme Court &mdash; <a href="https://www.demos.org/research/money-politics-racial-equity-and-us-supreme-court" target="_blank">demos.org</a></div>
+    <div class="source-item">Revolving Door Project &mdash; Agency Capture and Industry Appointments Tracker &mdash; <a href="https://therevolvingdoorproject.org/" target="_blank">therevolvingdoorproject.org</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck18-american-politics.html">&larr; Deck 18: American Politics</a>
+    <a href="index.html">Library Home</a>
+    <a href="deck20-lgbtq.html">Deck 20: LGBTQ+ Rights &rarr;</a>
+  </div>
+  <div class="footer-copy">The Convergence Project &mdash; Free Civic Research Library &mdash; Ebony Enterprises 9 LLC</div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var slate = '#8B9EC8';
+var slateL = '#A8B8D8';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var orange = '#F4C08A';
+var dimGrid = 'rgba(255,255,255,0.06)';
+
+Chart.defaults.color = cream;
+Chart.defaults.font.family = 'Raleway';
+
+// Chart 1 - Lobbying by industry
+new Chart(document.getElementById('c1'), {
+  type: 'bar',
+  data: {
+    labels: ['Healthcare', 'Finance/Insurance', 'Pharma', 'Defense', 'Energy/Oil', 'Tech', 'Telecom', 'Real Estate'],
+    datasets: [{
+      label: 'Lobbying Spend (USD Millions)',
+      data: [720, 560, 373, 310, 280, 210, 185, 145],
+      backgroundColor: [red, gold, orange, slate, slateL, gold, orange, slate],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'M'; } } }
+    }
+  }
+});
+
+// Chart 2 - Hill to lobby moves by department
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {
+    labels: ['Congress (All)', 'HHS/FDA', 'Pentagon/DoD', 'EPA', 'Treasury/IRS', 'FTC/SEC', 'DOJ'],
+    datasets: [{
+      label: 'Confirmed Hill-to-Lobby Moves (2024-2025)',
+      data: [866, 142, 118, 87, 74, 58, 43],
+      backgroundColor: [gold, red, slate, orange, slateL, red, orange],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+// Chart 3 - Congressional stock trades vs S&P
+new Chart(document.getElementById('c3'), {
+  type: 'line',
+  data: {
+    labels: ['2021','2022','2023','2024'],
+    datasets: [
+      { label: 'Congressional Trades in Regulated Sectors (Avg Return %)', data: [18.4, -2.1, 31.2, 28.7], borderColor: gold, backgroundColor: 'rgba(201,168,76,0.08)', tension: 0.3, fill: true, pointRadius: 6, pointBackgroundColor: gold },
+      { label: 'S&P 500 Annual Return %', data: [26.9, -19.4, 24.2, 23.3], borderColor: slate, backgroundColor: 'transparent', tension: 0.3, pointRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } } }
+    }
+  }
+});
+
+// Chart 4 - Regulatory capture - industry background in agencies
+new Chart(document.getElementById('c4'), {
+  type: 'bar',
+  data: {
+    labels: ['FDA', 'FAA', 'EPA', 'CFTC', 'FCC', 'FERC', 'CFPB'],
+    datasets: [{
+      label: '% Senior Officials with Industry Background',
+      data: [62, 58, 47, 71, 54, 66, 38],
+      backgroundColor: [red, red, orange, red, orange, red, slate],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, max: 100 }
+    }
+  }
+});
+
+// Chart 5 - Lobbying ROI by sector
+new Chart(document.getElementById('c5'), {
+  type: 'bar',
+  data: {
+    labels: ['Pharma (drug pricing block)', 'Finance (Dodd-Frank rollback)', 'Energy (tax provisions)', 'Tech (antitrust delays)', 'Defense (contract awards)', 'Real Estate (carried interest)'],
+    datasets: [{
+      label: 'Estimated Return per $1 Lobbied ($)',
+      data: [220, 184, 198, 142, 118, 162],
+      backgroundColor: [red, gold, orange, slate, slateL, gold],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c){ return '$' + c.parsed.x + ' returned per $1 spent'; } } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v; } } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+// Chart 6 - Lobbying vs wages vs enforcement (indexed)
+new Chart(document.getElementById('c6'), {
+  type: 'line',
+  data: {
+    labels: ['2000','2004','2008','2012','2016','2020','2024'],
+    datasets: [
+      { label: 'Total Lobbying Spend (indexed)', data: [100, 155, 230, 290, 310, 355, 440], borderColor: red, backgroundColor: 'transparent', tension: 0.3 },
+      { label: 'Real Wages (indexed)', data: [100, 103, 104, 105, 107, 112, 115], borderColor: slate, backgroundColor: 'transparent', tension: 0.3 },
+      { label: 'Federal Enforcement Staffing (indexed)', data: [100, 96, 90, 82, 75, 68, 58], borderColor: gold, backgroundColor: 'rgba(201,168,76,0.05)', tension: 0.3, fill: true }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v; } }, title: { display: true, text: 'Index (2000 = 100)', color: cream } }
+    }
+  }
+});
+</script>
+
+<!-- STANDARD DECK FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck18-american-politics.html">&larr; Deck 18: American Politics</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck20-lgbtq.html">Deck 20: LGBTQ+ Rights &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+</body>
+</html>

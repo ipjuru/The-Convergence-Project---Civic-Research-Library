@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 05 — Gov &amp; Corps · The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--acc:#C0392B;--acc-l:#E74C3C;--olive:#6B7C47;--olive-l:#8FA05E;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(192,57,43,0.11) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--acc-l);border:1px solid rgba(192,57,43,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--acc-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--acc-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--acc-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.chart-container-sm{position:relative;height:260px;}
+.callout{border-left:3px solid var(--acc-l);padding:24px 28px;background:rgba(192,57,43,0.07);margin:40px 0;}
+.callout-gold{border-left:3px solid var(--gold);padding:24px 28px;background:rgba(201,168,76,0.05);margin:40px 0;}
+.callout-olive{border-left:3px solid var(--olive-l);padding:24px 28px;background:rgba(107,124,71,0.07);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-body{font-family:'Raleway',sans-serif;font-size:15px;color:rgba(240,234,214,0.8);line-height:1.8;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--acc-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--acc-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'▸';color:var(--acc-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.timeline{margin:48px 0;}
+.timeline-item{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid #1a1a1a;align-items:start;}
+.timeline-date{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--acc-l);letter-spacing:1px;}
+.timeline-body{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.8);}
+.timeline-body strong{color:var(--cream);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:48px 0;}
+.col-block{background:var(--b3);padding:32px;border-top:2px solid var(--acc-l);}
+.col-block-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--acc-l);margin-bottom:16px;}
+.col-block-body{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.8;color:rgba(240,234,214,0.75);}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.action-col-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--olive-l);margin-bottom:12px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.8);padding:6px 0;border-bottom:1px solid #1a1a1a;padding-left:16px;position:relative;}
+.action-list li::before{content:'→';position:absolute;left:0;color:var(--olive-l);font-size:12px;}
+.action-list li:last-child{border-bottom:none;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}.timeline-item{grid-template-columns:80px 1fr;gap:12px;}.two-col{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">← Library Home</a>
+  <span class="nav-deck">Vol. 2 · Deck 05</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">05</div>
+  <span class="vol-badge">Vol. 2 — Gov &amp; Corps</span>
+  <h1 class="hero-title">Gov &amp;<br>Corps</h1>
+  <p class="hero-sub">A 920-page policy blueprint. 280+ contributors — 182 with direct Trump ties. 53% already implemented within 12 months. They wrote the manual, they staffed the government, and they signed the orders. The receipts are here.</p>
+  <div class="hero-stat">53%</div>
+  <div class="hero-stat-label">Of Project 2025 recommended actions already initiated or completed as of March 2026 · Center for Progressive Reform tracker</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">What Is Project 2025</span>
+  <h2 class="section-title">Not a Wish List —<br>An Operational Manual</h2>
+  <div class="section-body">
+    <p>Project 2025 is a 920-page policy blueprint written by the Heritage Foundation with more than <strong>280 contributors</strong>, published April 2023. Not a vision document. An operational manual — complete with personnel databases, training programs for replacement civil servants, and Day One implementation checklists organized by agency. The New York Times found <strong>182 of those contributors</strong> had direct ties to the Trump administration.</p>
+    <p>Heritage Foundation President Kevin Roberts declared in July 2024: <em>"We are in the process of the second American Revolution, which will remain bloodless if the left allows it to be."</em> By March 2026, the Center for Progressive Reform's implementation tracker documented that <strong>53% of Project 2025's recommended actions</strong> had already been initiated or completed — in 14 months.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">920</div><div class="stat-label">Pages of Policy Directives</div><div class="stat-note">Across every federal agency</div></div>
+    <div class="stat-card"><div class="stat-number">280+</div><div class="stat-label">Contributors</div><div class="stat-note">182 with direct Trump ties (NYT)</div></div>
+    <div class="stat-card"><div class="stat-number">53%</div><div class="stat-label">Already Implemented</div><div class="stat-note">Within 14 months · CPR tracker, March 2026</div></div>
+    <div class="stat-card"><div class="stat-number">200+</div><div class="stat-label">Legal Challenges Filed</div><div class="stat-note">24 state AGs in coordinated challenges</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Project 2025 Implementation Status — March 2026</div>
+    <div class="chart-container-sm"><canvas id="p2025Chart"></canvas></div>
+    <div class="chart-note">Source: Center for Progressive Reform — Tracking Trump 2.0 (March 2026). "Implemented" includes both fully enacted provisions and those actively in progress. The 47% remaining includes the structural changes hardest to reverse: judicial nominations, agency dismantling, and civil service elimination.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Day One and Beyond</span>
+  <h2 class="section-title">26 Executive Orders on<br>Day One — And Counting</h2>
+  <div class="section-body">
+    <p>Trump signed more executive orders on Day One of his second term than any president in history. Nearly two-thirds directly aligned with Project 2025 provisions. The pace continued — an average of more than one major action per day through early 2026.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item"><span class="timeline-date">Jan 20, 2025</span><div class="timeline-body">Eliminated all federal DEI programs (EO 14151). Schedule F reinstated to reclassify <strong>50,000 career civil servants</strong> for political firing. Federal hiring freeze. DOGE created. Paris Agreement exited. WHO withdrawn from — all on Day One.</div></div>
+    <div class="timeline-item"><span class="timeline-date">Feb 11, 2025</span><div class="timeline-body">DOGE Workforce Optimization Initiative — directed "large-scale reductions in force" across all agencies. Over <strong>300,000 federal employees</strong> departed since January 2025. <strong>85% of federal workers live outside D.C.</strong> — these are cuts to communities in all 50 states.</div></div>
+    <div class="timeline-item"><span class="timeline-date">Jul 4, 2025</span><div class="timeline-body">One Big Beautiful Bill Act signed — passed <strong>218–214</strong> in the House, <strong>51–50</strong> with VP Vance breaking the tie. Cuts $1 trillion from Medicaid, $120 billion from SNAP, adds $3.3 trillion to the deficit. Largest SNAP cuts in history.</div></div>
+    <div class="timeline-item"><span class="timeline-date">Feb 2026</span><div class="timeline-body">Final rule reclassifying <strong>~50,000 federal employees</strong> under Schedule Policy/Career — enabling removal "without lengthy procedural hurdles." Civil service protections built over a century effectively ended for targeted positions.</div></div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The One Big Beautiful Bill</span>
+  <h2 class="section-title">What They Cut —<br>And Who Pays</h2>
+  <div class="section-body">
+    <p>The reconciliation bill signed July 4, 2025 is the legislative centerpiece of the Project 2025 agenda. The distributional data from the CBO, Tax Policy Center, and CBPP is not ambiguous about who wins and who loses — and the margin of passage (218–214 House, VP tiebreaker Senate) shows how narrow the mandate actually was.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">OBBBA — Major Cuts and Who Bears the Cost</div>
+    <div class="chart-container"><canvas id="billChart"></canvas></div>
+    <div class="chart-note">Source: Congressional Budget Office score; Center on Budget and Policy Priorities; Tax Policy Center distributional analysis; Center for Medicare Advocacy. The top 1% gains an average of $5,000/year. The bottom 20% lose $1,650/year (-3.4%). The middle 20% lose $1,300/year.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">OBBBA Distributional Impact — Annual Change by Income Group ($)</div>
+    <div class="chart-container"><canvas id="distChart"></canvas></div>
+    <div class="chart-note">Source: Tax Policy Center; CBPP; CBO. Income groups represent approximate quintiles. The bill cuts taxes for the wealthy primarily through extension of 2017 TCJA provisions while cutting Medicaid and SNAP predominantly used by lower-income Americans. The net transfer is upward.</div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">Who Voted For This — And Who Their Constituents Are</div>
+    <ul class="highlight-list">
+      <li>Over <strong>20 million Republicans</strong> are on Medicaid — the largest program cut in this bill</li>
+      <li><strong>25 of 30 states</strong> Trump carried in 2024 were more reliant on SNAP than the national average</li>
+      <li>Tariffs in 2025 cost the average household <strong>$1,900+</strong> — the largest tax hike in 43 years (Yale Budget Lab)</li>
+      <li>Chinese retaliatory tariffs target U.S. soybeans at <strong>71.5%</strong> — devastating farming communities that voted heavily Republican</li>
+      <li><strong>85% of federal workers live outside DC</strong> — DOGE cuts hit every congressional district</li>
+      <li><strong>11.8 million people</strong> projected to lose Medicaid coverage (CBO)</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Follow the Money</span>
+  <h2 class="section-title">The Dark Money<br>Behind Project 2025</h2>
+  <div class="section-body">
+    <p>Heritage Foundation spent <strong>$22 million</strong> preparing the Mandate for Leadership 2025. The funding network behind it is the largest dark money infrastructure in American political history — built over decades and deployed for this specific moment.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Dark Money Flows to Project 2025 Advisory Organizations ($M)</div>
+    <div class="chart-container"><canvas id="darkMoneyChart"></canvas></div>
+    <div class="chart-note">Source: DeSmog; NBC News; Factually.co; Erin in the Morning investigative reporting. Barre Seid's $1.6 billion donation to Marble Freedom Trust (linked to Leonard Leo) is displayed in billions for scale — it is the single largest dark money donation in U.S. political history. Donor-advised funds at Fidelity/Schwab/Vanguard are disclosed through FOIA and tax filings.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Private Equity</span>
+  <h2 class="section-title">When PE Buys Your Hospital,<br>People Die — The Data</h2>
+  <div class="section-body">
+    <p>Private equity manages <strong>$3.1 trillion</strong> in U.S. assets and has systematically acquired hospitals, nursing homes, emergency rooms, veterinary clinics, and housing. The documented health outcomes from PE healthcare acquisitions are among the most damning in the peer-reviewed medical literature.</p>
+    <p>An NBER study of PE nursing home acquisitions found a <strong>10% increase in mortality</strong> — approximately <strong>20,150 additional deaths</strong> over 12 years — combined with a 50% rise in antipsychotic drug use, 19% higher billing, and decreased staffing hours. Harvard Medical School found PE hospital acquisitions caused <strong>7 additional deaths per 10,000 ER visits</strong>. Steward Health Care — PE-owned — went bankrupt, eliminating one Florida community's only emergency room. Veterinary prices rose <strong>78%</strong> post-PE acquisition.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Private Equity Healthcare Outcomes — Documented Changes Post-Acquisition (%)</div>
+    <div class="chart-container"><canvas id="peChart"></canvas></div>
+    <div class="chart-note">Source: NBER; Harvard Medical School; Chicago Booth Review; Senator Warren Private Equity Report. Values represent percentage change following PE acquisition. Mortality increase of 10% at nursing homes represents ~20,150 additional deaths over 12 years in the studied sample (NBER, 2021).</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The War Machine</span>
+  <h2 class="section-title">$1 Trillion Per Year —<br>7 Consecutive Failed Audits</h2>
+  <div class="section-body">
+    <p>The U.S. military budget has nearly doubled since 2000. Five contractors receive one-third of all Pentagon spending. The Pentagon has <strong>failed 7 consecutive annual audits</strong> — the audits themselves cost <strong>$2.6 billion</strong>. Eisenhower's warning about the military-industrial complex in 1961 was not a metaphor. It was a forecast.</p>
+    <p>The F-35 program — the most expensive weapons system in history — will cost an estimated <strong>$2.1 trillion</strong> over its lifetime. It is more than 10 years behind schedule, $183 billion over budget, and as of recent reporting only <strong>36.4% of F-35As are fully mission capable</strong>. The Pentagon found <strong>$35 trillion</strong> in year-end accounting adjustments in FY2020. The revolving door between defense contractors and government: <strong>672 documented cases</strong> of top-20 contractors hiring former government officials — 91% became lobbyists.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Military Industrial Complex — The Numbers</div>
+    <div class="chart-container"><canvas id="militaryChart"></canvas></div>
+    <div class="chart-note">Source: Quincy Institute; Pentagon FY2026 budget submission; GAO weapons system reports; Common Dreams. The F-35 lifetime cost of $2.1T exceeds the GDP of most countries. "Consecutive failed audits" represents the Pentagon's own Inspector General findings since mandatory audits began in 2018.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Public Opinion vs. Policy</span>
+  <h2 class="section-title">The Public Hates Project 2025.<br>Even Republicans.</h2>
+  <div class="section-body">
+    <p>Awareness of Project 2025 is high and opposition is broad and bipartisan. In NBC News polling, <strong>57% of Americans</strong> oppose Project 2025. It polled worse than socialism. Worse than both political parties. Worse than Elon Musk in head-to-head comparisons. Yet it is 53% implemented. That gap between public opinion and policy outcomes is itself a data point about how power operates — which Deck 18 and Deck 19 cover in full.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Public Opinion on Project 2025 Provisions — % Opposed</div>
+    <div class="chart-container"><canvas id="opinionChart"></canvas></div>
+    <div class="chart-note">Source: NBC News poll; Navigator Research; UMass Amherst poll; Axios. Even self-identified Republicans oppose major Project 2025 provisions when polled on the specific content (not the branding). Opposition to Medicaid cuts, Department of Education elimination, and contraception access restrictions all poll above 60%.</div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-title">What You Can Do</div>
+    <div class="action-cols">
+      <div>
+        <div class="action-col-title">Know It</div>
+        <ul class="action-list">
+          <li>The full Mandate for Leadership 2025 is free online — read the table of contents so you can't be gaslit about what's in it</li>
+          <li>Track implementation at progressivereform.org/tracking-trump-2</li>
+          <li>Know which provisions directly affect your life: Medicaid, SNAP, civil service protections</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">Fight It</div>
+        <ul class="action-list">
+          <li>Contact your state AG — 24 states have joined coordinated legal challenges</li>
+          <li>Support organizations filing suits: ACLU, NAACP Legal Defense Fund, Earthjustice</li>
+          <li>Attend town halls — demand your rep go on record on each provision</li>
+          <li>Local government still has real power — show up to it</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">Build Around It</div>
+        <ul class="action-list">
+          <li>Community land trusts, electric co-ops, mutual aid — infrastructure that doesn't depend on federal goodwill</li>
+          <li>Support local independent journalism</li>
+          <li>Talk to MAGA neighbors about what these policies cost them specifically — the data is on your side</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Heritage Foundation — Mandate for Leadership: The Conservative Promise (2023) · <a href="https://www.heritage.org/mandate-for-leadership" target="_blank">heritage.org</a></div>
+    <div class="source-item">Center for Progressive Reform — Tracking Trump 2.0 Implementation (2025–2026) · <a href="https://progressivereform.org" target="_blank">progressivereform.org</a></div>
+    <div class="source-item">New York Times — 182 Project 2025 Contributors with Direct Trump Ties (2024)</div>
+    <div class="source-item">Congressional Budget Office — Score of H.R. 1 / One Big Beautiful Bill Act (2025) · <a href="https://www.cbo.gov" target="_blank">cbo.gov</a></div>
+    <div class="source-item">Tax Policy Center — Distributional Analysis of OBBBA (2025) · <a href="https://www.taxpolicycenter.org" target="_blank">taxpolicycenter.org</a></div>
+    <div class="source-item">Center on Budget and Policy Priorities — Medicaid and SNAP Cut Analysis · <a href="https://www.cbpp.org" target="_blank">cbpp.org</a></div>
+    <div class="source-item">NBER — Does Private Equity Investment in Healthcare Benefit Patients? (2021)</div>
+    <div class="source-item">Harvard Medical School — Private Equity Hospital Acquisitions and Patient Mortality (2023)</div>
+    <div class="source-item">GAO — F-35 Joint Strike Fighter Program Accountability Reports · <a href="https://www.gao.gov" target="_blank">gao.gov</a></div>
+    <div class="source-item">Quincy Institute for Responsible Statecraft — Pentagon Budget Analysis · <a href="https://quincyinst.org" target="_blank">quincyinst.org</a></div>
+    <div class="source-item">DeSmog; NBC News; Factually.co — Project 2025 Dark Money Network Reporting</div>
+    <div class="source-item">Yale Budget Lab — Tariff Impact on U.S. Households (2025)</div>
+    <div class="source-item">NBC News; Navigator Research — Project 2025 Public Opinion Polling</div>
+    <div class="source-item">KFF — Medicaid Enrollee Demographics; Republican State Reliance Data · <a href="https://www.kff.org" target="_blank">kff.org</a></div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck4-the-root.html">← Deck 04: The Root</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck6-social-experiment.html">Deck 06: Social Experiment →</a>
+</div>
+
+<script>
+const xT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const yT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const gd={color:'rgba(255,255,255,0.05)'};
+const gf={color:'rgba(255,255,255,0.03)'};
+const leg={display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}};
+const noLeg={display:false};
+
+// Chart 1 — P2025 implementation donut
+new Chart(document.getElementById('p2025Chart'),{
+  type:'doughnut',
+  data:{labels:['Already implemented (53%)','In progress (25%)','Not yet started (22%)'],
+  datasets:[{data:[53,25,22],backgroundColor:['rgba(192,57,43,0.85)','rgba(201,168,76,0.75)','rgba(107,124,71,0.65)'],borderColor:'#0D0D0D',borderWidth:3}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12},padding:16}}}}
+});
+
+// Chart 2 — OBBBA cuts
+new Chart(document.getElementById('billChart'),{
+  type:'bar',
+  data:{
+    labels:['Medicaid cut\n($B, 10yr)','SNAP cut\n($B, 10yr)','People losing\nMedicaid (M)','Deficit added\n($T)','Medicare trust\nfund risk ($B)'],
+    datasets:[{data:[1000,120,11.8,3.3,500],backgroundColor:['rgba(192,57,43,0.85)','rgba(192,57,43,0.75)','rgba(192,57,43,0.7)','rgba(201,168,76,0.75)','rgba(192,57,43,0.65)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:0},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 3 — Distributional impact
+new Chart(document.getElementById('distChart'),{
+  type:'bar',
+  data:{
+    labels:['Bottom 20%','Second 20%','Middle 20%','Fourth 20%','Top 20%','Top 1%'],
+    datasets:[{label:'Annual $ Change per Household',data:[-1650,-900,-1300,200,2800,5000],backgroundColor:ctx=>ctx.parsed.y<0?'rgba(192,57,43,0.8)':'rgba(107,124,71,0.75)',borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>'$'+v.toLocaleString()},grid:gd}}}
+});
+
+// Chart 4 — Dark money
+new Chart(document.getElementById('darkMoneyChart'),{
+  type:'bar',
+  data:{
+    labels:['Barre Seid →\nMarble Freedom ($B)','Fidelity/Schwab/\nVanguard DAFs ($M)','Bradley\nFoundation ($M)','Koch\nNetwork ($M)','DonorsTrust\n2022 ($M)'],
+    datasets:[{data:[1600,171,52.9,9.6,16.5],backgroundColor:['rgba(192,57,43,0.85)','rgba(192,57,43,0.75)','rgba(201,168,76,0.7)','rgba(192,57,43,0.65)','rgba(201,168,76,0.65)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:xT,grid:gd},y:{ticks:yT,grid:gf}}}
+});
+
+// Chart 5 — PE healthcare outcomes
+new Chart(document.getElementById('peChart'),{
+  type:'bar',
+  data:{
+    labels:['Nursing home\nmortality ↑','ER deaths per\n10K visits ↑','Antipsychotic\nuse ↑','Billing\nincrease ↑','Vet prices\npost-PE ↑'],
+    datasets:[{data:[10,7,50,19,78],backgroundColor:['rgba(192,57,43,0.85)','rgba(192,57,43,0.8)','rgba(192,57,43,0.7)','rgba(201,168,76,0.7)','rgba(192,57,43,0.65)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:10},grid:gf},y:{ticks:{...yT,callback:v=>v+'%'},grid:gd}}}
+});
+
+// Chart 6 — Military numbers
+new Chart(document.getElementById('militaryChart'),{
+  type:'bar',
+  data:{
+    labels:['FY2025 Budget\n($T)','F-35 lifetime\ncost ($T)','Top 5 contractor\nshare (5yr, $B/10)','Sentinel ICBM\noverage ($B)','Failed\naudits (count)'],
+    datasets:[{data:[1.06,2.1,77.1,62.9,7],backgroundColor:['rgba(201,168,76,0.75)','rgba(192,57,43,0.8)','rgba(192,57,43,0.7)','rgba(201,168,76,0.7)','rgba(107,124,71,0.7)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:10},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 7 — Public opinion
+new Chart(document.getElementById('opinionChart'),{
+  type:'bar',
+  data:{
+    labels:['Overall oppose\nP2025 (%)','Oppose removing\ncontraception access','Oppose eliminating\nDept of Education','Severe net\nunpopularity margin','Non-MAGA GOP\nsupport P2025 (%)'],
+    datasets:[{data:[57,74,60,40,10],backgroundColor:['rgba(107,124,71,0.8)','rgba(107,124,71,0.75)','rgba(107,124,71,0.7)','rgba(201,168,76,0.75)','rgba(192,57,43,0.7)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,maxRotation:20},grid:gf},y:{ticks:{...yT,callback:v=>v+'%'},grid:gd,max:100}}}
+});
+</script>
+</body>
+</html>

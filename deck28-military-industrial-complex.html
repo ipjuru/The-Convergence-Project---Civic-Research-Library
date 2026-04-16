@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 28 -- The Military Industrial Complex: The Business of Forever War - The Convergence Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --rust:#B85C38;--rust-dim:rgba(184,92,56,0.12);--rust-mid:rgba(184,92,56,0.5);
+  --red:#C87474;--blue:#8B9EC8;--green:#6FA882;--orange:#F4C08A;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(184,92,56,0.07) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--rust);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--rust);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--rust);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--rust-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--rust);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--rust);padding:24px 28px;background:var(--rust-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.bmc-bar-footer{display:flex;align-items:center;gap:20px;justify-content:center;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.15);border-radius:2px;padding:20px 28px;margin:24px auto;max-width:700px;flex-wrap:wrap;}
+.bmc-icon-f{font-size:28px;}
+.bmc-text-f{flex:1;min-width:200px;text-align:left;}
+.bmc-headline-f{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:4px;}
+.bmc-sub-f{font-family:'Raleway',sans-serif;font-size:11px;color:var(--cream-faint);}
+.bmc-btn-f{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:10px 20px;text-decoration:none;border-radius:2px;white-space:nowrap;}
+.footer-copy-bar{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);text-transform:uppercase;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="deck-label">Deck 28 &mdash; Defense &amp; Contractor Power</div>
+  <h1 class="hero-title">The Military<br><span>Industrial Complex</span></h1>
+  <p class="hero-sub">The Business of Forever War</p>
+  <div class="hero-stat-big">$997B</div>
+  <div class="hero-stat-label">U.S. Military Spending in 2024 &mdash; More Than the Next 9 Countries Combined</div>
+</div>
+
+<!-- SECTION 1: EISENHOWER -->
+<section class="section">
+  <h2 class="section-title">Eisenhower Saw It Coming &mdash; <span>And Named It</span></h2>
+  <p class="section-body">On January 17, 1961, President Dwight D. Eisenhower &mdash; a five-star general who commanded Allied forces in World War II &mdash; used his farewell address to issue a warning his successors ignored for six decades. He coined the phrase "military-industrial complex" and described the existential threat it posed to democratic governance. An earlier draft of the speech read "military-industrial-<em>congressional</em> complex." That word was cut before delivery. It may have been the most important word of all.</p>
+
+  <div class="callout">
+    <p>"In the councils of government, we must guard against the acquisition of unwarranted influence, whether sought or unsought, by the military-industrial complex. The potential for the disastrous rise of misplaced power exists and will persist. Only an alert and knowledgeable citizenry can compel the proper meshing of the huge industrial and military machinery of defense with our peaceful methods and goals."</p>
+    <div class="callout-source">President Dwight D. Eisenhower &mdash; Farewell Address, January 17, 1961 &mdash; National Archives</div>
+  </div>
+
+  <p class="section-body">The system Eisenhower warned about now operates exactly as he feared: a self-reinforcing triangle of the Pentagon, defense contractors, and Congress, where each actor's incentives align to grow defense spending regardless of actual threat levels. In 2025, President Biden invoked the same warning in his own farewell address, cautioning about a "tech-industrial complex." The warning now has two generations of Oval Office backing &mdash; and no meaningful institutional response.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">38%</div>
+      <div class="stat-label">U.S. Share of All Global Military Spending</div>
+      <div class="stat-note">SIPRI 2025 &mdash; more than next 9 countries combined</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$2,895</div>
+      <div class="stat-label">U.S. Military Spending Per Capita</div>
+      <div class="stat-note">Global average: $334. Source: SIPRI / Mappr 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">52%</div>
+      <div class="stat-label">Of All Discretionary Federal Spending</div>
+      <div class="stat-note">Defense consumes more than half the discretionary budget. Source: Concord Coalition 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$1.06T</div>
+      <div class="stat-label">FY2025 Defense Budget (With Supplementals)</div>
+      <div class="stat-note">First time the U.S. crossed the trillion-dollar threshold. Source: Quincy Institute 2025</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Global Military Spending 2024: Top 6 Countries (USD Billions)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: SIPRI Military Expenditure Database, April 2025. SIPRI's $997B U.S. figure is broader than CBO's ~$850B discretionary figure because it includes military retirement and some international affairs expenditures. China's $314B may understate actual spending; China does not fully disclose its military budget.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 2: THE BIG 5 -->
+<section class="section">
+  <h2 class="section-title">Five Corporations, <span>$771 Billion in Five Years</span></h2>
+  <p class="section-body">The defense industry consolidates power in five mega-contractors that collectively received $771 billion in Pentagon contracts from 2020 to 2024 &mdash; roughly 54% of the Department of Defense's $4.4 trillion in discretionary spending over that period, per the Quincy Institute for Responsible Statecraft. Over two decades of post-9/11 wars, these same five firms accumulated a cumulative $2 trillion in federal contracts. The U.S. government invested more than twice as much in these five weapons companies as in total diplomacy, development, and humanitarian aid combined ($356 billion).</p>
+
+  <table class="data-table">
+    <thead><tr>
+      <th>Contractor</th>
+      <th>Pentagon Contracts 2020&ndash;2024</th>
+      <th>2024 Revenue</th>
+      <th>Lobbying 2024</th>
+      <th>Stock Gain Since 9/10/2001</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Lockheed Martin</td><td>$313 billion</td><td>$71 billion (71% federal)</td><td>$12.7 million</td><td>+1,163%</td></tr>
+      <tr><td>RTX Corporation (Raytheon)</td><td>$145 billion</td><td>$40.6 billion defense</td><td>~$11 million</td><td>N/A (rebranded)</td></tr>
+      <tr><td>Boeing Defense</td><td>$115 billion</td><td>$32.7 billion defense</td><td>$14 million</td><td>—</td></tr>
+      <tr><td>General Dynamics</td><td>$116 billion</td><td>$33.7 billion defense</td><td>N/A</td><td>+743%</td></tr>
+      <tr><td>Northrop Grumman</td><td>$81 billion</td><td>$35.2 billion defense</td><td>$8.8 million</td><td>+1,056%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p>Lockheed Martin alone received $313 billion in Pentagon contracts from 2020&ndash;2024 &mdash; more than the entire State Department budget over the same period. The company returned $6.8 billion to shareholders in a single year through dividends and buybacks while the VA spent $571 million on veteran suicide prevention &mdash; less than one-tenth of what Lockheed returned to investors alone.</p>
+    <div class="callout-source">Quincy Institute for Responsible Statecraft &mdash; Profits of War (2024); Fortune 2026; Task &amp; Purpose 2025</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Defense Industry Lobbying: Annual Spend 2015&ndash;2024 (USD Millions)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: OpenSecrets Federal Lobbying &mdash; Defense Sector; Taxpayers for Common Sense &mdash; Political Footprint of the Military Industry (Oct 2024). Industry-wide 2024 lobbying total: $159 million &mdash; roughly $381,000 per day, funding 904 registered lobbyists. Over the past decade: nearly $1.3 billion total in defense lobbying.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 3: REVOLVING DOOR -->
+<section class="section">
+  <h2 class="section-title">The Revolving Door <span>Spins Both Ways</span></h2>
+  <p class="section-body">The Project on Government Oversight's 2018 "Brass Parachutes" report remains the most comprehensive study of the Pentagon-to-industry pipeline. Researchers found 380 high-ranking DoD officials and military officers shifted into private-sector defense jobs between 2008 and 2018, creating 645 instances of top contractors hiring former senior government personnel. Nearly 90% became registered lobbyists. One-quarter went directly to the top five contractors.</p>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:16px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Named Examples</h3>
+      <p class="section-body" style="font-size:16px;">
+        <strong style="color:var(--cream);">Mark Esper</strong> served as Raytheon's top lobbyist (VP Government Relations) before becoming Army Secretary, then Secretary of Defense.<br><br>
+        <strong style="color:var(--cream);">Patrick Shanahan</strong> spent 30 years as a Boeing executive before serving as Acting Secretary of Defense.<br><br>
+        <strong style="color:var(--cream);">Lloyd Austin</strong> joined the Raytheon Technologies board after commanding CENTCOM, held stock worth $750K&ndash;$1.7M, then became Secretary of Defense.<br><br>
+        <strong style="color:var(--cream);">James Mattis</strong> sat on the General Dynamics board before serving as Secretary of Defense &mdash; then rejoined it after resigning.
+      </p>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:16px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Structural Numbers</h3>
+      <div class="stat-card" style="margin-bottom:16px;">
+        <div class="stat-number">72%</div>
+        <div class="stat-label">Defense lobbyists who previously worked for Congress</div>
+        <div class="stat-note">Taxpayers for Common Sense, 2024</div>
+      </div>
+      <div class="stat-card" style="margin-bottom:16px;">
+        <div class="stat-number">395</div>
+        <div class="stat-label">Lobbyists Lockheed employed in a single year</div>
+        <div class="stat-note">74% were former government employees. Source: WarCosts.org</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$2.5B</div>
+        <div class="stat-label">Defense contractor lobbying spend over two decades</div>
+        <div class="stat-note">Plus $285M in campaign contributions. Source: POGO</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-body">The revolving door also operates institutionally. The Pentagon's Secretary of Defense Executive Fellows (SDEF) program sends promising military officers inside top defense and tech corporations for a year before returning them to the Pentagon. A Quincy Institute report found the program "helped place corporate interests at the very heart of U.S. military strategy." The Armed Services Committees sit at the center of this system &mdash; the NDAA has passed for 60+ consecutive years. The F-35's components are manufactured in 45 states: a deliberate strategy making the program politically untouchable regardless of performance.</p>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 4: COST OVERRUNS -->
+<section class="section">
+  <h2 class="section-title">The F-35: A <span>$2 Trillion Case Study</span></h2>
+  <p class="section-body">The GAO has produced 23 annual assessments of DoD weapons acquisition. Its 2025 report found the Pentagon plans to invest $2.4 trillion in its costliest programs, with $49.3 billion in cost growth in a single year. The average time to deliver initial capability has stretched to 12 years from program start. Cost overruns are not exceptions in this system &mdash; they are the system.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">$2T+</div>
+      <div class="stat-label">F-35 Lifetime Cost (Updated April 2024)</div>
+      <div class="stat-note">Up 17.7% from the $1.7T estimate just months earlier. Source: GAO April 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">84%</div>
+      <div class="stat-label">F-35 Acquisition Cost Overrun</div>
+      <div class="stat-note">2001 estimate: $233B. Current: $428B+. Source: CAGW</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">52%</div>
+      <div class="stat-label">F-35 Mission Capable Rate</div>
+      <div class="stat-note">Against a 90% target. In 2024, all 110 deliveries were late by avg. 238 days. Source: GAO 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">24 yrs</div>
+      <div class="stat-label">Time to Full-Rate F-35 Production</div>
+      <div class="stat-note">Full-rate production reached March 2025 &mdash; ~24 years after program start. Source: GAO</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Major Weapons Program Cost Overruns: Original vs. Current Estimated Cost (USD Billions)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: GAO Weapon Systems Annual Assessment 2025 (GAO-25-107569); CAGW F-35 tracking; Defense News KC-46 investigation (Jan 2024); USNI News Sentinel ICBM reporting (June 2025); National Security Journal Zumwalt analysis. All figures in current-year dollars where available.</div>
+  </div>
+
+  <div class="callout">
+    <p>Boeing's KC-46 tanker has cost Boeing over $7 billion in absorbed overruns &mdash; exceeding the original $4.9 billion contract value. The Sentinel ICBM program is 81% over its baseline cost estimate with $36 billion in growth in a single year. Despite eight straight audit failures, Congress authorized approximately $3.9 trillion in additional military spending since the first failed audit in 2018.</p>
+    <div class="callout-source">Defense News 2024; Arms Control Association 2025; USNI News June 2025; Colorado Newsline 2023</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 5: FOREVER WARS -->
+<section class="section">
+  <h2 class="section-title">The Forever Wars: <span>$8 Trillion on a Credit Card</span></h2>
+  <p class="section-body">Brown University's Costs of War Project provides the most comprehensive accounting of post-9/11 war expenditure. The total estimated cost through FY2022: $8 trillion &mdash; funded entirely through government borrowing. No war bonds. No tax increases. The mechanism of supplemental appropriations and Overseas Contingency Operations kept war costs invisible to most taxpayers until the interest bills started arriving.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">$8T</div>
+      <div class="stat-label">Total Post-9/11 War Cost Through FY2022</div>
+      <div class="stat-note">Brown University Costs of War Project. Entire sum borrowed &mdash; no tax increase, no war bonds.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">940K+</div>
+      <div class="stat-label">People Killed by Direct Violence</div>
+      <div class="stat-note">Including 432,000+ civilians. Indirect deaths (disease, displacement): 4.5&ndash;4.7 million. Source: Costs of War</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">38M</div>
+      <div class="stat-label">People Displaced by Post-9/11 Wars</div>
+      <div class="stat-note">Source: Costs of War Project, Brown University</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$2T+</div>
+      <div class="stat-label">Projected Interest on War Borrowing by 2030</div>
+      <div class="stat-note">By 2030, interest payments alone will equal direct war operations spending. Source: Brown University</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Post-9/11 War Cost Breakdown: $8 Trillion (Brown University Estimate)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: Brown University Costs of War Project &mdash; Summary of War Costs through FY2022. Direct OCO spending (~$2.3T), Pentagon base budget increases (~$900B), Dept. of Homeland Security since 2002 ($1.1T+), veterans care current and projected ($2.2T), interest on war borrowing ($1T+ now, projected $2T+ by 2030). Veterans care obligations extend through 2050.</div>
+  </div>
+
+  <p class="section-body">The human cost compounds over generations. Over 1.8 million veterans carry officially recognized service-connected disabilities. Veterans' care costs are projected to reach $2.2&ndash;2.5 trillion by 2050 &mdash; a bill that grows larger every year while active care remains inadequate.</p>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 6: THE AUDIT -->
+<section class="section">
+  <h2 class="section-title">Eight Consecutive <span>Failed Audits</span></h2>
+  <p class="section-body">The Pentagon is the only one of the federal government's 24 major agencies that has never passed a full audit. Congress mandated the first department-wide audit in 2018. The result every year since: failure. The FY2025 audit (released December 19, 2025) returned a "disclaimer of opinion" &mdash; auditors could not obtain sufficient evidence to express any opinion at all about the Pentagon's financial statements. The department reported $4.65 trillion in assets and $4.73 trillion in liabilities.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Consecutive Failed Audits (2018&ndash;2025)</div>
+      <div class="stat-note">Only agency of 24 that has never passed. Source: Federal News Network Dec 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">26</div>
+      <div class="stat-label">Material Weaknesses Identified (FY2025 Audit)</div>
+      <div class="stat-note">Plus 2 significant deficiencies. Result: "disclaimer of opinion." Source: U.S. News Dec 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">63%</div>
+      <div class="stat-label">Of $3.8T in Assets Unaccounted For (2023)</div>
+      <div class="stat-note">Pentagon disputes "missing money" framing &mdash; argues insufficient documentation. Source: Responsible Statecraft</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$125B</div>
+      <div class="stat-label">In Administrative Waste Identified &mdash; Then Buried</div>
+      <div class="stat-note">2015 internal Pentagon report suppressed out of fear Congress would cut the budget. Source: Washington Post</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>The GAO has flagged Pentagon property-tracking deficiencies since at least 1981. Despite eight straight audit failures, Congress authorized approximately $3.9 trillion in additional military spending since the process began. Sen. Bernie Sanders proposed legislation to impose fines on the Pentagon for failing audits. Lawmakers from both parties declined to consider it.</p>
+    <div class="callout-source">Colorado Newsline Dec 2023; Responsible Statecraft 2024; GAO historical records</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 7: PRIVATE CONTRACTORS -->
+<section class="section">
+  <h2 class="section-title">Private Military Contractors: <span>War Without Accountability</span></h2>
+  <p class="section-body">The ratio of contractors to military personnel surged from 1:55 in Vietnam to 1:1 in Iraq and 1.43:1 in Afghanistan &mdash; one of the most significant structural shifts in American warfare. At peak deployment, approximately 163,000 contractors served in Iraq and 117,000 in Afghanistan. By 2016, contractors outnumbered troops in Afghanistan by 3:1. These forces operated in a legal grey zone &mdash; not subject to the Uniform Code of Military Justice and often shielded from local prosecution.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="stat-card">
+        <div class="stat-number">$187B</div>
+        <div class="stat-label">DoD-Funded Contracts in Iraq, Syria &amp; Afghanistan (FY2011&ndash;FY2019)</div>
+        <div class="stat-note">In FY2021 dollars. Source: Congressional Research Service</div>
+      </div>
+    </div>
+    <div>
+      <div class="stat-card">
+        <div class="stat-number">$2B</div>
+        <div class="stat-label">Blackwater Peak U.S. Government Contracts</div>
+        <div class="stat-note">Founded by ex-Navy SEAL Erik Prince, brother of Education Sec. Betsy DeVos</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>On September 16, 2007, Blackwater contractors escorting a U.S. embassy convoy opened fire in Nisour Square, Baghdad &mdash; killing 17 Iraqi civilians, including a 9-year-old boy. Four contractors were convicted in 2014. All four were pardoned by President Trump on December 22, 2020. Five independent UN experts condemned the pardons as "an affront to justice" that "violate U.S. obligations under international law."</p>
+    <div class="callout-source">Wikipedia &mdash; Nisour Square Massacre; The Intercept Dec 2020; UN Human Rights Office Dec 2020</div>
+  </div>
+
+  <p class="section-body">The use of contractors allowed policymakers to appear to withdraw while keeping proxy forces in theater &mdash; making war less politically visible and less democratically accountable. The DoD stopped publicly reporting military deployment numbers in late 2017, citing "operational security."</p>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 8: VETERANS -->
+<section class="section">
+  <h2 class="section-title">Veterans Struggle While <span>Contractor Stocks Soar 1,100%</span></h2>
+  <p class="section-body">Since September 10, 2001, Lockheed Martin's stock rose 1,163%, Northrop Grumman rose 1,056%, and General Dynamics rose 743% &mdash; all outperforming the S&P 500's 413% gain. The contrast with veterans' outcomes tells the story of the MIC's actual priorities.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">6,398</div>
+      <div class="stat-label">Veterans Who Died by Suicide in 2023</div>
+      <div class="stat-note">~17.5 per day. Veteran suicide rate (35.2/100K) more than double non-veteran rate. Source: VA / Task &amp; Purpose 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$571M</div>
+      <div class="stat-label">VA Spent on Suicide Prevention FY2024</div>
+      <div class="stat-note">Less than one-tenth of what Lockheed Martin returned to shareholders alone that year.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1.2M</div>
+      <div class="stat-label">Veterans on Food Stamps</div>
+      <div class="stat-note">Source: Center on Budget and Policy Priorities</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4.6M</div>
+      <div class="stat-label">Veterans Above Poverty Line But Below Cost-of-Basics Threshold</div>
+      <div class="stat-note">27% of all veterans. Source: UnitedForALICE 2024</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Defense Contractor Stock Performance vs. S&amp;P 500: Sept 10, 2001 &ndash; 2024 (% Gain)</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: WarCosts.org &mdash; Stock performance tracker post-9/11. S&P 500 ~413% gain over same period. Note: Boeing's defense division is part of a conglomerate that has experienced significant commercial and quality crises, which affected overall stock performance differently from pure-play defense peers.</div>
+  </div>
+
+  <p class="section-body">The economic burden of PTSD alone: $17.8 billion in disability costs. Annual veteran homelessness programs total roughly $2&ndash;3 billion &mdash; compared to nuclear arsenal maintenance costs of $95 billion per year. Only 23% of service members with PTSD or depression receive "minimally adequate care." Sixty percent fear seeking mental health help will hurt their careers.</p>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 9: MEDIA -->
+<section class="section">
+  <h2 class="section-title">Defense Contractors <span>Shaped the News About Their Own Wars</span></h2>
+  <p class="section-body">General Electric owned NBC from 1986 to 2013 while simultaneously ranking as one of the top military contractors. In 2004 alone, GE received $2.8 billion in military contracts. In April 2008, David Barstow of the New York Times published a Pulitzer Prize-winning investigation revealing that the Bush administration secretly cultivated more than 70 retired military officers as TV news analysts from 2002 to 2008.</p>
+
+  <div class="callout">
+    <p>The Pentagon program designated these analysts as "message force multipliers" &mdash; paid commentators who appeared as independent military experts on television while receiving strategic talking points from the DoD. Many had undisclosed financial ties to defense contractors as employees, investors, or lobbyists. Former NBC analyst Kenneth Allard called it "psyops on steroids." A DoD Inspector General report initially found no wrongdoing &mdash; then was withdrawn as "flawed."</p>
+    <div class="callout-source">New York Times &mdash; David Barstow, Pulitzer Prize Investigation (2008); Project Censored; SourceWatch</div>
+  </div>
+
+  <p class="section-body">The pattern persists. The Lever reported in 2022 that CNN, MSNBC, and NBC News routinely failed to disclose that military analyst guests advocating for arming Ukraine were employed by weapons companies. FAIR found that 20 of 22 featured American guests during the Ukraine crisis were current or former military or government officials, many with undisclosed defense industry ties. Former DHS Secretary Jeh Johnson appeared as an MSNBC analyst while sitting on the Lockheed Martin board &mdash; without viewer disclosure.</p>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 10: BIGGER PICTURE -->
+<section class="section">
+  <h2 class="section-title">The Bigger Picture: <span>Scale and Scope</span></h2>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">750</div>
+      <div class="stat-label">U.S. Military Installations Across 80+ Countries</div>
+      <div class="stat-note">171,500+ active-duty troops stationed overseas. Annual cost: ~$150B. Source: World Population Review 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">5,177</div>
+      <div class="stat-label">U.S. Nuclear Warheads</div>
+      <div class="stat-note">10-year nuclear modernization cost: $946 billion &mdash; up 25% from previous estimate. Source: Arms Control Association 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">43%</div>
+      <div class="stat-label">U.S. Share of Global Arms Sales</div>
+      <div class="stat-note">World's largest arms exporter. FY2025 total arms transfers: $331 billion. Source: SIPRI 2025 / State Dept 2026</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">9,627%</div>
+      <div class="stat-label">Increase in U.S. Arms Imports by Ukraine</div>
+      <div class="stat-note">2015&ndash;19 vs. 2020&ndash;24. Source: SIPRI Trends in International Arms Transfers 2025</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Where the Money Goes vs. Where Veterans Are: A Spending Contrast</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: Arms Control Association 2025 (nuclear maintenance); Task &amp; Purpose / VA FY2024 (veteran suicide prevention); Costs of War Project (veteran care obligations); GAO 2025 (F-35 sustainment annual projection). The F-35 program's $1.58T sustainment cost alone is 83x the $23.92B annual IDEA special education federal funding shortfall.</div>
+  </div>
+
+  <div class="callout">
+    <p>Public opinion remains genuinely split. Gallup finds roughly equal thirds saying the U.S. spends too much, too little, and about right on defense. Only once in 50+ years of polling has a majority said "too little" &mdash; January 1981. The spending continues regardless of what the majority says.</p>
+    <div class="callout-source">Gallup &mdash; Military Spending Opinion Trends 2024</div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">SIPRI &mdash; Trends in World Military Expenditure 2024 (April 2025 release); Trends in International Arms Transfers 2024 &mdash; <a href="https://www.sipri.org" target="_blank">sipri.org</a></div>
+    <div class="source-item">Quincy Institute for Responsible Statecraft &mdash; Profits of War: Top Beneficiaries of Pentagon Spending 2020&ndash;2024 &mdash; <a href="https://quincyinst.org" target="_blank">quincyinst.org</a></div>
+    <div class="source-item">Brown University Costs of War Project &mdash; Summary of War Costs; Human Costs of Post-9/11 Wars &mdash; <a href="https://costsofwar.watson.brown.edu" target="_blank">costsofwar.watson.brown.edu</a></div>
+    <div class="source-item">U.S. GAO &mdash; Weapon Systems Annual Assessment 2025 (GAO-25-107569); F-35 Will Now Exceed $2 Trillion (2024) &mdash; <a href="https://www.gao.gov" target="_blank">gao.gov</a></div>
+    <div class="source-item">Project on Government Oversight (POGO) &mdash; Brass Parachutes: Defense Contractor Revolving Door (2018); Pentagon Revolving Door Fact Sheet &mdash; <a href="https://www.pogo.org" target="_blank">pogo.org</a></div>
+    <div class="source-item">OpenSecrets &mdash; Defense Sector Lobbying 2024; Lockheed Martin Political Spending; Northrop Grumman Summary &mdash; <a href="https://www.opensecrets.org" target="_blank">opensecrets.org</a></div>
+    <div class="source-item">Taxpayers for Common Sense &mdash; Political Footprint of the Military Industry (Oct 2024) &mdash; <a href="https://www.taxpayer.net" target="_blank">taxpayer.net</a></div>
+    <div class="source-item">National Archives &mdash; President Eisenhower's Farewell Address; PBS American Experience &mdash; Eisenhower Farewell</div>
+    <div class="source-item">Federal News Network &mdash; Defense Department Unable to Pass Its Annual Audit Again (Dec 2025)</div>
+    <div class="source-item">U.S. News &amp; World Report &mdash; Pentagon Fails Eighth Audit, Targets 2028 (Dec 2025)</div>
+    <div class="source-item">Arms Control Association &mdash; Curb the Skyrocketing Cost of U.S. Nuclear Modernization (May 2025)</div>
+    <div class="source-item">Task &amp; Purpose &mdash; Veterans Suicide Report 2025; VA News &mdash; FY2024 Suicide Prevention Spending</div>
+    <div class="source-item">Peterson Foundation &mdash; Budget Explainer: National Defense; Concord Coalition &mdash; Defense Spending Primer</div>
+    <div class="source-item">Defense News &mdash; KC-46 Cost Overrun Investigation (Jan 2024); Boeing Future Combat Systems (2016)</div>
+    <div class="source-item">New York Times &mdash; David Barstow Pulitzer Investigation: Pentagon Military Analyst Program (April 2008)</div>
+    <div class="source-item">The Lever / Salon &mdash; CNN and MSNBC Pundits Profit from Undisclosed Defense Contractor Ties (April 2022)</div>
+    <div class="source-item">Wikipedia &mdash; Nisour Square Massacre; UN News &mdash; Blackwater Pardons Condemned (Dec 2020)</div>
+    <div class="source-item">Center on Budget and Policy Priorities &mdash; SNAP Helps 1.2 Million Veterans With Low Incomes</div>
+    <div class="source-item">WarCosts.org &mdash; Largest Defense Contractors; Stock Performance Post-9/11 Tracker</div>
+    <div class="source-item">U.S. Department of State &mdash; Fiscal Year 2025 U.S. Arms Transfers and Defense Trade (March 2026)</div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck27-housing.html">&larr; Deck 27: Housing</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck29-national-security-state.html">Deck 29: National Security State &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var rust = '#B85C38';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var blue = '#8B9EC8';
+var green = '#6FA882';
+var orange = '#F4C08A';
+var dimGrid = 'rgba(255,255,255,0.04)';
+
+// Chart 1: Global Military Spending
+new Chart(document.getElementById('c1'), {
+  type: 'bar',
+  data: {
+    labels: ['United States', 'China', 'Russia', 'Germany', 'United Kingdom', 'Saudi Arabia'],
+    datasets: [{
+      label: '2024 Military Spending (USD Billions)',
+      data: [997, 314, 149, 88.5, 81.8, 80.3],
+      backgroundColor: [red, orange, orange, blue, blue, blue],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'B'; } } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+// Chart 2: Defense Lobbying Over Time
+new Chart(document.getElementById('c2'), {
+  type: 'line',
+  data: {
+    labels: ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+    datasets: [{
+      label: 'Defense Industry Lobbying (USD Millions)',
+      data: [119, 121, 127, 133, 139, 143, 148, 151, 155, 159],
+      borderColor: red,
+      backgroundColor: 'rgba(200,116,116,0.08)',
+      tension: 0.3,
+      fill: true
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'M'; } } }
+    }
+  }
+});
+
+// Chart 3: Cost Overruns
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['F-35 (Lockheed)', 'Zumwalt Destroyer (GD)', 'KC-46 Tanker (Boeing)', 'Future Combat Systems (Boeing)', 'Sentinel ICBM (Northrop)'],
+    datasets: [
+      { label: 'Original Estimated Cost ($B)', data: [233, 4.2, 4.9, 18.1, 79], backgroundColor: blue, borderWidth: 0, borderRadius: 2 },
+      { label: 'Current / Final Cost ($B)', data: [428, 22.5, 12, 18.1, 143], backgroundColor: red, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'B'; } } }
+    }
+  }
+});
+
+// Chart 4: War Cost Breakdown
+new Chart(document.getElementById('c4'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Direct War Spending (OCO)', 'Pentagon Base Budget Increases', 'Homeland Security (Post-2002)', 'Veterans Care (Current + Future)', 'Interest on War Debt'],
+    datasets: [{
+      data: [2300, 900, 1100, 2200, 1000],
+      backgroundColor: [red, orange, blue, green, rust],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream, font: { size: 12 } } } }
+  }
+});
+
+// Chart 5: Stock Performance
+new Chart(document.getElementById('c5'), {
+  type: 'bar',
+  data: {
+    labels: ['Lockheed Martin', 'Northrop Grumman', 'General Dynamics', 'S&P 500 (Benchmark)'],
+    datasets: [{
+      label: '% Gain Since Sept 10, 2001',
+      data: [1163, 1056, 743, 413],
+      backgroundColor: [red, red, red, blue],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } } }
+    }
+  }
+});
+
+// Chart 6: Spending Contrast
+new Chart(document.getElementById('c6'), {
+  type: 'bar',
+  data: {
+    labels: ['Nuclear Arsenal\nMaintenance/yr', 'Global Military\nFootprint/yr', 'F-35 Annual\nSustainment Projection', 'VA Veteran\nSuicide Prevention', 'Vet Homelessness\nPrograms/yr'],
+    datasets: [{
+      label: 'Annual Spending (USD Billions)',
+      data: [95, 150, 20.5, 0.571, 2.5],
+      backgroundColor: [red, red, orange, green, blue],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'B'; } } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

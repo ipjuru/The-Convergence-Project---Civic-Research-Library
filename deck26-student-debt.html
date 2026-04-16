@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 26 -- Student Debt: The Promise That Wasn't - The Convergence Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --rust:#B85C38;--rust-dim:rgba(184,92,56,0.12);--rust-mid:rgba(184,92,56,0.5);
+  --red:#C87474;--blue:#8B9EC8;--green:#6FA882;--orange:#F4C08A;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(184,92,56,0.07) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--rust);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--rust);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--rust);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--rust-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--rust);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--rust);padding:24px 28px;background:var(--rust-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.bmc-bar-footer{display:flex;align-items:center;gap:20px;justify-content:center;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.15);border-radius:2px;padding:20px 28px;margin:24px auto;max-width:700px;flex-wrap:wrap;}
+.bmc-icon-f{font-size:28px;}
+.bmc-text-f{flex:1;min-width:200px;text-align:left;}
+.bmc-headline-f{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:4px;}
+.bmc-sub-f{font-family:'Raleway',sans-serif;font-size:11px;color:var(--cream-faint);}
+.bmc-btn-f{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:10px 20px;text-decoration:none;border-radius:2px;white-space:nowrap;}
+.footer-copy-bar{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);text-transform:uppercase;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="deck-label">Vol. 4 &bull; Deck 26 &bull; American Education System Under Attack</div>
+  <h1 class="hero-title">Student Debt:<br><span>The Promise That Wasn't</span></h1>
+  <p class="hero-sub">Americans were told a college degree was the path out of poverty. What they got was a $1.7 trillion federal student loan balance &mdash; total including private loans exceeds $1.84 trillion &mdash; and a degree that no longer guarantees a livable wage, and a loan servicing industry that profits from their confusion.</p>
+  <div class="hero-stat-big">$1.7T</div>
+  <div class="hero-stat-label">Federal student loan debt outstanding; total including private loans is ~$1.84 trillion &mdash; the second largest consumer debt category &mdash; Federal Reserve / FSA Data Center 2025</div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">How We Got<br><span>to $1.7 Trillion</span></h2>
+  <p class="section-body">Student debt in the United States did not grow organically. It grew because of a specific set of policy decisions made over five decades: the steady defunding of public higher education, the removal of bankruptcy protections for student loans, the creation of a private loan servicing industry with financial incentives misaligned from borrower outcomes, and the simultaneous stagnation of wages that made that degree necessary but no longer sufficient.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$1.7T</div><div class="stat-label">Total Student Debt Outstanding</div><div class="stat-note">45 million borrowers; grew from $260B in 2004 to $1.7T in 2025 &mdash; Federal Reserve / FRED</div></div>
+    <div class="stat-card"><div class="stat-number">42.8M</div><div class="stat-label">Federal Student Loan Borrowers</div><div class="stat-note">Average federal balance ~$39,500; ~5.5 million currently in default &mdash; FSA Data Center / Education Data Initiative 2025</div></div>
+    <div class="stat-card"><div class="stat-number">+197%</div><div class="stat-label">Tuition Increase Since 1987</div><div class="stat-note">Inflation-adjusted for published tuition; published tuition grew 3x faster than wages &mdash; note: net tuition after aid has declined recently &mdash; College Board 2024</div></div>
+    <div class="stat-card"><div class="stat-number">-19%</div><div class="stat-label">State Funding Cut Per Student (Peak Decline)</div><div class="stat-note">National average fell ~19-23% from 2008 peak; some states exceeded 36%; funding has partially recovered by FY2024 &mdash; CBPP; SHEEO SHEF 2024</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Total U.S. Student Loan Debt Growth vs. Tuition Inflation vs. Wage Growth (2000-2025, Indexed to 2000=100)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: Federal Reserve FRED database -- student loan data; College Board Trends in College Pricing 2024; Bureau of Labor Statistics wage and inflation data. All series indexed to 2000 baseline for direct comparison. Student debt growth outpaces both tuition inflation and wage growth by a significant margin.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">Who Is Actually<br><span>Carrying This Debt</span></h2>
+  <p class="section-body">Student debt is not distributed equally. Black borrowers borrow more, repay less, and default at higher rates than white borrowers with equivalent degrees &mdash; not because of personal failure, but because of documented gaps in family wealth, predatory institutional targeting, and labor market discrimination that makes the same degree worth less. The student debt crisis is also an intergenerational wealth crisis, and a racial wealth gap accelerant.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Average Student Debt Balance 4 Years After Graduation by Race (Brandeis / NCES Data, 2024)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: Brandeis University Institute on Assets and Social Policy -- "The Debt Divide" (2023 update); National Center for Education Statistics NPSAS survey data; Federal Reserve Survey of Consumer Finances 2023. Black graduates borrow more at entry and see debt grow rather than decrease in the years following graduation due to lower wages and interest accrual.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">+114%</div><div class="stat-label">More Debt for Black Graduates</div><div class="stat-note">Four years after graduation, Black borrowers owe an average of $25,000 MORE than at graduation; white borrowers see modest reduction &mdash; Scott-Clayton &amp; Li, Brookings 2016 (2008 cohort data)</div></div>
+    <div class="stat-card"><div class="stat-number">38%</div><div class="stat-label">Black College Entrants Defaulted Within 12 Years</div><div class="stat-note">vs. 12% of white entrants; among BA graduates specifically: 21% Black vs. 4% white &mdash; Scott-Clayton, Brookings 2018 (2004 cohort)</div></div>
+    <div class="stat-card"><div class="stat-number">2x</div><div class="stat-label">For-Profit School Targeting</div><div class="stat-note">Black students attend for-profit colleges at roughly 2x the rate of other groups; they represent nearly half of for-profit enrollment despite being under one-third of all students &mdash; Brookings 2021; NCES/IPEDS</div></div>
+    <div class="stat-card"><div class="stat-number">$50B+</div><div class="stat-label">Fraud Discharges Pending</div><div class="stat-note">Borrower defense claims from for-profit school closures and misrepresentation; DOE processing backlog ongoing as of 2025</div></div>
+  </div>
+
+  <div class="callout">
+    <p>A Black woman with a bachelor's degree earns, on average, less than a white man with an associate's degree. The student loan system asks her to take on equivalent or greater debt for a credential that returns less in the labor market. That is not a personal finance problem. That is a structural tax on the ambition of Black women encoded into wage data.</p>
+    <div class="callout-source">Georgetown University Center on Education and the Workforce -- The College Payoff (2021, updated 2024); BLS Usual Weekly Earnings data 2024</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The Loan Servicer<br><span>Designed to Confuse</span></h2>
+  <p class="section-body">Student loan servicers are private companies paid by the federal government to manage borrower accounts. They are paid per borrower per month &mdash; which means their revenue depends on keeping borrowers in repayment as long as possible, not on helping them pay off loans efficiently. Multiple federal investigations and lawsuits have documented that major servicers systematically steered borrowers away from income-driven repayment plans, forgiveness programs they qualified for, and payment options that would reduce servicer revenue.</p>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">What Servicers Are Paid to Do</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--rust);">Process payments and manage account records for the Department of Education</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--rust);">Communicate with borrowers about repayment options</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--rust);">Enroll eligible borrowers in income-driven repayment and forgiveness programs</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--rust);">Handle forbearance, deferment, and default resolution</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">What CFPB and State AGs Found</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">Navient (now Aidvantage) settled for $1.85B in 2022 for systematic steering to forbearance over income-driven repayment</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">PSLF (Public Service Loan Forgiveness) rejected 99% of applications in its first year (2018-2019); of ~110,000 applications, only 1,216 were approved &mdash; GAO-19-717T due to servicer error and miscommunication</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">Servicers lost payment records, miscounted qualifying payments, and failed to notify borrowers of PSLF eligibility</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">MOHELA failed to send timely billing statements to 2.5 million borrowers in Oct 2023; 800,000+ became delinquent as a result &mdash; not SAVE-specific; DOE withheld $7.2M in servicer payments</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Public Service Loan Forgiveness (PSLF): Applications vs. Approvals (2017-2024)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: Federal Student Aid Annual Report 2024; GAO -- Public Service Loan Forgiveness: Actions Needed to Address Inaccurate Information Borrowers Receive (2022); CFPB Student Loan Ombudsman Report 2023. Program launched in 2007; first forgiveness eligible in 2017. Initial approval rate was under 2%.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The For-Profit<br><span>College Machine</span></h2>
+  <p class="section-body">For-profit colleges represent 5% of higher education enrollment and 30% of all student loan defaults. They spend more on marketing and executive compensation than on instruction. They target veterans, single parents, and first-generation students with aggressive recruiting. Their graduation rates are among the lowest in higher education. Multiple chains have collapsed entirely &mdash; leaving students with debt and worthless credits that do not transfer &mdash; while executives walked away wealthy.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">30%</div><div class="stat-label">of Defaults from 5% of Enrollment</div><div class="stat-note">For-profit students represent ~5% of enrollees but account for an estimated 39-50% of all student loan defaults &mdash; Senate HELP Committee; Brookings research</div></div>
+    <div class="stat-card"><div class="stat-number">$32B</div><div class="stat-label">Corinthian Colleges Fraud Settlement</div><div class="stat-note">Collapsed 2015; 16 campuses, 350,000 affected students; DOE discharged $5.8B; executives faced minimal personal liability</div></div>
+    <div class="stat-card"><div class="stat-number">~29-36%</div><div class="stat-label">Average For-Profit Graduation Rate</div><div class="stat-note">vs. 63-71% at public 4-year universities; the gap remains large &mdash; NCES IPEDS; NSCRC 2024</div></div>
+    <div class="stat-card"><div class="stat-number">~4-5x</div><div class="stat-label">More Spent on Marketing Than Instruction</div><div class="stat-note">Senate HELP Committee (2012) found for-profits spent an average ~$2,050/student on instruction vs. significantly more on recruiting/marketing &mdash; Senate HELP Committee Report 2012</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">For-Profit vs. Public University Outcomes Comparison (Graduation Rate, Default Rate, Earnings 10yr Post-Enrollment)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: National Center for Education Statistics IPEDS 2024; College Scorecard 2024 earnings data (10 years post-enrollment); Federal Student Aid default cohort data. For-profit figures represent sector averages; public university figures represent 4-year public institutions average.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+  <h2 class="section-title">The Economy<br><span>Debt Builds</span></h2>
+  <p class="section-body">Student debt does not stay in the loan ecosystem. It reshapes the entire economy. Borrowers delay homeownership, delay starting families, delay retirement savings, and avoid entrepreneurship at measurably higher rates than non-borrowers with equivalent incomes. The cumulative effect is a generation transferring wealth upward &mdash; to institutions, servicers, and investors &mdash; rather than building it in their own communities.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Homeownership Rate by Student Debt Status -- Age 25-34 Cohorts (2000-2024)</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: Federal Reserve Bank of New York -- Student Loan Debt and Housing (2023); National Association of Realtors housing data; Survey of Consumer Finances 2022. Gap between debt-holders and non-debt-holders has widened as average balances have grown. Homeownership is the primary vehicle for wealth building for middle-class Americans.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">How Other Nations Fund Higher Education -- Public Funding per Student vs. Tuition Cost to Student (2024, USD)</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: OECD Education at a Glance 2024; UNESCO Institute for Statistics; College Board Trends in College Pricing 2024. Data represents average public higher education costs. Germany, Norway, and Finland charge near-zero tuition; high public investment reflects political prioritization of education as public infrastructure.</div>
+  </div>
+
+  <table class="data-table">
+    <thead><tr>
+      <th>Country</th>
+      <th>Avg Annual Tuition</th>
+      <th>Public Spending Per Student</th>
+      <th>Graduate Debt Load</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>United States</td><td>$10,940 (public 4yr)</td><td>$16,800</td><td>$38,290 average at graduation</td></tr>
+      <tr><td>United Kingdom</td><td>$13,800</td><td>$18,200</td><td>$47,000 avg -- but income-contingent repayment, forgiven after 30yr</td></tr>
+      <tr><td>Germany</td><td>$0-$500</td><td>$17,100</td><td>Under $3,000 average at graduation</td></tr>
+      <tr><td>Norway</td><td>$0</td><td>$22,400</td><td>Under $5,000; low-interest state loans available</td></tr>
+      <tr><td>Canada</td><td>$5,200</td><td>$22,000</td><td>$28,000 avg; provincial grant programs reduce net burden</td></tr>
+      <tr><td>Australia</td><td>$0 upfront (income-contingent)</td><td>$14,500</td><td>Repaid only when income exceeds threshold; no compound interest</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Federal Reserve / FRED &mdash; Student Loans Owned and Securitized; Consumer Credit Outstanding 2025 &mdash; <a href="https://fred.stlouisfed.org" target="_blank">fred.stlouisfed.org</a></div>
+    <div class="source-item">Education Data Initiative &mdash; Student Loan Debt Statistics 2025 &mdash; <a href="https://educationdata.org" target="_blank">educationdata.org</a></div>
+    <div class="source-item">College Board &mdash; Trends in College Pricing and Student Aid 2024 &mdash; <a href="https://research.collegeboard.org" target="_blank">research.collegeboard.org</a></div>
+    <div class="source-item">Center on Budget and Policy Priorities &mdash; State Higher Education Funding Cuts 2024 &mdash; <a href="https://www.cbpp.org" target="_blank">cbpp.org</a></div>
+    <div class="source-item">Scott-Clayton &amp; Li (Brookings Institution) &mdash; Black-White Disparity in Student Loan Debt More Than Triples After Graduation (2016) &mdash; <a href="https://www.brookings.edu" target="_blank">brookings.edu</a></div>
+    <div class="source-item">National Center for Education Statistics (NCES) &mdash; IPEDS Data; NPSAS Borrower Survey 2024 &mdash; <a href="https://nces.ed.gov" target="_blank">nces.ed.gov</a></div>
+    <div class="source-item">Georgetown University Center on Education and the Workforce &mdash; The College Payoff 2024 &mdash; <a href="https://cew.georgetown.edu" target="_blank">cew.georgetown.edu</a></div>
+    <div class="source-item">Consumer Financial Protection Bureau (CFPB) &mdash; Student Loan Ombudsman Reports; Navient Enforcement Action 2022 &mdash; <a href="https://www.consumerfinance.gov" target="_blank">consumerfinance.gov</a></div>
+    <div class="source-item">GAO &mdash; Public Service Loan Forgiveness: Actions Needed to Address Inaccurate Information Borrowers Receive (2022) &mdash; <a href="https://www.gao.gov" target="_blank">gao.gov</a></div>
+    <div class="source-item">Federal Student Aid &mdash; Annual Report 2024; PSLF Data &mdash; <a href="https://studentaid.gov" target="_blank">studentaid.gov</a></div>
+    <div class="source-item">Federal Reserve Bank of New York &mdash; Student Loan Debt and Housing (2023) &mdash; <a href="https://www.newyorkfed.org" target="_blank">newyorkfed.org</a></div>
+    <div class="source-item">OECD &mdash; Education at a Glance 2024; Public Expenditure on Higher Education &mdash; <a href="https://www.oecd.org" target="_blank">oecd.org</a></div>
+    <div class="source-item">College Scorecard &mdash; Institutional Earnings and Debt Outcomes Data 2024 &mdash; <a href="https://collegescorecard.ed.gov" target="_blank">collegescorecard.ed.gov</a></div>
+  </div>
+</div>
+
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck25-law-enforcement.html">&larr; Deck 25: Law Enforcement</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck27-housing.html">Deck 27: Housing &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var rust = '#B85C38';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var blue = '#8B9EC8';
+var green = '#6FA882';
+var orange = '#F4C08A';
+var dimGrid = 'rgba(255,255,255,0.06)';
+Chart.defaults.color = cream;
+Chart.defaults.font.family = 'Raleway';
+
+new Chart(document.getElementById('c1'), {
+  type: 'line',
+  data: {
+    labels: ['2000','2003','2006','2009','2012','2015','2018','2021','2025'],
+    datasets: [
+      { label: 'Total Student Debt (Index)', data: [100, 165, 270, 420, 640, 820, 930, 1050, 1200], borderColor: red, backgroundColor: 'rgba(200,116,116,0.08)', tension: 0.3, fill: true },
+      { label: 'Tuition Inflation (Index)', data: [100, 130, 160, 185, 215, 235, 248, 260, 278], borderColor: orange, backgroundColor: 'transparent', tension: 0.3, borderDash: [5,5] },
+      { label: 'Median Wage Growth (Index)', data: [100, 108, 116, 113, 118, 125, 136, 148, 162], borderColor: green, backgroundColor: 'transparent', tension: 0.3, borderDash: [8,4] }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + ' idx'; } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {
+    labels: ['Black Graduates', 'Latino Graduates', 'White Graduates', 'Asian Graduates'],
+    datasets: [
+      { label: 'Debt at Graduation ($K)', data: [36.0, 28.0, 28.0, 24.0], backgroundColor: 'rgba(184,92,56,0.4)', borderWidth: 0, borderRadius: 2 },
+      { label: 'Debt 4 Years After ($K)', data: [43.0, 29.5, 27.0, 22.5], backgroundColor: rust, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'K'; } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+    datasets: [
+      { label: 'Applications', data: [30000, 54000, 98000, 210000, 391000, 610000, 840000], backgroundColor: 'rgba(139,158,200,0.4)', borderWidth: 0, borderRadius: 2 },
+      { label: 'Approved', data: [96, 656, 3776, 12424, 67480, 232832, 394100], backgroundColor: green, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ if(v>=1000000) return (v/1000000).toFixed(1)+'M'; if(v>=1000) return (v/1000).toFixed(0)+'K'; return v; } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c4'), {
+  type: 'bar',
+  data: {
+    labels: ['Graduation Rate (%)', 'Loan Default Rate (%)', 'Earnings 10yr Post ($K)'],
+    datasets: [
+      { label: 'For-Profit Colleges', data: [22, 24, 31], backgroundColor: red, borderWidth: 0, borderRadius: 2 },
+      { label: 'Public 4-Year Universities', data: [64, 9, 51], backgroundColor: blue, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c5'), {
+  type: 'line',
+  data: {
+    labels: ['2000','2004','2008','2012','2016','2020','2024'],
+    datasets: [
+      { label: 'No Student Debt', data: [56, 58, 54, 50, 52, 53, 55], borderColor: green, backgroundColor: 'transparent', tension: 0.3 },
+      { label: 'With Student Debt', data: [50, 48, 43, 36, 34, 33, 35], borderColor: red, backgroundColor: 'rgba(200,116,116,0.08)', tension: 0.3, fill: true }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, min: 25, max: 65 }
+    }
+  }
+});
+
+new Chart(document.getElementById('c6'), {
+  type: 'bar',
+  data: {
+    labels: ['United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'Norway'],
+    datasets: [
+      { label: 'Annual Tuition Cost to Student ($USD)', data: [10940, 13800, 5200, 0, 250, 0], backgroundColor: rust, borderWidth: 0, borderRadius: 2 },
+      { label: 'Public Funding Per Student ($USD)', data: [16800, 18200, 22000, 14500, 17100, 22400], backgroundColor: blue, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v.toLocaleString(); } } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

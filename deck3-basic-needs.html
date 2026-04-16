@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 03 — The Bare Minimum · The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--olive:#6B7C47;--olive-l:#8FA05E;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;--red-l:#e74c3c;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(107,124,71,0.12) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--olive-l);border:1px solid rgba(107,124,71,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--olive-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--olive-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--olive-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--olive-l);padding:24px 28px;background:rgba(107,124,71,0.09);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--red-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--red-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'▸';color:var(--red-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.triple-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.triple-card{background:var(--b3);padding:32px 24px;}
+.triple-icon{font-size:28px;margin-bottom:16px;display:block;}
+.triple-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--olive-l);margin-bottom:12px;}
+.triple-body{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.8;color:rgba(240,234,214,0.75);}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.action-list li::before{content:'→';color:var(--gold);flex-shrink:0;}
+.action-list li:last-child{border-bottom:none;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}.triple-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">← Library Home</a>
+  <span class="nav-deck">Vol. 1 · Deck 03</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">03</div>
+  <span class="vol-badge">Vol. 1 — The Convergence</span>
+  <h1 class="hero-title">The Bare<br>Minimum</h1>
+  <p class="hero-sub">Food. Water. Shelter. The three things a human cannot survive without. All three are failing millions of Americans at the same time — not from scarcity, but from policy. The receipts are here.</p>
+  <div class="hero-stat">47.4M</div>
+  <div class="hero-stat-label">Americans living in food-insecure households · USDA 2024 · while the U.S. wastes 30–40% of its entire food supply</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 1: FOOD -->
+<section class="section">
+  <span class="section-tag">Food</span>
+  <h2 class="section-title">47 Million Americans<br>Don't Have Enough to Eat</h2>
+  <div class="section-body">
+    <p>Food insecurity — insufficient food due to lack of money or resources — affected <strong>47.4 million Americans</strong> in 2023, including <strong>13.8 million children</strong>. That is <strong>13.7% of all U.S. households</strong>. In the world's largest economy, more than 1 in 8 households cannot reliably put food on the table. And these numbers are from before the largest SNAP cuts in history were signed into law.</p>
+    <p>The racial disparity is structural. <strong>23.3% of Black households</strong> and <strong>21.9% of Latino households</strong> experience food insecurity — more than double the 9.9% rate for white non-Latino households. These gaps are the accumulated result of redlining, wage disparity, discriminatory lending, underfunded schools, and the deliberate siting of food deserts in communities of color. Food prices rose <strong>23.6% between 2020 and 2024</strong>. Eggs: up 31.6%. Beef: up 14.4%. These prices hit hardest where incomes have not kept pace.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">47.4M</div><div class="stat-label">Food-Insecure Americans</div><div class="stat-note">13.7% of all households · USDA 2024</div></div>
+    <div class="stat-card"><div class="stat-number">13.8M</div><div class="stat-label">Children in Food-Insecure Homes</div><div class="stat-note">Up from 13.5M the prior year</div></div>
+    <div class="stat-card"><div class="stat-number">23.3%</div><div class="stat-label">Black Household Food Insecurity</div><div class="stat-note">vs. 9.9% for white non-Latino households</div></div>
+    <div class="stat-card"><div class="stat-number">+23.6%</div><div class="stat-label">Food Price Increase 2020–2024</div><div class="stat-note">Eggs +31.6% · Beef +14.4%</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Food Price Increases Since 2020 — Selected Categories (%)</div>
+    <div class="chart-container"><canvas id="foodPriceChart"></canvas></div>
+    <div class="chart-note">Source: Bureau of Labor Statistics CPI; USDA Economic Research Service. Tariff add-on reflects projected 2025 tariff impacts on imported food. Lower-income households spend a higher share of income on food and are hit hardest by these increases.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Food Insecurity Rate by Race/Ethnicity — U.S. Households (%)</div>
+    <div class="chart-container"><canvas id="foodRaceChart"></canvas></div>
+    <div class="chart-note">Source: USDA Economic Research Service; Current Population Survey Food Security Supplement 2023. The racial disparity in food insecurity is not explained by individual behavior — it tracks directly with income inequality, historical housing discrimination, and food desert geography.</div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">H.R. 1 — The SNAP Cuts: Signed Into Law July 4, 2025</div>
+    <ul class="highlight-list">
+      <li><strong>$187 billion</strong> cut from SNAP over 10 years — the largest cuts in the program's history (CBO score)</li>
+      <li><strong>4 million people</strong> lose food assistance or see it cut substantially</li>
+      <li>800,000 adults ages 55–64 lose eligibility under expanded work requirements</li>
+      <li>~1 million in areas of high unemployment lose benefits — required to prove unavailability</li>
+      <li>300,000+ veterans, homeless individuals, and former foster youth affected</li>
+      <li>All <strong>40 million SNAP participants</strong> see average monthly benefits erode by <strong>~$14 by 2034</strong></li>
+      <li>FRAC analysis: H.R. 1 reduces income for the <strong>poorest 20% of Americans by 3.8%</strong> while increasing income for the wealthiest 20% by 3.7%</li>
+    </ul>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">H.R. 1 SNAP Cut Impact — Who Loses What</div>
+    <div class="chart-container"><canvas id="snapChart"></canvas></div>
+    <div class="chart-note">Source: Congressional Budget Office score of H.R. 1; Food Research & Action Center (FRAC) analysis. 75% of states will be required to cover significantly more administrative costs, straining state budgets further. The cuts occur against a backdrop of already-rising food prices.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 2: SHELTER -->
+<section class="section">
+  <span class="section-tag">Shelter</span>
+  <h2 class="section-title">You Need Six Figures<br>to Buy a Home Now</h2>
+  <div class="section-body">
+    <p><strong>74.9% of U.S. households</strong> — 100.6 million people — cannot afford a median-priced new home as of March 2025 (NAHB). The home price-to-income ratio hit <strong>5.0</strong>, near all-time highs, up from 3.2 in the 1990s. A typical household would need to spend <strong>44.6% of income</strong> to afford the median home — nearly 15 points above the 30% threshold considered affordable. There is a shortage of <strong>7.3 million</strong> affordable rental units for the lowest-income renters.</p>
+    <p>On a single night in January 2024, <strong>771,480 people were homeless</strong> — the highest count ever recorded. Families with children surged <strong>39.4%</strong> in one year. <strong>150,000 children</strong> were homeless — a 33% increase year-over-year. Adults 55+ are the fastest-growing homeless population, projected to <strong>triple between 2017 and 2030</strong>. This is not a housing shortage. It is the direct result of treating housing as an investment vehicle rather than a human necessity.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Median Home Price vs. Median Household Income — 1985 to 2025 ($K)</div>
+    <div class="chart-container"><canvas id="housingChart"></canvas></div>
+    <div class="chart-note">Source: National Association of Realtors; Census Bureau / Federal Reserve FRED; Harvard Joint Center for Housing Studies. Home prices have grown 4x faster than household income since 2000. The gap represents a structural transfer of wealth from renters and aspiring homeowners to existing property owners.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Homelessness in the U.S. — Point-in-Time Count, 2016–2024 (Thousands)</div>
+    <div class="chart-container"><canvas id="homelessChart"></canvas></div>
+    <div class="chart-note">Source: HUD Annual Homeless Assessment Reports 2016–2024. The 2024 count of 771,480 is the highest ever recorded. Families with children surged 39.4% in a single year. SNAP cuts, eviction moratorium expirations, and rising rents are expected to drive further increases.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">771,480 people were homeless on a single night in January 2024 — the highest count ever recorded. 150,000 of them were children. Families with children up 39% in one year. The SNAP cuts, rising rents, and tariff-driven food prices haven't fully landed yet.</div>
+    <div class="callout-source">— HUD 2024 Annual Homeless Assessment Report; FRAC analysis of H.R. 1</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 3: WATER & ENERGY -->
+<section class="section">
+  <span class="section-tag">Water &amp; Energy</span>
+  <h2 class="section-title">What's Coming Out of<br>Your Tap and Through Your Meter</h2>
+  <div class="section-body">
+    <p>The U.S. built some of the world's most advanced water infrastructure — and has allowed it to deteriorate for decades while distributing the risks unequally. <strong>4 million lead service lines</strong> remain in U.S. water systems (EPA 7th DWINSA). PFAS chemicals are detectable in <strong>45% of U.S. tap water samples</strong>, contaminating approximately 7,500 locations affecting more than <strong>130 million people</strong> (USGS, 2023). <strong>2.2 million Americans</strong> live without running water or basic indoor plumbing. 1 in 20 American Indian/Alaska Native households lack plumbing — in 2025.</p>
+    <p>Energy poverty is the crisis that compounds all the others. When you cannot afford your electric bill, food spoils, heat goes off, and medications that require refrigeration fail. <strong>34 million households</strong> have reduced or forgone medical care to pay energy bills. Families below 50% of the poverty line spend <strong>33% of income on energy</strong>. Black households face <strong>64% higher energy cost burdens</strong> than white households. Average monthly bills rose from <strong>$121 in 2021 to $144 in 2024</strong> — with AI data center growth projecting another 40% rise by 2030 (see Deck 01).</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Water Contamination Reach — Americans Affected by Major Water Safety Issues</div>
+    <div class="chart-container"><canvas id="waterChart"></canvas></div>
+    <div class="chart-note">Source: EPA 7th Drinking Water Infrastructure Needs Survey; USGS PFAS Tap Water Study (2023); DigDeep/US Water Alliance; American Society of Civil Engineers. Infrastructure grades from ASCE 2025 Report Card. These issues cluster heavily in low-income and rural communities.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Energy Cost Burden by Race &amp; Income — % of Household Income Spent on Energy</div>
+    <div class="chart-container"><canvas id="energyBurdenChart"></canvas></div>
+    <div class="chart-note">Source: Initiative for Energy Justice; American Council for an Energy-Efficient Economy (ACEEE); U.S. Department of Energy Low-Income Energy Affordability Data (LEAD Tool). Black households in major metros face 64% higher energy cost burdens than white households with comparable incomes.</div>
+  </div>
+
+  <div class="triple-grid">
+    <div class="triple-card">
+      <span class="triple-icon">💧</span>
+      <div class="triple-title">Water</div>
+      <div class="triple-body">4M lead service lines · PFAS in 45% of tap water · 130M+ affected · 2.2M without running water · Infrastructure grade: C−</div>
+    </div>
+    <div class="triple-card">
+      <span class="triple-icon">🏠</span>
+      <div class="triple-title">Shelter</div>
+      <div class="triple-body">771K homeless in Jan 2024 — all-time high · 150K homeless children · 7.3M affordable unit shortage · 74.9% can't afford median new home</div>
+    </div>
+    <div class="triple-card">
+      <span class="triple-icon">⚡</span>
+      <div class="triple-title">Energy</div>
+      <div class="triple-body">34M forgo medical care to pay bills · Poorest families spend 33% of income on energy · Black households pay 64% more relative to income · Bills rising 40% more by 2030</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 4: THE COMPOUNDING EFFECT -->
+<section class="section">
+  <span class="section-tag">The Compounding Effect</span>
+  <h2 class="section-title">When All Three Fail<br>at the Same Time</h2>
+  <div class="section-body">
+    <p>None of these crises exist in isolation. They compound. Food insecurity and housing instability together create measurably worse health outcomes than either alone. Children in energy-insecure households have greater odds of hospitalization. Families spending 50%+ of income on shelter have nothing left for food. And the policy decisions happening right now — SNAP cuts, utility rate hikes, stalled water infrastructure funding — are designed to land simultaneously on the same communities.</p>
+    <p>H.R. 1's SNAP cuts + tariff-driven food price increases + rising utility rates from AI data center load + stagnant housing construction = a <strong>triple squeeze</strong> that reduces income for the poorest 20% of Americans by 3.8% while every essential cost climbs. This is not coincidence. Trace who benefits from each policy decision and a pattern emerges.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">The Triple Squeeze — Projected Cost Increases vs. Income Change for Bottom 20%, 2025–2030</div>
+    <div class="chart-container"><canvas id="squeezeChart"></canvas></div>
+    <div class="chart-note">Source: FRAC (SNAP analysis); EIA (utility projections); BLS (food price data); CBO (income distribution impacts of H.R. 1). For lowest-income households, every essential cost is rising faster than income — and cuts to assistance programs are compressing the gap further.</div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-title">Points of Leverage — Surviving &amp; Building at the Same Time</div>
+    <ul class="action-list">
+      <li>Find or start a mutual aid food network in your zip code — Mutual Aid Hub (mutualaidhub.org) has a directory</li>
+      <li>Know your SNAP rights and who in your community is newly ineligible after H.R. 1 — FRAC has state-by-state guides</li>
+      <li>Get your tap water tested — EPA has free resources; your utility is legally required to provide an annual quality report</li>
+      <li>Research community land trusts in your area — they permanently remove housing from the speculative market</li>
+      <li>Track corporate real estate purchases in your neighborhood — deed records are public at your county assessor's office</li>
+      <li>LIHEAP (Low Income Home Energy Assistance Program) provides utility bill help — check eligibility at acf.hhs.gov</li>
+      <li>Attend city council meetings when housing developments are proposed — zoning decisions are made with almost no public input</li>
+      <li>If you face eviction, contact local legal aid immediately — many cities have right-to-counsel programs</li>
+    </ul>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">USDA Economic Research Service — Food Security in the U.S.: Key Statistics (2024) · <a href="https://www.ers.usda.gov" target="_blank">ers.usda.gov</a></div>
+    <div class="source-item">Congressional Budget Office — Score of H.R. 1 / One Big Beautiful Bill Act (2025) · <a href="https://www.cbo.gov" target="_blank">cbo.gov</a></div>
+    <div class="source-item">Food Research &amp; Action Center (FRAC) — H.R. 1 SNAP Analysis (2025) · <a href="https://www.frac.org" target="_blank">frac.org</a></div>
+    <div class="source-item">Bureau of Labor Statistics — Consumer Price Index, Food At Home (2020–2024) · <a href="https://www.bls.gov" target="_blank">bls.gov</a></div>
+    <div class="source-item">National Association of Home Builders — Housing Opportunity Index Q1 2025 · <a href="https://www.nahb.org" target="_blank">nahb.org</a></div>
+    <div class="source-item">Harvard Joint Center for Housing Studies — State of the Nation's Housing 2024 · <a href="https://www.jchs.harvard.edu" target="_blank">jchs.harvard.edu</a></div>
+    <div class="source-item">HUD — 2024 Annual Homeless Assessment Report to Congress · <a href="https://www.huduser.gov" target="_blank">huduser.gov</a></div>
+    <div class="source-item">U.S. Geological Survey — PFAS in U.S. Tap Water: A National Study (2023) · <a href="https://www.usgs.gov" target="_blank">usgs.gov</a></div>
+    <div class="source-item">EPA — 7th Drinking Water Infrastructure Needs Survey (DWINSA) · <a href="https://www.epa.gov" target="_blank">epa.gov</a></div>
+    <div class="source-item">Initiative for Energy Justice — Energy Poverty in America (2024)</div>
+    <div class="source-item">ACEEE — The High Cost of Energy in Rural America (2023)</div>
+    <div class="source-item">DigDeep / US Water Alliance — Closing the Water Access Gap in the United States</div>
+    <div class="source-item">American Society of Civil Engineers — 2025 Infrastructure Report Card · <a href="https://infrastructurereportcard.org" target="_blank">infrastructurereportcard.org</a></div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck2-space-weather.html">← Deck 02: Space Weather</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck4-the-root.html">Deck 04: The Root →</a>
+</div>
+
+<script>
+const xT = { color: 'rgba(240,234,214,0.6)', font: { family: 'Raleway', size: 11 } };
+const yT = { color: 'rgba(240,234,214,0.6)', font: { family: 'Raleway', size: 11 } };
+const gd = { color: 'rgba(255,255,255,0.05)' };
+const gf = { color: 'rgba(255,255,255,0.03)' };
+const leg = { display: true, labels: { color: 'rgba(240,234,214,0.7)', font: { family: 'Raleway', size: 12 } } };
+const noLeg = { display: false };
+
+// Chart 1 — Food price increases
+new Chart(document.getElementById('foodPriceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Overall food 2020–2024','Eggs 2025','Beef & veal','Coffee & tea','Bread & cereals','Fruits & veg','Tariff add-on (est.)'],
+    datasets: [{ data: [23.6,31.6,14.4,11.8,19.2,8.4,3.0], backgroundColor: ['rgba(107,124,71,0.8)','rgba(192,57,43,0.85)','rgba(192,57,43,0.75)','rgba(201,168,76,0.75)','rgba(192,57,43,0.7)','rgba(107,124,71,0.65)','rgba(201,168,76,0.6)'], borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: noLeg }, scales: { x: { ticks: xT, grid: gf }, y: { ticks: { ...yT, callback: v => v + '%' }, grid: gd } } }
+});
+
+// Chart 2 — Food insecurity by race
+new Chart(document.getElementById('foodRaceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['American Indian/Alaska Native','Black / African American','Hispanic / Latino','Multiracial','White (non-Latino)','Asian American'],
+    datasets: [{ label: '% Households Food Insecure', data: [28.1,23.3,21.9,19.8,9.9,7.1], backgroundColor: ['rgba(192,57,43,0.85)','rgba(192,57,43,0.8)','rgba(192,57,43,0.72)','rgba(201,168,76,0.75)','rgba(107,124,71,0.65)','rgba(107,124,71,0.55)'], borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: noLeg }, scales: { x: { ticks: { ...xT, callback: v => v + '%' }, grid: gd }, y: { ticks: yT, grid: gf } } }
+});
+
+// Chart 3 — SNAP impact breakdown
+new Chart(document.getElementById('snapChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Total 10-yr cut ($B)','People losing benefits (M)','Avg monthly benefit loss by 2034 ($)','States covering more admin costs (%)'],
+    datasets: [{ label: 'H.R. 1 SNAP Impact', data: [187,4,14,75], backgroundColor: ['rgba(192,57,43,0.85)','rgba(192,57,43,0.75)','rgba(192,57,43,0.65)','rgba(201,168,76,0.7)'], borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: noLeg }, scales: { x: { ticks: xT, grid: gd }, y: { ticks: yT, grid: gf } } }
+});
+
+// Chart 4 — Housing affordability gap
+new Chart(document.getElementById('housingChart'), {
+  type: 'line',
+  data: {
+    labels: ['1985','1990','1995','2000','2005','2010','2015','2020','2025'],
+    datasets: [
+      { label: 'Median Home Price ($K)', data: [75,100,115,140,220,180,220,295,417], borderColor: 'rgba(192,57,43,0.9)', backgroundColor: 'rgba(155,44,44,0.1)', fill: true, borderWidth: 2.5, tension: 0.3, pointRadius: 4, pointBackgroundColor: 'rgba(192,57,43,0.9)' },
+      { label: 'Median Household Income ($K)', data: [29,33,36,42,47,50,56,68,82], borderColor: 'rgba(107,124,71,0.9)', backgroundColor: 'rgba(107,124,71,0.05)', fill: true, borderWidth: 2.5, tension: 0.3, pointRadius: 4, pointBackgroundColor: 'rgba(107,124,71,0.9)' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: leg }, scales: { x: { ticks: xT, grid: gd }, y: { ticks: { ...yT, callback: v => '$' + v + 'K' }, grid: gd } } }
+});
+
+// Chart 5 — Homelessness trend
+new Chart(document.getElementById('homelessChart'), {
+  type: 'line',
+  data: {
+    labels: ['2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+    datasets: [
+      { label: 'Total Homeless (thousands)', data: [549,554,553,568,580,326,582,653,771], borderColor: 'rgba(192,57,43,0.9)', backgroundColor: 'rgba(155,44,44,0.15)', fill: true, borderWidth: 2.5, tension: 0.3, pointRadius: 4, pointBackgroundColor: 'rgba(192,57,43,0.9)' },
+      { label: 'Families with Children (thousands)', data: [114,118,116,120,122,94,126,141,196], borderColor: 'rgba(201,168,76,0.85)', backgroundColor: 'transparent', fill: false, borderWidth: 2, tension: 0.3, pointRadius: 3, pointBackgroundColor: 'rgba(201,168,76,0.85)' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: leg }, scales: { x: { ticks: xT, grid: gd }, y: { ticks: { ...yT, callback: v => v + 'K' }, grid: gd } } }
+});
+
+// Chart 6 — Water contamination reach
+new Chart(document.getElementById('waterChart'), {
+  type: 'bar',
+  data: {
+    labels: ['PFAS in tap water (M people)','Lead service lines still active (M)','Without running water (M)','AI/AN without plumbing (per 20)'],
+    datasets: [{ data: [130,4,2.2,1], backgroundColor: ['rgba(192,57,43,0.8)','rgba(192,57,43,0.7)','rgba(201,168,76,0.75)','rgba(192,57,43,0.65)'], borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: noLeg }, scales: { x: { ticks: xT, grid: gd }, y: { ticks: yT, grid: gf } } }
+});
+
+// Chart 7 — Energy burden by group
+new Chart(document.getElementById('energyBurdenChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Black households\n(major metros)','Low-income\n(under 50% FPL)','Rural households','Hispanic households','White households\n(national avg)','High-income\nhouseholds'],
+    datasets: [{ label: '% of Income Spent on Energy', data: [8.1,33,6.8,5.9,4.9,2.1], backgroundColor: ['rgba(192,57,43,0.85)','rgba(192,57,43,0.8)','rgba(201,168,76,0.7)','rgba(192,57,43,0.65)','rgba(107,124,71,0.6)','rgba(107,124,71,0.5)'], borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: noLeg }, scales: { x: { ticks: { ...xT, maxRotation: 20 }, grid: gf }, y: { ticks: { ...yT, callback: v => v + '%' }, grid: gd } } }
+});
+
+// Chart 8 — Triple squeeze projected
+new Chart(document.getElementById('squeezeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Food costs\n(tariffs + cuts)','Utility bills\n(AI grid load)','Rent\n(supply gap)','Income change\n(bottom 20%)'],
+    datasets: [{ label: 'Projected % Change 2025–2030', data: [12, 40, 18, -3.8], backgroundColor: ctx => ctx.parsed.y < 0 ? 'rgba(192,57,43,0.85)' : 'rgba(107,124,71,0.7)', borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: noLeg }, scales: { x: { ticks: xT, grid: gf }, y: { ticks: { ...yT, callback: v => v + '%' }, grid: gd } } }
+});
+</script>
+</body>
+</html>

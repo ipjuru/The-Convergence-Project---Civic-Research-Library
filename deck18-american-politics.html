@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 18 -- American Politics: Then &amp; Now - The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230D0D0D' stroke='%23C9A84C' stroke-width='6'/><text x='50' y='67' font-size='52' text-anchor='middle' fill='%23C9A84C' font-family='serif'>C</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --blue:#8B9EC8;--blue-dim:rgba(139,158,200,0.15);
+  --red:#C87474;--orange:#E8A87C;--orange-l:#F4C08A;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(139,158,200,0.06) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--blue);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:700px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--blue);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--blue);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--blue);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--blue);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--blue);padding:24px 28px;background:var(--blue-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.timeline{margin:40px 0;}
+.tl-item{display:flex;gap:24px;margin-bottom:32px;align-items:flex-start;}
+.tl-year{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--blue);min-width:60px;padding-top:2px;}
+.tl-content{border-left:1px solid #2a2a2a;padding-left:24px;flex:1;}
+.tl-title{font-family:'Cinzel',serif;font-size:15px;color:var(--cream);margin-bottom:4px;}
+.tl-text{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.footer-copy{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="deck-label">Vol. 5 &bull; Deck 18 &bull; American Civics</div>
+  <h1 class="hero-title">American Politics:<br><span>Then &amp; Now</span></h1>
+  <p class="hero-sub">A democracy that started with 6% of the public able to vote. A government that now listens to roughly the same percentage.</p>
+  <div class="hero-stat-big">17%</div>
+  <div class="hero-stat-label">Americans who trust the federal government today &mdash; down from 77% in 1964 &mdash; Pew Research 2025</div>
+</section>
+
+<!-- SECTION 1 -->
+<section class="section">
+  <h2 class="section-title">Was American Democracy<br>Ever Built for Everyone?</h2>
+  <p class="section-body">The U.S. Constitution was written by 55 delegates &mdash; all white, all male, all wealthy, most enslaved people. The document they produced protected property far more than people. Understanding where we are now requires being clear about where we started.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">6%</div><div class="stat-label">Could Vote at Founding</div><div class="stat-note">White, male, property-owning, 21+ only</div></div>
+    <div class="stat-card"><div class="stat-number">68:1</div><div class="stat-label">Senate Representation Gap</div><div class="stat-note">Wyoming vs. California vote weight today</div></div>
+    <div class="stat-card"><div class="stat-number">70%</div><div class="stat-label">of Americans by 2040</div><div class="stat-note">Will be represented by just 30% of U.S. senators</div></div>
+    <div class="stat-card"><div class="stat-number">1996</div><div class="stat-label">Last Year GOP Won Senate Popular Vote</div><div class="stat-note">Yet controlled the Senate in 7 of the last 12 terms</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Expansion of U.S. Voting Rights Over Time (% of Total Population Eligible to Vote)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Source: U.S. Census Bureau historical data; Congressional Research Service; Brennan Center for Justice. Percentages reflect approximate share of total U.S. population eligible to vote at each milestone date.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 2 -->
+<section class="section">
+  <h2 class="section-title">Who Got the Vote,<br>When &mdash; and <span>at What Cost</span></h2>
+  <p class="section-body">Every expansion of democracy in American history was fought for &mdash; by people who were beaten, imprisoned, and killed for it. None of it was given voluntarily by those in power. And with each expansion, new methods of suppression followed almost immediately.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">1789</div>
+      <div class="tl-content">
+        <div class="tl-title">Constitution Ratified &mdash; ~6% Eligible</div>
+        <div class="tl-text">White, male, property-owning men over 21. Women, enslaved people, Indigenous people, poor whites, and religious minorities all excluded.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1870</div>
+      <div class="tl-content">
+        <div class="tl-title">15th Amendment &mdash; Black Men Legally Enfranchised</div>
+        <div class="tl-text">The amendment passed. Then came poll taxes, literacy tests, grandfather clauses, white primaries, and violence. Reconstruction was already ending.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1920</div>
+      <div class="tl-content">
+        <div class="tl-title">19th Amendment &mdash; Women Win the Vote</div>
+        <div class="tl-text">After 72 years of organizing. The amendment text mirrored the 15th Amendment. Black women in the South were immediately blocked by the same suppression tactics.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1965</div>
+      <div class="tl-content">
+        <div class="tl-title">Voting Rights Act &mdash; Federal Enforcement</div>
+        <div class="tl-text">Passed after Bloody Sunday in Selma. The federal government finally began enforcing rights that had been on paper for 95 years.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2013</div>
+      <div class="tl-content">
+        <div class="tl-title">Shelby County v. Holder &mdash; VRA Gutted</div>
+        <div class="tl-text">Supreme Court removed preclearance requirements. Within 24 hours, states previously covered began closing polling locations and passing voter ID laws.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div class="tl-content">
+        <div class="tl-title">Record Voter Suppression Legislation</div>
+        <div class="tl-text">28 states passed 80+ restrictive voting laws since 2020. The Brennan Center documented the most concentrated period of voting restrictions in post-VRA history.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 3 -->
+<section class="section">
+  <h2 class="section-title">How Money Ate<br><span>American Democracy</span></h2>
+  <p class="section-body">Citizens United v. FEC (2010) declared that corporations have First Amendment rights and money is speech. The decision removed nearly all limits on outside political spending. What followed was not a vibrant democracy &mdash; it was an auction.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Outside Spending in Federal Elections &mdash; 2004 to 2024 (USD Billions)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: OpenSecrets; Brennan Center for Justice. Dark money includes spending from 501(c)(4) nonprofits not required to disclose donors. Citizens United decided January 2010.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$4.4B</div><div class="stat-label">Federal Lobbying in 2024</div><div class="stat-note">All-time record &mdash; OpenSecrets 2025</div></div>
+    <div class="stat-card"><div class="stat-number">$1.9B</div><div class="stat-label">Dark Money in 2024</div><div class="stat-note">Up from under $5M in 2006 &mdash; Brennan Center</div></div>
+    <div class="stat-card"><div class="stat-number">$16B</div><div class="stat-label">Total 2024 Election Spending</div><div class="stat-note">Most expensive election in world history &mdash; OpenSecrets</div></div>
+    <div class="stat-card"><div class="stat-number">10%</div><div class="stat-label">Political Donors Are People of Color</div><div class="stat-note">Despite being 40%+ of the population &mdash; Demos "Stacked Deck"</div></div>
+  </div>
+
+  <div class="callout">
+    <p>Princeton political scientists Gilens and Page analyzed 1,779 policy outcomes and found that average citizens have &ldquo;little or no independent influence&rdquo; on U.S. policy. Economic elites and organized interest groups have &ldquo;substantial independent impact.&rdquo; The policies most Americans want &mdash; 70%, 80%, 85% approval &mdash; do not become law.</p>
+    <div class="callout-source">Gilens &amp; Page, &ldquo;Testing Theories of American Politics,&rdquo; Perspectives on Politics, 2014</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 4 -->
+<section class="section">
+  <h2 class="section-title">What Americans Want<br>vs. What Congress Does</h2>
+  <p class="section-body">On issue after issue, Congress consistently fails to pass legislation that has overwhelming public support. This is not a partisan problem &mdash; it&rsquo;s a structural one. When money determines access and access determines outcomes, popularity stops mattering.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Public Support vs. Congressional Action on Key Policy Issues (% Nationwide Support)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: Gallup; Pew Research Center; Morning Consult polling aggregates 2023-2024. "Enacted" reflects whether federal legislation passed during 2013-2024 period. Items marked "Blocked/No Action" failed to pass despite majority support.</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">What Most Americans Actually Want</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">88% support universal background checks for gun purchases</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">83% support Medicare negotiating drug prices</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">72% support higher taxes on the wealthy</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">68% support raising the minimum wage to $15+</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--blue);">64% support paid family leave</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:16px;">The Congressional Reality</h3>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--red);">Universal background checks: blocked repeatedly in Senate</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--red);">Drug pricing: passed partially in 2022, watered down under industry pressure</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--red);">Wealth tax: never reached a floor vote</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--red);">$15 federal minimum wage: last raised in 2009 at $7.25</li>
+        <li style="margin-bottom:12px;font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);padding-left:16px;border-left:2px solid var(--red);">Paid leave: United States is the only wealthy nation with no federal policy</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 5 -->
+<section class="section">
+  <h2 class="section-title">Trust, Incumbency,<br>and the <span>Approval Paradox</span></h2>
+  <p class="section-body">Congress has a 15% approval rating. 97% of incumbents who ran in 2024 won re-election. This is not an accident &mdash; it&rsquo;s the result of gerrymandering, campaign finance advantages, and name recognition systems that make almost all seats structurally non-competitive.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Congressional Approval Rating vs. Incumbent Re-Election Rate (2000-2024)</div>
+    <canvas id="c4"></canvas>
+    <div class="chart-note">Source: Gallup approval polling; OpenSecrets incumbent re-election tracking; Ballotpedia congressional race data. Approval reflects average annual approval rating for respective election year cycles.</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">97%</div><div class="stat-label">Incumbents Re-Elected in 2024</div><div class="stat-note">Despite 15% congressional approval rating</div></div>
+    <div class="stat-card"><div class="stat-number">$2.4M</div><div class="stat-label">Average House Re-Election Campaign Cost</div><div class="stat-note">vs. $1.3M for challenger &mdash; incumbent fundraising advantage, OpenSecrets 2024</div></div>
+    <div class="stat-card"><div class="stat-number">94%</div><div class="stat-label">House Races Won by the Better-Funded Candidate</div><div class="stat-note">Historical average since 2000 &mdash; OpenSecrets</div></div>
+    <div class="stat-card"><div class="stat-number">35</div><div class="stat-label">Truly Competitive House Seats in 2024</div><div class="stat-note">Out of 435 total &mdash; roughly 8% of all races</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 6 -->
+<section class="section">
+  <h2 class="section-title">The Donor Class<br>Doesn&rsquo;t Look Like America</h2>
+  <p class="section-body">Political money does not come from the population. It comes from a narrow, predominantly white, predominantly male, predominantly wealthy sliver of it. The donor class writes the agenda &mdash; and that agenda reflects who they are, not who the country is.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Who Actually Gives Political Money vs. U.S. Population Demographics</div>
+    <canvas id="c5"></canvas>
+    <div class="chart-note">Source: Demos "Stacked Deck" report; Brennan Center for Justice; FEC 2024 donor demographic analysis. Figures reflect $200+ federal contribution donors.</div>
+  </div>
+
+  <div class="callout">
+    <p>In 2024, more than 90% of $200+ federal contributions came from majority-white neighborhoods. People of color account for only 10% of individual political contributions. Women of color: just 2%. The donor class writes the policy agenda &mdash; and it does not look like America.</p>
+    <div class="callout-source">Demos, &ldquo;Stacked Deck&rdquo;; Brennan Center for Justice 2024</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Public Trust in Federal Government &mdash; % Who Trust Government "Always" or "Most of the Time" (1958-2025)</div>
+    <canvas id="c6"></canvas>
+    <div class="chart-note">Source: Pew Research Center &mdash; Public Trust in Government: 1958-2025 (December 2025). Trust peaked at 77% in 1964 after the Civil Rights Act. It has never returned to that level.</div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Pew Research Center &mdash; Public Trust in Government: 1958-2025 (Dec. 2025) &mdash; <a href="https://www.pewresearch.org/politics/2025/12/04/public-trust-in-government-1958-2025/" target="_blank">pewresearch.org</a></div>
+    <div class="source-item">OpenSecrets &mdash; Federal Lobbying Set New Record in 2024 (Feb. 2025) &mdash; <a href="https://www.opensecrets.org/news/2025/02/federal-lobbying-set-new-record-in-2024/" target="_blank">opensecrets.org</a></div>
+    <div class="source-item">OpenSecrets &mdash; By the Numbers: 15 Years of Citizens United (Jan. 2025) &mdash; <a href="https://www.opensecrets.org/news/2025/01/by-the-numbers-15-years-of-citizens-united/" target="_blank">opensecrets.org</a></div>
+    <div class="source-item">Brennan Center for Justice &mdash; Dark Money Hit a Record High of $1.9 Billion in 2024 Federal Races &mdash; <a href="https://www.brennancenter.org/our-work/research-reports/dark-money-hit-record-high-19-billion-2024-federal-races" target="_blank">brennancenter.org</a></div>
+    <div class="source-item">Brennan Center for Justice &mdash; Voting Laws Roundup 2024 &mdash; <a href="https://www.brennancenter.org/our-work/research-reports/voting-laws-roundup-2024" target="_blank">brennancenter.org</a></div>
+    <div class="source-item">Martin Gilens &amp; Benjamin Page &mdash; Testing Theories of American Politics: Elites, Interest Groups, and Average Citizens &mdash; Perspectives on Politics, 2014</div>
+    <div class="source-item">Demos &mdash; Stacked Deck: How the Racial Bias in Our Political System Undermines Our Democracy &mdash; <a href="https://www.demos.org/stacked-deck" target="_blank">demos.org</a></div>
+    <div class="source-item">Ballotpedia &mdash; Congressional incumbent re-election rates 2000-2024 &mdash; <a href="https://ballotpedia.org/Reelection_rates_of_incumbents" target="_blank">ballotpedia.org</a></div>
+    <div class="source-item">Gallup &mdash; Congressional Approval historical polling &mdash; <a href="https://news.gallup.com/poll/1600/congress-public.aspx" target="_blank">gallup.com</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck17-gig-economy.html">&larr; Deck 17: Gig Economy</a>
+    <a href="index.html">Library Home</a>
+    <a href="deck19-machinery-of-power.html">Deck 19: Machinery of Power &rarr;</a>
+  </div>
+  <div class="footer-copy">The Convergence Project &mdash; Free Civic Research Library &mdash; Ebony Enterprises 9 LLC</div>
+</div>
+
+<script>
+var gold = '#C9A84C';
+var blue = '#8B9EC8';
+var cream = 'rgba(240,234,214,0.7)';
+var red = '#C87474';
+var orange = '#F4C08A';
+var dimGrid = 'rgba(255,255,255,0.06)';
+
+Chart.defaults.color = cream;
+Chart.defaults.font.family = 'Raleway';
+
+// Chart 1 - Voting rights expansion over time
+new Chart(document.getElementById('c1'), {
+  type: 'line',
+  data: {
+    labels: ['1789','1828','1870','1920','1965','1971','2024'],
+    datasets: [{
+      label: '% of Population Eligible to Vote',
+      data: [6, 16, 22, 48, 58, 62, 72],
+      borderColor: blue,
+      backgroundColor: 'rgba(139,158,200,0.1)',
+      tension: 0.3,
+      fill: true,
+      pointRadius: 6,
+      pointBackgroundColor: gold
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: function(c){ return c.parsed.y + '%'; } } }
+    },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, min: 0, max: 100 }
+    }
+  }
+});
+
+// Chart 2 - Outside election spending
+new Chart(document.getElementById('c2'), {
+  type: 'bar',
+  data: {
+    labels: ['2004','2006','2008','2010','2012','2014','2016','2018','2020','2022','2024'],
+    datasets: [
+      { label: 'Super PAC / Disclosed', data: [0.08, 0.12, 0.4, 0.9, 2.1, 1.0, 2.4, 2.9, 5.0, 6.0, 8.0], backgroundColor: blue, stack: 'a', borderWidth: 0 },
+      { label: 'Dark Money (Undisclosed)', data: [0.005, 0.005, 0.07, 0.08, 0.3, 0.17, 0.18, 0.17, 1.0, 0.9, 1.9], backgroundColor: red, stack: 'a', borderWidth: 0 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } }, tooltip: { callbacks: { label: function(c){ return c.dataset.label + ': $' + c.parsed.y + 'B'; } } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream }, stacked: true },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return '$' + v + 'B'; } }, stacked: true }
+    }
+  }
+});
+
+// Chart 3 - public support vs congressional action (horizontal bar)
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['Universal Background Checks', 'Drug Price Negotiation', 'Raise Min Wage to $15', 'Paid Family Leave', 'Wealth Tax', 'Free Community College'],
+    datasets: [{
+      label: '% Public Support',
+      data: [88, 83, 68, 64, 72, 60],
+      backgroundColor: [blue, blue, blue, blue, blue, blue],
+      borderWidth: 0,
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, min: 0, max: 100 },
+      y: { grid: { color: dimGrid }, ticks: { color: cream } }
+    }
+  }
+});
+
+// Chart 4 - Approval vs reelection
+new Chart(document.getElementById('c4'), {
+  type: 'line',
+  data: {
+    labels: ['2000','2002','2004','2006','2008','2010','2012','2014','2016','2018','2020','2022','2024'],
+    datasets: [
+      { label: 'Congressional Approval %', data: [48, 50, 44, 37, 29, 21, 15, 14, 18, 20, 25, 18, 15], borderColor: red, backgroundColor: 'transparent', tension: 0.3, yAxisID: 'y' },
+      { label: 'Incumbent Re-Election Rate %', data: [98, 96, 98, 94, 94, 85, 90, 95, 97, 91, 95, 94, 97], borderColor: gold, backgroundColor: 'rgba(201,168,76,0.08)', tension: 0.3, fill: true, yAxisID: 'y' }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, min: 0, max: 100 }
+    }
+  }
+});
+
+// Chart 5 - Donor demographics vs population
+new Chart(document.getElementById('c5'), {
+  type: 'bar',
+  data: {
+    labels: ['White', 'Black', 'Latino', 'Asian', 'Women of Color'],
+    datasets: [
+      { label: '% of U.S. Population', data: [60, 13, 19, 6, 20], backgroundColor: 'rgba(139,158,200,0.4)', borderWidth: 0, borderRadius: 2 },
+      { label: '% of Political Donors ($200+)', data: [90, 3, 4, 2, 2], backgroundColor: gold, borderWidth: 0, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: cream } } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } } }
+    }
+  }
+});
+
+// Chart 6 - Public trust in government over time
+new Chart(document.getElementById('c6'), {
+  type: 'line',
+  data: {
+    labels: ['1958','1964','1968','1974','1980','1985','1994','2001','2007','2010','2015','2020','2025'],
+    datasets: [{
+      label: 'Trust in Federal Government %',
+      data: [73, 77, 62, 36, 27, 44, 21, 57, 24, 22, 19, 20, 17],
+      borderColor: blue,
+      backgroundColor: 'rgba(139,158,200,0.08)',
+      tension: 0.4,
+      fill: true,
+      pointRadius: 4,
+      pointBackgroundColor: blue
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: dimGrid }, ticks: { color: cream } },
+      y: { grid: { color: dimGrid }, ticks: { color: cream, callback: function(v){ return v + '%'; } }, min: 0, max: 100 }
+    }
+  }
+});
+</script>
+
+<!-- STANDARD DECK FOOTER -->
+<div class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck17-gig-economy.html">&larr; Deck 17: Gig Economy</a>
+    <a href="index.html">Library Home</a>
+    <a href="sources.html">Source Bucket</a>
+    <a href="deck19-machinery-of-power.html">Deck 19: Machinery of Power &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <span class="bmc-icon-f">&#x2615;</span>
+    <div class="bmc-text-f">
+      <p class="bmc-headline-f">If this project has value to you, consider buying me a coffee.</p>
+      <p class="bmc-sub-f">Every contribution keeps the library growing, the research flowing, and the lights on.</p>
+    </div>
+    <a class="bmc-btn-f" href="https://buymeacoffee.com/impactpoetj" target="_blank" rel="noopener">Support the Work &rarr;</a>
+  </div>
+  <div class="footer-copy-bar">
+    <p>The Convergence Project &middot; Ebony Enterprises 9 LLC &middot; A Spoken Space</p>
+  </div>
+</div>
+</body>
+</html>

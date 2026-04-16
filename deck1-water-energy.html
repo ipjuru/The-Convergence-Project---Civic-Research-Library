@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 01 — Thirst &amp; Power · The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--blue:#4A90C4;--blue-l:#6AAFD6;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;--red-l:#e74c3c;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(74,144,196,0.12) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-l);border:1px solid rgba(74,144,196,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--blue-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--blue-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--blue-l);padding:24px 28px;background:rgba(74,144,196,0.07);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--blue-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'▸';color:var(--blue-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:48px 0;}
+.case-card{background:var(--b3);border-left:3px solid var(--blue-l);padding:28px;}
+.case-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;color:var(--gold);margin-bottom:10px;}
+.case-body{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.75);}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.action-list li::before{content:'→';color:var(--gold);flex-shrink:0;}
+.action-list li:last-child{border-bottom:none;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">← Library Home</a>
+  <span class="nav-deck">Vol. 1 · Deck 01</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">01</div>
+  <span class="vol-badge">Vol. 1 — The Convergence</span>
+  <h1 class="hero-title">Thirst<br>&amp; Power</h1>
+  <p class="hero-sub">Every time you ask an AI a question, somewhere a machine drinks your water and spikes your electric bill. The infrastructure behind artificial intelligence is being built on the backs of communities — and most people have no idea.</p>
+  <div class="hero-stat">$380B</div>
+  <div class="hero-stat-label">Committed by Big Tech to AI infrastructure in 2025 alone — more than 2x the entire U.S. electric utility industry's annual investment</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 1: ENERGY -->
+<section class="section">
+  <span class="section-tag">The Energy Appetite</span>
+  <h2 class="section-title">The Grid Was Not<br>Built for This</h2>
+  <div class="section-body">
+    <p>Global data center electricity consumption hit <strong>415 TWh in 2024</strong>. By 2030, it is projected to more than double — matching Japan's entire national power use. AI is the primary engine of this surge. Goldman Sachs projects U.S. data center power demand will surge <strong>165% by 2030</strong> vs. 2023. A single ChatGPT query uses approximately <strong>10x the electricity of a Google search</strong>.</p>
+    <p>The power grid was not designed for this. The PJM Interconnection — the grid serving <strong>67 million people</strong> across 13 states — has already failed to procure sufficient generating capacity for the first time in its history. PJM's own market monitor testified this shortfall is <strong>"almost entirely the result of large data center load additions."</strong> By June 2027, PJM projects it may fall below federal reliability standards — rolling blackouts during heat waves are a real near-term risk.</p>
+    <p>Residential electricity rates rose <strong>46% since 2019</strong>, hitting 19¢/kWh nationally by end of 2025. In Virginia — the world's data center capital — wholesale electricity costs rose up to <strong>267%</strong> near data center clusters. Residential bills could rise <strong>25–75%</strong> by decade's end. The costs do not land on the companies building the data centers. They land on you.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">415 TWh</div><div class="stat-label">Global Data Center Power 2024</div><div class="stat-note">Projected to double by 2030</div></div>
+    <div class="stat-card"><div class="stat-number">165%</div><div class="stat-label">U.S. Demand Surge by 2030</div><div class="stat-note">Goldman Sachs projection</div></div>
+    <div class="stat-card"><div class="stat-number">+46%</div><div class="stat-label">Residential Rate Rise Since 2019</div><div class="stat-note">19¢/kWh nationally by 2025</div></div>
+    <div class="stat-card"><div class="stat-number">67M</div><div class="stat-label">People on Failing PJM Grid</div><div class="stat-note">First capacity failure in PJM history</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Global Data Center Power — Total vs. AI Share (TWh), 2020–2030</div>
+    <div class="chart-container"><canvas id="energyChart"></canvas></div>
+    <div class="chart-note">Source: IEA "Energy and AI" 2025; Goldman Sachs; Lawrence Berkeley National Lab. AI workloads are the fastest-growing component — growing from near-zero in 2020 to potentially half of all data center power by 2030.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Residential Electricity Rate — Cents per kWh, 2019–2030</div>
+    <div class="chart-container"><canvas id="rateChart"></canvas></div>
+    <div class="chart-note">Source: U.S. Energy Information Administration (EIA) monthly data; projections from NRDC, Jack Kemp Foundation, PJM Interconnection. The 2030 projection reflects current data center load growth trajectory — not a worst-case scenario.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">PJM consumers face an estimated $100 billion in extra costs through 2033 — roughly $70/month extra per household by 2028 — to upgrade a grid for data center demand they had no vote on. The companies causing the surge pay a fraction of that cost. You pay the rest.</div>
+    <div class="callout-source">— PJM Interconnection Market Monitor; NRDC; Mirror Indy analysis</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 2: WATER -->
+<section class="section">
+  <span class="section-tag">The Water Crisis</span>
+  <h2 class="section-title">They're Drinking<br>the Water Too</h2>
+  <div class="section-body">
+    <p>A typical large data center uses <strong>3–5 million gallons of water per day</strong> — equivalent to the daily water use of a city of 50,000 people. That water cools the servers. When it evaporates, it is gone from the local watershed permanently. And companies are deliberately building these facilities in the driest parts of the country.</p>
+    <p>Over <strong>32% of U.S. data centers</strong> sit in high or extremely high water stress areas. <strong>Two-thirds of data centers built since 2022</strong> are in drought-prone regions. U.S. data centers directly consumed <strong>17 billion gallons</strong> in 2023 — plus an additional <strong>211 billion gallons indirectly</strong> through electricity generation required to power them. Texas data centers alone are projected to consume <strong>399 billion gallons per year by 2030</strong>.</p>
+    <p>The companies involved have the data. Google documented its data centers consumed <strong>6.1 billion gallons in 2022</strong> — a 22% increase from 2021. Microsoft: <strong>1.7 billion gallons</strong> (FY2023, up 34%). Meta: <strong>2.8 billion gallons</strong>. Amazon: partially disclosed. These are not rounding errors in a tight water budget. They are the budget.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Data Center Water Use — Direct &amp; Indirect (Billions of Gallons)</div>
+    <div class="chart-container"><canvas id="waterChart"></canvas></div>
+    <div class="chart-note">Source: Ceres "Drained by Data"; Lawrence Berkeley National Lab; IEA. Indirect use reflects water consumed at power plants generating electricity for data centers. Texas 2030 projection based on current data center expansion pipeline in state.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Big Tech Annual Water Consumption — Billions of Gallons (2021–2023)</div>
+    <div class="chart-container"><canvas id="techWaterChart"></canvas></div>
+    <div class="chart-note">Source: Google, Microsoft, Meta Annual Environmental / Sustainability Reports 2021–2023. Amazon does not fully disclose water use. All four companies have committed to "water positive" goals — while consumption continues to rise year-over-year.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 3: WHO PAYS -->
+<section class="section">
+  <span class="section-tag">Who Pays</span>
+  <h2 class="section-title">The Costs Are Public.<br>The Profits Are Private.</h2>
+  <div class="section-body">
+    <p>In 2025 alone, Microsoft, Google, Amazon, and Meta committed over <strong>$380 billion</strong> to AI infrastructure — more than twice what the entire U.S. electric utility industry invests annually. The investment is extraordinary. Who pays for what it requires is the question almost no one is asking at the local level.</p>
+    <p>The answer is consistently: the public. Grid upgrade costs land on all ratepayers. Water is withdrawn from shared watersheds under minimal permitting. Tax incentives — often negotiated before communities know a deal exists — remove hundreds of millions from state budgets that would fund schools and roads. In Virginia, <strong>25 of 31 communities</strong> with data centers had signed nondisclosure agreements with local officials before residents knew what was being built.</p>
+  </div>
+
+  <div class="case-grid">
+    <div class="case-card">
+      <div class="case-title">Virginia — The World's Data Center Capital</div>
+      <div class="case-body">More data center square footage than anywhere on Earth. Wholesale electricity up 267% near clusters. Residential bills projected +25–75% by 2030. 25 of 31 host communities signed NDAs before public disclosure.</div>
+    </div>
+    <div class="case-card">
+      <div class="case-title">Louisiana — Meta's $27 Billion Deal</div>
+      <div class="case-body">Parish where 25% live in poverty. Requires electricity 2x peak output of New Orleans. Residents fund $3.2B in new gas plants through bills. 20-year tax exemption. Minimum job requirement: 50.</div>
+    </div>
+    <div class="case-card">
+      <div class="case-title">Indiana — The Tax Gap</div>
+      <div class="case-body">Seven qualifying projects may cost the state $150M–$900M in forgone tax revenue — funds that would have paid for schools and roads. No requirement to demonstrate comparable community return.</div>
+    </div>
+    <div class="case-card">
+      <div class="case-title">Texas — The Water Reckoning</div>
+      <div class="case-body">Already in historic drought. Data centers projected to consume 399 billion gallons annually by 2030 — in a state where water rights are contested and the Edwards Aquifer is being depleted.</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Big Tech 2025 AI Infrastructure Commitments vs. U.S. Utility Annual Investment ($B)</div>
+    <div class="chart-container"><canvas id="investChart"></canvas></div>
+    <div class="chart-note">Source: CNBC; company Q4 2025 earnings filings; CreditSights; Edison Electric Institute. The entire U.S. electric utility industry's annual capital investment is roughly $160–180B. Big Tech committed more than double that in AI infrastructure in a single year.</div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-title">The Pattern — Repeated Across Every State</div>
+    <ul class="highlight-list">
+      <li>Tax incentives negotiated <strong>before</strong> communities are informed — often with NDAs blocking disclosure</li>
+      <li>Grid upgrade costs passed to <strong>all ratepayers</strong>, not the companies driving the demand</li>
+      <li>Water withdrawn from local watersheds with <strong>minimal permitting requirements</strong> in most states</li>
+      <li>Job promises consistently underdeliver — data centers are capital-intensive, not labor-intensive</li>
+      <li>Environmental reviews fast-tracked or bypassed under "energy emergency" executive orders</li>
+      <li>Fossil fuel plants reopened or life-extended to meet data center demand — reversing clean energy progress</li>
+      <li>Low-income communities and communities of color are disproportionately chosen as host sites</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SECTION 4: WHAT YOU CAN DO -->
+<section class="section">
+  <span class="section-tag">What You Can Do</span>
+  <h2 class="section-title">This Is a Local Fight<br>With National Stakes</h2>
+  <div class="section-body">
+    <p>The decisions that determine where data centers are built, what tax breaks they receive, and who pays for grid upgrades are made at the state and local level — in city councils, utility commission hearings, and legislature committee rooms that are almost always empty. That emptiness is the strategy.</p>
+  </div>
+  <div class="action-block">
+    <div class="action-title">Points of Leverage</div>
+    <ul class="action-list">
+      <li>Ask your city council what data center deals are under negotiation — NDAs may exist, but initial permits are public record</li>
+      <li>Attend utility commission hearings where rate increases are approved — public comment is allowed and almost never used</li>
+      <li>Track your state's data center tax incentive legislation — most states have active bills each session</li>
+      <li>Push your utility to disclose what percentage of load growth comes from data centers</li>
+      <li>Support legislation requiring data centers to pay for the grid upgrades their load causes</li>
+      <li>Connect with Food &amp; Water Watch and NRDC local chapters — they actively track these deals</li>
+      <li>Ask every candidate at every level: what is your position on data center tax incentives and water permits?</li>
+    </ul>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">IEA — Energy and AI (2025) · <a href="https://www.iea.org/reports/energy-and-ai" target="_blank">iea.org</a></div>
+    <div class="source-item">Goldman Sachs — AI Power Demand: Next Frontier (2024) · <a href="https://www.goldmansachs.com" target="_blank">goldmansachs.com</a></div>
+    <div class="source-item">Lawrence Berkeley National Lab — United States Data Center Energy Usage Report (2024) · <a href="https://eta.lbl.gov" target="_blank">eta.lbl.gov</a></div>
+    <div class="source-item">PJM Interconnection — 2025 Capacity Performance Auction Results; Market Monitor Testimony · <a href="https://www.pjm.com" target="_blank">pjm.com</a></div>
+    <div class="source-item">Belfer Center / Harvard Kennedy School — AI and the Grid (February 2026)</div>
+    <div class="source-item">Ceres — Drained by Data: Data Centers and Water Risk · <a href="https://www.ceres.org" target="_blank">ceres.org</a></div>
+    <div class="source-item">EIA — Residential Electricity Rates, Monthly 2019–2025 · <a href="https://www.eia.gov" target="_blank">eia.gov</a></div>
+    <div class="source-item">NRDC — Data Centers and the Grid: A Growing Crisis · <a href="https://www.nrdc.org" target="_blank">nrdc.org</a></div>
+    <div class="source-item">Louisiana Illuminator — Meta Data Center Tax Exemption Analysis (2025)</div>
+    <div class="source-item">Mirror Indy / University of Mary Washington — Virginia NDA Study: 25 of 31 Communities (2025)</div>
+    <div class="source-item">Google, Microsoft, Meta, Amazon — Annual Environmental / Sustainability Reports (2021–2024)</div>
+    <div class="source-item">CNBC; CreditSights — Big Tech 2025 AI Infrastructure Spending Analysis</div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="index.html">← Library Home</a>
+  <a href="deck2-space-weather.html">Deck 02: Space Weather →</a>
+</div>
+
+<script>
+const cfg = {
+  legend: { display: true, labels: { color: 'rgba(240,234,214,0.7)', font: { family: 'Raleway', size: 12 } } },
+  noLegend: { display: false },
+  xTick: { color: 'rgba(240,234,214,0.6)', font: { family: 'Raleway', size: 11 } },
+  yTick: { color: 'rgba(240,234,214,0.6)', font: { family: 'Raleway', size: 11 } },
+  grid: { color: 'rgba(255,255,255,0.05)' },
+  gridFaint: { color: 'rgba(255,255,255,0.03)' }
+};
+
+// Chart 1 — Energy consumption
+new Chart(document.getElementById('energyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2020','2022','2024','2026 est','2028 est','2030 proj'],
+    datasets: [
+      { label: 'Total Data Center TWh', data: [200,250,415,530,700,945], backgroundColor: 'rgba(74,144,196,0.65)', borderColor: 'rgba(74,144,196,0.9)', borderWidth: 1, borderRadius: 3 },
+      { label: 'AI Share (TWh)', data: [0,10,65,140,280,472], backgroundColor: 'rgba(201,168,76,0.75)', borderColor: 'rgba(201,168,76,0.9)', borderWidth: 1, borderRadius: 3 }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: cfg.legend }, scales: { x: { ticks: cfg.xTick, grid: cfg.grid }, y: { ticks: { ...cfg.yTick, callback: v => v + ' TWh' }, grid: cfg.grid } } }
+});
+
+// Chart 2 — Electricity rate trend
+new Chart(document.getElementById('rateChart'), {
+  type: 'line',
+  data: {
+    labels: ['2019','2020','2021','2022','2023','2024','2025','2027 est','2030 proj'],
+    datasets: [
+      { label: 'U.S. Avg Residential Rate (¢/kWh)', data: [13.0,13.2,13.7,15.1,16.3,17.9,19.0,21.5,26.0], borderColor: 'rgba(192,57,43,0.9)', backgroundColor: 'rgba(155,44,44,0.1)', fill: true, borderWidth: 2.5, tension: 0.3, pointRadius: 4, pointBackgroundColor: 'rgba(192,57,43,0.9)' },
+      { label: 'Virginia Near Data Centers (¢/kWh)', data: [11.0,11.3,12.1,15.8,19.2,22.4,25.0,30.0,38.0], borderColor: 'rgba(201,168,76,0.8)', backgroundColor: 'rgba(201,168,76,0.05)', fill: false, borderWidth: 2, borderDash: [5,3], tension: 0.3, pointRadius: 3, pointBackgroundColor: 'rgba(201,168,76,0.8)' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: cfg.legend }, scales: { x: { ticks: cfg.xTick, grid: cfg.grid }, y: { ticks: { ...cfg.yTick, callback: v => v + '¢' }, grid: cfg.grid } } }
+});
+
+// Chart 3 — Water use breakdown
+new Chart(document.getElementById('waterChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Direct Use 2023','Indirect (electricity gen.)','Direct — 2028 proj.','Texas alone 2030'],
+    datasets: [{ label: 'Billions of Gallons', data: [17,211,68,399], backgroundColor: ['rgba(74,144,196,0.75)','rgba(192,57,43,0.75)','rgba(201,168,76,0.7)','rgba(192,57,43,0.85)'], borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: cfg.noLegend }, scales: { x: { ticks: { ...cfg.xTick, callback: v => v + 'B gal' }, grid: cfg.grid }, y: { ticks: cfg.yTick, grid: cfg.gridFaint } } }
+});
+
+// Chart 4 — Big Tech water by company
+new Chart(document.getElementById('techWaterChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Google','Google','Microsoft','Microsoft','Meta','Meta'],
+    datasets: [
+      { label: '2021', data: [5.0, null, 1.3, null, 2.1, null], backgroundColor: 'rgba(74,144,196,0.55)', borderRadius: 3 },
+      { label: '2022', data: [null, 6.1, null, 1.7, null, 2.8], backgroundColor: 'rgba(74,144,196,0.85)', borderRadius: 3 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: cfg.legend, tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + 'B gallons' } } },
+    scales: {
+      x: { ticks: cfg.xTick, grid: cfg.gridFaint },
+      y: { ticks: { ...cfg.yTick, callback: v => v + 'B gal' }, grid: cfg.grid }
+    }
+  }
+});
+
+// Chart 5 — Investment comparison
+new Chart(document.getElementById('investChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Microsoft\n2025','Google\n2025','Amazon\n2025','Meta\n2025','All U.S. Electric\nUtilities (annual)'],
+    datasets: [{ label: '$B committed', data: [80,75,105,60,165], backgroundColor: ['rgba(74,144,196,0.8)','rgba(74,144,196,0.8)','rgba(74,144,196,0.8)','rgba(74,144,196,0.8)','rgba(201,168,76,0.75)'], borderColor: '#111', borderWidth: 1, borderRadius: 3 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: cfg.noLegend, tooltip: { callbacks: { label: ctx => '$' + ctx.parsed.y + 'B' } } }, scales: { x: { ticks: cfg.xTick, grid: cfg.gridFaint }, y: { ticks: { ...cfg.yTick, callback: v => '$' + v + 'B' }, grid: cfg.grid } } }
+});
+</script>
+</body>
+</html>

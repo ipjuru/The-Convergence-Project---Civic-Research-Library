@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Deck 04 — The Root · The Convergence Project</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--gold:#C9A84C;--gold-l:#E8C96A;--acc:#E8952A;--acc-l:#F0A840;--olive:#6B7C47;--olive-l:#8FA05E;--black:#0D0D0D;--b2:#111;--b3:#181818;--cream:#F0EAD6;--tan:#C2A87E;--border:rgba(201,168,76,0.2);--red:#C0392B;--red-l:#e74c3c;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.top-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #1a1a1a;}
+.nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);text-decoration:none;transition:color .2s;}.nav-back:hover{color:var(--gold);}
+.nav-deck{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333;}
+.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(232,149,42,0.11) 0%,transparent 70%);pointer-events:none;}
+.vol-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--acc-l);border:1px solid rgba(232,149,42,0.4);padding:6px 18px;margin-bottom:32px;display:inline-block;}
+.hero-deck-num{font-family:'Cinzel',serif;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.15);letter-spacing:-2px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px;position:relative;z-index:2;}
+.hero-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:var(--tan);max-width:700px;line-height:1.6;position:relative;z-index:2;margin-bottom:40px;}
+.hero-stat{font-family:'Cinzel',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--acc-l);line-height:1;position:relative;z-index:2;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-top:8px;position:relative;z-index:2;}
+.scroll-hint{position:relative;z-index:2;margin-top:60px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#333;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);}
+.section{position:relative;z-index:1;padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--acc-l);margin-bottom:16px;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-body{font-family:'Raleway',sans-serif;font-size:17px;line-height:1.9;color:rgba(240,234,214,0.85);max-width:800px;}
+.section-body p{margin-bottom:16px;}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);margin:48px 0;}
+.stat-card{background:var(--b3);padding:32px 24px;text-align:center;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--acc-l);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.stat-note{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(240,234,214,0.5);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1a1a1a;padding:32px;margin:48px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:rgba(240,234,214,0.4);margin-top:16px;}
+.chart-container{position:relative;height:320px;}
+.callout{border-left:3px solid var(--acc-l);padding:24px 28px;background:rgba(232,149,42,0.07);margin:40px 0;}
+.callout-text{font-family:'Crimson Text',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:var(--cream);line-height:1.6;}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:12px;}
+.highlight-block{background:var(--b3);border-top:3px solid var(--acc-l);padding:40px;margin:48px 0;}
+.highlight-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--acc-l);margin-bottom:24px;}
+.highlight-list{list-style:none;}
+.highlight-list li{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.85);padding:10px 0;border-bottom:1px solid #1a1a1a;display:flex;gap:12px;}
+.highlight-list li::before{content:'▸';color:var(--acc-l);flex-shrink:0;margin-top:2px;}
+.highlight-list li:last-child{border-bottom:none;}
+.four-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:48px 0;}
+.four-card{background:var(--b3);padding:28px;border-top:2px solid;}
+.four-card.red{border-color:var(--red-l);}
+.four-card.olive{border-color:var(--olive-l);}
+.four-card.acc{border-color:var(--acc-l);}
+.four-card.gold{border-color:var(--gold);}
+.four-card-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;display:block;}
+.four-card.red .four-card-tag{color:var(--red-l);}
+.four-card.olive .four-card-tag{color:var(--olive-l);}
+.four-card.acc .four-card-tag{color:var(--acc-l);}
+.four-card.gold .four-card-tag{color:var(--gold);}
+.four-card-title{font-family:'Cinzel',serif;font-size:15px;color:var(--cream);margin-bottom:10px;}
+.four-card-body{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.7);}
+.timeline{margin:48px 0;}
+.timeline-item{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid #1a1a1a;align-items:start;}
+.timeline-year{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--acc-l);letter-spacing:1px;}
+.timeline-body{font-family:'Raleway',sans-serif;font-size:15px;line-height:1.7;color:rgba(240,234,214,0.8);}
+.timeline-body strong{color:var(--cream);}
+.three-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:48px 0;}
+.three-card{background:var(--b3);border-left:3px solid var(--olive-l);padding:28px;}
+.three-card-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--olive-l);margin-bottom:8px;display:block;}
+.three-card-title{font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:10px;}
+.three-card-body{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.7);}
+.action-block{background:var(--b3);border-top:3px solid var(--gold);padding:40px;margin:48px 0;}
+.action-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.action-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.action-col-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--olive-l);margin-bottom:12px;}
+.action-list{list-style:none;}
+.action-list li{font-family:'Raleway',sans-serif;font-size:14px;line-height:1.7;color:rgba(240,234,214,0.8);padding:6px 0;border-bottom:1px solid #1a1a1a;padding-left:16px;position:relative;}
+.action-list li::before{content:'→';position:absolute;left:0;color:var(--olive-l);font-size:12px;}
+.action-list li:last-child{border-bottom:none;}
+.closing-quote{border:1px solid rgba(201,168,76,0.2);padding:48px;margin:48px 0;text-align:center;background:rgba(232,149,42,0.03);}
+.closing-q{font-family:'Cinzel',serif;font-size:clamp(18px,3vw,28px);color:var(--gold);line-height:1.4;margin-bottom:16px;}
+.closing-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:17px;color:var(--tan);line-height:1.7;}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:rgba(240,234,214,0.4);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:rgba(201,168,76,0.5);text-decoration:none;}.source-item a:hover{color:var(--gold);}
+.bottom-nav{text-align:center;padding:48px 32px;border-top:1px solid #1a1a1a;}
+.bottom-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:12px 24px;margin:6px;display:inline-block;transition:all .2s;}
+.bottom-nav a:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+@media(max-width:768px){.top-nav{padding:16px 20px;}.section{padding:60px 20px;}.stat-grid{grid-template-columns:repeat(2,1fr);}.timeline-item{grid-template-columns:80px 1fr;gap:12px;}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-back">← Library Home</a>
+  <span class="nav-deck">Vol. 1 · Deck 04</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-deck-num">04</div>
+  <span class="vol-badge">Vol. 1 — The Convergence</span>
+  <h1 class="hero-title">The Root</h1>
+  <p class="hero-sub">Water. Energy. Space weather. Food. Housing. Four decks. One root. The systems failing us don't just overlap — they share the same owners. The same hands hold the rope on every single crisis. And the data proves it.</p>
+  <div class="hero-stat">88%</div>
+  <div class="hero-stat-label">Of S&P 500 companies have BlackRock, Vanguard, or State Street as a top-3 shareholder — simultaneously</div>
+  <div class="scroll-hint">scroll to investigate</div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Ownership Structure</span>
+  <h2 class="section-title">Three Asset Managers<br>Own Everything Simultaneously</h2>
+  <div class="section-body">
+    <p>BlackRock, Vanguard, and State Street manage a combined <strong>$23–26+ trillion in assets</strong>. They are the largest shareholder in <strong>88% of S&P 500 companies</strong>. That includes your food company, your utility company, your landlord's REIT, the tech giants building the AI data centers draining your water, and the pharmaceutical companies pricing your insulin. One or the other of these three firms is a top-3 investor in <strong>100% of S&P 500 companies</strong>.</p>
+    <p>This is not conspiracy — it is the disclosed, public record of institutional shareholding. What it means is structural: the same investment portfolio that owns Tyson Foods owns Dominion Energy owns Invitation Homes owns Amazon. When food prices go up, they profit. When rents go up, they profit. When utility bills go up, they profit. They do not profit when communities organize and build alternative ownership structures. That asymmetry is the root.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">$26T</div><div class="stat-label">Combined AUM — Big 3</div><div class="stat-note">BlackRock + Vanguard + State Street</div></div>
+    <div class="stat-card"><div class="stat-number">88%</div><div class="stat-label">S&P 500 Companies They Co-Own</div><div class="stat-note">One or both as top-3 shareholder in 100%</div></div>
+    <div class="stat-card"><div class="stat-number">84%</div><div class="stat-label">S&P 500 with B or V as Single Largest</div><div class="stat-note">The dominant shareholder — not just a holder</div></div>
+    <div class="stat-card"><div class="stat-number">1</div><div class="stat-label">Portfolio Owns All Four Crises</div><div class="stat-note">Food · energy · housing · data centers</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Big 3 Asset Manager Reach Across S&P 500 Companies (%)</div>
+    <div class="chart-container"><canvas id="ownershipChart"></canvas></div>
+    <div class="chart-note">Source: Harvard Business Review; BlackRock Vanguard Watch; IR Impact; The Conversation. AUM scaled for visualization — actual totals: BlackRock ~$10T, Vanguard ~$8.5T, State Street ~$4.4T. These figures are publicly disclosed in SEC 13F filings, updated quarterly.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Corporate Consolidation</span>
+  <h2 class="section-title">Every Essential System —<br>Concentrated Into Fewer Hands</h2>
+  <div class="section-body">
+    <p>The same pattern plays out across every sector that touches survival. The Big 4 meatpackers — Tyson, Cargill, JBS, and National Beef — control <strong>~85% of U.S. beef processing</strong>, up from 36% in 1980. Four companies control over <strong>half the global seed market</strong>. The number of U.S. grocery stores fell <strong>30%</strong> from 1993 to 2019 while the top 5 grocers captured <strong>~50% of all grocery sales</strong>. In housing, corporations purchased <strong>30% of all single-family homes sold in H1 2025</strong> — an all-time record. 32 mega-investors collectively own roughly <strong>450,000 single-family homes</strong>.</p>
+    <p>In healthcare, hospital market concentration gives the top systems <strong>~90% control</strong> in most markets. The top 3 Pharmacy Benefit Managers control <strong>80%</strong> of the prescription drug market. Amazon captures <strong>37.6%</strong> of all U.S. e-commerce. In each case, consolidation reduces competition, increases prices, and shifts power away from individuals, workers, and communities — toward asset managers who hold equity in all of them at once.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Market Control by Top Firms — Selected Essential Sectors (%)</div>
+    <div class="chart-container"><canvas id="consolidationChart"></canvas></div>
+    <div class="chart-note">Source: USDA ERS; Farm Action; American Hospital Association; NCPA; eMarketer; Harvard Business Review. All figures represent share controlled by the top 3–5 firms in each sector. In every case, concentration has increased significantly over the past 20 years.</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Corporate Share of Single-Family Home Purchases — 2011 to 2025 (%)</div>
+    <div class="chart-container"><canvas id="housingInvestChart"></canvas></div>
+    <div class="chart-note">Source: St. Louis Fed (October 2025); GAO; Lincoln Institute of Land Policy (November 2025). 32 mega-investors collectively own ~450,000 single-family homes (GAO). In Manhattan, St. Louis, Baltimore, and Miami, corporate ownership of residential parcels ranges from 17–50%.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">Water Privatization</span>
+  <h2 class="section-title">They're Buying<br>the Water Too</h2>
+  <div class="section-body">
+    <p>Water is the last major essential that most people still think of as a public good. Investment funds do not share that view — they describe it as the most undervalued asset class in the world. The privatization of water systems and water rights is accelerating.</p>
+    <p>Privatized water systems charge <strong>59% more on average</strong> than public systems, according to Food and Water Watch. American Water Works acquired Essential Utilities for <strong>$20.1 billion in 2025</strong>. Food and Water Watch documents over <strong>$100 billion</strong> ready to deploy into private water rights. Nestlé (now BlueTriton) extracted <strong>62.6 million gallons per year</strong> from San Bernardino National Forest — <strong>25 times what the California State Water Resources Control Board says they have legal rights to</strong>. The brand sold for $4.3 billion in 2021. The extraction continues.</p>
+    <p>T. Boone Pickens, before his death in 2019, purchased rights to 200,000 acres over the Ogallala Aquifer — permits for roughly <strong>65 billion gallons per year</strong> — making him the largest private water owner in the U.S. The Ogallala supplies water to 8 states and 30% of all U.S. groundwater-irrigated farmland. Those rights live on.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Private vs. Public Water System Costs &amp; Major Acquisitions</div>
+    <div class="chart-container"><canvas id="waterPrivChart"></canvas></div>
+    <div class="chart-note">Source: Food and Water Watch; CA State Water Resources Control Board; Bloomberg; American Water Works SEC filings. The 59% premium for privatized water is documented across multiple studies comparing municipal vs. investor-owned utility rates for equivalent service areas.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Science of Compounding Stress</span>
+  <h2 class="section-title">Your Body Is Keeping Score —<br>Of Everything at Once</h2>
+  <div class="section-body">
+    <p>Allostatic load is the medical term for the cumulative biological wear and tear from chronic stress exposure. The research is unambiguous: when multiple stressors hit simultaneously, the damage multiplies — it doesn't just add. The body cannot distinguish between economic stress, food insecurity, and geomagnetic disturbance. It registers all of them through the same hormonal and nervous system pathways.</p>
+    <p>Geronimus et al. (2006, <em>American Journal of Public Health</em>) documented accelerated biological aging — "weathering" — in Black Americans at every age compared to white Americans. The mechanism is cumulative allostatic load from chronic multi-domain stress. A PLOS ONE study using the All of Us Research Program data found the odds of high allostatic load with high economic stress: <strong>2.18x baseline</strong>. Add solar geomagnetic stress (Deck 02) on top of resource scarcity and economic pressure (Decks 01 and 03), and the body's stress-response systems face compound activation. This is not metaphor. It is documented physiology.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Allostatic Load Risk — Compounding Stressors (Indexed, 1.0 = Baseline)</div>
+    <div class="chart-container"><canvas id="alloChart"></canvas></div>
+    <div class="chart-note">Source: Geronimus et al., American Journal of Public Health, 2006; McEwen & Stellar, 1993; PLOS ONE (All of Us Research Program). Values for compound stress are modeled from documented individual risk ratios. The concept of "weathering" — accelerated biological aging from chronic multi-domain stress — is well-established in the medical literature.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">History Warns Us</span>
+  <h2 class="section-title">This Has Happened Before.<br>The Sequence Is Familiar.</h2>
+  <div class="section-body">
+    <p>The Arab Spring was not just a political uprising. It was what happens when food prices, water access, and economic security all fail simultaneously — and the resulting rage gets redirected at each other and at governments rather than at the structural forces that caused it. The sequence is documented.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item"><span class="timeline-year">2010</span><div class="timeline-body">Global droughts in Russia, Ukraine, China, and Argentina plus floods in Canada and Australia pushed wheat production <strong>below global consumption for the first time in years</strong>.</div></div>
+    <div class="timeline-item"><span class="timeline-year">2010–11</span><div class="timeline-body">Egyptian food prices rose <strong>20%</strong>. 40 million Egyptians depended on food rations. Global food prices hit <strong>an all-time high in January 2011</strong> (FAO).</div></div>
+    <div class="timeline-item"><span class="timeline-year">2011</span><div class="timeline-body"><strong>9 of the 10 largest wheat-importing countries per capita</strong> were in the Middle East and North Africa. <strong>7 of those 9 experienced violent protests within months</strong>.</div></div>
+    <div class="timeline-item"><span class="timeline-year">Syria</span><div class="timeline-body">The worst long-term drought in the region's recorded history caused <strong>75% crop failure</strong> among northeastern farmers, <strong>85% livestock loss</strong>, and displaced <strong>800,000+ Syrians</strong> before any civil war began.</div></div>
+    <div class="timeline-item"><span class="timeline-year">The Lesson</span><div class="timeline-body"><strong>The rage was real. The target was wrong.</strong> People didn't organize against grain speculators, water privatizers, or the climate-ignoring energy policies that created the crisis. They fought each other — while the system causing all of it continued operating undisturbed.</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Climate &amp; Economic Stress → Social Conflict: Research-Quantified Escalation</div>
+    <div class="chart-container"><canvas id="conflictChart"></canvas></div>
+    <div class="chart-note">Source: Burke, Hsiang & Miguel, Science, 2013 (meta-analysis of 60 studies); IMF DESA inequality reports; Geronimus et al. 2006. For each 1 standard deviation increase in temperature or extreme rainfall, interpersonal violence rises 2–4% and intergroup conflict rises 2.5–14%. These are not predictions — they are measured historical outcomes.</div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section">
+  <span class="section-tag">The Solution</span>
+  <h2 class="section-title">Communities That Survived<br>Built the Same Thing</h2>
+  <div class="section-body">
+    <p>Every community that has navigated a convergence of crises — food, energy, economic collapse, resource scarcity — has done one thing consistently: they decentralized ownership of essential resources into cooperative, democratic structures. The evidence is not theoretical. It is documented, ongoing, and scalable.</p>
+  </div>
+
+  <div class="three-grid">
+    <div class="three-card">
+      <span class="three-card-tag">Food</span>
+      <div class="three-card-title">Detroit &amp; Niger — Two Models</div>
+      <div class="three-card-body">Detroit's urban agriculture network and community land trusts now hold 10+ productive acres with food production guarantees. In Niger's Sahel, farmer-managed natural regeneration restored <strong>5+ million hectares</strong> — one of the largest grassroots environmental restoration efforts in world history (Resilience.org).</div>
+    </div>
+    <div class="three-card">
+      <span class="three-card-tag">Energy</span>
+      <div class="three-card-title">America's 830 Electric Cooperatives</div>
+      <div class="three-card-body">830+ electric cooperatives serve <strong>42 million people</strong> as nonprofits, return <strong>$1 billion+ per year</strong> back to members, and cover <strong>92% of persistent poverty counties</strong>. Community-owned energy infrastructure is not a theory — it is functioning at national scale right now (NRECA).</div>
+    </div>
+    <div class="three-card">
+      <span class="three-card-tag">Housing</span>
+      <div class="three-card-title">300+ Community Land Trusts</div>
+      <div class="three-card-body">Over 300 community land trusts in the U.S. hold land in permanent trust with resale price caps — removing housing from the speculative market permanently. In France, 57,000+ cooperative members of Terre de Liens have collectively secured <strong>12,000 hectares</strong> supporting 400+ farms.</div>
+    </div>
+  </div>
+
+  <div class="four-grid">
+    <div class="four-card red">
+      <span class="four-card-tag">The Problem</span>
+      <div class="four-card-title">Consolidated Extraction</div>
+      <div class="four-card-body">A small cluster of institutions extract value from every essential system simultaneously. When one fails, they don't lose. You do. The consolidation is not incidental — it is the mechanism.</div>
+    </div>
+    <div class="four-card olive">
+      <span class="four-card-tag">The Solution</span>
+      <div class="four-card-title">Decentralized Ownership</div>
+      <div class="four-card-body">The inverse of extraction is ownership — by communities, cooperatives, and local institutions. Every dollar moved to a credit union, every meal from a local farm, every tenant union organized is a structural intervention. Not charity. Infrastructure.</div>
+    </div>
+    <div class="four-card acc">
+      <span class="four-card-tag">The Biology</span>
+      <div class="four-card-title">Your Body Can't Wait</div>
+      <div class="four-card-body">Allostatic load research shows your nervous system is already paying the cost of compounding failures. Community resilience is also community health. Building local systems reduces the chronic stress load — measurably.</div>
+    </div>
+    <div class="four-card gold">
+      <span class="four-card-tag">The Moment</span>
+      <div class="four-card-title">The Convergence Is Now</div>
+      <div class="four-card-body">Solar maximum. Peak corporate consolidation. Post-pandemic affordability collapse. AI infrastructure buildout. History says the window for organized community response is narrow. The data says use it.</div>
+    </div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-title">Your Move — The Root Is Clear. Start There.</div>
+    <div class="action-cols">
+      <div>
+        <div class="action-col-title">Today</div>
+        <ul class="action-list">
+          <li>Move your checking account to a local credit union</li>
+          <li>Buy one item per week from a local farmer, not a chain</li>
+          <li>Find your electric cooperative — switch if you can</li>
+          <li>Test your tap water (EPA.gov/watersense has free resources)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">This Month</div>
+        <ul class="action-list">
+          <li>Learn your three closest neighbors' names — that's not soft, that's survival</li>
+          <li>Find the mutual aid network in your zip code</li>
+          <li>Attend one city council or county commissioner meeting</li>
+          <li>Track your Kp index for 30 days alongside your mood and energy</li>
+        </ul>
+      </div>
+      <div>
+        <div class="action-col-title">This Year</div>
+        <ul class="action-list">
+          <li>Research community land trusts in your city — support or start one</li>
+          <li>Push for data center community benefit agreements in your state</li>
+          <li>Organize a tenant union if you rent (tenantstogether.org)</li>
+          <li>Contact your state AG — 24 states have joined coordinated legal challenges</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing-quote">
+    <div class="closing-q">"The systems failing us are not separate.<br>They share the same root.<br>And roots can be cut."</div>
+    <div class="closing-sub">Four decks. One argument. All of it sourced.<br>Share the deck that hits hardest for your community. This is the work. We just put the data to it.</div>
+  </div>
+</section>
+
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Sources &amp; Citations</div>
+    <div class="source-item">Harvard Business Review — The Common Ownership Problem (2017)</div>
+    <div class="source-item">BlackRock Vanguard Watch — Institutional Ownership Analysis · <a href="https://www.blackrockwatch.com" target="_blank">blackrockwatch.com</a></div>
+    <div class="source-item">USDA ERS — Consolidation in U.S. Agriculture · <a href="https://www.ers.usda.gov" target="_blank">ers.usda.gov</a></div>
+    <div class="source-item">Farm Action — Meatpacking: Four Corporations, Total Control · <a href="https://farmaction.us" target="_blank">farmaction.us</a></div>
+    <div class="source-item">St. Louis Fed — Corporate Home Purchases Hit Record in H1 2025 (October 2025)</div>
+    <div class="source-item">GAO — Single-Family Rentals and Institutional Investors (2024) · <a href="https://www.gao.gov" target="_blank">gao.gov</a></div>
+    <div class="source-item">Lincoln Institute of Land Policy — Corporate Residential Ownership Study (November 2025)</div>
+    <div class="source-item">Food and Water Watch — Corporate Control of Water Systems; $100B Private Water Market</div>
+    <div class="source-item">CA State Water Resources Control Board — BlueTriton (Nestlé) Extraction Order</div>
+    <div class="source-item">Geronimus et al. — Weathering and Age Patterns of Allostatic Load · AJPH, 2006</div>
+    <div class="source-item">PLOS ONE — Allostatic Load and Economic Stress (All of Us Research Program)</div>
+    <div class="source-item">Burke, Hsiang &amp; Miguel — Climate and Conflict · Science, 2013</div>
+    <div class="source-item">Femia &amp; Werrell — The Arab Spring and Climate Change · Center for American Progress</div>
+    <div class="source-item">NRECA — Electric Cooperative Nation · <a href="https://www.electric.coop" target="_blank">electric.coop</a></div>
+    <div class="source-item">Resilience.org — Farmer-Managed Natural Regeneration in Niger; Terre de Liens France</div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="deck3-basic-needs.html">← Deck 03: Basic Needs</a>
+  <a href="index.html">Library Home</a>
+  <a href="deck5-wars-and-corps.html">Deck 05: Gov &amp; Corps →</a>
+</div>
+
+<script>
+const xT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const yT={color:'rgba(240,234,214,0.6)',font:{family:'Raleway',size:11}};
+const gd={color:'rgba(255,255,255,0.05)'};
+const gf={color:'rgba(255,255,255,0.03)'};
+const leg={display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}};
+const noLeg={display:false};
+
+// Chart 1 — Big 3 ownership reach
+new Chart(document.getElementById('ownershipChart'),{
+  type:'bar',
+  data:{
+    labels:['S&P 500 companies\nBig 3 in top 3 (%)','Companies w/ B or V\nas largest holder (%)','BlackRock AUM ($T)','Vanguard AUM ($T)','State Street AUM ($T)'],
+    datasets:[
+      {label:'BlackRock',data:[88,42,10,null,null],backgroundColor:'rgba(74,144,196,0.8)',borderRadius:3},
+      {label:'Vanguard',data:[88,42,null,8.5,null],backgroundColor:'rgba(155,111,208,0.8)',borderRadius:3},
+      {label:'State Street',data:[80,20,null,null,4.4],backgroundColor:'rgba(61,181,165,0.8)',borderRadius:3}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:leg},scales:{x:{ticks:{...xT,maxRotation:0},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 2 — Corporate consolidation across sectors
+new Chart(document.getElementById('consolidationChart'),{
+  type:'bar',
+  data:{
+    labels:['Hospital market\n(top systems)','Beef processing\n(Big 4)','Pharmacy Benefit\nMgrs (top 3)','Seed market\n(top 4)','Grocery sales\n(top 5)','E-commerce\n(Amazon)'],
+    datasets:[{data:[90,85,80,55,50,37.6],backgroundColor:['rgba(192,57,43,0.85)','rgba(192,57,43,0.8)','rgba(192,57,43,0.75)','rgba(201,168,76,0.75)','rgba(201,168,76,0.7)','rgba(232,149,42,0.75)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:{...xT,callback:v=>v+'%'},grid:gd,max:100},y:{ticks:yT,grid:gf}}}
+});
+
+// Chart 3 — Corporate home buying surge
+new Chart(document.getElementById('housingInvestChart'),{
+  type:'line',
+  data:{
+    labels:['2011','2013','2015','2017','2019','2021','2023','H1 2025'],
+    datasets:[{label:'Corporate share of single-family home purchases (%)',data:[2,5,10,14,16,24,27,30],borderColor:'rgba(192,57,43,0.9)',backgroundColor:'rgba(155,44,44,0.12)',fill:true,borderWidth:2.5,tension:0.3,pointRadius:5,pointBackgroundColor:'rgba(192,57,43,0.9)'}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'rgba(240,234,214,0.7)',font:{family:'Raleway',size:12}}}},scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'%'},grid:gd}}}
+});
+
+// Chart 4 — Water privatization
+new Chart(document.getElementById('waterPrivChart'),{
+  type:'bar',
+  data:{
+    labels:['Public water avg\ncost (indexed 100)','Privatized water\navg cost (+59%)','BlueTriton extract\n(% over legal rights)','$100B private\nwater ready ($B, ×10)','American Water\nWorks deal ($B)'],
+    datasets:[{data:[100,159,2500,100,20.1],backgroundColor:['rgba(74,144,196,0.7)','rgba(192,57,43,0.8)','rgba(192,57,43,0.85)','rgba(201,168,76,0.75)','rgba(232,149,42,0.75)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg,tooltip:{callbacks:{label:ctx=>{const labels=['Index','Index','+2400% over rights','$1T total (×10 shown)','$B'];return labels[ctx.dataIndex]||ctx.parsed.y;}}}},scales:{x:{ticks:{...xT,maxRotation:20},grid:gf},y:{ticks:yT,grid:gd}}}
+});
+
+// Chart 5 — Allostatic load
+new Chart(document.getElementById('alloChart'),{
+  type:'bar',
+  data:{
+    labels:['Baseline\n(low stress)','High economic stress\nalone','Economic + solar\nstress','Economic + solar +\nresource scarcity'],
+    datasets:[{label:'Relative Allostatic Load Risk (1.0 = baseline)',data:[1.0,2.18,3.1,4.5],backgroundColor:['rgba(107,124,71,0.7)','rgba(232,149,42,0.8)','rgba(201,168,76,0.8)','rgba(192,57,43,0.85)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:xT,grid:gf},y:{ticks:{...yT,callback:v=>v+'×'},grid:gd}}}
+});
+
+// Chart 6 — Climate conflict data
+new Chart(document.getElementById('conflictChart'),{
+  type:'bar',
+  data:{
+    labels:['Interpersonal violence\nper 1 SD temp rise (%)','Intergroup conflict\nper 1 SD climate stress (%)','Income inequality →\nGDP reduction (%)','Allostatic load +\neconomic stress (× risk)'],
+    datasets:[{data:[3,8.25,0.8,2.18],backgroundColor:['rgba(192,57,43,0.8)','rgba(192,57,43,0.85)','rgba(201,168,76,0.75)','rgba(232,149,42,0.8)'],borderColor:'#111',borderWidth:1,borderRadius:3}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noLeg},scales:{x:{ticks:xT,grid:gf},y:{ticks:yT,grid:gd}}}
+});
+</script>
+</body>
+</html>
