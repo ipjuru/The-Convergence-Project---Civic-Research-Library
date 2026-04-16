@@ -56,9 +56,57 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* QUICK NAV */
 .quick-nav{background:var(--b2);border:1px solid var(--border);padding:28px 32px;margin-bottom:56px;}
 .quick-nav-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block;}
-.quick-nav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;}
-.qn-link{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:0.1em;color:rgba(201,168,76,0.7);text-decoration:none;padding:6px 0;border-bottom:1px solid #1a1a1a;transition:color .2s;display:block;}
-.qn-link:hover{color:var(--gold);}
+/* ── SOURCE SEARCH DROPDOWN ── */
+.src-search-wrap{position:relative;}
+.src-search-input{
+  width:100%;background:var(--black);
+  border:1px solid rgba(201,168,76,0.3);
+  color:var(--cream);font-family:'Raleway',sans-serif;
+  font-size:13px;letter-spacing:.05em;
+  padding:12px 48px 12px 16px;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.src-search-input::placeholder{color:rgba(240,234,214,0.25);}
+.src-search-input:focus{border-color:var(--gold);box-shadow:0 0 0 1px rgba(201,168,76,0.15);}
+.src-search-icon{
+  position:absolute;right:0;top:0;bottom:0;width:48px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(201,168,76,0.5);font-size:22px;
+  cursor:pointer;background:none;border:none;padding:0;
+  transition:color .2s,transform .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.src-search-icon:hover{color:var(--gold);}
+.src-search-icon.open{transform:rotate(180deg);color:var(--gold);}
+.src-dropdown{
+  position:absolute;top:100%;left:0;right:0;
+  background:#111;border:1px solid rgba(201,168,76,0.3);
+  border-top:none;list-style:none;
+  max-height:280px;overflow-y:auto;z-index:100;
+  scrollbar-width:thin;scrollbar-color:rgba(201,168,76,0.2) transparent;
+}
+.src-dropdown li a{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:10px 16px;
+  font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:.05em;
+  color:rgba(240,234,214,0.7);text-decoration:none;
+  transition:background .15s,color .15s;
+}
+.src-dropdown li a:hover{background:rgba(201,168,76,0.08);color:var(--gold);}
+.src-dropdown li+li{border-top:1px solid rgba(201,168,76,0.06);}
+.src-deck-num{font-size:10px;letter-spacing:.08em;color:rgba(201,168,76,0.35);flex-shrink:0;}
+.src-dropdown li a:hover .src-deck-num{color:rgba(201,168,76,0.6);}
+.src-close-row{border-top:1px solid rgba(201,168,76,0.15)!important;padding:0;}
+.src-close-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  width:100%;padding:12px 16px;
+  background:rgba(201,168,76,0.04);border:none;cursor:pointer;
+  font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(201,168,76,0.5);transition:background .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.src-close-btn:hover{background:rgba(201,168,76,0.1);color:var(--gold);}
+.src-search-empty{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:.1em;color:rgba(240,234,214,0.3);margin-top:8px;}
 
 /* VOLUME HEADER */
 .vol-header{margin-bottom:40px;padding-bottom:20px;border-bottom:2px solid var(--gold);}
@@ -161,43 +209,19 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <!-- QUICK NAV -->
   <div class="quick-nav" id="top">
     <span class="quick-nav-title">Jump to Deck</span>
-    <div class="quick-nav-grid">
-      <a class="qn-link" href="#deck01">Deck 01 &mdash; Water &amp; Energy</a>
-      <a class="qn-link" href="#deck02">Deck 02 &mdash; Space Weather</a>
-      <a class="qn-link" href="#deck03">Deck 03 &mdash; Basic Needs</a>
-      <a class="qn-link" href="#deck04">Deck 04 &mdash; The Root</a>
-      <a class="qn-link" href="#deck05">Deck 05 &mdash; Gov &amp; Corps</a>
-      <a class="qn-link" href="#deck06">Deck 06 &mdash; Social Experiment</a>
-      <a class="qn-link" href="#deck07">Deck 07 &mdash; Surveillance State</a>
-      <a class="qn-link" href="#deck08">Deck 08 &mdash; War on Children</a>
-      <a class="qn-link" href="#deck09">Deck 09 &mdash; War on Men</a>
-      <a class="qn-link" href="#deck10">Deck 10 &mdash; War on Women</a>
-      <a class="qn-link" href="#deck11">Deck 11 &mdash; Music, Arts &amp; History</a>
-      <a class="qn-link" href="#deck12">Deck 12 &mdash; The American Family Unit</a>
-      <a class="qn-link" href="#deck13">Deck 13 &mdash; American Healthcare</a>
-      <a class="qn-link" href="#deck14">Deck 14 &mdash; Mental Health</a>
-      <a class="qn-link" href="#deck15">Deck 15 &mdash; American Finances</a>
-      <a class="qn-link" href="#deck16">Deck 16 &mdash; Addiction &amp; Opioids</a>
-      <a class="qn-link" href="#deck17">Deck 17 &mdash; Gig Economy</a>
-      <a class="qn-link" href="#deck18">Deck 18 &mdash; American Politics</a>
-      <a class="qn-link" href="#deck19">Deck 19 &mdash; Machinery of Power</a>
-      <a class="qn-link" href="#deck20">Deck 20 &mdash; Identity</a>
-      <a class="qn-link" href="#deck21">Deck 21 &mdash; Children &amp; Screens</a>
-      <a class="qn-link" href="#deck22">Deck 22 &mdash; Food System</a>
-      <a class="qn-link" href="#deck23">Deck 23 &mdash; Immigration</a>
-      <a class="qn-link" href="#deck24">Deck 24 &mdash; Criminal Justice</a>
-      <a class="qn-link" href="#deck25">Deck 25 &mdash; Law Enforcement</a>
-      <a class="qn-link" href="#deck26">Deck 26 &mdash; Student Debt</a>
-      <a class="qn-link" href="#deck27">Deck 27 &mdash; Housing</a>
-      <a class="qn-link" href="#deck28">Deck 28 &mdash; Military Industrial Complex</a>
-      <a class="qn-link" href="#deck29">Deck 29 &mdash; National Security State</a>
-      <a class="qn-link" href="#deck30">Deck 30 &mdash; Truth About AI</a>
-      <a class="qn-link" href="#deck31">Deck 31 &mdash; Classroom Crisis</a>
-      <a class="qn-link" href="#deck33">Deck 33 &mdash; Natural Medicine vs. Pharma</a>
-      <a class="qn-link" href="#deck36">Deck 36 &mdash; Hollywood</a>
-      <a class="qn-link" href="#deck38">Deck 38 &mdash; American Farmers</a>
-      <a class="qn-link" href="#deck40">Deck 40 &mdash; Land, Air &amp; Sea</a>
+    <div class="src-search-wrap">
+      <input
+        type="text"
+        id="srcSearchInput"
+        class="src-search-input"
+        placeholder="Search by topic, number, or keyword&hellip;"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="src-search-icon" id="srcToggleBtn" aria-label="Toggle deck list" type="button">&#x25BE;</button>
+      <ul class="src-dropdown" id="srcDropdown" style="display:none;"></ul>
     </div>
+    <p class="src-search-empty" id="srcSearchEmpty" style="display:none;">No decks found.</p>
   </div>
 
   <!-- DISCLOSURE BLURB -->
@@ -2167,6 +2191,57 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <!-- ═══════════════════════════════════ -->
   <!-- DECK 33: NATURAL MEDICINE VS PHARMA -->
   <!-- ═══════════════════════════════════ -->
+
+  <!-- ═══════════════════════════ DECK 32 ═════════════════════════════ -->
+  <div class="deck-section" id="deck32">
+    <div class="deck-header">
+      <div>
+        <p class="deck-num">Deck 32</p>
+        <h2 class="deck-title">The Unraveling</h2>
+        <p class="deck-sub">The Systematic Dismantling of American Community &mdash; and the People Rebuilding It</p>
+      </div>
+      <a href="deck32-the-unraveling.html" class="deck-link">View Deck &rarr;</a>
+    </div>
+    <div class="source-list">
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">Gallup</span><span class="source-date">2020&ndash;2024</span></div>
+        <p class="source-title">Church Attendance Has Declined in Most U.S. Religious Groups</p>
+        <div class="source-stat">Church membership: 70% (1999) &rarr; 47% (2020) &mdash; first time below 50% in 83 years of Gallup tracking</div>
+        <a href="https://news.gallup.com/poll/642548/church-attendance-declined-religious-groups.aspx" class="source-url" target="_blank">gallup.com</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">Northwestern Medill / Local News Initiative</span><span class="source-date">2025</span></div>
+        <p class="source-title">State of Local News Report 2025</p>
+        <div class="source-stat">~3,500 local newspapers closed since 2005; 213 counties with zero coverage; 50M Americans in news deserts</div>
+        <a href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2025/report/" class="source-url" target="_blank">localnewsinitiative.northwestern.edu</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">U.S. Surgeon General</span><span class="source-date">2023</span></div>
+        <p class="source-title">Our Epidemic of Loneliness and Isolation (Advisory)</p>
+        <div class="source-stat">~50% of U.S. adults report measurable loneliness; loneliness = equivalent mortality risk of smoking 15 cigarettes/day</div>
+        <a href="https://www.hhs.gov/surgeongeneral/priorities/connection" class="source-url" target="_blank">hhs.gov</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">AEI / Survey Center on American Life</span><span class="source-date">2024</span></div>
+        <p class="source-title">The Decline in American Friendship; Disconnected: The Growing Class Divide in American Civic Life</p>
+        <div class="source-stat">17% of Americans report zero close friends (up from 3% in 1990); civic life has become &ldquo;a high-end good&rdquo;</div>
+        <a href="https://www.americansurveycenter.org/research/disconnected-places-and-spaces/" class="source-url" target="_blank">americansurveycenter.org</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">Bureau of Labor Statistics</span><span class="source-date">January 2025</span></div>
+        <p class="source-title">Union Members Summary 2024</p>
+        <div class="source-stat">Union membership hit record low of 9.9% in 2024 &mdash; down from 33.5% in 1954. Private sector: 5.9%.</div>
+        <a href="https://www.bls.gov/news.release/union2.nr0.htm" class="source-url" target="_blank">bls.gov</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">Lincoln Institute of Land Policy</span><span class="source-date">2024</span></div>
+        <p class="source-title">Community Land Trust National Survey</p>
+        <div class="source-stat">308 CLTs in 48 states stewarding nearly 44,000 units &mdash; nearly doubled since 2006. Dudley Street: 227 affordable units, 95% crime drop in East Lake.</div>
+        <a href="https://www.lincolninst.edu" class="source-url" target="_blank">lincolninst.edu</a>
+      </div>
+    </div>
+  </div>
+
   <div class="deck-section" id="deck33">
     <div class="deck-header">
       <div>
@@ -2274,6 +2349,57 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <!-- ═══════════════════════════════════ -->
   <!-- DECK 36: HOLLYWOOD                 -->
   <!-- ═══════════════════════════════════ -->
+
+  <!-- ═══════════════════════════ DECK 34 ═════════════════════════════ -->
+  <div class="deck-section" id="deck34">
+    <div class="deck-header">
+      <div>
+        <p class="deck-num">Deck 34</p>
+        <h2 class="deck-title">The Federal Reserve Pt. 1 &mdash; What It Is &amp; Who It Actually Serves</h2>
+        <p class="deck-sub">Six bankers. A private island. Nine days. The 1913 secret that controls your cost of living.</p>
+      </div>
+      <a href="deck34-federal-reserve-pt1.html" class="deck-link">View Deck &rarr;</a>
+    </div>
+    <div class="source-list">
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">Richmond Fed / Federal Reserve History</span><span class="source-date">2015</span></div>
+        <p class="source-title">Jekyll Island: Where the Fed Began (Econ Focus, Q1 2015)</p>
+        <div class="source-stat">Confirmed by participants in their own memoirs: the Federal Reserve Act was drafted in secret by 6 bankers under assumed names at a private Georgia island in November 1910</div>
+        <a href="https://www.richmondfed.org/publications/research/econ_focus/2015/q1/federal_reserve" class="source-url" target="_blank">richmondfed.org</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">St. Louis Fed</span><span class="source-date">Ongoing</span></div>
+        <p class="source-title">Who Owns the Federal Reserve Banks? (In Plain English)</p>
+        <div class="source-stat">Member banks own stock in regional Feds and earn a guaranteed 6% annual dividend. The Fed is &ldquo;both&rdquo; public and private &mdash; by design.</div>
+        <a href="https://www.stlouisfed.org/in-plain-english/who-owns-the-federal-reserve-banks" class="source-url" target="_blank">stlouisfed.org</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">Wikipedia / Federal Reserve</span><span class="source-date">2025</span></div>
+        <p class="source-title">Structure of the Federal Reserve System</p>
+        <div class="source-stat">12 regional banks organized as private corporations; member banks elect 6 of 9 directors; FOMC = 7 governors + 5 rotating regional presidents (NY always votes)</div>
+        <a href="https://en.wikipedia.org/wiki/Structure_of_the_Federal_Reserve_System" class="source-url" target="_blank">wikipedia.org</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">NBC / MS.Now</span><span class="source-date">April 15, 2026</span></div>
+        <p class="source-title">Trump Keeps Pressuring Powell Ahead of Supreme Court&rsquo;s Fed Independence Ruling</p>
+        <div class="source-stat">Trump threatens Powell removal; Supreme Court weighing Lisa Cook firing case; Powell&rsquo;s term ends May 2026; Fed reappointed 11 of 12 regional presidents to block political entry</div>
+        <a href="https://www.ms.now/deadline-white-house/deadline-legal-blog/trump-fire-powell-supreme-court-lisa-cook-fed-independence-ruling" class="source-url" target="_blank">ms.now</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">FRED / St. Louis Fed</span><span class="source-date">Ongoing</span></div>
+        <p class="source-title">Federal Funds Effective Rate (FEDFUNDS)</p>
+        <div class="source-stat">Rate hit near-zero twice (2008&ndash;2015, 2020&ndash;2022), then spiked to 5.25&ndash;5.5% (23-year high) to fight post-COVID inflation before gradual easing in 2024&ndash;2025</div>
+        <a href="https://fred.stlouisfed.org/series/FEDFUNDS" class="source-url" target="_blank">fred.stlouisfed.org</a>
+      </div>
+      <div class="source-entry">
+        <div class="source-meta"><span class="source-pub">NPR Planet Money</span><span class="source-date">December 2013</span></div>
+        <p class="source-title">A Locked Door, A Secret Meeting and the Birth of the Fed</p>
+        <div class="source-stat">Historical account of Jekyll Island: Aldrich, Vanderlip, Warburg, Davison and others wrote the Fed blueprint that became law with only cosmetic political changes</div>
+        <a href="https://www.npr.org/sections/money/2013/12/23/256326325" class="source-url" target="_blank">npr.org</a>
+      </div>
+    </div>
+  </div>
+
   <div class="deck-section" id="deck36">
     <div class="deck-header">
       <div>
@@ -2601,6 +2727,120 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   window.addEventListener('scroll', function() {
     btt.classList.toggle('visible', window.scrollY > 600);
   }, { passive: true });
+</script>
+<script>
+// ── SOURCE DECK SEARCH DROPDOWN ──
+(function() {
+  var input = document.getElementById('srcSearchInput');
+  var dropdown = document.getElementById('srcDropdown');
+  var emptyMsg = document.getElementById('srcSearchEmpty');
+  var toggleBtn = document.getElementById('srcToggleBtn');
+  var isOpen = false;
+
+  var entries = [
+    { num: '01', title: 'Water & Energy', anchor: '#deck01' },
+    { num: '02', title: 'Space Weather', anchor: '#deck02' },
+    { num: '03', title: 'Basic Needs', anchor: '#deck03' },
+    { num: '04', title: 'The Root', anchor: '#deck04' },
+    { num: '05', title: 'Gov & Corps', anchor: '#deck05' },
+    { num: '06', title: 'Social Experiment', anchor: '#deck06' },
+    { num: '07', title: 'Surveillance State', anchor: '#deck07' },
+    { num: '08', title: 'War on Children', anchor: '#deck08' },
+    { num: '09', title: 'War on Men', anchor: '#deck09' },
+    { num: '10', title: 'War on Women', anchor: '#deck10' },
+    { num: '11', title: 'Music, Arts & History', anchor: '#deck11' },
+    { num: '12', title: 'The American Family Unit', anchor: '#deck12' },
+    { num: '13', title: 'American Healthcare', anchor: '#deck13' },
+    { num: '14', title: 'Mental Health', anchor: '#deck14' },
+    { num: '15', title: 'American Finances', anchor: '#deck15' },
+    { num: '16', title: 'Addiction & Opioids', anchor: '#deck16' },
+    { num: '17', title: 'Gig Economy', anchor: '#deck17' },
+    { num: '18', title: 'American Politics', anchor: '#deck18' },
+    { num: '19', title: 'Machinery of Power', anchor: '#deck19' },
+    { num: '20', title: 'Identity', anchor: '#deck20' },
+    { num: '21', title: 'Children & Screens', anchor: '#deck21' },
+    { num: '22', title: 'Food System', anchor: '#deck22' },
+    { num: '23', title: 'Immigration', anchor: '#deck23' },
+    { num: '24', title: 'Criminal Justice', anchor: '#deck24' },
+    { num: '25', title: 'Law Enforcement', anchor: '#deck25' },
+    { num: '26', title: 'Student Debt', anchor: '#deck26' },
+    { num: '27', title: 'Housing', anchor: '#deck27' },
+    { num: '28', title: 'Military Industrial Complex', anchor: '#deck28' },
+    { num: '29', title: 'National Security State', anchor: '#deck29' },
+    { num: '30', title: 'Truth About AI', anchor: '#deck30' },
+    { num: '31', title: 'Classroom Crisis', anchor: '#deck31' },
+    { num: '32', title: 'The Unraveling', anchor: '#deck32' },
+    { num: '33', title: 'Natural Medicine vs. Pharma', anchor: '#deck33' },
+    { num: '34', title: 'Federal Reserve Pt.1', anchor: '#deck34' },
+    { num: '36', title: 'Hollywood', anchor: '#deck36' },
+    { num: '38', title: 'American Farmers', anchor: '#deck38' },
+    { num: '40', title: 'Land, Air & Sea', anchor: '#deck40' }
+  ];
+
+  function openDropdown(q) {
+    dropdown.innerHTML = '';
+    var filtered = (q
+      ? entries.filter(function(e) {
+          return (e.num + ' ' + e.title.toLowerCase()).indexOf(q) !== -1;
+        })
+      : entries.slice()
+    ).sort(function(a, b) { return a.title.localeCompare(b.title); });
+
+    if (filtered.length === 0) {
+      emptyMsg.style.display = 'block';
+      dropdown.style.display = 'none';
+      isOpen = false;
+      toggleBtn.classList.remove('open');
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    filtered.forEach(function(e) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = e.anchor;
+      a.innerHTML = '<span>' + e.title + '</span><span class="src-deck-num">' + e.num + '</span>';
+      a.addEventListener('click', function() { closeDropdown(); });
+      li.appendChild(a);
+      dropdown.appendChild(li);
+    });
+
+    // Close button
+    var closeLi = document.createElement('li');
+    closeLi.className = 'src-close-row';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'src-close-btn';
+    closeBtn.type = 'button';
+    closeBtn.innerHTML = '&#x25B4; Close';
+    closeBtn.addEventListener('click', function(e) { e.stopPropagation(); closeDropdown(); });
+    closeLi.appendChild(closeBtn);
+    dropdown.appendChild(closeLi);
+
+    dropdown.style.display = 'block';
+    isOpen = true;
+    toggleBtn.classList.add('open');
+  }
+
+  function closeDropdown() {
+    dropdown.style.display = 'none';
+    emptyMsg.style.display = 'none';
+    isOpen = false;
+    toggleBtn.classList.remove('open');
+  }
+
+  toggleBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    isOpen ? closeDropdown() : openDropdown(input.value.trim().toLowerCase());
+  });
+  input.addEventListener('focus', function() { openDropdown(this.value.trim().toLowerCase()); });
+  input.addEventListener('input', function() { openDropdown(this.value.trim().toLowerCase()); });
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { input.value = ''; closeDropdown(); input.blur(); }
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.quick-nav')) closeDropdown();
+  });
+})();
 </script>
 </body>
 </html>

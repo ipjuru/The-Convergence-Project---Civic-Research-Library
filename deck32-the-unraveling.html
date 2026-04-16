@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Deck 32 -- The Unraveling: Community Collapse in America - The Convergence Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0D0D;--b2:#111111;--b3:#161616;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.12);--gold-mid:rgba(201,168,76,0.5);
+  --cream:#F0EAD6;--cream-dim:rgba(240,234,214,0.7);--cream-faint:rgba(240,234,214,0.4);
+  --teal:#4C9A8A;--teal-dim:rgba(76,154,138,0.12);--teal-mid:rgba(76,154,138,0.5);
+  --blue:#8B9EC8;--green:#6FA882;--orange:#F4C08A;--red:#C87474;
+}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-size:16px;line-height:1.7;}
+nav{background:rgba(13,13,13,0.97);border-bottom:1px solid #1a1a1a;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-faint);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;background:radial-gradient(ellipse at 50% 40%,rgba(76,154,138,0.07) 0%,transparent 70%);}
+.deck-label{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(32px,6vw,72px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:24px;}
+.hero-title span{color:var(--teal);}
+.hero-sub{font-family:'Crimson Text',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--cream-dim);max-width:720px;margin-bottom:48px;}
+.hero-stat-big{font-family:'Cinzel',serif;font-size:clamp(60px,10vw,120px);font-weight:900;color:var(--teal);line-height:1;}
+.hero-stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-top:8px;max-width:600px;}
+.section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,38px);font-weight:700;color:var(--cream);margin-bottom:24px;line-height:1.2;}
+.section-title span{color:var(--teal);}
+.section-body{font-family:'Crimson Text',serif;font-size:18px;color:var(--cream-dim);margin-bottom:32px;max-width:800px;}
+.section-divider{border:none;border-top:1px solid #1a1a1a;margin:80px 0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:40px 0;}
+.stat-card{background:var(--b3);border:1px solid #1f1f1f;border-top:2px solid var(--teal-mid);padding:28px 24px;border-radius:2px;}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--teal);line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);}
+.stat-note{font-family:'Crimson Text',serif;font-size:14px;font-style:italic;color:var(--cream-faint);margin-top:8px;}
+.chart-wrap{background:var(--b3);border:1px solid #1f1f1f;border-radius:2px;padding:32px;margin:40px 0;}
+.chart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.chart-note{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream-faint);margin-top:16px;}
+canvas{max-height:380px;}
+.callout{border-left:3px solid var(--teal);padding:24px 28px;background:var(--teal-dim);margin:40px 0;border-radius:0 2px 2px 0;}
+.callout p{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--cream-dim);}
+.callout-source{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);margin-top:12px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:40px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.data-table{width:100%;border-collapse:collapse;margin:40px 0;}
+.data-table th{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid #2a2a2a;padding:12px 16px;text-align:left;}
+.data-table td{font-family:'Crimson Text',serif;font-size:16px;color:var(--cream-dim);padding:14px 16px;border-bottom:1px solid #161616;}
+.data-table tr:hover td{background:var(--b3);}
+.rebuild-card{background:var(--b3);border:1px solid #222;border-left:3px solid var(--green);padding:28px;border-radius:0 2px 2px 0;margin-bottom:20px;}
+.rebuild-title{font-family:'Cinzel',serif;font-size:16px;color:var(--green);margin-bottom:10px;}
+.rebuild-body{font-family:'Crimson Text',serif;font-size:17px;color:var(--cream-dim);}
+.sources-section{background:var(--b2);border-top:1px solid #1a1a1a;padding:48px 32px;margin-top:80px;}
+.sources-inner{max-width:1100px;margin:0 auto;}
+.sources-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.source-item{font-family:'Raleway',sans-serif;font-size:13px;color:var(--cream-faint);margin-bottom:8px;line-height:1.6;}
+.source-item a{color:var(--gold-mid);text-decoration:none;}
+.source-item a:hover{color:var(--gold);}
+.deck-footer{background:var(--b2);border-top:1px solid #1f1f1f;padding:48px 32px;text-align:center;}
+.footer-nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.footer-nav a{font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-mid);text-decoration:none;border:1px solid #2a2a2a;padding:10px 20px;transition:all 0.2s;}
+.footer-nav a:hover{color:var(--gold);border-color:var(--gold);}
+.bmc-bar-footer{display:flex;align-items:center;gap:20px;justify-content:center;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.15);border-radius:2px;padding:20px 28px;margin:24px auto;max-width:700px;flex-wrap:wrap;}
+.bmc-icon-f{font-size:28px;}
+.bmc-text-f{flex:1;min-width:200px;text-align:left;}
+.bmc-headline-f{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:4px;}
+.bmc-sub-f{font-family:'Raleway',sans-serif;font-size:11px;color:var(--cream-faint);}
+.bmc-btn-f{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:10px 20px;text-decoration:none;border-radius:2px;white-space:nowrap;}
+.footer-copy-bar{font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cream-faint);text-transform:uppercase;margin-top:16px;}
+.back-top{position:fixed;bottom:32px;right:32px;width:44px;height:44px;background:var(--bg);border:1px solid var(--gold-mid);color:var(--gold);font-size:20px;display:flex;align-items:center;justify-content:center;text-decoration:none;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:999;}
+.back-top.visible{opacity:1;pointer-events:auto;}
+</style>
+</head>
+<body id="top">
+
+<nav>
+  <a href="index.html" class="nav-logo">The Convergence Project</a>
+  <div class="nav-links">
+    <a href="index.html">Library</a>
+    <a href="sources.html">Sources</a>
+    <a href="updates.html">Updates</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="deck-label">Deck 32 &mdash; America&rsquo;s Lost Mind / Vol. 5</div>
+  <h1 class="hero-title">The<br><span>Unraveling</span></h1>
+  <p class="hero-sub">The Systematic Dismantling of American Community &mdash; and the People Rebuilding It from the Ground Up</p>
+  <div class="hero-stat-big">17%</div>
+  <div class="hero-stat-label">Of Americans Report Having Zero Close Friends &mdash; Up From 3% in 1990. Nearly 1 in 6 Adults. All Alone.</div>
+</div>
+
+<!-- SECTION 1: THIRD PLACES -->
+<section class="section">
+  <h2 class="section-title">The Places Are Gone: <span>Death of the Third Place</span></h2>
+  <p class="section-body">Third places &mdash; the spaces between home and work where Americans once gathered, argued, laughed, organized, and belonged &mdash; have been nearly erased in a single generation. Churches. Union halls. Bowling leagues. Barbershops. VFW posts. Elks lodges. Rotary clubs. These weren&rsquo;t just social niceties. They were the infrastructure of democracy. And they are collapsing across every category, simultaneously.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">47%</div>
+      <div class="stat-label">Americans Belonging to a Church, Synagogue, or Mosque (2020)</div>
+      <div class="stat-note">First time below 50% since Gallup began measuring in 1937. Was 70% in 1999. Source: Gallup</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">88%</div>
+      <div class="stat-label">Drop in Bowling League Membership Since Peak</div>
+      <div class="stat-note">9 million members in the 1970s &rarr; 1.1 million in 2024. Bowling centers: 11,500 &rarr; ~3,000. Source: USBC</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">79%</div>
+      <div class="stat-label">Collapse in Freemason Membership Since 1959</div>
+      <div class="stat-note">4.1 million (1959) &rarr; 869,429 (2023). VFW lost 1 million members in 27 years. Elks down 45%. Source: MSANA</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">9.9%</div>
+      <div class="stat-label">Union Membership Rate (2024 &mdash; Record Low)</div>
+      <div class="stat-note">Down from 33.5% in 1954. Private sector: just 5.9%. Each lost local = a vanished community hub. Source: BLS 2025</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>&ldquo;We&rsquo;ve gone from 70% of Americans belonging to a house of worship in 1999 to 47% in 2020 &mdash; and the decline accelerated. Projections estimate 100,000 churches could close by 2050. That&rsquo;s not just souls lost to a pew. That&rsquo;s 100,000 food pantries, after-school programs, grief counseling rooms, and community meeting spaces that will never reopen.&rdquo;</p>
+    <div class="callout-source">Gallup, 2020; Lifeway Research 2021; Medium / Backyard Church 2023</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">The Collapse of America&rsquo;s Civic Organizations: Membership Decline (%)</div>
+    <canvas id="c1"></canvas>
+    <div class="chart-note">Sources: Gallup (church membership); USBC (bowling leagues); Masonic Service Association of North America (Freemasons); BLS (union membership); National PTA (PTA membership). All declines measured from respective peak years to most recent available data.</div>
+  </div>
+
+  <p class="section-body">Public libraries &mdash; still standing in name &mdash; have been gutted in practice. New York City library visits fell <strong>47%</strong> in a decade. Los Angeles down <strong>74%</strong>. Libraries hold <strong>162 million fewer books</strong> than in 2010. Enclosed shopping malls, which served as informal third places for suburban America, have dropped from a peak of ~2,500 to an estimated <strong>700&ndash;1,200</strong> today. Capital One Shopping research projects up to <strong>87% of large malls</strong> may close over the next decade.</p>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 2: LOCAL NEWS DESERTS -->
+<section class="section">
+  <h2 class="section-title">The News Is Gone: <span>Local Journalism in Freefall</span></h2>
+  <p class="section-body">When local news disappears, communities lose the ability to hold power accountable, catch corruption early, or even know what their neighbors are facing. It is the least visible and most consequential thread in the unraveling. Since 2005, approximately <strong>3,500 local newspapers have closed</strong> &mdash; nearly 40% of all local papers in America. They continue disappearing at a rate of more than <strong>two per week</strong>.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">~3,500</div>
+      <div class="stat-label">Local Newspapers Closed Since 2005</div>
+      <div class="stat-note">~40% of all local papers. Closing at 2+ per week. Print circulation down 70%&ndash;80M copies lost. Source: Medill/Northwestern 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">213</div>
+      <div class="stat-label">U.S. Counties With Zero Local News Coverage</div>
+      <div class="stat-note">1,524 more have only one remaining source. 80% of news desert counties are rural. 50M Americans in the dark. Source: Medill 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">82%</div>
+      <div class="stat-label">Decline in Newspaper Industry Employment Since 1990</div>
+      <div class="stat-note">450,000 (1990) &rarr; 78,800 (December 2025). Newsroom staff alone fell 57% between 2008 and 2020. Source: BLS; Pew Research</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">50%</div>
+      <div class="stat-label">Of Daily Newspaper Circulation Controlled by Hedge Funds</div>
+      <div class="stat-note">Alden Global Capital alone owns ~200 papers. Documented playbook: fire 50%+ staff, extract 30% profit margins. Source: Poynter 2023</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>Research is unambiguous: when local papers close, democracy degrades. Voter turnout drops <strong>4.35 percentage points</strong> per closed paper. Municipal bond yields rise 5.5&ndash;10.6 basis points &mdash; costing taxpayers an average of <strong>$650,000 per bond issue</strong> due to reduced fiscal oversight. And federal corruption convictions increase in areas that go dark.</p>
+    <div class="callout-source">Illinois State University; Gao, Lee &amp; Murphy &mdash; &ldquo;Financing Dies in Darkness?&rdquo; Journal of Financial Economics, 2020; George Mason University, 2024</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">U.S. Newsroom Employment: 1990&ndash;2025 (Thousands)</div>
+    <canvas id="c2"></canvas>
+    <div class="chart-note">Source: Bureau of Labor Statistics (BLS); Pew Research Center &mdash; &ldquo;U.S. Newsroom Employment Has Fallen 26% Since 2008&rdquo; (2021). Newspaper-specific newsroom jobs fell 57% between 2008 and 2020. Total industry employment includes all newspaper workers, not just editorial. Digital outlet growth (695 standalone digital outlets, Medill 2025) has not offset the loss &mdash; concentrated in metro areas and understaffed.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 3: LONELINESS EPIDEMIC -->
+<section class="section">
+  <h2 class="section-title">The Friends Are Gone: <span>America&rsquo;s Loneliness Epidemic</span></h2>
+  <p class="section-body">In May 2023, U.S. Surgeon General Vivek Murthy issued an 82-page advisory declaring social disconnection a public health crisis on par with tobacco. The headline statistic tells the story: the share of Americans with <em>zero</em> close friends has increased nearly sixfold since 1990. We are not just lonelier. We are sicker, dying younger, and more vulnerable to radicalization, manipulation, and despair &mdash; because we have no one to call.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">3% &rarr; 17%</div>
+      <div class="stat-label">Americans With Zero Close Friends (1990 &rarr; 2024)</div>
+      <div class="stat-note">Nearly 1 in 6 adults. The share with 10+ friends collapsed from 33% (1990) to 13% (2021). Source: AEI / Survey Center on American Life</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">15&times;</div>
+      <div class="stat-label">Cigarettes Per Day &mdash; Equivalent Mortality Risk of Loneliness</div>
+      <div class="stat-note">Dr. Julianne Holt-Lunstad, meta-analysis of 148 studies / 308,849 participants. Also: +29% heart disease risk, +32% stroke risk. Source: PLoS Medicine 2010</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">50%</div>
+      <div class="stat-label">U.S. Adults Experiencing Measurable Loneliness (Pre-COVID)</div>
+      <div class="stat-note">WHO 2025 Commission estimated loneliness kills ~871,000 people annually &mdash; 100 deaths per hour globally. Source: Surgeon General Advisory 2023; WHO 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$154B</div>
+      <div class="stat-label">Annual Cost of Loneliness to U.S. Employers</div>
+      <div class="stat-note">Lost productivity, absenteeism. Medicare spends est. $6.7B/year in excess costs from elderly isolation alone. Source: Cigna; AARP Foundation</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>Young men have been hit hardest. <strong>15% of men now report zero close friends</strong> &mdash; a fivefold increase from 3% in 1990. Among men under 30, <strong>28% report no close social connections</strong>. Gen Z is the loneliest generation: <strong>67% report being lonely</strong>, compared to 44% of Boomers. And the class divide is severe: <strong>35% of Black Americans without a college degree</strong> report having no close friends.</p>
+    <div class="callout-source">AEI Survey Center on American Life, 2024; Cigna Loneliness Index 2025</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Americans Reporting Zero Close Friends: 1990 vs. 2021 vs. 2024 (%)</div>
+    <canvas id="c3"></canvas>
+    <div class="chart-note">Source: Survey Center on American Life (AEI), &ldquo;The Decline in American Friendship&rdquo; (2021, 2024 updates). Men vs. women breakdowns confirm the gendered dimension of the crisis. Overall share with zero close friends: 3% (1990) &rarr; 12% (2021) &rarr; 17% (2024).</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 4: CIVIC COLLAPSE -->
+<section class="section">
+  <h2 class="section-title">The Participation Is Gone: <span>Civic Life in Retreat</span></h2>
+  <p class="section-body">The machinery of self-governance is crumbling from the bottom up. Presidential elections capture attention every four years. But the decisions that most directly affect daily life &mdash; school boards, water districts, city councils, zoning commissions &mdash; are being made by a tiny minority, because almost no one shows up.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="stat-card" style="margin-bottom:20px;">
+        <div class="stat-number">~20%</div>
+        <div class="stat-label">Average Mayoral Election Turnout</div>
+        <div class="stat-note">20 of 30 largest cities: below 15%. School board elections: routinely 5&ndash;10%. ~500,000 elected officials chosen by tiny minorities. Source: Portland State / Knight Foundation; Center for Effective Government</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">23.2%</div>
+        <div class="stat-label">U.S. Volunteer Rate (2021 Historic Low)</div>
+        <div class="stat-note">Steepest single-year decline since tracking began in 2002. Median volunteer hours fell from 40 to 24 annually between 2017 and 2023. Source: Census / AmeriCorps</div>
+      </div>
+    </div>
+    <div>
+      <div class="stat-card" style="margin-bottom:20px;">
+        <div class="stat-number">28%</div>
+        <div class="stat-label">Americans Who Trust Mass Media (Gallup 2025)</div>
+        <div class="stat-note">Down from 72% in the 1970s. Congress: 9%. Federal government: 28%. Only 3 of 17 tracked institutions earn majority confidence. Source: Gallup 2024&ndash;2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">373,000</div>
+        <div class="stat-label">HOAs in the U.S. (2025)</div>
+        <div class="stat-note">Up from 10,000 in 1970. 53% of homeowners now under HOA governance. HOAs are enforcement structures, not civic participation. Source: Foundation for Community Association Research; NAR</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>The AEI&rsquo;s 2024 survey of 6,500+ Americans concluded bluntly: <strong>&ldquo;Associational life has apparently become a high-end good.&rdquo;</strong> Americans without college degrees are twice as likely to have no access to any civic gathering space &mdash; 28% versus 14% for college graduates. The people who would benefit most from community are the least able to participate in it.</p>
+    <div class="callout-source">AEI / Survey Center on American Life &mdash; &ldquo;Disconnected: The Growing Class Divide in American Civic Life,&rdquo; 2024</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 5: ECONOMIC PRECARITY -->
+<section class="section">
+  <h2 class="section-title">The Time Is Gone: <span>When Survival Leaves No Room for Community</span></h2>
+  <p class="section-body">Economic precarity doesn&rsquo;t just impoverish individuals &mdash; it destroys the time, energy, and stability required to show up for a community. When you&rsquo;re working two jobs, behind on rent, and 40% likely to collapse over a $400 emergency, you don&rsquo;t have capacity to run for school board, volunteer at the food pantry, or coach little league. Research from Cambridge and Oxford calls this the &ldquo;bandwidth tax&rdquo; of scarcity &mdash; and it falls hardest on those who need community most.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">9.3M</div>
+      <div class="stat-label">Americans Working Multiple Jobs (November 2025 Record)</div>
+      <div class="stat-note">Highest since BLS tracking began in 1994. 53&ndash;67% of Americans living paycheck to paycheck depending on survey. Source: BLS; Ramsey Solutions; PNC 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">43.5M</div>
+      <div class="stat-label">Cost-Burdened Households (33% of All Households)</div>
+      <div class="stat-note">50.3% of all renters cost-burdened. Median home price: $412,500 (up 60% since 2019). Source: Harvard JCHS 2025; ACS 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">39,000+</div>
+      <div class="stat-label">Dollar Stores Now in America</div>
+      <div class="stat-note">Dollar General: 20,959 locations alone. For every 3 dollar stores, ~1 independent grocer disappears. Fresh produce purchases fall 4&ndash;7.4%. Source: Statista; UCLA Anderson Review</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">52.9&cent;</div>
+      <div class="stat-label">Of Every Dollar Spent Locally That Recirculates in the Community</div>
+      <div class="stat-note">Versus 13.6&cent; at a chain store. When Main Street dies, the community&rsquo;s economic circulatory system dies with it. Source: Civic Economics / ILSR &ldquo;Indie Impact&rdquo;</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SECTION 6: THE REBUILD -->
+<section class="section">
+  <h2 class="section-title">But the <span>Unraveling Is Not the End</span></h2>
+  <p class="section-body">Here is what the data also shows: the same communities hit hardest are the ones rebuilding fastest. Not waiting for institutions. Not waiting for permission. Neighbors organizing, land being reclaimed, workers taking ownership, people choosing each other. It is not enough yet &mdash; not at scale, not everywhere. But the architecture of the rebuild exists, and it works wherever it is tried.</p>
+
+  <div class="rebuild-card">
+    <div class="rebuild-title">Mutual Aid Networks: 50 &rarr; 800+ (One Year)</div>
+    <div class="rebuild-body">COVID-19 triggered an explosion of grassroots mutual aid &mdash; from roughly 50 to 800+ tracked groups across 48 states by May 2020. Bed-Stuy Strong in Brooklyn supported 28,000 people and redistributed $1.2 million in grassroots donations without a single government dollar. Most networks are still operating &mdash; and surged again during 2025 government shutdowns and SNAP cuts. <em>Source: Mutual Aid Hub / Town Hall Project</em></div>
+  </div>
+
+  <div class="rebuild-card">
+    <div class="rebuild-title">Community Land Trusts: Nearly Doubled Since 2006</div>
+    <div class="rebuild-body">308 CLTs now operate in 48 states, collectively stewarding nearly 44,000 housing units. The Dudley Street Neighborhood Initiative in Boston &mdash; the only community organization ever granted eminent domain authority &mdash; transformed 64 acres of abandoned land into 227 affordable units, urban farms, and parks serving 24,000 people. Burlington, Vermont&rsquo;s Champlain Housing Trust provides 3,000+ homes at 30&ndash;400% below market rate. <em>Source: Lincoln Institute, 2024</em></div>
+  </div>
+
+  <div class="rebuild-card">
+    <div class="rebuild-title">Worker Cooperatives: Tripled in a Decade</div>
+    <div class="rebuild-body">1,300 worker co-ops now operate nationwide, generating $806 million in revenue with an average pay ratio of 1.5:1 (versus 290:1 at typical corporations). The majority of worker-owners are women; nearly half are people of color. Cooperatives overall &mdash; 30,000+ in the U.S. &mdash; account for 2 million jobs and $700 billion annually. <em>Source: USFWC 2024; USDA 2024</em></div>
+  </div>
+
+  <div class="rebuild-card">
+    <div class="rebuild-title">East Lake, Atlanta: The Proof of Concept</div>
+    <div class="rebuild-body">In the 1990s, East Lake Meadows was one of Atlanta&rsquo;s most dangerous public housing projects. Through a holistic model combining mixed-income housing, cradle-to-college education, and community wellness, violent crime dropped 95%. Drew Charter School now ranks in the top 10 in its district despite serving one of the largest low-income populations. The Purpose Built Communities model has been replicated in 28 organizations across 15 states. <em>Source: East Lake Foundation; Purpose Built Communities</em></div>
+  </div>
+
+  <div class="rebuild-card">
+    <div class="rebuild-title">Farmers Markets: 340 (1970) &rarr; 8,771 (2019)</div>
+    <div class="rebuild-body">That&rsquo;s more locations than all Walmart and Sam&rsquo;s Club stores combined. The Buy Nothing Project reached 7.5 million members in 128,000 community groups across 44 countries. Over 100 cities now practice participatory budgeting &mdash; directing $360 million+ in public funds through direct democratic processes. The people are not disengaged. They have been abandoned. Given the structure to act, they act. <em>Source: USDA AMS; Buy Nothing Project; Democracy Collaborative</em></div>
+  </div>
+
+  <div class="callout">
+    <p>90% of Gen Zers say they care deeply about their communities. 61% volunteer at least once a year. 76% are eager to create change &mdash; but 32% don&rsquo;t know where to begin. The generation most afflicted by loneliness is also the one most motivated to rebuild. The idea that young people are disengaged is a myth. What they lack is not will. It&rsquo;s infrastructure, invitation, and models that work.</p>
+    <div class="callout-source">Institute for Citizens &amp; Scholars; DoSomething Strategic; United Way NCA Gen Z Activism Survey</div>
+  </div>
+</section>
+
+<!-- DATA TABLE -->
+<section class="section" style="padding-top:0;">
+  <h2 class="section-title" style="margin-bottom:8px;">The <span>Full Receipt</span></h2>
+  <p class="section-body">Every number below is a community that was &mdash; and may yet be again.</p>
+  <table class="data-table">
+    <thead>
+      <tr><th>Category</th><th>Then</th><th>Now</th><th>Source</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Church membership (Gallup)</td><td>70% (1999)</td><td>47% (2020)</td><td>Gallup</td></tr>
+      <tr><td>Bowling league membership (USBC)</td><td>9M (1970s)</td><td>1.1M (2024)</td><td>USBC</td></tr>
+      <tr><td>Freemason membership</td><td>4.1M (1959)</td><td>869,429 (2023)</td><td>MSANA</td></tr>
+      <tr><td>Union membership rate (BLS)</td><td>33.5% (1954)</td><td>9.9% (2024)</td><td>BLS</td></tr>
+      <tr><td>Local newspapers closed since 2005</td><td>&mdash;</td><td>~3,500 (40% of all)</td><td>Medill/Northwestern 2025</td></tr>
+      <tr><td>Newspaper industry employment</td><td>450K (1990)</td><td>78,800 (2025)</td><td>BLS</td></tr>
+      <tr><td>Americans with zero close friends</td><td>3% (1990)</td><td>17% (2024)</td><td>AEI / SCAL</td></tr>
+      <tr><td>Adults experiencing loneliness</td><td>&mdash;</td><td>~50% of U.S. adults</td><td>Surgeon General 2023</td></tr>
+      <tr><td>Average mayoral election turnout</td><td>&mdash;</td><td>~20% national avg</td><td>Portland State Univ.</td></tr>
+      <tr><td>U.S. volunteer rate</td><td>~30% (pre-pandemic)</td><td>23.2% (2021 low)</td><td>Census/AmeriCorps</td></tr>
+      <tr><td>Trust in mass media (Gallup)</td><td>72% (1970s)</td><td>28% (2025)</td><td>Gallup</td></tr>
+      <tr><td>Cost-burdened households</td><td>&mdash;</td><td>43.5M (33% of all)</td><td>Harvard JCHS 2025</td></tr>
+      <tr><td>Dollar store locations</td><td>&mdash;</td><td>39,000+</td><td>Statista 2025</td></tr>
+      <tr><td>Community land trusts</td><td>162 (2006)</td><td>308 (2024)</td><td>Lincoln Institute</td></tr>
+      <tr><td>Worker cooperatives</td><td>&mdash;</td><td>1,300 (tripled in a decade)</td><td>USFWC 2024</td></tr>
+      <tr><td>Farmers markets</td><td>340 (1970)</td><td>8,771 (2019)</td><td>USDA</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SOURCES -->
+<div class="sources-section">
+  <div class="sources-inner">
+    <div class="sources-title">Primary Sources &amp; Research</div>
+    <div class="source-item">Gallup &mdash; Church Attendance Has Declined in Most U.S. Religious Groups (2020&ndash;2024) &mdash; <a href="https://news.gallup.com/poll/642548/church-attendance-declined-religious-groups.aspx" target="_blank">gallup.com</a></div>
+    <div class="source-item">USBC (United States Bowling Congress) &mdash; Membership Statistics 2024</div>
+    <div class="source-item">Masonic Service Association of North America (MSANA) &mdash; Annual Membership Statistics 2023</div>
+    <div class="source-item">Bureau of Labor Statistics &mdash; Union Members Summary, January 2025 &mdash; <a href="https://www.bls.gov" target="_blank">bls.gov</a></div>
+    <div class="source-item">Northwestern Medill School of Journalism &mdash; State of Local News Report 2025 &mdash; <a href="https://localnewsinitiative.northwestern.edu" target="_blank">localnewsinitiative.northwestern.edu</a></div>
+    <div class="source-item">Pew Research Center &mdash; U.S. Newsroom Employment Has Fallen 26% Since 2008 (2021) &mdash; <a href="https://pewresearch.org" target="_blank">pewresearch.org</a></div>
+    <div class="source-item">U.S. Surgeon General Advisory &mdash; Our Epidemic of Loneliness and Isolation (2023) &mdash; <a href="https://www.hhs.gov/surgeongeneral/priorities/connection" target="_blank">hhs.gov</a></div>
+    <div class="source-item">AEI Survey Center on American Life &mdash; The Decline in American Friendship; Disconnected: The Growing Class Divide (2021, 2024)</div>
+    <div class="source-item">Holt-Lunstad, J. et al. &mdash; Social Relationships and Mortality Risk: A Meta-Analytic Review. <em>PLoS Medicine</em>, 2010</div>
+    <div class="source-item">WHO Commission on Social Connection &mdash; Social Connection Linked to Improved Health (June 2025) &mdash; <a href="https://www.who.int" target="_blank">who.int</a></div>
+    <div class="source-item">Gao, Lee &amp; Murphy &mdash; Financing Dies in Darkness? Impact of Newspaper Closures on Public Finance. <em>Journal of Financial Economics</em>, 2020</div>
+    <div class="source-item">Harvard Joint Center for Housing Studies &mdash; Housing Unaffordability Soared to New Highs in 2024 (2025)</div>
+    <div class="source-item">UCLA Anderson Review &mdash; How Dollar Stores Contribute to Food Deserts &mdash; <a href="https://anderson-review.ucla.edu" target="_blank">anderson-review.ucla.edu</a></div>
+    <div class="source-item">ILSR (Institute for Local Self-Reliance) &mdash; Local Multiplier Effect; Independent Retail Research &mdash; <a href="https://ilsr.org" target="_blank">ilsr.org</a></div>
+    <div class="source-item">Lincoln Institute of Land Policy &mdash; Community Land Trusts National Survey 2024</div>
+    <div class="source-item">U.S. Federation of Worker Cooperatives (USFWC) &mdash; State of the Sector Report 2025</div>
+    <div class="source-item">East Lake Foundation / Purpose Built Communities &mdash; Impact Reports 2024</div>
+    <div class="source-item">DoSomething Strategic &mdash; What Gen Z Wants: The Future of Volunteerism (2024)</div>
+    <div class="source-item">Democracy Collaborative &mdash; Participatory Budgeting National Data 2025</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="deck-footer">
+  <div class="footer-nav">
+    <a href="deck31-classroom-crisis.html">&larr; Deck 31: Classroom Crisis</a>
+    <a href="index.html">Full Library</a>
+    <a href="deck33-natural-medicine-vs-pharma.html">Deck 33: Natural Medicine &rarr;</a>
+  </div>
+  <div class="bmc-bar-footer">
+    <div class="bmc-icon-f">☕</div>
+    <div class="bmc-text-f">
+      <div class="bmc-headline-f">This Research Is Free. The Work Is Not.</div>
+      <div class="bmc-sub-f">Every deck is sourced, verified, and built by hand. Help keep the lights on.</div>
+    </div>
+    <a href="https://buymeacoffee.com/convergenceproject" target="_blank" class="bmc-btn-f">Support the Project</a>
+  </div>
+  <div class="footer-copy-bar">The Convergence Project &mdash; The Research Is the Poem Before the Poem</div>
+</footer>
+
+<a class="back-top" id="backTop" href="#top" aria-label="Back to top">&#x2191;</a>
+
+<script>
+// Back to top
+const btn = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  btn.classList.toggle('visible', window.scrollY > 600);
+}, { passive: true });
+
+// Chart 1: Civic org collapse
+new Chart(document.getElementById('c1'), {
+  type: 'bar',
+  data: {
+    labels: ['Church Members\n(1999→2020)', 'Bowling Leagues\n(Peak→2024)', 'Freemasons\n(1959→2023)', 'Union Members\n(1954→2024)', 'PTA Members\n(1962→Today)'],
+    datasets: [{
+      label: '% Decline From Peak',
+      data: [33, 88, 79, 70, 67],
+      backgroundColor: ['rgba(76,154,138,0.7)','rgba(76,154,138,0.7)','rgba(76,154,138,0.7)','rgba(76,154,138,0.7)','rgba(76,154,138,0.7)'],
+      borderColor: ['rgba(76,154,138,1)','rgba(76,154,138,1)','rgba(76,154,138,1)','rgba(76,154,138,1)','rgba(76,154,138,1)'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `${ctx.parsed.y}% decline from peak` }
+      }
+    },
+    scales: {
+      x: { ticks: { color: 'rgba(240,234,214,0.5)', font: { family: 'Raleway', size: 11 } }, grid: { color: '#1a1a1a' } },
+      y: {
+        beginAtZero: true, max: 100,
+        ticks: { color: 'rgba(240,234,214,0.5)', font: { family: 'Raleway', size: 11 }, callback: v => v + '%' },
+        grid: { color: '#1a1a1a' }
+      }
+    }
+  }
+});
+
+// Chart 2: Newsroom employment
+new Chart(document.getElementById('c2'), {
+  type: 'line',
+  data: {
+    labels: ['1990','1995','2000','2005','2008','2010','2015','2020','2025'],
+    datasets: [{
+      label: 'Newspaper Industry Employment (thousands)',
+      data: [450, 420, 410, 375, 340, 300, 230, 140, 78.8],
+      borderColor: 'rgba(76,154,138,1)',
+      backgroundColor: 'rgba(76,154,138,0.08)',
+      tension: 0.4,
+      fill: true,
+      pointBackgroundColor: 'rgba(76,154,138,1)',
+      pointRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: 'rgba(240,234,214,0.7)', font: { family: 'Raleway', size: 12 } } }
+    },
+    scales: {
+      x: { ticks: { color: 'rgba(240,234,214,0.5)', font: { family: 'Raleway', size: 11 } }, grid: { color: '#1a1a1a' } },
+      y: {
+        ticks: { color: 'rgba(240,234,214,0.5)', font: { family: 'Raleway', size: 11 }, callback: v => v + 'K' },
+        grid: { color: '#1a1a1a' }
+      }
+    }
+  }
+});
+
+// Chart 3: Zero close friends
+new Chart(document.getElementById('c3'), {
+  type: 'bar',
+  data: {
+    labels: ['1990', '2021', '2024'],
+    datasets: [{
+      label: '% Reporting Zero Close Friends',
+      data: [3, 12, 17],
+      backgroundColor: ['rgba(76,154,138,0.5)','rgba(76,154,138,0.65)','rgba(76,154,138,0.85)'],
+      borderColor: 'rgba(76,154,138,1)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `${ctx.parsed.y}% report zero close friends` }
+      }
+    },
+    scales: {
+      x: { ticks: { color: 'rgba(240,234,214,0.5)', font: { family: 'Raleway', size: 13 } }, grid: { color: '#1a1a1a' } },
+      y: {
+        beginAtZero: true, max: 25,
+        ticks: { color: 'rgba(240,234,214,0.5)', font: { family: 'Raleway', size: 11 }, callback: v => v + '%' },
+        grid: { color: '#1a1a1a' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

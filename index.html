@@ -167,6 +167,111 @@ body::before {
 }
 .jump-deck-link:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); color: var(--gold); }
 
+/* ── DECK SEARCH BAR ── */
+.deck-search-wrap {
+  position: relative; margin-bottom: 16px;
+}
+.deck-search-input {
+  width: 100%;
+  background: var(--black);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--cream);
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  letter-spacing: .05em;
+  padding: 12px 44px 12px 16px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.deck-search-input::placeholder { color: rgba(240,234,214,0.25); }
+.deck-search-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.15);
+}
+.deck-search-icon {
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 48px;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(201,168,76,0.5);
+  font-size: 22px;
+  cursor: pointer;
+  background: none; border: none; padding: 0;
+  transition: color .2s, transform .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.deck-search-icon:hover { color: var(--gold); }
+.deck-search-icon.open {
+  transform: rotate(180deg);
+  color: var(--gold);
+}
+.deck-search-empty {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px; letter-spacing: .1em;
+  color: rgba(240,234,214,0.3);
+  margin-top: 8px;
+}
+.jump-deck-link.hidden { display: none; }
+.jump-deck-link.match-highlight {
+  border-color: rgba(201,168,76,0.4);
+  color: var(--gold);
+}
+/* ── DROPDOWN ── */
+.deck-dropdown {
+  position: absolute; top: 100%; left: 0; right: 0;
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-top: none;
+  list-style: none;
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 100;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,0.2) transparent;
+}
+.deck-dropdown li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  letter-spacing: .05em;
+  color: rgba(240,234,214,0.7);
+  text-decoration: none;
+  transition: background .15s, color .15s;
+}
+.deck-dropdown li a:hover {
+  background: rgba(201,168,76,0.08);
+  color: var(--gold);
+}
+.deck-dropdown li + li {
+  border-top: 1px solid rgba(201,168,76,0.06);
+}
+.deck-num {
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: rgba(201,168,76,0.35);
+  flex-shrink: 0;
+}
+.deck-dropdown li a:hover .deck-num { color: rgba(201,168,76,0.6); }
+.dropdown-close-row {
+  border-top: 1px solid rgba(201,168,76,0.15) !important;
+  padding: 0;
+}
+.dropdown-close-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; padding: 12px 16px;
+  background: rgba(201,168,76,0.04);
+  border: none; cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(201,168,76,0.5);
+  transition: background .15s, color .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.dropdown-close-btn:hover { background: rgba(201,168,76,0.1); color: var(--gold); }
+
 /* ── SERIES SECTION ── */
 .series {
   margin-bottom: 64px;
@@ -475,50 +580,21 @@ body::before {
   </div>
 
   <!-- ── JUMP TO DECK ── -->
-  <div class="jump-deck-section">
+  <div class="jump-deck-section" id="deck-search-section">
     <span class="jump-deck-label">Jump to Deck</span>
-    <div class="jump-deck-grid">
-      <a class="jump-deck-link" href="deck16-addiction-opioid.html">16 &mdash; Addiction &amp; Opioids</a>
-      <a class="jump-deck-link" href="deck15-american-finances.html">15 &mdash; American Pockets</a>
-      <a class="jump-deck-link" href="deck18-american-politics.html">18 &mdash; American Politics</a>
-      <a class="jump-deck-link" href="deck11-music-arts-history.html">11 &mdash; Arts, Music &amp; Film</a>
-      <a class="jump-deck-link" href="deck3-basic-needs.html">03 &mdash; Basic Needs</a>
-      <a class="jump-deck-link" href="deck21-children-screens.html">21 &mdash; Children &amp; Screens</a>
-      <a class="jump-deck-link" href="deck24-criminal-justice.html">24 &mdash; Criminal Justice</a>
-      <a class="jump-deck-link" href="deck12-family-unit.html">12 &mdash; Family Unit</a>
-      <a class="jump-deck-link" href="deck27-housing.html">27 &mdash; Housing</a>
-      <a class="jump-deck-link" href="deck22-food-system.html">22 &mdash; Food System</a>
-      <a class="jump-deck-link" href="deck17-gig-economy.html">17 &mdash; Gig Economy</a>
-      <a class="jump-deck-link" href="deck5-wars-and-corps.html">05 &mdash; Gov &amp; Corps</a>
-      <a class="jump-deck-link" href="deck13-american-healthcare.html">13 &mdash; Healthcare</a>
-      <a class="jump-deck-link" href="deck23-immigration.html">23 &mdash; Immigration</a>
-      <a class="jump-deck-link" href="deck20-lgbtq.html">20 &mdash; Identity</a>
-      <a class="jump-deck-link" href="deck25-law-enforcement.html">25 &mdash; Law Enforcement</a>
-      <a class="jump-deck-link" href="deck19-machinery-of-power.html">19 &mdash; Machinery of Power</a>
-      <a class="jump-deck-link" href="deck14-mental-health.html">14 &mdash; Mental Health</a>
-      <a class="jump-deck-link" href="deck6-social-experiment.html">06 &mdash; Social Experiment</a>
-      <a class="jump-deck-link" href="deck2-space-weather.html">02 &mdash; Space Weather</a>
-      <a class="jump-deck-link" href="deck7-surveillance-state.html">07 &mdash; Surveillance State</a>
-      <a class="jump-deck-link" href="deck4-the-root.html">04 &mdash; The Root</a>
-      <a class="jump-deck-link" href="deck26-student-debt.html">26 &mdash; Student Debt</a>
-      <a class="jump-deck-link" href="deck8-war-on-children.html">08 &mdash; War on Children</a>
-      <a class="jump-deck-link" href="deck9-war-on-men.html">09 &mdash; War on Men</a>
-      <a class="jump-deck-link" href="deck10-war-on-women.html">10 &mdash; War on Women</a>
-      <a class="jump-deck-link" href="deck1-water-energy.html">01 &mdash; Water &amp; Energy</a>
-      <a class="jump-deck-link" href="deck28-military-industrial-complex.html">28 &mdash; Military Complex</a>
-      <a class="jump-deck-link" href="deck29-national-security-state.html">29 &mdash; National Security State</a>
-      <a class="jump-deck-link" href="deck30-truth-about-ai.html">30 &mdash; Truth About AI</a>
-      <a class="jump-deck-link" href="deck31-classroom-crisis.html">31 &mdash; Classroom Crisis</a>
-      <span class="jump-deck-link" style="opacity:0.35;cursor:default;border-style:dashed;">32 &mdash; Community Collapse</span>
-      <a class="jump-deck-link" href="deck33-natural-medicine-vs-pharma.html">33 &mdash; Natural Medicine vs. Pharma</a>
-      <span class="jump-deck-link" style="opacity:0.35;cursor:default;border-style:dashed;">34 &mdash; Federal Reserve</span>
-      <span class="jump-deck-link" style="opacity:0.35;cursor:default;border-style:dashed;">35 &mdash; Retirement &amp; Pensions</span>
-      <a class="jump-deck-link" href="deck36-hollywood.html">36 &mdash; Hollywood</a>
-      <span class="jump-deck-link" style="opacity:0.35;cursor:default;border-style:dashed;">37 &mdash; Music Industry</span>
-      <a class="jump-deck-link" href="deck38-american-farmers.html">38 &mdash; American Farmers</a>
-      <span class="jump-deck-link" style="opacity:0.35;cursor:default;border-style:dashed;">39 &mdash; Forever Chemicals</span>
-      <a class="jump-deck-link" href="deck40-land-air-sea.html">40 &mdash; Land, Air &amp; Sea</a>
+    <div class="deck-search-wrap">
+      <input
+        type="text"
+        id="deckSearchInput"
+        class="deck-search-input"
+        placeholder="Search by topic, number, or keyword&hellip;"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="deck-search-icon" id="deckToggleBtn" aria-label="Toggle deck list" type="button">&#x25BE;</button>
+      <ul class="deck-dropdown" id="deckDropdown" style="display:none;"></ul>
     </div>
+    <p class="deck-search-empty" id="deckSearchEmpty" style="display:none;">No decks found.</p>
   </div>
 
   <!-- ══════════════════════════════════════════════════ -->
@@ -1003,11 +1079,11 @@ const DECKS = [
   //  VOL 5: AMERICA'S LOST MIND -- COMING SOON
   {
     id: '32', series: 'lostmind',
-    file: '#',
-    color: '#444444',
-    label: 'Deck 32  --  Community Collapse',
-    title: 'Community\nCollapse',
-    subtitle: 'Coming soon. Loneliness epidemic. Third places disappearing. Social trust at record lows. The data on what holds communities together -- and what is tearing them apart.',
+    file: 'deck32-the-unraveling.html',
+    color: '#4C9A8A',
+    label: 'Deck 32  --  The Unraveling',
+    title: 'The\nUnraveling',
+    subtitle: '17% of Americans have zero close friends. Up from 3% in 1990. The places, the news, the time, and the neighbors — all gone.',
     tags: ['Loneliness', 'Community', 'Social Trust', 'Mental Health'],
     stat: { num: '50%', label: 'Americans Report Loneliness' },
     related: ['14', '09', '12'],
@@ -1028,11 +1104,11 @@ const DECKS = [
   //  VOL 6: AMERICAN POCKETS -- COMING SOON
   {
     id: '34', series: 'pockets',
-    file: '#',
-    color: '#444444',
-    label: 'Deck 34  --  Federal Reserve',
-    title: 'The Federal\nReserve',
-    subtitle: 'Coming soon. Who owns it. How it works. What it does to inflation, wages, and wealth. The most powerful institution most Americans cannot explain.',
+    file: 'deck34-federal-reserve-pt1.html',
+    color: '#D4A843',
+    label: 'Deck 34  --  The Federal Reserve Pt.1',
+    title: 'The Federal\nReserve Pt.1',
+    subtitle: 'Six bankers. A private island. Nine days. The 1913 secret that has controlled your cost of living ever since.',
     tags: ['Federal Reserve', 'Inflation', 'Monetary Policy', 'Wealth'],
     stat: { num: '109yr', label: 'Fed Exists -- No Full Public Audit Yet' },
     related: ['15', '17', '05'],
@@ -1250,6 +1326,96 @@ try {
 </script>
 
 <a class="back-top-btn" id="backToTop" href="#top" aria-label="Back to top">&#x2191; Top</a>
+<script>
+// ── DECK SEARCH + DROPDOWN ──
+(function() {
+  var input = document.getElementById('deckSearchInput');
+  var dropdown = document.getElementById('deckDropdown');
+  var emptyMsg = document.getElementById('deckSearchEmpty');
+  var toggleBtn = document.getElementById('deckToggleBtn');
+  var isOpen = false;
+
+  var entries = DECKS
+    .filter(function(d) { return !d.coming; })
+    .map(function(d) {
+      var num = d.id.toString().padStart(2, '0');
+      var parts = d.label.split(' -- ');
+      var title = parts.length > 1 ? parts.slice(1).join(' -- ') : d.label;
+      var searchText = (num + ' ' + title + ' ' + (d.tags || []).join(' ') + ' ' + (d.title || '') + ' ' + (d.subtitle || '')).toLowerCase();
+      return { num: num, title: title, file: d.file, searchText: searchText };
+    });
+
+  function openDropdown(q) {
+    dropdown.innerHTML = '';
+    var filtered = (q
+      ? entries.filter(function(e) { return e.searchText.indexOf(q) !== -1; })
+      : entries.slice()
+    ).sort(function(a, b) { return a.title.localeCompare(b.title); });
+
+    if (filtered.length === 0) {
+      emptyMsg.style.display = 'block';
+      dropdown.style.display = 'none';
+      isOpen = false;
+      toggleBtn.classList.remove('open');
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    filtered.forEach(function(e) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = e.file;
+      a.innerHTML = '<span>' + e.title + '</span><span class="deck-num">' + e.num + '</span>';
+      li.appendChild(a);
+      dropdown.appendChild(li);
+    });
+
+    // Close button at bottom
+    var closeLi = document.createElement('li');
+    closeLi.className = 'dropdown-close-row';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'dropdown-close-btn';
+    closeBtn.type = 'button';
+    closeBtn.innerHTML = '&#x25B4; Close';
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeDropdown();
+    });
+    closeLi.appendChild(closeBtn);
+    dropdown.appendChild(closeLi);
+
+    dropdown.style.display = 'block';
+    isOpen = true;
+    toggleBtn.classList.add('open');
+  }
+
+  function closeDropdown() {
+    dropdown.style.display = 'none';
+    emptyMsg.style.display = 'none';
+    isOpen = false;
+    toggleBtn.classList.remove('open');
+  }
+
+  // Arrow button toggles
+  toggleBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (isOpen) { closeDropdown(); } else { openDropdown(input.value.trim().toLowerCase()); }
+  });
+
+  // Input focus / type
+  input.addEventListener('focus', function() { openDropdown(this.value.trim().toLowerCase()); });
+  input.addEventListener('input', function() { openDropdown(this.value.trim().toLowerCase()); });
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { input.value = ''; closeDropdown(); input.blur(); }
+  });
+
+  // Close on outside click/touch
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#deck-search-section')) closeDropdown();
+  });
+})();
+</script>
+
 <script>
   var btt = document.getElementById('backToTop');
   window.addEventListener('scroll', function() {
