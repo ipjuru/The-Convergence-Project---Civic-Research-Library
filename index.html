@@ -1085,9 +1085,8 @@ const DECKS = [
     title: 'The\nUnraveling',
     subtitle: '17% of Americans have zero close friends. Up from 3% in 1990. The places, the news, the time, and the neighbors — all gone.',
     tags: ['Loneliness', 'Community', 'Social Trust', 'Mental Health'],
-    stat: { num: '50%', label: 'Americans Report Loneliness' },
-    related: ['14', '09', '12'],
-    coming: true
+    stat: { num: '17%', label: 'Americans Report Having Zero Close Friends' },
+    related: ['14', '09', '12']
   },
   {
     id: '33', series: 'lostmind',
@@ -1110,21 +1109,19 @@ const DECKS = [
     title: 'The Federal\nReserve Pt.1',
     subtitle: 'Six bankers. A private island. Nine days. The 1913 secret that has controlled your cost of living ever since.',
     tags: ['Federal Reserve', 'Inflation', 'Monetary Policy', 'Wealth'],
-    stat: { num: '109yr', label: 'Fed Exists -- No Full Public Audit Yet' },
-    related: ['15', '17', '05'],
-    coming: true
+    stat: { num: '109yr', label: 'Fed Exists — No Full Public Audit Yet' },
+    related: ['15', '17', '05']
   },
   {
     id: '35', series: 'pockets',
-    file: '#',
-    color: '#444444',
+    file: 'deck35-retirement-pensions.html',
+    color: '#8B7355',
     label: 'Deck 35  --  Retirement & Pensions',
     title: 'Retirement\n& Pensions',
-    subtitle: 'Coming soon. The 401k experiment. Pension collapse. Why 45% of Americans have nothing saved. The quiet retirement crisis hiding in plain sight.',
+    subtitle: 'The 401(k) was never designed to replace your pension — the man who created it said so. Corporate America did the switch anyway. 36% of non-retired Americans have zero savings. Not a little. Zero.',
     tags: ['Retirement', 'Pensions', '401k', 'Savings'],
-    stat: { num: '45%', label: 'Americans Have No Retirement Savings' },
-    related: ['15', '17', '27'],
-    coming: true
+    stat: { num: '36%', label: 'Non-Retired Americans With Zero Retirement Savings' },
+    related: ['15', '17', '27']
   },
 
   //  VOL 7: PERCEPTIONS -- COMING SOON
@@ -1141,15 +1138,14 @@ const DECKS = [
   },
   {
     id: '37', series: 'perceptions',
-    file: '#',
-    color: '#444444',
+    file: 'deck37-music-industry.html',
+    color: '#7A5C8A',
     label: 'Deck 37  --  Music Industry',
     title: 'Music\nIndustry',
-    subtitle: 'Coming soon. Streaming economics. Label monopolies. What artists actually make. The business behind the art.',
+    subtitle: 'Three companies own 84% of it. One monopoly controls the stages. AI generates 7 million songs a day. And the artist gets $0.004 a stream.',
     tags: ['Music', 'Streaming', 'Labels', 'Artists'],
-    stat: { num: '$0.003', label: 'Per Stream Avg. Artist Payout' },
-    related: ['11', '17', '15'],
-    coming: true
+    stat: { num: '$0.004', label: 'Average Spotify Payout Per Stream' },
+    related: ['11', '17', '15']
   },
 
   //  VOL 9: AMERICAN DIET -- COMING SOON
@@ -1159,23 +1155,21 @@ const DECKS = [
     color: '#8B7355',
     label: 'Deck 38  --  American Farmers',
     title: 'American\nFarmers',
-    subtitle: 'The U.S. farm count fell below 2 million for the first time since before the Civil War. The land didn\'t disappear — it was captured.',
+    subtitle: "The U.S. farm count fell below 2 million for the first time since before the Civil War. The land didn't disappear — it was captured.",
     tags: ['Farmers', 'Agriculture', 'Corporate Land', 'Food'],
     stat: { num: '70%', label: 'Farmland Consolidation Since 1970' },
-    related: ['22', '03', '04'],
-    coming: true
+    related: ['22', '03', '04']
   },
   {
     id: '39', series: 'diet',
-    file: '#',
-    color: '#444444',
+    file: 'deck39-forever-chemicals.html',
+    color: '#3D7A5E',
     label: 'Deck 39  --  Forever Chemicals',
     title: 'Forever\nChemicals',
-    subtitle: 'Coming soon. PFAS in the water, the soil, the blood. What they are, who made them, and why they are still legal.',
+    subtitle: "In your blood. In your water. In your children. 3M and DuPont knew in 1961. They decided your life wasn't worth the cost of stopping.",
     tags: ['PFAS', 'Forever Chemicals', 'Contamination', 'Health'],
-    stat: { num: '97%', label: 'Americans Have PFAS in Their Blood' },
-    related: ['22', '03', '13'],
-    coming: true
+    stat: { num: '97%', label: 'Americans Have Detectable PFAS in Their Blood' },
+    related: ['22', '03', '13']
   },
 
   //  VOL 10: POISONING OF LAND, AIR & SEA -- COMING SOON
@@ -1188,8 +1182,7 @@ const DECKS = [
     subtitle: '65% of active satellites belong to one company. 640 million acres of federal land under threat. Who owns what — on land, in the sea, and above us.',
     tags: ['Environment', 'Pollution', 'Climate', 'EPA'],
     stat: { num: '40%', label: 'U.S. Rivers Too Polluted to Fish or Swim' },
-    related: ['01', '22', '39'],
-    coming: true
+    related: ['01', '22', '39']
   }
 ];
 
@@ -1257,12 +1250,12 @@ function buildSeries(series, decks) {
 }
 
 const library = document.getElementById('library');
-SERIES.forEach(s => {
-  const seriesDecks = DECKS.filter(d => d.series === s.id);
-  if (seriesDecks.length > 0) {
-    library.innerHTML += buildSeries(s, seriesDecks);
-  }
-});
+library.innerHTML = SERIES
+  .map(s => {
+    const seriesDecks = DECKS.filter(d => d.series === s.id);
+    return seriesDecks.length > 0 ? buildSeries(s, seriesDecks) : '';
+  })
+  .join('');
 
 // -- RECOMMENDED READING PATHS ------------------------------
 try {
